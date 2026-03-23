@@ -1,0 +1,25 @@
+{
+    "name": "Bible",
+    "alias": "bible",
+    "description": "Bíblia digital. Gestão de versões, livros, capítulos e versículos para consulta e integração em todo o sistema.",
+    "keywords": [
+        "bible",
+        "bíblia",
+        "versículos",
+        "livros",
+        "capítulos"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\Bible\\App\\Providers\\BibleServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    },
+    "is_core": true
+}

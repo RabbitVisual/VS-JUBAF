@@ -1,0 +1,45 @@
+// ChordPro Print Styles
+// Optimized for PDF generation and printing
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .chord {
+        color: #000 !important;
+        font-weight: bold;
+        text-shadow: none !important;
+    }
+
+    .lyric-line {
+        page-break-inside: avoid;
+        border: none !important;
+    }
+
+    .section-header {
+        page-break-after: avoid;
+        color: #000 !important;
+    }
+
+    // Ensure proper spacing in print
+    .chord-segment {
+        min-width: 2rem;
+    }
+}
+
+// PDF-specific styles (when not using @media print)
+.pdf-export {
+    .chord {
+        color: #000;
+        font-weight: bold;
+    }
+
+    .lyric-line {
+        border: none;
+    }
+
+    .section-header {
+        color: #000;
+    }
+}

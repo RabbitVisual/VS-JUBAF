@@ -1,0 +1,33 @@
+// Worship Module Styles
+// Main entry point for all Worship module styles
+
+// ChordPro System
+@use 'chordpro/base';
+@use 'chordpro/admin';
+@use 'chordpro/stage';
+@use 'chordpro/print';
+
+// Components
+@use 'components/editor';
+
+// Utility classes
+.animate-in {
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Ensure smooth scrolling
+html {
+    scroll-behavior: smooth;
+}

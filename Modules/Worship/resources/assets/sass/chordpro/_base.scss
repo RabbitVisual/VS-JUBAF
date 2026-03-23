@@ -1,0 +1,40 @@
+// ChordPro Base Styles
+// Shared styles for chord notation across all views
+
+.chord {
+    font-weight: 700;
+    color: var(--chord-color, #3b82f6);
+    font-size: 0.75rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.chord-segment {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 3rem;
+}
+
+.lyric {
+    font-weight: 500;
+}
+
+.lyric-line {
+    position: relative;
+    line-height: 2;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.section-header {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #eab308;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+}

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/projection",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Projection\\": "app/",
+            "Modules\\Projection\\Database\\Factories\\": "database/factories/",
+            "Modules\\Projection\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Projection\\Tests\\": "tests/"
+        }
+    }
+}

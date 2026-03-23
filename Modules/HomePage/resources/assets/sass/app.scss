@@ -1,0 +1,165 @@
+// Modules/HomePage/resources/assets/sass/homepage.scss
+
+.homepage-wrapper {
+    // Fundo base sutil para dar profundidade
+    @apply bg-gray-50 dark:bg-[#0f172a];
+}
+
+// Efeito de Vidro Profissional
+.glass-panel {
+    @apply bg-white/70 dark:bg-gray-800/60 backdrop-blur-lg border border-white/20 dark:border-gray-700/30 shadow-xl;
+}
+
+.glass-card {
+    @apply bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-lg transition-all duration-300;
+
+    &:hover {
+        @apply transform -translate-y-2 shadow-2xl border-blue-500/30;
+    }
+}
+
+// Títulos com Gradiente
+.text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400;
+}
+
+// Decoração de fundo (Blobs)
+.bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+}
+
+// Ajuste fino no Carousel para garantir que o texto fique legível
+.carousel-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);
+}
+
+// Scroll Navigation Buttons
+.scroll-nav-button {
+    position: fixed !important;
+    z-index: 9999 !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    transition: all 0.3s ease-in-out !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.scroll-nav-button:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark .scroll-nav-button {
+    background: rgba(31, 41, 55, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.scroll-to-top {
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.scroll-to-top.visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.scroll-to-bottom {
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+}
+
+.scroll-to-bottom.hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+// Button icons
+.scroll-nav-icon {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    transition: transform 0.2s ease !important;
+}
+
+.scroll-nav-button:hover .scroll-nav-icon {
+    transform: translateY(-1px) !important;
+}
+
+// Pulse animation for visibility
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.33);
+    }
+    40%, 50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+.scroll-nav-button::before {
+    content: "";
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: 50% !important;
+    background: inherit !important;
+    animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite !important;
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+    .scroll-nav-button {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+
+    .scroll-nav-icon {
+        width: 1.25rem !important;
+        height: 1.25rem !important;
+    }
+
+    .scroll-to-top,
+    .scroll-to-bottom {
+        bottom: 1rem !important;
+        right: 1rem !important;
+    }
+}
+
+// Smooth scroll behavior
+html {
+    scroll-behavior: smooth;
+}
+
+// Enhanced accessibility
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .scroll-nav-button,
+    .scroll-nav-icon {
+        transition: none !important;
+    }
+
+    .scroll-nav-button:hover {
+        transform: none !important;
+    }
+}

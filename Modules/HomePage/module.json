@@ -1,0 +1,25 @@
+{
+    "name": "HomePage",
+    "alias": "homepage",
+    "description": "Página inicial e CMS público. Seções, carrossel, depoimentos, eventos em destaque e informações da igreja.",
+    "keywords": [
+        "homepage",
+        "landing",
+        "cms",
+        "público",
+        "igreja"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\HomePage\\App\\Providers\\HomePageServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    },
+    "is_core": true
+}

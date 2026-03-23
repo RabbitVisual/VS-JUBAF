@@ -1,0 +1,25 @@
+{
+    "name": "Notifications",
+    "alias": "notifications",
+    "description": "Sistema central de notificações. In-app, e-mail, SMS, web push e templates com integração a todos os módulos.",
+    "keywords": [
+        "notifications",
+        "notificações",
+        "broadcasting",
+        "in-app",
+        "templates"
+    ],
+    "priority": 1,
+    "providers": [
+        "Modules\\Notifications\\App\\Providers\\NotificationsServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    },
+    "is_core": true
+}

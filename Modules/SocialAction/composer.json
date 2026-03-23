@@ -1,0 +1,28 @@
+{
+    "name": "vertexsolutions/social-action",
+    "description": "Módulo de Ação Social - Sistema completo para gestão de beneficiários, estoque de despensa e campanhas de mobilização",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan.rodrigues@vertexsolutions.com.br"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\SocialAction\\": "app/",
+            "Modules\\SocialAction\\Database\\Factories\\": "database/factories/",
+            "Modules\\SocialAction\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\SocialAction\\Tests\\": "tests/"
+        }
+    }
+}

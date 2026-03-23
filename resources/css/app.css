@@ -1,0 +1,279 @@
+@import 'tailwindcss';
+
+/* text-size-adjust: preflight sets -webkit- only; add standard for Chrome 54+, Edge 79+, Samsung Internet 6+ */
+@layer base {
+    html,
+    :host {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+}
+
+/* Inter 400 */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter-v20-latin-regular.woff2') format('woff2');
+}
+
+/* Inter 500 */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-v20-latin-500.woff2') format('woff2');
+}
+
+/* Inter 600 */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-v20-latin-600.woff2') format('woff2');
+}
+
+/* Inter 700 */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/inter-v20-latin-700.woff2') format('woff2');
+}
+
+/* Poppins 400 */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/poppins-v24-latin-regular.woff2') format('woff2');
+}
+
+/* Poppins 700 */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/poppins-v24-latin-700.woff2') format('woff2');
+}
+
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../../Modules/Bible/resources/views/**/*.blade.php";
+@source "../../Modules/MemberPanel/resources/views/**/*.blade.php";
+@source "../../Modules/*/resources/views/**/*.blade.php";
+@source "../../Modules/*/resources/assets/js/**/*.vue";
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+@source "../images/*";
+
+/* Alpine.js: hide until hydrated (evita flash em loading-overlay e outros) */
+[x-cloak] {
+    display: none !important;
+}
+
+.dash-pattern {
+    background-image: url('../images/pattern.png');
+}
+
+/* Flowbite v4.0.1 Configuration - Official */
+@import 'flowbite/src/themes/default';
+@plugin 'flowbite/plugin';
+@source '../../node_modules/flowbite';
+
+/* Dark Mode Configuration - Tailwind CSS v4.1 Official */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Fonts */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Poppins', var(--font-sans);
+
+    /* Light Mode Colors - Default System */
+    --color-background: #ffffff;
+    --color-surface: #f9fafb;
+    --color-text: #111827;
+    --color-text-muted: #6b7280;
+    --color-border: #e5e7eb;
+
+    /* System Accents */
+    --color-primary: #3b82f6;
+    --color-primary-dark: #2563eb;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+
+    /* Brand: Associação Souza (Trust/Professional Blue) */
+    --color-souza-50: oklch(0.97 0.01 254);
+    --color-souza-100: oklch(0.93 0.03 255);
+    --color-souza-200: oklch(0.88 0.05 254);
+    --color-souza-300: oklch(0.80 0.09 251);
+    --color-souza-400: oklch(0.70 0.15 254);
+    --color-souza-500: oklch(0.62 0.20 259);
+    /* Primary Brand Color */
+    --color-souza-600: oklch(0.54 0.23 262);
+    --color-souza-700: oklch(0.48 0.23 264);
+    --color-souza-800: oklch(0.42 0.19 265);
+    --color-souza-900: oklch(0.37 0.14 265);
+    --color-souza-950: oklch(0.28 0.09 267);
+
+    /* Brand: Secretaria de Agricultura (Nature/Growth Green) */
+    --color-agro-50: oklch(0.98 0.02 155);
+    --color-agro-100: oklch(0.96 0.04 156);
+    --color-agro-200: oklch(0.92 0.08 155);
+    --color-agro-300: oklch(0.87 0.14 154);
+    --color-agro-400: oklch(0.79 0.20 151);
+    --color-agro-500: oklch(0.72 0.21 149);
+    /* Primary Brand Color */
+    --color-agro-600: oklch(0.62 0.19 149);
+    --color-agro-700: oklch(0.52 0.15 150);
+    --color-agro-800: oklch(0.44 0.11 151);
+    --color-agro-900: oklch(0.39 0.09 152);
+    --color-agro-950: oklch(0.26 0.06 152);
+}
+
+/* Dark Mode Colors - Tailwind CSS v4.1 Official Pattern */
+:root.dark {
+    --color-background: #111827;
+    --color-surface: #1f2937;
+    --color-text: #f9fafb;
+    --color-text-muted: #9ca3af;
+    --color-border: #374151;
+    --color-primary: #60a5fa;
+    --color-primary-dark: #3b82f6;
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-danger: #f87171;
+}
+
+/* Vertex Tour (Driver.js) - Popover theming & responsivo */
+.vertex-tour-popover {
+    font-family: var(--font-sans);
+    max-width: min(420px, 90vw);
+    padding: 0;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+}
+
+.vertex-tour-popover .driver-popover-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.vertex-tour-popover .driver-popover-description {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+.vertex-tour-popover .driver-popover-progress-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.vertex-tour-popover .driver-popover-prev-btn,
+.vertex-tour-popover .driver-popover-next-btn,
+.vertex-tour-popover .driver-popover-close-btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.vertex-tour-popover .driver-popover-next-btn,
+.vertex-tour-popover .driver-popover-close-btn.driver-popover-close-only-btn {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.vertex-tour-popover .driver-popover-next-btn:hover,
+.vertex-tour-popover .driver-popover-close-btn:hover {
+    background: var(--color-primary-dark);
+    color: #fff;
+}
+
+.vertex-tour-popover .driver-popover-prev-btn {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.vertex-tour-popover .driver-popover-prev-btn:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+
+@media (max-width: 480px) {
+    .vertex-tour-popover {
+        max-width: 90vw;
+        margin: 0.5rem;
+    }
+}
+
+/* ChordPro lyrics viewer (Worship admin song show) */
+.lyrics-viewer .section-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-primary, theme(colors.blue.600));
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.lyrics-viewer .section-header:first-child {
+    margin-top: 0;
+}
+.lyrics-viewer .chordpro-comment {
+    font-style: italic;
+    opacity: 0.85;
+    margin: 0.25rem 0;
+}
+.lyrics-viewer .lyric-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0; /* sem espaço entre sílabas: Can[G]tai → Cantai com acorde em cima do "tai" */
+    margin-bottom: 0.35rem;
+    line-height: 1.6;
+}
+.lyrics-viewer .chord-group {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    vertical-align: bottom;
+}
+.lyrics-viewer .chord-group .chord {
+    font-size: 0.7em;
+    font-weight: 600;
+    color: var(--color-primary, theme(colors.blue.600));
+    font-family: ui-monospace, monospace;
+    line-height: 1.2;
+}
+.lyrics-viewer .chord-group .lyric,
+.lyrics-viewer .lyric-only {
+    white-space: pre-wrap;
+}
+.lyrics-viewer .lyric-line.lyric-only {
+    display: block;
+}
+.lyrics-viewer .h-4 {
+    height: 1rem;
+}

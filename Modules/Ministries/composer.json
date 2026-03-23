@@ -1,0 +1,29 @@
+{
+    "name": "vertexsolutions/ministries",
+    "description": "Módulo de Gerenciamento de Ministérios - Sistema completo para gerenciar ministérios e membros",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan.rodrigues@vertexsolutions.com.br",
+            "company": "Vertex Solutions LTDA"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Ministries\\App\\": "app/",
+            "Modules\\Ministries\\Database\\Factories\\": "database/factories/",
+            "Modules\\Ministries\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Ministries\\Tests\\": "tests/"
+        }
+    }
+}

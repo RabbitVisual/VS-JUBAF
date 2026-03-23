@@ -1,0 +1,63 @@
+// ChordPro Admin View Styles
+// Premium styles for administrative song views
+
+.admin-song-view {
+    .chord {
+        @apply text-blue-500 font-black text-sm;
+        text-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+        position: absolute;
+        top: -1.25rem;
+        left: 0;
+        white-space: nowrap;
+    }
+
+    .chord-segment {
+        @apply inline-flex flex-col relative;
+        min-width: 3rem;
+    }
+
+    .chord-spacer {
+        @apply inline-block;
+        min-width: 3rem;
+    }
+
+    .lyric-line {
+        @apply mb-10 leading-[3.5rem] border-l-4 border-transparent pl-6;
+        @apply hover:border-blue-500/20 transition-all;
+        @apply flex flex-wrap relative;
+        gap: 0.25rem;
+        margin-top: 1.25rem;
+    }
+
+    .lyric-line.lyric-only {
+        @apply leading-relaxed mt-2;
+    }
+
+    .section-header {
+        @apply font-black text-amber-500 text-[10px] uppercase;
+        @apply tracking-[0.4em] mb-8 mt-16 flex items-center gap-6;
+
+        &::after {
+            content: '';
+            @apply h-px flex-1 bg-gray-100 dark:bg-white/5;
+        }
+    }
+}
+
+// Editor-specific styles
+.worship-editor-preview {
+    .chord {
+        @apply text-blue-400 font-black text-[11px] tracking-tighter;
+        @apply bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20;
+        @apply absolute -top-7 whitespace-nowrap;
+    }
+
+    .lyric-line {
+        @apply relative flex flex-wrap mt-8 leading-loose min-h-[1.5rem] gap-x-1;
+    }
+
+    .section-header {
+        @apply font-bold text-amber-500 uppercase text-[10px] mt-6 mb-2;
+        @apply tracking-[0.2em] border-b border-white/10 pb-2;
+    }
+}

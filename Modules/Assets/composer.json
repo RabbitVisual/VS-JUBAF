@@ -1,0 +1,28 @@
+{
+    "name": "vertex/assets",
+    "description": "Módulo de Gestão de Patrimônio e Inventário da Igreja",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan@vertexsolutions.com.br"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Assets\\": "app/",
+            "Modules\\Assets\\Database\\Factories\\": "database/factories/",
+            "Modules\\Assets\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Assets\\Tests\\": "tests/"
+        }
+    }
+}

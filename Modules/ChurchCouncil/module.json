@@ -1,0 +1,24 @@
+{
+    "name": "ChurchCouncil",
+    "alias": "churchcouncil",
+    "description": "Gestão do conselho e liderança. Pautas, atas, decisões e histórico de reuniões.",
+    "keywords": [
+        "churchcouncil",
+        "conselho",
+        "liderança",
+        "pautas",
+        "atas"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\ChurchCouncil\\App\\Providers\\ChurchCouncilServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

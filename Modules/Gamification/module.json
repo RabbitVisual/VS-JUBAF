@@ -1,0 +1,25 @@
+{
+    "name": "Gamification",
+    "alias": "gamification",
+    "description": "Gamificação e engajamento. XP, níveis, conquistas, Cbav Bot e regras de coaching integradas ao sistema.",
+    "keywords": [
+        "gamification",
+        "gamificação",
+        "xp",
+        "níveis",
+        "conquistas",
+        "cbav bot"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\Gamification\\App\\Providers\\GamificationServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

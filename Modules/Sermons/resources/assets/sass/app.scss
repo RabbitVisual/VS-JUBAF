@@ -1,0 +1,127 @@
+// Sermons Module Styles
+
+// Sermon Card Styles
+.sermon-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 transition-all duration-200 hover:shadow-md;
+}
+
+.sermon-card:hover {
+    @apply border-blue-300 dark:border-blue-600;
+}
+
+.sermon-card-featured {
+    @apply border-2 border-yellow-400 dark:border-yellow-500 bg-gradient-to-br from-yellow-50 to-white dark:from-yellow-900/20 dark:to-gray-800;
+}
+
+// Bible Reference Styles
+.bible-reference-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100;
+}
+
+.bible-reference-main {
+    @apply bg-blue-600 text-white;
+}
+
+.bible-reference-support {
+    @apply bg-green-600 text-white;
+}
+
+.bible-reference-illustration {
+    @apply bg-purple-600 text-white;
+}
+
+// Tag Styles
+.tag-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mr-1 mb-1 transition-colors duration-150;
+}
+
+// Sermon Editor Styles
+.sermon-editor-section {
+    @apply mb-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900/50;
+}
+
+.sermon-editor-section h3 {
+    @apply text-lg font-semibold text-gray-900 dark:text-white mb-3;
+}
+
+.sermon-editor-section .editor-toolbar {
+    @apply flex items-center gap-2 mb-2 p-2 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700;
+}
+
+// Comment Styles
+.comment-item {
+    @apply border-l-4 border-blue-500 dark:border-blue-400 pl-4 py-2 mb-4;
+}
+
+.comment-item.reply {
+    @apply ml-8 border-blue-300 dark:border-blue-600;
+}
+
+// Collaborator Styles
+.collaborator-card {
+    @apply flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700;
+}
+
+// Search and Filter Styles
+.filter-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4;
+}
+
+// Status Badges
+.status-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.status-draft {
+    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100;
+}
+
+.status-published {
+    @apply bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100;
+}
+
+.status-archived {
+    @apply bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300;
+}
+
+// Visibility Badges
+.visibility-public {
+    @apply bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100;
+}
+
+.visibility-members {
+    @apply bg-indigo-100 text-indigo-800 dark:bg-indigo-800 dark:text-indigo-100;
+}
+
+.visibility-private {
+    @apply bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100;
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sermon-card,
+.comment-item,
+.collaborator-card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .sermon-editor-section {
+        @apply p-3;
+    }
+
+    .comment-item.reply {
+        @apply ml-4;
+    }
+}

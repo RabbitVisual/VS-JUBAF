@@ -1,0 +1,25 @@
+{
+    "name": "Events",
+    "alias": "events",
+    "description": "Gestão de eventos. Calendário, inscrições, lotes, check-in e integração com pagamentos e tesouraria.",
+    "keywords": [
+        "events",
+        "eventos",
+        "inscrições",
+        "participantes",
+        "precificação",
+        "check-in"
+    ],
+    "priority": 1,
+    "providers": [
+        "Modules\\Events\\App\\Providers\\EventsServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

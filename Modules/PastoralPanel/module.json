@@ -1,0 +1,11 @@
+{
+    "name": "PastoralPanel",
+    "alias": "pastoralpanel",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PastoralPanel\\Providers\\PastoralPanelServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,29 @@
+{
+    "name": "vertexsolutions/notifications",
+    "description": "Sistema de Notificações em Tempo Real - Notificações completas integradas com broadcasting",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan.rodrigues@vertexsolutions.com.br",
+            "company": "Vertex Solutions LTDA"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Notifications\\App\\": "app/",
+            "Modules\\Notifications\\Database\\Factories\\": "database/factories/",
+            "Modules\\Notifications\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Notifications\\Tests\\": "tests/"
+        }
+    }
+}

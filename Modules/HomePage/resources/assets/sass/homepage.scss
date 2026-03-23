@@ -1,0 +1,269 @@
+// Custom styles for HomePage module
+
+// Animations
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+// Utility classes
+.animate-fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+// Hover effects
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+// Gradient text
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+// Glass morphism effect
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Improved responsive design
+@media (max-width: 768px) {
+    .mobile-stack {
+        flex-direction: column;
+    }
+
+    .mobile-center {
+        text-align: center;
+    }
+
+    .mobile-padding {
+        padding: 1rem;
+    }
+
+    .mobile-margin {
+        margin: 1rem 0;
+    }
+}
+
+// Loading spinner
+.spinner {
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+// Improved button styles
+.btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+}
+
+.btn-outline {
+    @apply bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105;
+}
+
+// Card hover effects
+.card-hover {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+.card-hover:hover {
+    @apply transform -translate-y-2 shadow-2xl;
+}
+
+// Improved form styles
+.form-input {
+    @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors duration-200;
+}
+
+.form-input:focus {
+    @apply border-blue-500 dark:border-blue-400;
+}
+
+// Notification styles
+.notification {
+    @apply fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300;
+}
+
+.notification.success {
+    @apply bg-green-500 text-white;
+}
+
+.notification.error {
+    @apply bg-red-500 text-white;
+}
+
+.notification.warning {
+    @apply bg-yellow-500 text-white;
+}
+
+// Scroll animations
+.scroll-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// Improved gallery
+.gallery-item {
+    @apply overflow-hidden rounded-lg shadow-lg transition-transform duration-300;
+}
+
+.gallery-item:hover {
+    @apply transform scale-105;
+}
+
+.gallery-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-0 transition-all duration-300 flex items-center justify-center;
+}
+
+.gallery-item:hover .gallery-overlay {
+    @apply bg-opacity-70;
+}
+
+// Statistics counter animation
+.counter {
+    @apply text-4xl font-bold;
+}
+
+.counter.animate {
+    animation: countUp 2s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// Improved mobile navigation
+@media (max-width: 1024px) {
+    .hero-title {
+        @apply text-3xl md:text-5xl;
+    }
+
+    .hero-subtitle {
+        @apply text-lg md:text-xl;
+    }
+
+    .section-padding {
+        @apply py-12 md:py-20;
+    }
+
+    .container-padding {
+        @apply px-4 sm:px-6 lg:px-8;
+    }
+}
+
+// Dark mode improvements
+.dark .glass-card {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+// Focus styles
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+    .btn-primary {
+        @apply bg-blue-900 border-2 border-blue-900;
+    }
+
+    .btn-outline {
+        @apply border-2 border-gray-900 text-gray-900 bg-white;
+    }
+}

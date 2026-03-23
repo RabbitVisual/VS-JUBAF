@@ -1,0 +1,28 @@
+{
+    "name": "nwidart/ebd",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\EBD\\": "app/",
+            "Modules\\EBD\\Database\\Factories\\": "database/factories/",
+            "Modules\\EBD\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\EBD\\Tests\\": "tests/"
+        }
+    }
+}

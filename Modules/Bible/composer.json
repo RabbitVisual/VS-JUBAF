@@ -1,0 +1,29 @@
+{
+    "name": "vertexsolutions/bible",
+    "description": "Módulo de Bíblia Digital - Sistema completo para gerenciar versões bíblicas, livros, capítulos e versículos",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan.rodrigues@vertexsolutions.com.br",
+            "company": "Vertex Solutions LTDA"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Bible\\App\\": "app/",
+            "Modules\\Bible\\Database\\Factories\\": "database/factories/",
+            "Modules\\Bible\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Bible\\Tests\\": "tests/"
+        }
+    }
+}

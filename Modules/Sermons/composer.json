@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/sermons",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Sermons\\": "app/",
+            "Modules\\Sermons\\Database\\Factories\\": "database/factories/",
+            "Modules\\Sermons\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Sermons\\Tests\\": "tests/"
+        }
+    }
+}

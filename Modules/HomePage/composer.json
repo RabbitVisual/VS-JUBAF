@@ -1,0 +1,29 @@
+{
+    "name": "vertex-solutions/homepage",
+    "description": "Módulo HomePage - Igreja Batista Avenida - Coração de Maria - BA",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "company": "Vertex Solutions LTDA",
+            "copyright": "© 2025"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\HomePage\\App\\": "app/",
+            "Modules\\HomePage\\Database\\Factories\\": "database/factories/",
+            "Modules\\HomePage\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\HomePage\\Tests\\": "tests/"
+        }
+    }
+}

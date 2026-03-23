@@ -1,0 +1,22 @@
+{
+    "HomePage": true,
+    "Admin": true,
+    "MemberPanel": true,
+    "Ministries": true,
+    "Notifications": true,
+    "Bible": true,
+    "PaymentGateway": true,
+    "Treasury": true,
+    "ChurchCouncil": true,
+    "EBD": true,
+    "Events": true,
+    "Sermons": true,
+    "Intercessor": true,
+    "Assets": true,
+    "SocialAction": true,
+    "Worship": true,
+    "Projection": true,
+    "Gamification": true,
+    "PastoralPanel": true,
+    "Marketplace": true
+}

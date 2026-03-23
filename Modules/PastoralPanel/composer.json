@@ -1,0 +1,30 @@
+{
+    "name": "vertex/pastoralpanel",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "r.rodriguesjs@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\PastoralPanel\\": "app/",
+            "Modules\\PastoralPanel\\Database\\Factories\\": "database/factories/",
+            "Modules\\PastoralPanel\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\PastoralPanel\\Tests\\": "tests/"
+        }
+    }
+}

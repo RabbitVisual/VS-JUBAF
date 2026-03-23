@@ -1,0 +1,33 @@
+{
+    "name": "vertex/gamification",
+    "version": "1.0.0",
+    "description": "Module gamification - © Vertex Solutions LTDA - 2026 - VS.1.0",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "r.rodriguesjs@gmail.com",
+            "homepage": "https://vertexsolutions.com.br",
+            "role": "Developer"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Gamification\\": "app/",
+            "Modules\\Gamification\\Database\\Factories\\": "database/factories/",
+            "Modules\\Gamification\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Gamification\\Tests\\": "tests/"
+        }
+    }
+}

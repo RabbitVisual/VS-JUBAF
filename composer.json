@@ -1,0 +1,152 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "vertex/cbav",
+    "version": "1.0.0",
+    "type": "project",
+    "description": "The Vertex CBAV application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "intervention/image-laravel": "^1.5",
+        "laravel/framework": "^12.48",
+        "laravel/sanctum": "^4.3",
+        "laravel/tinker": "^2.11",
+        "log1x/laravel-webfonts": "^2.0",
+        "maatwebsite/excel": "^3.1",
+        "mercadopago/dx-php": "^3.8",
+        "mpdf/mpdf": "^8.2",
+        "nwidart/laravel-modules": "^12.0",
+        "pragmarx/google2fa": "^9.0",
+        "pusher/pusher-php-server": "*",
+        "simplesoftwareio/simple-qrcode": "*",
+        "spatie/browsershot": "^5.2",
+        "stichoza/google-translate-php": "^5.3",
+        "stripe/stripe-php": "^19.2"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2",
+        "laravel/pint": "^1.27",
+        "laravel/sail": "^1.52",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.50"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\HomePage\\App\\": "Modules/HomePage/app/",
+            "Modules\\HomePage\\Database\\Seeders\\": "Modules/HomePage/database/seeders/",
+            "Modules\\Admin\\App\\": "Modules/Admin/app/",
+            "Modules\\Admin\\Database\\Seeders\\": "Modules/Admin/database/seeders/",
+            "Modules\\MemberPanel\\App\\": "Modules/MemberPanel/app/",
+            "Modules\\MemberPanel\\Database\\Seeders\\": "Modules/MemberPanel/database/seeders/",
+            "Modules\\Ministries\\App\\": "Modules/Ministries/app/",
+            "Modules\\Ministries\\Database\\Seeders\\": "Modules/Ministries/database/seeders/",
+            "Modules\\Notifications\\App\\": "Modules/Notifications/app/",
+            "Modules\\Notifications\\Database\\Seeders\\": "Modules/Notifications/database/seeders/",
+            "Modules\\Bible\\App\\": "Modules/Bible/app/",
+            "Modules\\Bible\\Database\\Seeders\\": "Modules/Bible/database/seeders/",
+            "Modules\\PaymentGateway\\App\\": "Modules/PaymentGateway/app/",
+            "Modules\\PaymentGateway\\Database\\Seeders\\": "Modules/PaymentGateway/database/seeders/",
+            "Modules\\Treasury\\App\\": "Modules/Treasury/app/",
+            "Modules\\Treasury\\Database\\Seeders\\": "Modules/Treasury/database/seeders/",
+            "Modules\\ChurchCouncil\\App\\": "Modules/ChurchCouncil/app/",
+            "Modules\\EBD\\App\\": "Modules/EBD/app/",
+            "Modules\\EBD\\Database\\Seeders\\": "Modules/EBD/database/seeders/",
+            "Modules\\Events\\App\\": "Modules/Events/app/",
+            "Modules\\Events\\Database\\Seeders\\": "Modules/Events/database/seeders/",
+            "Modules\\Sermons\\App\\": "Modules/Sermons/app/",
+            "Modules\\Sermons\\Database\\Seeders\\": "Modules/Sermons/database/seeders/",
+            "Modules\\Intercessor\\App\\": "Modules/Intercessor/app/",
+            "Modules\\Intercessor\\Database\\Seeders\\": "Modules/Intercessor/database/seeders/",
+            "Modules\\Assets\\App\\": "Modules/Assets/app/",
+            "Modules\\Assets\\Database\\Seeders\\": "Modules/Assets/database/seeders/",
+            "Modules\\SocialAction\\App\\": "Modules/SocialAction/app/",
+            "Modules\\SocialAction\\Database\\Seeders\\": "Modules/SocialAction/database/seeders/",
+            "Modules\\Worship\\App\\": "Modules/Worship/app/",
+            "Modules\\Worship\\Database\\Seeders\\": "Modules/Worship/database/seeders/",
+            "Modules\\Projection\\App\\": "Modules/Projection/app/",
+            "Modules\\Projection\\Database\\Seeders\\": "Modules/Projection/database/seeders/",
+            "Modules\\Gamification\\": "Modules/Gamification/app/",
+            "Modules\\Gamification\\App\\": "Modules/Gamification/app/",
+            "Modules\\Gamification\\Database\\Seeders\\": "Modules/Gamification/database/seeders/",
+            "Modules\\PastoralPanel\\": "Modules/PastoralPanel/app/",
+            "Modules\\PastoralPanel\\App\\": "Modules/PastoralPanel/app/",
+            "Modules\\PastoralPanel\\Database\\Seeders\\": "Modules/PastoralPanel/database/seeders/",
+            "Modules\\Marketplace\\": "Modules/Marketplace/app/",
+            "Modules\\Marketplace\\Database\\Seeders\\": "Modules/Marketplace/database/seeders/"
+        },
+        "files": [
+            "app/Helpers/SettingsHelper.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "wikimedia/composer-merge-plugin": true
+        },
+        "platform-check": false,
+        "platform": {
+            "php": "8.2.30"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

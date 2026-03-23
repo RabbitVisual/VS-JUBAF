@@ -1,0 +1,25 @@
+{
+    "name": "Worship",
+    "alias": "worship",
+    "description": "Louvor e liturgia. Repertório, setlists, ChordPro, escalas e Academia de Worship integrada à projeção.",
+    "keywords": [
+        "worship",
+        "louvor",
+        "setlist",
+        "chordpro",
+        "escalas",
+        "academia"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\Worship\\App\\Providers\\WorshipServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

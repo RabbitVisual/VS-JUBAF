@@ -1,0 +1,24 @@
+{
+    "name": "Ministries",
+    "alias": "ministries",
+    "description": "Gestão de ministérios. Organização de grupos, líderes e membros por setor (música, juventude, casais, etc.).",
+    "keywords": [
+        "ministries",
+        "ministérios",
+        "grupos",
+        "membros",
+        "liderança"
+    ],
+    "priority": 2,
+    "providers": [
+        "Modules\\Ministries\\App\\Providers\\MinistriesServiceProvider"
+    ],
+    "files": [],
+    "version": "1.1.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

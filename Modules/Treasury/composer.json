@@ -1,0 +1,29 @@
+{
+    "name": "vertexsolutions/treasury",
+    "description": "Módulo Core - CRM da Tesouraria - Sistema completo de gestão financeira para igrejas",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "reinan.rodrigues@vertexsolutions.com.br",
+            "company": "Vertex Solutions LTDA"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Treasury\\App\\": "app/",
+            "Modules\\Treasury\\Database\\Factories\\": "database/factories/",
+            "Modules\\Treasury\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Treasury\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Intercessor",
+    "alias": "intercessor",
+    "description": "Rede de oração. Gestão de pedidos de oração, moderação e compromissos de intercessão.",
+    "keywords": [
+        "intercessor",
+        "oração",
+        "pedidos",
+        "rede",
+        "moderação"
+    ],
+    "priority": 0,
+    "providers": [
+        "Modules\\Intercessor\\App\\Providers\\IntercessorServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

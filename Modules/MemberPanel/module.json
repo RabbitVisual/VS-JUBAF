@@ -1,0 +1,25 @@
+{
+    "name": "MemberPanel",
+    "alias": "memberpanel",
+    "description": "Painel do membro. Área exclusiva com perfil, dashboard, inscrições, tesouraria e recursos por módulo.",
+    "keywords": [
+        "memberpanel",
+        "membro",
+        "painel",
+        "dashboard",
+        "perfil"
+    ],
+    "priority": 10,
+    "providers": [
+        "Modules\\MemberPanel\\App\\Providers\\MemberPanelServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    },
+    "is_core": true
+}

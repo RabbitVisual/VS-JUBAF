@@ -1,0 +1,180 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Gamification\Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Modules\Gamification\Models\Medal;
+
+class MedalsSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $medals = [
+            [
+                'title' => 'Primeiros Passos',
+                'description' => '3 dias seguidos lançando transações. O começo de uma jornada financeira.',
+                'explanation' => ' Registrar transações por alguns dias seguidos mostra que você está engajado em controlar suas finanças.',
+                'tips' => 'Você começou a criar o hábito de acompanhar seu dinheiro.',
+                'incentive_message' => 'Continue assim! 5 dias desbloqueia o Bônus de Consistência.',
+                'icon_name' => 'star',
+                'trigger_key' => 'rule_first_steps',
+                'color' => 'sky',
+                'rarity' => 'bronze',
+                'difficulty' => 'easy',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Reserva Inicial',
+                'description' => 'Saldo equivalente a 1 ou mais mês de despesas.',
+                'explanation' => 'Ter pelo menos 1 mês de despesas guardado é o primeiro degrau da reserva emergencial.',
+                'tips' => 'Você deu o primeiro passo para se proteger de imprevistos.',
+                'incentive_message' => 'Ótimo! O objetivo é chegar a 3 meses e conquistar a Reserva Emergencial.',
+                'icon_name' => 'piggy-bank',
+                'trigger_key' => 'rule_reserve_1',
+                'color' => 'emerald',
+                'rarity' => 'bronze',
+                'difficulty' => 'easy',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Alerta 50/30/20',
+                'description' => 'Seus gastos essenciais ultrapassam 50% da renda. Revise sua distribuição.',
+                'explanation' => 'O método 50/30/20 recomenda que no máximo 50% da sua renda vá para gastos essenciais. Quando esse percentual passa de 50%, fica difícil poupar.',
+                'tips' => 'Essa conquista indica que é hora de revisar seus gastos fixos.',
+                'incentive_message' => 'Não desanime! Ajustar os essenciais é o primeiro passo.',
+                'icon_name' => 'chart-pie',
+                'trigger_key' => 'rule_503020_essential',
+                'color' => 'rose',
+                'rarity' => 'bronze',
+                'difficulty' => 'easy',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Reserva Emergencial',
+                'description' => 'Saldo equivalente a 3 ou mais meses de despesas.',
+                'explanation' => 'Uma reserva de 3 meses já oferece uma rede de segurança para imprevistos menores.',
+                'tips' => 'Você começou a construir sua reserva! Mantenha o saldo em conta ou aplicação de liquidez imediata.',
+                'incentive_message' => 'Ótimo começo! O próximo nível é chegar a 6 meses e conquistar a medalha Reserva Sólida.',
+                'icon_name' => 'shield-halved',
+                'trigger_key' => 'rule_reserve_3',
+                'color' => 'sky',
+                'rarity' => 'bronze',
+                'difficulty' => 'medium',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Bonus de Consistência',
+                'description' => '5 ou mais dias seguidos lançando transações.',
+                'explanation' => 'A consistência no controle financeiro é fundamental. Registrar transações diariamente ajuda a ter visão real do fluxo de caixa.',
+                'tips' => 'Você criou o hábito de registrar gastos e receitas.',
+                'incentive_message' => 'Continue assim! 10 dias seguidos desbloqueia a medalha Mestre da Consistência.',
+                'icon_name' => 'graduation-cap',
+                'trigger_key' => 'rule_consistency_bonus',
+                'color' => 'amber',
+                'rarity' => 'silver',
+                'difficulty' => 'medium',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Equilíbrio 50/30/20',
+                'description' => 'Gastos essenciais dentro do limite de 50% da renda.',
+                'explanation' => 'O método 50/30/20 sugere destinar 50% à essenciais, 30% ao estilo de vida e 20% a poupança. Manter os essenciais em até 50% é a base do equilíbrio.',
+                'tips' => 'Você conseguiu equilibrar custos fixos e manter margem para lazer e investimentos.',
+                'incentive_message' => 'Continue monitorando! Pequenos desvios são normais.',
+                'icon_name' => 'scale-balanced',
+                'trigger_key' => 'rule_503020_balanced',
+                'color' => 'emerald',
+                'rarity' => 'gold',
+                'difficulty' => 'medium',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Reserva Sólida',
+                'description' => 'Saldo equivalente a 6 ou mais meses de despesas.',
+                'explanation' => 'Ter uma reserva de 6 meses significa que seu saldo atual cobre 6 meses de despesas. Isso te protege em imprevistos sem precisar de empréstimos.',
+                'tips' => 'Você manteve gastos sob controle e priorizou a poupança.',
+                'incentive_message' => 'Parabéns! Mantenha esse ritmo.',
+                'icon_name' => 'medal',
+                'trigger_key' => 'rule_reserve_solid',
+                'color' => 'emerald',
+                'rarity' => 'gold',
+                'difficulty' => 'hard',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Mestre da Consistência',
+                'description' => '10 ou mais dias seguidos lançando transações.',
+                'explanation' => '10 dias consecutivos mostram que o controle financeiro virou rotina.',
+                'tips' => 'O registro diário virou parte da sua vida.',
+                'incentive_message' => 'Excelente! Manter esse ritmo ao longo do mês reforça o hábito.',
+                'icon_name' => 'trophy',
+                'trigger_key' => 'rule_consistency_10',
+                'color' => 'amber',
+                'rarity' => 'gold',
+                'difficulty' => 'hard',
+                'is_pro_only' => false,
+            ],
+            [
+                'title' => 'Vertex PRO',
+                'description' => 'Exclusivo para assinantes Vertex PRO. Desbloqueie com o plano premium.',
+                'explanation' => 'O plano Vertex PRO oferece relatórios avançados, análise 50/30/20 completa e score financeiro personalizado.',
+                'tips' => 'Assinantes PRO têm acesso a ferramentas que ampliam o controle financeiro.',
+                'incentive_message' => 'Faça upgrade e descubra todo o potencial do Vertex!',
+                'icon_name' => 'crown',
+                'trigger_key' => 'rule_platinum_pro',
+                'color' => 'indigo',
+                'rarity' => 'platinum',
+                'difficulty' => 'easy',
+                'is_pro_only' => true,
+            ],
+            [
+                'title' => 'Super Reserva',
+                'description' => 'Saldo equivalente a 12 ou mais meses de despesas.',
+                'explanation' => 'Com 12 meses de reserva, você tem um colchão financeiro robusto.',
+                'tips' => 'Você transcendeu o básico. Sua reserva te dá tranquilidade.',
+                'incentive_message' => 'Você é referência em gestão financeira!',
+                'icon_name' => 'gem',
+                'trigger_key' => 'rule_reserve_12',
+                'color' => 'purple',
+                'rarity' => 'platinum',
+                'difficulty' => 'advanced',
+                'is_pro_only' => true,
+            ],
+            [
+                'title' => 'Lenda da Consistência',
+                'description' => '30 dias seguidos lançando transações. Elite do controle financeiro.',
+                'explanation' => 'Um mês inteiro de registro diário demonstra disciplina excepcional.',
+                'tips' => 'Você dominou o hábito financeiro como poucos.',
+                'incentive_message' => 'Lendário! Seu controle financeiro é exemplo.',
+                'icon_name' => 'award',
+                'trigger_key' => 'rule_consistency_30',
+                'color' => 'purple',
+                'rarity' => 'platinum',
+                'difficulty' => 'advanced',
+                'is_pro_only' => true,
+            ],
+            [
+                'title' => 'Poupança Exemplar',
+                'description' => '20% ou mais da renda destinada a poupança e investimentos.',
+                'explanation' => 'O método 50/30/20 recomenda 20% para poupança. Atingir isso mostra prioridade com o futuro.',
+                'tips' => 'Você priorizou o pilar financeiro e está construindo patrimônio.',
+                'incentive_message' => 'Excelente! Continue investindo em seu futuro.',
+                'icon_name' => 'chart-line',
+                'trigger_key' => 'rule_savings_20',
+                'color' => 'emerald',
+                'rarity' => 'gold',
+                'difficulty' => 'hard',
+                'is_pro_only' => true,
+            ],
+        ];
+
+        foreach ($medals as $data) {
+            Medal::updateOrCreate(
+                ['trigger_key' => $data['trigger_key']],
+                array_merge($data, ['is_active' => true])
+            );
+        }
+    }
+}

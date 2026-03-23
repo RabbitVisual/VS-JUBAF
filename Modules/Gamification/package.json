@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "@vertex/$LOWER_NAME$",
+  "version": "1.0.0",
+  "description": "Module $LOWER_NAME$ - © Vertex Solutions LTDA - 2026",
+  "author": "Reinan Rodrigues <r.rodriguesjs@gmail.com>",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "axios": "^1.1.2",
+    "laravel-vite-plugin": "^0.7.5",
+    "sass": "^1.69.5",
+    "postcss": "^8.3.7",
+    "vite": "^4.0.0"
+  }
+}

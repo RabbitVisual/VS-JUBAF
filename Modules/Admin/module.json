@@ -1,0 +1,25 @@
+{
+    "name": "Admin",
+    "alias": "admin",
+    "description": "Módulo core do painel administrativo. Controle global de usuários, roles, configurações do sistema e gestão de módulos.",
+    "keywords": [
+        "admin",
+        "painel",
+        "core",
+        "sistema",
+        "configurações"
+    ],
+    "priority": 1,
+    "providers": [
+        "Modules\\Admin\\App\\Providers\\AdminServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    },
+    "is_core": true
+}

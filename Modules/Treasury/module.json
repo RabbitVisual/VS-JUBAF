@@ -1,0 +1,27 @@
+{
+    "name": "Treasury",
+    "alias": "treasury",
+    "description": "Tesouraria e finanças. Receitas, despesas, campanhas, metas e relatórios com integração a pagamentos e eventos.",
+    "keywords": [
+        "treasury",
+        "tesouraria",
+        "financeiro",
+        "dízimo",
+        "oferta",
+        "doação",
+        "campanha",
+        "meta"
+    ],
+    "priority": 1,
+    "providers": [
+        "Modules\\Treasury\\App\\Providers\\TreasuryServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

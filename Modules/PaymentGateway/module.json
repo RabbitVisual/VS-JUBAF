@@ -1,0 +1,26 @@
+{
+    "name": "PaymentGateway",
+    "alias": "paymentgateway",
+    "description": "Gateway de pagamento unificado. Stripe, Mercado Pago, PIX e cartão para doações e eventos.",
+    "keywords": [
+        "payment",
+        "gateway",
+        "stripe",
+        "mercado-pago",
+        "pix",
+        "donation"
+    ],
+    "priority": 5,
+    "settings_route": "admin.settings.index",
+    "providers": [
+        "Modules\\PaymentGateway\\App\\Providers\\PaymentGatewayServiceProvider"
+    ],
+    "files": [],
+    "version": "1.0.0",
+    "author": {
+        "name": "Reinan Rodrigues",
+        "email": "r.rodriguesjs@gmail.com",
+        "company": "© 2026 Vertex Solution LTDA",
+        "copyright": "© 2026 Vertex Solution LTDA"
+    }
+}

@@ -1,0 +1,2 @@
+# Este diretório é necessário para o Laravel, mesmo que não contenha views
+# As views estão nos módulos (Modules/*/resources/views)
