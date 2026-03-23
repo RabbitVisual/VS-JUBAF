@@ -50,7 +50,7 @@ class AdminAccessController extends Controller
             ]);
         }
 
-        $isAdmin = $user->role && $user->role->slug === 'admin';
+        $isAdmin = $user->isAdmin();
         if (! $isAdmin) {
             throw ValidationException::withMessages([
                 'email' => 'Acesso restrito a administradores.',

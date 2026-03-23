@@ -54,7 +54,7 @@ Plano de migração e implementação do Notifications Engine v2: hub central mu
 - **Tabelas:** `system_notifications` (id bigint, sem UUID), `user_notifications`; sem audit log e sem preferências.
 - **Admin:** [Admin\NotificationController](../../../../../Users/Administrator/.cursor/plans/Modules/Admin/app/Http/Controllers/NotificationController.php) — index, create, store, show; rotas em [routes/admin.php](../../../../../Users/Administrator/.cursor/plans/routes/admin.php). Views em `notifications::admin.notifications.`.
 - **MemberPanel:** Bell no navbar (dados server-side + [notifications.js](../../../../../Users/Administrator/.cursor/plans/resources/js/notifications.js) com polling quando Echo não está configurado); página de notificações e ações via API v1.
-- **Integrações existentes:** ChurchCouncil (observers + CouncilController, DisciplineController), Treasury (sendToAdmins no balancete), Events, PaymentGateway, EBD, Sermons (convite co-autor), Intercessor (NotificationService + Jobs), Gamification.
+- **Integrações existentes:** ChurchCouncil (observers + CouncilController, DisciplineController), Treasury (sendToAdmins no balancete), Events, PaymentGateway, EBD, Sermons (convite co-autor), acompanhamento pastoral (NotificationService + Jobs), Gamification.
 
 ---
 
@@ -189,7 +189,7 @@ flowchart LR
 | PaymentGateway      | Listener SendPaymentCompletedNotification               |
 | EBD                 | Listener SendStudentLeveledUpNotification               |
 | Sermons             | InAppNotificationService::sendToUser (convite co-autor) |
-| Intercessor         | NotificationService + Jobs (email)                      |
+| Acompanhamento pastoral | NotificationService + Jobs (email)                  |
 | Gamification        | SystemNotification model                                |
 | Admin / MemberPanel | UserNotification no navbar e páginas                    |
 

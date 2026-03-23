@@ -7,7 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Modules\Intercessor\App\Models\PrayerRequest;
 
 class PrayerCommitmentNotification extends Mailable implements ShouldQueue
 {
@@ -15,18 +14,18 @@ class PrayerCommitmentNotification extends Mailable implements ShouldQueue
 
     public $prayerRequest;
 
-    public $intercessor;
+    public $supportAgent;
 
     public $requestOwner;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(PrayerRequest $prayerRequest, User $intercessor)
+    public function __construct(object $prayerRequest, User $supportAgent)
     {
         $this->prayerRequest = $prayerRequest;
-        $this->intercessor = $intercessor;
-        $this->requestOwner = $prayerRequest->user;
+        $this->supportAgent = $supportAgent;
+        $this->requestOwner = $prayerRequest->user ?? null;
     }
 
     /**
@@ -34,7 +33,7 @@ class PrayerCommitmentNotification extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Novo Compromisso de Oração - '.config('app.name'))
-            ->view('notifications::mail.intercessor.commitment');
+        return $this->subject('Novo Apoio Registrado - '.config('app.name'))
+            ->view('notifications::mail.pastoral.commitment');
     }
 }

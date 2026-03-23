@@ -13,7 +13,7 @@
         'events' => 'calendar-days',
         'gamification' => 'trophy',
         'homepage' => 'house',
-        'intercessor' => 'hands-praying',
+        'pastoral' => 'hands-praying',
         'memberpanel' => 'users',
         'ministries' => 'church',
         'notifications' => 'bell',

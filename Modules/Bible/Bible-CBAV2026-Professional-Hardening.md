@@ -1,6 +1,6 @@
 # Bible CBAV2026 Professional Hardening
 
-Plan to harden the Bible module with giant chapter fragmentation, transaction and audit in catch-up, seeds doctrinal Batista templates, integration with Intercessor, consistent use of version_id, and zero error checklist (transaction, leap year, idempotency of check-in).
+Plan to harden the Bible module with giant chapter fragmentation, transaction and audit in catch-up, seeds doctrinal Batista templates, integration with pastoral follow-up, consistent use of version_id, and zero error checklist (transaction, leap year, idempotency of check-in).
 
 # Bible CBAV2026 – Professional Improvements and Zero Errors
 
@@ -10,7 +10,7 @@ Plan to harden the Bible module with giant chapter fragmentation, transaction an
 - **ReadingCatchUpService** não envolve o fluxo em transação única e não registra auditoria.
 - **BiblePlanTemplatesSeeder** tem apenas chaves; falta metadata doutrinária (temas Batistas e referências).
 - **bible_metadata** já é por versão (`[2026_03_05_100000_create_bible_metadata_table.php](Modules/Bible/database/migrations/2026_03_05_100000_create_bible_metadata_table.php)`); o gerador usa `Chapter` por `book_id` (implícito por versão via `Book::where('bible_version_id')`). Falta garantir uso explícito de `bible_metadata` quando populado (i18n de versículos).
-- **Intercessor**: `[PrayerRequest](Modules/Intercessor/app/Models/PrayerRequest.php)` (user_id, category_id, title, description, privacy_level, status). Categorias em `[PrayerCategory](Modules/Intercessor/app/Models/PrayerCategory.php)`. Não há “pedido privado” no enum; usar `liderancaal_only` para pedido visível só ao lideranca.
+- **Acompanhamento pastoral**: registro de alertas e retornos para apoio da liderança.
 - **Check-in**: `[PlanReaderController::complete()](Modules/Bible/app/Http/Controllers/MemberPanel/PlanReaderController.php)` faz toggle (se existe progresso, deleta; senão, cria). Duplo clique “Lido” pode desmarcar; além disso, duas requisições paralelas podem tentar criar duas linhas (unique evita duplicata, mas o comportamento desejado é “sempre marcar”, idempotente).
 
 ---
@@ -108,23 +108,22 @@ Aplicar a mesma regra nos dois fluxos: `distributeVerses` e `distributeVersesFor
 
 ---
 
-## E. Integração automática com Intercessor (atraso ≥ 5 dias)
+## E. Integração automática com acompanhamento pastoral (atraso ≥ 5 dias)
 
-**Comportamento:** Quando o atraso for **≥ 5 dias**, além de oferecer “Recalcular rotas”, criar automaticamente um **pedido de oração** no Intercessor: título/descrição relacionados a “Disciplina e Deleite na Palavra”, visível apenas ao lideranca (`liderancaal_only`).
+**Comportamento:** Quando o atraso for **≥ 5 dias**, além de oferecer “Recalcular rotas”, sinalizar automaticamente **acompanhamento pastoral** para a liderança.
 
 **Implementação:**
 
-1. **Categoria:** Criar categoria “Vida devocional” ou “Disciplina na Palavra” no seeder do Intercessor (ou no primeiro uso), e obter/guardar o `category_id` (ex.: config ou constante no Bible).
-2. **Serviço Bible:** Em `ReadingCatchUpService`, adicionar método auxiliar (ex.: `createPrayerRequestForDelay(User $user, int $delayDays)`) que:
+1. **Categoria:** Criar categoria “Vida devocional” ou “Disciplina na Palavra” no fluxo de acompanhamento pastoral.
+2. **Serviço Bible:** Em `ReadingCatchUpService`, adicionar método auxiliar (ex.: `markPastoralFollowUpForDelay(User $user, int $delayDays)`) que:
 
-- Verifica se o módulo Intercessor está disponível (existência da classe `Modules\Intercessor\App\Models\PrayerRequest`).
-- Cria um `PrayerRequest` com: `user_id`, `category_id` da categoria acima, título/descrição fixos (“Disciplina e Deleite na Palavra”), `privacy_level = 'liderancaal_only'`, `status = 'active'` (ou `pending` se o Intercessor exigir moderação para novos pedidos).
+- Registra sinalização de acompanhamento pastoral para o usuário.
 
 1. **Ponto de chamada:** Onde hoje se usa `shouldOfferRecalculate()` (ex.: MemberPanel ou API de status do plano), ao calcular o atraso:
 
-- Se `$delayDays >= 5`: chamar `createPrayerRequestForDelay($user, $delayDays)` **uma vez por subscription** (evitar duplicar pedidos: verificar se já existe um pedido recente do mesmo usuário para a mesma categoria, ex. últimos 7 dias, e só criar se não houver).
+- Se `$delayDays >= 5`: chamar `markPastoralFollowUpForDelay($user, $delayDays)` **uma vez por subscription**.
 
-Assim o Bible não fica acoplado ao Intercessor além do uso do model; se o módulo não estiver instalado, não quebra.
+Assim o Bible não fica acoplado a módulos externos; o fluxo permanece estável.
 
 ---
 
@@ -161,13 +160,13 @@ Assim o Bible não fica acoplado ao Intercessor além do uso do model; se o mód
 2. **ReadingCatchUpService:** envolver em `DB::transaction` e adicionar registro em `bible_reading_audit_log` (criar migration + model se for tabela).
 3. **BiblePlanTemplatesSeeder:** preencher `options` do template `doctrinal` com `doctrinal_themes` e referências.
 4. **ReadingPlanGeneratorService / Engine:** garantir `bible_version_id` em todos os caminhos e, opcionalmente, uso de `bible_metadata` para pesos.
-5. **Intercessor:** seeder de categoria + `ReadingCatchUpService::createPrayerRequestForDelay()` e chamada quando atraso ≥ 5 dias (com guard contra duplicata).
+5. **Acompanhamento pastoral:** uso de `ReadingCatchUpService::markPastoralFollowUpForDelay()` quando atraso ≥ 5 dias.
 6. **Teste de ano bissexto:** 366 dias e `start_date` em 29/02.
 7. **PlanReaderController:** check-in idempotente com `firstOrCreate` e remoção do toggle no mesmo endpoint (ou endpoint separado para desmarcar).
 
 ---
 
-## Diagrama de fluxo (recálculo + auditoria + Intercessor)
+## Diagrama de fluxo (recálculo + auditoria + acompanhamento pastoral)
 
 ```mermaid
 flowchart LR
@@ -185,8 +184,8 @@ flowchart LR
   subgraph engine [PlanGeneratorEngine]
     H[distributeVersesForRange]
   end
-  subgraph inter [Intercessor]
-    I[PrayerRequest]
+  subgraph inter [Acompanhamento pastoral]
+    I[PastoralFollowUp]
   end
   A --> C
   C --> B
@@ -220,15 +219,15 @@ Resumo das funcionalidades ativas no módulo Bible após as implementações de 
     - **Leitor do Corpo**: 15 dias em plano com `is_church_plan`; uma vez por inscrição.
 - Selos armazenados em `bible_user_badges` (user_id, badge_key, subscription_id, awarded_at).
 
-### Integração Intercessor
+### Integração de acompanhamento pastoral
 
-- Atraso ≥ 5 dias: criação de pedido de oração “Disciplina na Palavra” (liderancaal_only).
-- `prayer_request_id` gravado na inscrição para link direto no relatório liderancaal.
+- Atraso ≥ 5 dias: sinalização para acompanhamento pastoral da liderança.
+- A inscrição pode manter indicador interno para relatórios liderancaais.
 
 ### Painel administrativo liderancaal
 
 - **Relatório Plano da Igreja** (`admin.bible.reports.church-plan`):
     - Visão geral dos membros inscritos no(s) plano(s) oficial(is) (is_church_plan).
-    - Tabela de engajamento: Em dia (0), Em atraso (1–4 dias), Crítico (≥ 5 dias) com link para o pedido de oração no Intercessor quando existir.
+- Tabela de engajamento: Em dia (0), Em atraso (1–4 dias), Crítico (≥ 5 dias) com indicação de acompanhamento pastoral quando necessário.
     - Métrica de conclusão: porcentagem total de dias lidos em relação ao total esperado (igreja).
 - Link no sidebar Admin: “Relatório Plano da Igreja” no bloco Bíblia Digital.

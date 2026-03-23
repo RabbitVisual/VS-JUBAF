@@ -39,7 +39,7 @@
         <div class="grid grid-cols-12 gap-6">
             <!-- Left Column: Profile Card -->
             <div class="col-span-12 lg:col-span-4 space-y-6">
-                <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 sticky top-6 relative">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700 sticky top-6">
                     <div class="absolute right-0 top-0 w-32 h-32 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full -mr-8 -mt-8"></div>
                     <!-- Banner Background -->
                     <div class="h-32 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative">
@@ -370,7 +370,7 @@
                             </div>
                         </div>
 
-                        @if($user->role && $user->role->slug === 'admin' && config('auth.2fa.enabled', false))
+                        @if($user->isAdmin() && config('auth.2fa.enabled', false))
                             <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
                                 <a href="{{ route('admin.profile.2fa.show') }}" class="inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
                                     <x-icon name="shield-check" class="w-4 h-4" />

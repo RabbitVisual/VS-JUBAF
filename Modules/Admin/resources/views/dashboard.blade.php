@@ -314,12 +314,12 @@
                     'route' => null,
                 ];
             }
-            if (($stats['prayer_requests'] ?? 0) > 0) {
+            if (($stats['pastoral_alerts'] ?? 0) > 0) {
                 $extraIndicators[] = [
-                    'label' => 'Pedidos de oração',
-                    'value' => $stats['prayer_requests'],
-                    'icon' => 'hands-praying',
-                    'route' => null,
+                    'label' => 'Alertas pastorais',
+                    'value' => $stats['pastoral_alerts'],
+                    'icon' => 'bell',
+                    'route' => 'admin.notifications.index',
                 ];
             }
             if (($stats['council_agendas_pending'] ?? 0) > 0) {

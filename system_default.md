@@ -59,7 +59,7 @@ Separation of concerns is maintained through these 17 specialized modules:
 | **EBD**            | Sunday School (VerteAcademy). Gamification, classes, student progress, and leaderboards.     |
 | **Events**         | Logistics & Ticketing. Calendar, registrations, payments, and QR check-in flows.             |
 | **HomePage**       | Public Presence. CMS for landing page, testimonials, and dynamic church info.                |
-| **Intercessor**    | Prayer Network. Moderation of requests and real-time prayer commitment tracking.             |
+| **Acompanhamento Pastoral** | Pastoral support flow with leadership alerts and follow-up.                     |
 | **MemberPanel**    | User Dashboard. Personal profile, engagement tracking, and member-only features.             |
 | **Ministries**     | Departmental Org. Management of Music, Youth, Women, and other church sectors.               |
 | **Notifications**  | Alert System. Centralizes system messages and member communications.                         |
@@ -88,7 +88,7 @@ The application is divided into specialized modules to ensure separation of conc
 *   **EBD**: Management of Sunday Biblical School classes, students, and curriculum.
 *   **Ministries**: Organization of internal departments (Youth, Women, etc.).
 *   **Sermons**: Archive and management of preached messages and media.
-*   **Intercessor**: Prayer request management and intercession chains.
+*   **Acompanhamento Pastoral**: Gestão de alertas e acompanhamento de apoio pela liderança.
 
 ### Operational & Social
 *   **Events**: Calendar, registration, and logistics for church events.

@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::with('role')->withCount('relationships');
+        $query = User::with('roles')->withCount('relationships');
 
         // Filtros
         if ($request->filled('search')) {
@@ -32,14 +32,14 @@ class UserController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('cpf', 'like', "%{$search}%")
-                    ->orWhere('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%");
+                    ->orWhere('cpf', 'like', "%{$search}%");
             });
         }
 
         if ($request->filled('role_id')) {
-            $query->where('role_id', $request->input('role_id'));
+            $query->whereHas('roles', function ($q) use ($request) {
+                $q->where('roles.id', $request->input('role_id'));
+            });
         }
 
         if ($request->filled('is_active')) {
@@ -51,9 +51,9 @@ class UserController extends Controller
         }
 
         if ($request->filled('role_slug')) {
-            $query->whereHas('role', function ($q) use ($request) {
-                $q->where('slug', $request->input('role_slug'))
-                    ->orWhere('name', $request->input('role_slug'));
+            $roleFilter = $request->input('role_slug');
+            $query->whereHas('roles', function ($q) use ($roleFilter) {
+                $q->where('name', $roleFilter);
             });
         }
 
@@ -70,9 +70,11 @@ class UserController extends Controller
             'active' => User::where('is_active', true)->count(),
             'inactive' => User::where('is_active', false)->count(),
             'baptized' => User::where('is_baptized', true)->count(),
-            'by_role' => User::select('role_id', DB::raw('count(*) as total'))
-                ->groupBy('role_id')
-                ->with('role')
+            'by_role' => DB::table('model_has_roles')
+                ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+                ->select('roles.id', 'roles.name', DB::raw('count(*) as total'))
+                ->where('model_has_roles.model_type', User::class)
+                ->groupBy('roles.id', 'roles.name')
                 ->get(),
         ];
 
@@ -95,14 +97,12 @@ class UserController extends Controller
         $users = User::query()
             ->where(function ($query) use ($q) {
                 $query->where('name', 'like', "%{$q}%")
-                    ->orWhere('first_name', 'like', "%{$q}%")
-                    ->orWhere('last_name', 'like', "%{$q}%")
                     ->orWhere('email', 'like', "%{$q}%")
                     ->orWhere('cpf', 'like', "%{$q}%");
             })
             ->orderBy('name')
             ->limit(15)
-            ->get(['id', 'name', 'first_name', 'last_name', 'email', 'cpf', 'photo']);
+            ->get(['id', 'name', 'email', 'cpf', 'avatar']);
 
         return response()->json([
             'data' => $users->map(fn ($u) => [
@@ -110,7 +110,7 @@ class UserController extends Controller
                 'name' => $u->name,
                 'email' => $u->email,
                 'cpf' => $u->cpf,
-                'photo' => $u->photo ? \Illuminate\Support\Facades\Storage::url($u->photo) : null,
+                'photo' => $u->avatar ? \Illuminate\Support\Facades\Storage::url($u->avatar) : null,
             ]),
         ]);
     }
@@ -132,7 +132,7 @@ class UserController extends Controller
                 $q->where('cpf', $cpf)
                     ->orWhereRaw("REPLACE(REPLACE(REPLACE(REPLACE(COALESCE(cpf,''),'.',''),'-',''),' ',''),'/','') = ?", [$cpf]);
             })
-            ->first(['id', 'name', 'first_name', 'last_name', 'email', 'cpf', 'photo']);
+            ->first(['id', 'name', 'email', 'cpf', 'avatar']);
 
         if (! $user) {
             return response()->json(['data' => null, 'message' => 'Nenhum membro encontrado com este CPF.']);
@@ -144,7 +144,7 @@ class UserController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'cpf' => $user->cpf,
-                'photo' => $user->photo ? Storage::url($user->photo) : null,
+                'photo' => $user->avatar ? Storage::url($user->avatar) : null,
             ],
         ]);
     }
@@ -220,7 +220,12 @@ class UserController extends Controller
         // Remove campos não necessários
         unset($validated['password_confirmation']);
 
+        $roleId = (int) $validated['role_id'];
+        unset($validated['role_id']);
         $user = User::create($validated);
+        if ($role = Role::find($roleId)) {
+            $user->syncRoles([$role->name]);
+        }
 
         $this->syncUserRelationships($user, $request);
 
@@ -330,7 +335,12 @@ class UserController extends Controller
         // Remove campos não necessários
         unset($validated['password_confirmation']);
 
+        $roleId = (int) $validated['role_id'];
+        unset($validated['role_id']);
         $user->update($validated);
+        if ($role = Role::find($roleId)) {
+            $user->syncRoles([$role->name]);
+        }
 
         $this->syncUserRelationships($user, $request);
 

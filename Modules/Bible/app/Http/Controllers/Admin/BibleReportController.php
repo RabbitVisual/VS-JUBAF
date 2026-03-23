@@ -27,8 +27,8 @@ class BibleReportController extends Controller
         foreach ($subscriptions as $subscription) {
             $subscription->load('plan');
             $delay = $catchUp->getDelayDays($subscription);
-            if ($delay >= ReadingCatchUpService::PRAYER_REQUEST_THRESHOLD_DAYS) {
-                $catchUp->ensurePrayerRequestForDelayWhenBehind($subscription);
+            if ($delay >= ReadingCatchUpService::PASTORAL_FOLLOW_UP_THRESHOLD_DAYS) {
+                $catchUp->ensurePastoralFollowUpWhenBehind($subscription);
                 $subscription->refresh();
             }
             $daysRead = UserReadingLog::where('subscription_id', $subscription->id)->count();
@@ -36,7 +36,7 @@ class BibleReportController extends Controller
             $totalRead += $daysRead;
             $totalExpected += $expected;
 
-            $status = $delay === 0 ? 'em_dia' : ($delay < ReadingCatchUpService::PRAYER_REQUEST_THRESHOLD_DAYS ? 'atraso' : 'critico');
+            $status = $delay === 0 ? 'em_dia' : ($delay < ReadingCatchUpService::PASTORAL_FOLLOW_UP_THRESHOLD_DAYS ? 'atraso' : 'critico');
             $rows[] = (object) [
                 'subscription' => $subscription,
                 'user' => $subscription->user,

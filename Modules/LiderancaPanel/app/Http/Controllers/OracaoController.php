@@ -10,67 +10,33 @@ use Illuminate\View\View;
 class OracaoController extends Controller
 {
     /**
-     * Lista de pedidos de oração (layout liderancaal).
+     * Lista de solicitações pastorais pendentes.
      */
     public function index(): View
     {
-        $pendingRequests = collect();
-        if (class_exists(\Modules\Intercessor\App\Models\PrayerRequest::class)) {
-            $pendingRequests = \Modules\Intercessor\App\Models\PrayerRequest::with('user')
-                ->where('status', 'pending')
-                ->orderBy('created_at', 'asc')
-                ->paginate(15);
-        }
+        $pendingRequests = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 15);
 
         return view('liderancapanel::oracao.index', compact('pendingRequests'));
     }
 
     /**
-     * Detalhe de um pedido (layout liderancaal).
+     * O fluxo legado não está mais disponível no escopo atual.
      */
     public function show(int $request): View
     {
-        $prayerRequest = \Modules\Intercessor\App\Models\PrayerRequest::with('user')->findOrFail($request);
-
-        return view('liderancapanel::oracao.show', compact('prayerRequest'));
+        abort(404);
     }
 
     /**
-     * Marcar pedido como orado (aprovar e disponibilizar na sala de oração).
-     * Redireciona de volta ao dashboard ou à lista.
+     * Mantido por compatibilidade de rota legada.
      */
     public function markAsPrayed(Request $req, int $request): RedirectResponse
     {
-        $prayerRequest = \Modules\Intercessor\App\Models\PrayerRequest::findOrFail($request);
-        $prayerRequest->update(['status' => 'active']);
-
-        if (class_exists(\Modules\Intercessor\App\Notifications\RequestApprovedNotification::class)
-            && class_exists(\Modules\Notifications\App\Services\NotificationService::class)) {
-            try {
-                app(\Modules\Notifications\App\Services\NotificationService::class)
-                    ->notifyUser($prayerRequest->user, new \Modules\Intercessor\App\Notifications\RequestApprovedNotification($prayerRequest));
-            } catch (\Throwable $e) {
-                report($e);
-            }
-        }
-        if (class_exists(\Modules\Notifications\App\Services\InAppNotificationService::class)) {
-            try {
-                app(\Modules\Notifications\App\Services\InAppNotificationService::class)->sendToUser(
-                    $prayerRequest->user,
-                    'Pedido de oração aprovado',
-                    'Seu pedido de oração foi aprovado e está disponível na sala de oração.',
-                    ['type' => 'success', 'action_url' => route('member.intercessor.room.index'), 'action_text' => 'Ver sala de oração']
-                );
-            } catch (\Throwable $e) {
-                report($e);
-            }
-        }
-
         $back = $req->input('from', $req->query('from', 'dashboard'));
         if ($back === 'list') {
-            return redirect()->route('lideranca.oracao.index')->with('success', 'Pedido marcado como orado.');
+            return redirect()->route('lideranca.oracao.index')->with('success', 'Fluxo legado removido do escopo JUBAF.');
         }
 
-        return redirect()->route('lideranca.dashboard')->with('success', 'Pedido marcado como orado.');
+        return redirect()->route('lideranca.dashboard')->with('success', 'Fluxo legado removido do escopo JUBAF.');
     }
 }

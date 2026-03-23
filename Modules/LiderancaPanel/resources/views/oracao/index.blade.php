@@ -1,11 +1,11 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', 'Pedidos de Oração')
+@section('title', 'Solicitações Pastorais')
 
 @section('content')
     <div class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Pedidos de Oração</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Solicitações Pastorais</h1>
             <a href="{{ route('lideranca.dashboard') }}"
                 class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-medium hover:underline">
                 <x-icon name="arrow-left" class="w-4 h-4" /> Voltar ao dashboard
@@ -20,13 +20,13 @@
 
         <div class="rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Pendentes de moderação</h2>
+                <h2 class="text-lg font-bold text-gray-900 dark:text-white">Pendências de acompanhamento</h2>
             </div>
             <div class="divide-y divide-gray-100 dark:divide-slate-700">
                 @forelse($pendingRequests as $req)
                     <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="min-w-0 flex-1">
-                            <p class="font-medium text-gray-900 dark:text-white">{{ $req->title ?? 'Pedido de oração' }}</p>
+                            <p class="font-medium text-gray-900 dark:text-white">{{ $req->title ?? 'Solicitação pastoral' }}</p>
                             <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
                                 {{ Str::limit($req->description ?? '', 120) }}</p>
                             <p class="text-xs text-gray-400 mt-1">
@@ -48,8 +48,8 @@
                     </div>
                 @empty
                     <div class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
-                        <x-icon name="hands-praying" class="w-12 h-12 mx-auto mb-3 opacity-50" />
-                        <p>Nenhum pedido pendente.</p>
+                        <x-icon name="clipboard-check" class="w-12 h-12 mx-auto mb-3 opacity-50" />
+                        <p>Sem pendências de acompanhamento.</p>
                     </div>
                 @endforelse
             </div>

@@ -42,8 +42,16 @@ class NotificationService
      */
     public function notifyRole(string $roleSlug, Notification $notification): void
     {
-        $users = User::whereHas('role', function($query) use ($roleSlug) {
-            $query->where('slug', $roleSlug);
+        $normalized = mb_strtolower($roleSlug);
+        $roleNames = match ($normalized) {
+            'admin' => ['Super Admin', 'Presidente'],
+            'lideranca', 'liderança' => ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local'],
+            'membro', 'member' => ['Jovem'],
+            default => [$roleSlug],
+        };
+
+        $users = User::whereHas('roles', function($query) use ($roleNames) {
+            $query->whereIn('name', $roleNames);
         })->get();
 
         if ($users->isNotEmpty()) {
@@ -59,8 +67,8 @@ class NotificationService
      */
     public function notifyAdmins(Notification $notification): void
     {
-         $users = User::whereHas('role', function($query) {
-            $query->whereIn('slug', ['admin', 'lideranca']);
+         $users = User::whereHas('roles', function($query) {
+            $query->whereIn('name', ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local']);
         })->get();
 
         if ($users->isNotEmpty()) {

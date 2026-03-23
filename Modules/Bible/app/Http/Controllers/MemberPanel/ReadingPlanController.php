@@ -35,7 +35,7 @@ class ReadingPlanController extends Controller
             $completed = $sub->progress()->count();
             $sub->percent = $total > 0 ? round(($completed / $total) * 100) : 0;
             $sub->offer_recalculate = $this->catchUpService->shouldOfferRecalculate($sub);
-            $this->catchUpService->ensurePrayerRequestForDelayWhenBehind($sub);
+            $this->catchUpService->ensurePastoralFollowUpWhenBehind($sub);
         }
 
         return view('bible::memberpanel.plans.dashboard', compact('subscriptions'));

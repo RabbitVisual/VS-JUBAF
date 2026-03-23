@@ -65,18 +65,18 @@ sequenceDiagram
 
 ### 2.2 Agrupamento (throttling) no mesmo usuário
 
-Se o sistema disparar várias notificações do **mesmo tipo** para o **mesmo usuário** em **menos de 10 minutos**, o serviço **atualiza a notificação existente** em vez de criar várias (ex.: “Você tem 5 novos pedidos de oração”).
+Se o sistema disparar várias notificações do **mesmo tipo** para o **mesmo usuário** em **menos de 10 minutos**, o serviço **atualiza a notificação existente** em vez de criar várias (ex.: “Você tem 5 novos alertas”).
 
 ```mermaid
 flowchart LR
-    A[Novo evento: ex. 5 pedidos de oração] --> B{notification_type + user iguais nos últimos 10 min?}
+    A[Novo evento: ex. 5 alertas pastorais] --> B{notification_type + user iguais nos últimos 10 min?}
     B -->|Sim| C[Atualizar SystemNotification: group_count++, message agregada]
     B -->|Não| D[Criar nova SystemNotification + UserNotification]
     C --> E[Touch UserNotification para refresh no polling]
     D --> E
 ```
 
-- Opções em `sendToUser`: `notification_type` (ex: `prayer_request`, `ebd_lesson`) e `group_label` (ex: `pedidos de oração`) para texto “Você tem N novos {group_label}”.
+- Opções em `sendToUser`: `notification_type` (ex: `pastoral_alert`, `ebd_lesson`) e `group_label` (ex: `alertas pastorais`) para texto “Você tem N novos {group_label}”.
 
 ### 2.3 Híbrido Pusher + Smart Polling (sino no navbar)
 
@@ -177,7 +177,7 @@ Todas as rotas sob `GET/POST/DELETE /api/v1/notifications/*` (middleware `web` +
 - **In-App apenas:**  
   `app(InAppNotificationService::class)->sendToUser($user, 'Título', 'Mensagem', ['type' => 'success', 'action_url' => route('...'), 'action_text' => 'Ver']);`
 - **Para agrupamento:** passe `notification_type` e opcionalmente `group_label`:  
-  `sendToUser($user, 'Novo pedido de oração', '...', ['notification_type' => 'prayer_request', 'group_label' => 'pedidos de oração']);`
+  `sendToUser($user, 'Novo alerta pastoral', '...', ['notification_type' => 'pastoral_alert', 'group_label' => 'alertas pastorais']);`
 - **Para admins:**  
   `sendToAdmins('Alerta', 'Mensagem', ['priority' => 'high']);`
 - **Multi-canal (e-mail, web push):** use as mesmas opções e ative `dispatch_multi_channel`; o `NotificationDispatcherService` respeita preferências e DND.

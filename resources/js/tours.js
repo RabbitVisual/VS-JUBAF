@@ -9,7 +9,7 @@ import 'driver.js/dist/driver.css';
 const tourSteps = {
     dashboard: [
         { element: '#main-content', popover: { title: 'Bem-vindo ao seu painel', description: 'Esta é a sua área pessoal. Aqui você acompanha sua jornada, conquistas e atalhos para tudo que a igreja oferece.' }, side: 'right', align: 'start' },
-        { element: '[data-tour="sidebar"]', popover: { title: 'Menu de navegação', description: 'Use o menu lateral para acessar Bíblia, Eventos, EBD, Intercessor, Doações, Ministérios e outras áreas. Passe o mouse nos ícones para ver o nome de cada seção.' }, side: 'right', align: 'start' },
+        { element: '[data-tour="sidebar"]', popover: { title: 'Menu de navegação', description: 'Use o menu lateral para acessar Bíblia, Eventos, EBD, Notificações, Doações, Ministérios e outras áreas. Passe o mouse nos ícones para ver o nome de cada seção.' }, side: 'right', align: 'start' },
         { element: '[data-tour="notifications"]', popover: { title: 'Notificações', description: 'Clique aqui para ver avisos e novidades da igreja. O número indica quantas notificações novas você tem.' }, side: 'bottom', align: 'end' },
         { element: '[data-tour="dashboard-hero"]', popover: { title: 'Sua boas-vindas', description: 'Aqui aparecem seu nome e seu nível atual. O nível sobe conforme você participa: completa o perfil, lê a Bíblia, participa de eventos e muito mais.' }, side: 'bottom', align: 'start' },
         { element: '[data-tour="dashboard-stats"]', popover: { title: 'Pontos e nível', description: 'Estes são seus pontos de experiência. Quanto mais você usar o painel e participar, mais pontos ganha e mais sobe de nível.' }, side: 'top', align: 'start' },
@@ -102,27 +102,6 @@ const tourSteps = {
         { element: '[data-tour="ebd-teacher-classes"]', popover: { title: 'Minhas turmas', description: 'Turmas que você leciona. Clique em uma para ver os alunos e as lições.' }, side: 'left', align: 'start' },
         { element: '[data-tour="ebd-teacher-lessons"]', popover: { title: 'Lições', description: 'Acesse o conteúdo das lições para preparar a aula e aplicar em sala.' }, side: 'left', align: 'start' },
         { popover: { title: 'Ministério de ensino', description: 'Use as ferramentas de presença e avaliações para acompanhar sua turma.' } },
-    ],
-    'intercessor-room': [
-        { element: '#main-content', popover: { title: 'Mural de intercessão', description: 'Aqui a igreja ora junta. Você vê os pedidos de oração e pode se comprometer a orar por alguém. Também pode enviar seu próprio pedido.' }, side: 'right', align: 'start' },
-        { element: '[data-tour="intercessor-filters"]', popover: { title: 'Filtros', description: 'Recentes: todos os pedidos. Alta prioridade: pedidos urgentes. Novos: pedidos que ainda não têm muitos intercessores.' }, side: 'right', align: 'start' },
-        { element: '[data-tour="intercessor-new-request"]', popover: { title: 'Novo pedido', description: 'Clique aqui para enviar seu pedido de oração. Escolha uma categoria e descreva de forma que a rede possa orar por você.' }, side: 'bottom', align: 'start' },
-        { element: '[data-tour="intercessor-requests"]', popover: { title: 'Lista de pedidos', description: 'Cada card é um pedido. Clique em "Sala de guerra" para entrar e se comprometer a orar por aquela pessoa.' }, side: 'left', align: 'start' },
-        { popover: { title: 'A oração move montanhas', description: 'Cada pedido é levado à rede. Sua participação faz a diferença. Ore e seja orado.' } },
-    ],
-    'intercessor-requests-list': [
-        { element: '#main-content', popover: { title: 'Meus pedidos de oração', description: 'Aqui aparecem os pedidos que você enviou. Você pode ver status, quantas pessoas se comprometeram a orar e adicionar testemunhos.' }, side: 'right', align: 'start' },
-        { element: '[data-tour="intercessor-request-create-link"]', popover: { title: 'Novo pedido', description: 'Clique aqui para enviar um novo pedido de oração. Preencha título, categoria e descrição.' }, side: 'bottom', align: 'start' },
-        { popover: { title: 'Seus pedidos', description: 'Quando Deus responder, você pode registrar um testemunho no pedido para edificar a igreja.' } },
-    ],
-    'intercessor-request-create': [
-        { element: '[data-tour="intercessor-form"]', popover: { title: 'Enviar pedido de oração', description: 'Preencha o título e a descrição do seu pedido. Escolha a categoria (saúde, família, trabalho, etc.) e a prioridade se necessário.' }, side: 'left', align: 'start' },
-        { popover: { title: 'Rede de intercessão', description: 'Depois de enviar, seu pedido aparece no Mural. Outros irmãos podem entrar na "Sala de guerra" e se comprometer a orar por você.' } },
-    ],
-    'intercessor-room-show': [
-        { element: '[data-tour="intercessor-room-detail"]', popover: { title: 'Sala de guerra', description: 'Este é o pedido de oração. Aqui você vê os detalhes e pode se comprometer a orar por esta pessoa.' }, side: 'left', align: 'start' },
-        { element: '[data-tour="intercessor-room-commit"]', popover: { title: 'Comprometer-se a orar', description: 'Clique aqui para registrar que você está orando. Quando terminar, pode marcar como concluído. Sua participação fortalece a rede.' }, side: 'top', align: 'center' },
-        { popover: { title: 'Oração em conjunto', description: 'A igreja ora junta. Cada compromisso de oração é um apoio para quem pediu.' } },
     ],
     treasury: [
         { element: '#main-content', popover: { title: 'Tesouraria', description: 'Aqui você acompanha com transparência as finanças da igreja: entradas, campanhas, metas e relatórios.' }, side: 'right', align: 'start' },

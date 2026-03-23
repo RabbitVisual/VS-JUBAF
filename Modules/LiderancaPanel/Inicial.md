@@ -37,7 +37,7 @@ Atue como Arquiteto de Software e Especialista em Gestão Eclesiástica. Quero c
 - O Dashboard deve ser visualmente diferente do Admin: use tons mais quentes (ex: Navy/Gold ou Forest Green) e tipografia elegante.
 - Widgets de Destaque:
     - **Total de Ovelhas:** Link direto para a lista de membros.
-    - **Pedidos de Oração:** Notificações do módulo `Intercessor`.
+    - **Acompanhamento Pastoral:** Notificações da central de alertas.
     - **Próximos Sermões:** Atalhos para o `Sermon Studio`.
     - **Aniversariantes da Semana:** Lista rápida para contato liderancaal.
 

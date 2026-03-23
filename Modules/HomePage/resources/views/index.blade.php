@@ -1108,7 +1108,7 @@
                         <span class="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-sm mb-2 block">Fale Conosco</span>
                         <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6">Estamos aqui para servir você</h2>
                         <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed max-w-xl">
-                            Entre em contato conosco para pedidos de oração, aconselhamento ou para saber mais sobre nossa comunidade.
+                            Entre em contato conosco para acompanhamento pastoral, aconselhamento ou para saber mais sobre nossa comunidade.
                         </p>
                     </div>
 

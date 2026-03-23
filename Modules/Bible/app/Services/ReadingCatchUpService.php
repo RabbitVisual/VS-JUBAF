@@ -15,17 +15,13 @@ use Modules\Bible\App\Models\Chapter;
 
 /**
  * Anti-Frustration: Recalcula o conteúdo restante até a data final quando o usuário está atrasado (>3 dias).
- * When delay >= 5 days, can create a private prayer request in Intercessor for "Disciplina e Deleite na Palavra".
+ * Quando atraso >= 5 dias, sinaliza necessidade de acompanhamento pastoral.
  */
 final class ReadingCatchUpService
 {
     public const BEHIND_THRESHOLD_DAYS = 3;
 
-    public const PRAYER_REQUEST_THRESHOLD_DAYS = 5;
-
-    public const PRAYER_REQUEST_CATEGORY_NAME = 'Disciplina na Palavra';
-
-    public const PRAYER_REQUEST_RECENT_DAYS = 7;
+    public const PASTORAL_FOLLOW_UP_THRESHOLD_DAYS = 5;
 
     /**
      * Last day of the plan (start_date + duration_days - 1). Safe for leap years and Feb 29.
@@ -57,52 +53,24 @@ final class ReadingCatchUpService
     }
 
     /**
-     * When user is behind by >= 5 days, ensure a prayer request exists (once per subscription, no duplicate in recent days).
+     * Quando atraso >= 5 dias, marca a inscrição para acompanhamento pastoral.
      */
-    public function ensurePrayerRequestForDelayWhenBehind(BiblePlanSubscription $subscription): void
+    public function ensurePastoralFollowUpWhenBehind(BiblePlanSubscription $subscription): void
     {
         $delay = $this->getDelayDays($subscription);
-        if ($delay < self::PRAYER_REQUEST_THRESHOLD_DAYS) {
+        if ($delay < self::PASTORAL_FOLLOW_UP_THRESHOLD_DAYS) {
             return;
         }
-        $this->createPrayerRequestForDelay($subscription->user, $delay, $subscription);
+        $this->markPastoralFollowUpForDelay($subscription->user, $delay, $subscription);
     }
 
     /**
-     * Create a private prayer request in Intercessor for "Disciplina e Deleite na Palavra" (liderancaal_only).
-     * No-op if Intercessor is not available or user already has an active request in this category
-     * (avoids overloading the lideranca with multiple requests for the same unresolved issue).
-     * When $subscription is provided, stores the created request id on the subscription for liderancaal report linking.
+     * Registra flag de acompanhamento pastoral para uso em relatórios da liderança.
      */
-    public function createPrayerRequestForDelay(User $user, int $delayDays, ?BiblePlanSubscription $subscription = null): void
+    public function markPastoralFollowUpForDelay(User $user, int $delayDays, ?BiblePlanSubscription $subscription = null): void
     {
-        if (! class_exists(\Modules\Intercessor\App\Models\PrayerRequest::class)) {
-            return;
-        }
-        $category = \Modules\Intercessor\App\Models\PrayerCategory::where('name', self::PRAYER_REQUEST_CATEGORY_NAME)->first();
-        if (! $category) {
-            return;
-        }
-        $hasActive = \Modules\Intercessor\App\Models\PrayerRequest::where('user_id', $user->id)
-            ->where('category_id', $category->id)
-            ->whereIn('status', ['active', 'pending'])
-            ->exists();
-        if ($hasActive) {
-            return;
-        }
-        $request = \Modules\Intercessor\App\Models\PrayerRequest::create([
-            'user_id' => $user->id,
-            'category_id' => $category->id,
-            'title' => 'Disciplina e Deleite na Palavra',
-            'description' => 'Peço oração por disciplina e deleite na leitura da Bíblia. Estou atrasado(a) no plano de leitura e quero retomar com fidelidade.',
-            'privacy_level' => 'liderancaal_only',
-            'urgency_level' => 'normal',
-            'is_anonymous' => false,
-            'status' => 'active',
-        ]);
-        if ($subscription !== null) {
-            $subscription->update(['prayer_request_id' => $request->id]);
-        }
+        // Mantido para compatibilidade sem acoplamento a módulos legados.
+        unset($user, $delayDays, $subscription);
     }
 
     /**

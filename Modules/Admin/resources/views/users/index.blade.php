@@ -116,7 +116,7 @@
                 <div class="flex flex-wrap gap-3">
                     @foreach($stats['by_role'] as $byRole)
                         <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {{ $byRole->role->name ?? 'Sem função' }}: <strong>{{ $byRole->total }}</strong>
+                            {{ $byRole->name ?? 'Sem função' }}: <strong>{{ $byRole->total }}</strong>
                         </span>
                     @endforeach
                 </div>
@@ -223,7 +223,7 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $user->role->slug === 'admin' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' }}">{{ $user->role->name }}</span>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $user->isAdmin() ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' }}">{{ $user->role->name ?? 'Sem função' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
                                         <div class="flex flex-col">

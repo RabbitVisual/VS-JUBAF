@@ -111,8 +111,23 @@ class SystemNotification extends Model
         }
 
         // Verifica por role
-        if (! empty($this->target_roles) && $user->role && in_array($user->role->slug, $this->target_roles)) {
-            return true;
+        if (! empty($this->target_roles)) {
+            $targetRoles = array_map('mb_strtolower', (array) $this->target_roles);
+            $roleNames = $user->roles()->pluck('name')->map(fn ($name) => mb_strtolower((string) $name))->all();
+            $legacyAliases = [];
+            if ($user->isAdmin()) {
+                $legacyAliases[] = 'admin';
+            }
+            if ($user->islideranca()) {
+                $legacyAliases[] = 'lideranca';
+            }
+            if ($user->isMember()) {
+                $legacyAliases[] = 'membro';
+            }
+            $allUserRoleKeys = array_values(array_unique(array_merge($roleNames, $legacyAliases)));
+            if (! empty(array_intersect($targetRoles, $allUserRoleKeys))) {
+                return true;
+            }
         }
 
         // Verifica por ministério

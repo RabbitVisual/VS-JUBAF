@@ -94,7 +94,7 @@ class DashboardController extends Controller
         $stats['worship_songs'] = 0;
         $stats['worship_setlists'] = 0;
         $stats['assets_count'] = 0;
-        $stats['prayer_requests'] = 0;
+        $stats['pastoral_alerts'] = 0;
         $stats['council_agendas_pending'] = 0;
         if (Module::has('Notifications') && Module::isEnabled('Notifications') && Schema::hasTable('system_notifications')) {
             $stats['notifications_today'] = DB::table('system_notifications')
@@ -115,8 +115,11 @@ class DashboardController extends Controller
         if (Module::has('Assets') && Module::isEnabled('Assets') && Schema::hasTable('assets')) {
             $stats['assets_count'] = DB::table('assets')->count();
         }
-        if (Module::has('Intercessor') && Module::isEnabled('Intercessor') && Schema::hasTable('prayer_requests')) {
-            $stats['prayer_requests'] = DB::table('prayer_requests')->where('status', 'pending')->count();
+        if (Module::has('Notifications') && Module::isEnabled('Notifications') && Schema::hasTable('system_notifications')) {
+            $stats['pastoral_alerts'] = DB::table('system_notifications')
+                ->whereIn('type', ['warning', 'error'])
+                ->whereDate('created_at', Carbon::now()->toDateString())
+                ->count();
         }
         if (Module::has('ChurchCouncil') && Module::isEnabled('ChurchCouncil') && Schema::hasTable('council_agendas')) {
             $stats['council_agendas_pending'] = DB::table('council_agendas')

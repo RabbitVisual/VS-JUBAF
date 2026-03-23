@@ -133,7 +133,10 @@ class InAppNotificationService
     public function sendToAdmins(string $title, string $message, array $options = []): SystemNotification
     {
         $users = User::where('is_active', true)
-            ->whereHas('role', fn ($q) => $q->whereIn('slug', ['admin', 'lideranca']))
+            ->where(function ($q) {
+                $q->whereHas('roles', fn ($rq) => $rq->whereIn('name', ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local']))
+                    ->orWhereHas('roles', fn ($rq) => $rq->whereIn('name', ['admin', 'lideranca']));
+            })
             ->get();
 
         return $this->sendToUsers($users, $title, $message, $options);
@@ -181,8 +184,16 @@ class InAppNotificationService
      */
     public function sendToRole(string $roleSlug, string $title, string $message, array $options = []): SystemNotification
     {
+        $normalized = mb_strtolower($roleSlug);
+        $roleNames = match ($normalized) {
+            'admin' => ['Super Admin', 'Presidente'],
+            'lideranca', 'liderança' => ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local'],
+            'membro', 'member' => ['Jovem'],
+            default => [$roleSlug],
+        };
+
         $users = User::where('is_active', true)
-            ->whereHas('role', fn ($q) => $q->where('slug', $roleSlug))
+            ->whereHas('roles', fn ($q) => $q->whereIn('name', $roleNames))
             ->get();
 
         return $this->sendToUsers($users, $title, $message, $options);

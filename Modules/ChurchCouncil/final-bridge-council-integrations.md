@@ -203,8 +203,8 @@ flowchart LR
 
 1. **Mapeamento sistemático**
 
-- Usar buscas por termos como `CouncilApproval`, `requires_council_approval`, `churchcouncil::`, `conselho` e equivalentes para identificar integrações já existentes (Events, PaymentGateway/Treasury, Intercessor, SocialAction, etc.).
-- Para cada módulo (Admin, Assets, Bible, ChurchCouncil, EBD, Events, HomePage, Intercessor, MemberPanel, Ministries, Notifications, PaymentGateway, Projection, Sermons, SocialAction, Treasury, Worship, etc.):
+- Usar buscas por termos como `CouncilApproval`, `requires_council_approval`, `churchcouncil::`, `conselho` e equivalentes para identificar integrações já existentes (Events, PaymentGateway/Treasury, acompanhamento pastoral, SocialAction, etc.).
+- Para cada módulo (Admin, Assets, Bible, ChurchCouncil, EBD, Events, HomePage, MemberPanel, Ministries, Notifications, PaymentGateway, Projection, Sermons, SocialAction, Treasury, Worship, etc.):
     - Documentar brevemente se há ou não interação com governança (ex.: aprovação de grandes compras em Assets, homologação de campanhas em Treasury, supervisão de projetos em Ministries, etc.).
 
 2. **Proposição de hooks de governança faltantes (sem implementar agora)**
@@ -224,7 +224,7 @@ flowchart LR
 - **EBD**: sem aprovação formal, mas relatórios e insights podem ser trazidos para o conselho via dashboards (futuro painel de ministérios/educação cristã).
 - **Events**: já integrado via `requires_council_approval` + `CouncilApproval::TYPE_EVENT_CREATION` e painel de Homologação de Planejamento; evita conflitos de agenda e garante alinhamento ministerial.
 - **HomePage**: consome eventos e campanhas aprovados; governança se dá indiretamente pela aprovação de eventos e campanhas na Tesouraria.
-- **Intercessor**: pedidos de oração e testemunhos moderados; o conselho acompanha via relatórios liderancaais, sem aprovação formal hoje.
+- **Acompanhamento pastoral**: alertas e testemunhos moderados; o conselho acompanha via relatórios liderancaais, sem aprovação formal hoje.
 - **MemberPanel**: expõe ao membro pedidos de carta de transferência (que abrem `TransferLetter` + `CouncilApproval`) e, futuramente, poderá mostrar decisões relevantes da assembleia/counselho.
 - **Ministries**: ministérios se conectam ao conselho via `CouncilProject` e eventos associados; futuros relatos mensais podem ser consolidados em dashboards para supervisão.
 - **Notifications**: canal oficial para avisos de reuniões, decisões, disciplina, transferências, parecer fiscal e homologação de eventos, usando `InAppNotificationService`.

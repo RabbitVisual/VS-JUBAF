@@ -2,30 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-class Role extends Model
+class Role extends SpatieRole
 {
     protected $fillable = [
         'name',
-        'slug',
-        'description',
+        'guard_name',
     ];
 
-    /**
-     * Relacionamento com Users
-     */
-    public function users()
+    public function getSlugAttribute(): string
     {
-        return $this->hasMany(User::class);
-    }
-
-    /**
-     * Relacionamento com Permissions
-     */
-    public function permissions(): BelongsToMany
-    {
-        return $this->belongsToMany(Permission::class, 'role_permission');
+        return match ($this->name) {
+            'Super Admin', 'Presidente' => 'admin',
+            'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local' => 'lideranca',
+            'Jovem' => 'membro',
+            default => \Illuminate\Support\Str::slug((string) $this->name, '_'),
+        };
     }
 }

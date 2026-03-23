@@ -31,7 +31,7 @@ class QuickLoginController extends Controller
             return back()->withErrors(['email' => 'Tipo de usuário inválido.']);
         }
 
-        $user = User::with('role')->where('email', $email)->first();
+        $user = User::where('email', $email)->first();
 
         if (! $user) {
             return back()->withErrors(['email' => 'Usuário demo não encontrado. Execute: php artisan db:seed --class=DemoUsersSeeder']);
@@ -42,7 +42,7 @@ class QuickLoginController extends Controller
         $request->session()->regenerate();
 
         // Redirect based on role
-        if ($user->role && $user->role->slug === 'admin') {
+        if ($user->isAdmin()) {
             return redirect()->intended(route('admin.dashboard'));
         }
 

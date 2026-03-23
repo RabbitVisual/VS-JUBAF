@@ -107,13 +107,12 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-                                        @if ($row->status === 'critico' && $row->subscription->prayer_request_id)
-                                            <a href="{{ route('member.intercessor.room.show', $row->subscription->prayer_request_id) }}"
-                                                target="_blank" rel="noopener"
-                                                class="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:underline">
-                                                <x-icon name="hands-praying" class="w-4 h-4 mr-1" />
-                                                Pedido de oração
-                                            </a>
+                                        @if ($row->status === 'critico')
+                                            <span
+                                                class="inline-flex items-center text-indigo-600 dark:text-indigo-400">
+                                                <x-icon name="triangle-exclamation" class="w-4 h-4 mr-1" />
+                                                Requer acompanhamento
+                                            </span>
                                         @else
                                             <span class="text-gray-400 dark:text-gray-500">—</span>
                                         @endif

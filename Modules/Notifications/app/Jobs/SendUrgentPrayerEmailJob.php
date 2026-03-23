@@ -9,7 +9,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use Modules\Intercessor\App\Models\PrayerRequest;
 use Modules\Notifications\Mail\UrgentPrayerAlert;
 
 class SendUrgentPrayerEmailJob implements ShouldQueue
@@ -21,7 +20,7 @@ class SendUrgentPrayerEmailJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(PrayerRequest $request)
+    public function __construct(object $request)
     {
         $this->request = $request;
     }
@@ -31,12 +30,16 @@ class SendUrgentPrayerEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        // Find targets: Intercessors, Admins, liderancas.
-        // Assuming roles are by slug.
-        // A more optimized way would be User::whereHas('role', fn($q) => $q->whereIn('slug', [...]))->chunk(...)
-
-        $recipients = User::whereHas('role', function ($q) {
-            $q->whereIn('slug', ['intercessor', 'admin', 'lideranca']);
+        // Find targets: liderança administrativa.
+        $recipients = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', [
+                'Super Admin',
+                'Presidente',
+                'Vice-Presidente',
+                'Secretário',
+                'Tesoureiro',
+                'Líder Local',
+            ]);
         })->get(); // Get all for now. If list is huge, chunking is needed.
 
         foreach ($recipients as $recipient) {

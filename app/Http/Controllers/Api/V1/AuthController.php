@@ -51,8 +51,21 @@ class AuthController extends Controller
             $allowedRoles = json_decode($allowedRoles, true);
         }
         if (is_array($allowedRoles) && count($allowedRoles) > 0) {
-            $userRoleSlug = $user->role?->slug;
-            if (! $userRoleSlug || ! in_array($userRoleSlug, $allowedRoles, true)) {
+            $allowedRoles = array_map('mb_strtolower', $allowedRoles);
+            $roleNames = $user->roles()->pluck('name')->map(fn ($name) => mb_strtolower((string) $name))->all();
+            $legacyAliases = [];
+            if ($user->isAdmin()) {
+                $legacyAliases[] = 'admin';
+            }
+            if ($user->islideranca()) {
+                $legacyAliases[] = 'lideranca';
+            }
+            if ($user->isMember()) {
+                $legacyAliases[] = 'membro';
+            }
+            $allUserRoleKeys = array_values(array_unique(array_merge($roleNames, $legacyAliases)));
+
+            if (empty(array_intersect($allowedRoles, $allUserRoleKeys))) {
                 Auth::logout();
 
                 return response()->json([

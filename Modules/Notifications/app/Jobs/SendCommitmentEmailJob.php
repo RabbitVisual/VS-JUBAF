@@ -9,7 +9,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use Modules\Intercessor\App\Models\PrayerRequest;
 use Modules\Notifications\Mail\PrayerCommitmentNotification;
 
 class SendCommitmentEmailJob implements ShouldQueue
@@ -18,15 +17,15 @@ class SendCommitmentEmailJob implements ShouldQueue
 
     protected $request;
 
-    protected $intercessor;
+    protected $supportAgent;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(PrayerRequest $request, User $intercessor)
+    public function __construct(object $request, User $supportAgent)
     {
         $this->request = $request;
-        $this->intercessor = $intercessor;
+        $this->supportAgent = $supportAgent;
     }
 
     /**
@@ -34,10 +33,10 @@ class SendCommitmentEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $owner = $this->request->user;
+        $owner = $this->request->user ?? null;
 
         if ($owner && $owner->email) {
-            Mail::to($owner->email)->queue(new PrayerCommitmentNotification($this->request, $this->intercessor));
+            Mail::to($owner->email)->queue(new PrayerCommitmentNotification($this->request, $this->supportAgent));
         }
     }
 }

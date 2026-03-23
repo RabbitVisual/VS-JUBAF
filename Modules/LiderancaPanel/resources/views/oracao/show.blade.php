@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', 'Pedido de Oração')
+@section('title', 'Solicitação Pastoral')
 
 @section('content')
     <div class="space-y-6">
@@ -13,7 +13,7 @@
 
         <div class="rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6">
             <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {{ $prayerRequest->title ?? 'Pedido de oração' }}</h1>
+                {{ $prayerRequest->title ?? 'Solicitação pastoral' }}</h1>
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 {{ $prayerRequest->is_anonymous ? 'Anônimo' : $prayerRequest->user->name ?? '—' }} ·
                 {{ $prayerRequest->created_at->format('d/m/Y H:i') }}
@@ -27,8 +27,7 @@
                         class="inline">
                         @csrf
                         <button type="submit"
-                            class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold">Marcar como
-                            orado</button>
+                            class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold">Concluir</button>
                     </form>
                 </div>
             @endif

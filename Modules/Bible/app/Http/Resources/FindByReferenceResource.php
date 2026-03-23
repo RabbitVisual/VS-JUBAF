@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Resource for GET /find response (reference string lookup).
- * Keeps compatibility with Intercessor room (verses, full_chapter_url).
+ * Mantém compatibilidade com consumidores legados (verses, full_chapter_url).
  */
 class FindByReferenceResource extends JsonResource
 {

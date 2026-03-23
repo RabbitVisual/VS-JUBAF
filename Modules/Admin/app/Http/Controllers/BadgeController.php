@@ -162,7 +162,7 @@ class BadgeController extends Controller
             'hand-holding-dollar' => 'Dízimo / Doação',
             'hand-holding-heart' => 'Serviço',
             'handshake-angle' => 'Voluntário',
-            'hands-praying' => 'Oração / Intercessor',
+            'hands-praying' => 'Cuidado pastoral',
             'heart' => 'Amor / Fidelidade',
             'id-card' => 'Cadastro completo',
             'landmark' => 'Coluna financeira',

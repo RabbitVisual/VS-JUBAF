@@ -88,7 +88,7 @@
                                 class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                                 style="min-height: 120px;">
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->slug }}" {{ in_array($role->slug, old('target_roles', [])) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    <option value="{{ $role->name }}" {{ in_array($role->name, old('target_roles', [])) ? 'selected' : '' }}>{{ $role->name }}</option>
                                 @endforeach
                             </select>
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Segure Ctrl/Cmd para selecionar múltiplos</p>

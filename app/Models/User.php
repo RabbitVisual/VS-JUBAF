@@ -50,6 +50,18 @@ class User extends Authenticatable
                 $user->attributes['whatsapp'] = $user->attributes['cellphone'] ?? $user->attributes['phone'];
             }
         });
+
+        static::created(function (self $user) {
+            if (! $user->roles()->exists()) {
+                $defaultRole = \Spatie\Permission\Models\Role::query()
+                    ->where('name', 'Jovem')
+                    ->where('guard_name', 'web')
+                    ->first();
+                if ($defaultRole) {
+                    $user->assignRole($defaultRole);
+                }
+            }
+        });
     }
 
     /**
@@ -274,7 +286,12 @@ class User extends Authenticatable
      */
     public function hasRole($roleSlug)
     {
-        return $this->spatieHasRole($roleSlug);
+        $mapped = $this->normalizeLegacyRole($roleSlug);
+        if (is_array($mapped)) {
+            return $this->spatieHasRole($mapped);
+        }
+
+        return $this->spatieHasRole($mapped);
     }
 
     /**
@@ -282,7 +299,19 @@ class User extends Authenticatable
      */
     public function islideranca()
     {
-        return $this->spatieHasRole(['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local']);
+        return $this->hasRole('lideranca');
+    }
+
+    private function normalizeLegacyRole($role): array|string
+    {
+        $normalized = mb_strtolower((string) $role);
+
+        return match ($normalized) {
+            'admin', 'super_admin', 'super admin' => ['Super Admin', 'Presidente'],
+            'lideranca', 'liderança' => ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local'],
+            'membro', 'member', 'jovem' => ['Jovem'],
+            default => $role,
+        };
     }
 
     /**
@@ -459,10 +488,10 @@ class User extends Authenticatable
             ];
         }
 
-        // 4. Intercessor (5+ favoritos na bíblia)
+        // 4. Leitor Dedicado (5+ favoritos na bíblia)
         if ($this->bibleFavorites()->count() >= 5) {
             $badges[] = [
-                'name' => 'Intercessor',
+                'name' => 'Leitor Dedicado',
                 'icon' => 'book-bible',
                 'color' => 'indigo',
                 'description' => 'Membro dedicado à leitura da palavra',

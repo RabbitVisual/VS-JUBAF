@@ -33,8 +33,8 @@ class BiblePlanSubscription extends Model
         return $this->hasMany(BibleUserProgress::class, 'subscription_id');
     }
 
-    public function prayerRequest(): BelongsTo
+    public function hasPastoralFollowUp(): bool
     {
-        return $this->belongsTo(\Modules\Intercessor\App\Models\PrayerRequest::class, 'prayer_request_id');
+        return ! empty($this->prayer_request_id);
     }
 }

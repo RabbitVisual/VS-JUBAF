@@ -26,7 +26,7 @@ class NotificationBroadcastController extends Controller
             'type' => 'required|in:info,success,warning,error',
             'target' => 'required|in:all,roles,ministries',
             'target_roles' => 'required_if:target,roles|array',
-            'target_roles.*' => 'exists:roles,slug',
+            'target_roles.*' => 'exists:roles,name',
             'target_ministries' => 'required_if:target,ministries|array',
             'target_ministries.*' => 'exists:ministries,id',
         ]);
@@ -53,7 +53,7 @@ class NotificationBroadcastController extends Controller
         $query = User::where('is_active', true);
 
         if ($validated['target'] === 'roles' && ! empty($validated['target_roles'])) {
-            $query->whereHas('role', fn ($q) => $q->whereIn('slug', $validated['target_roles']));
+            $query->whereHas('roles', fn ($q) => $q->whereIn('name', $validated['target_roles']));
         }
 
         if ($validated['target'] === 'ministries' && ! empty($validated['target_ministries'])) {

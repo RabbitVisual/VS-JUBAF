@@ -16,23 +16,10 @@ class DashboardController extends Controller
     {
         $stats = $this->gatherStats();
         $aniversariantes = self::aniversariantesDaSemana();
-        $pedidosOracaoPendentes = $this->gatherPendingPrayerRequests();
+        $pedidosOracaoPendentes = collect();
         $eliasInsight = null;
 
         return view('liderancapanel::dashboard', compact('stats', 'aniversariantes', 'pedidosOracaoPendentes', 'eliasInsight'));
-    }
-
-    protected function gatherPendingPrayerRequests(): \Illuminate\Support\Collection
-    {
-        if (! \Nwidart\Modules\Facades\Module::isEnabled('Intercessor') || ! class_exists(\Modules\Intercessor\App\Models\PrayerRequest::class)) {
-            return collect();
-        }
-
-        return \Modules\Intercessor\App\Models\PrayerRequest::with('user')
-            ->where('status', 'pending')
-            ->orderBy('created_at', 'asc')
-            ->limit(8)
-            ->get();
     }
 
     protected function gatherStats(): array
@@ -42,10 +29,6 @@ class DashboardController extends Controller
             'pedidos_oracao' => 0,
             'proximos_sermoes' => 0,
         ];
-
-        if (Module::isEnabled('Intercessor') && class_exists(\Modules\Intercessor\App\Models\PrayerRequest::class)) {
-            $stats['pedidos_oracao'] = \Modules\Intercessor\App\Models\PrayerRequest::where('status', 'pending')->count();
-        }
 
         if (Module::isEnabled('Sermons') && class_exists(\Modules\Sermons\App\Models\Sermon::class)) {
             $stats['proximos_sermoes'] = \Modules\Sermons\App\Models\Sermon::query()

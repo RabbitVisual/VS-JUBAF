@@ -74,7 +74,7 @@ class NotificationController extends Controller
             'target_users' => 'nullable|array',
             'target_users.*' => 'exists:users,id',
             'target_roles' => 'nullable|array',
-            'target_roles.*' => 'exists:roles,slug',
+            'target_roles.*' => 'exists:roles,name',
             'target_ministries' => 'nullable|array',
             'target_ministries.*' => 'exists:ministries,id',
             'action_url' => 'nullable|string|max:500',
@@ -164,8 +164,8 @@ class NotificationController extends Controller
 
         // Se tem roles específicas
         if (! empty($notification->target_roles)) {
-            $query->whereHas('role', function ($q) use ($notification) {
-                $q->whereIn('slug', $notification->target_roles);
+            $query->whereHas('roles', function ($q) use ($notification) {
+                $q->whereIn('name', $notification->target_roles);
             });
         }
 

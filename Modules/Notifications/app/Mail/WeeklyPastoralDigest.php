@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WeeklyIntercessorDigest extends Mailable implements ShouldQueue
+class WeeklyPastoralDigest extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -19,9 +19,6 @@ class WeeklyIntercessorDigest extends Mailable implements ShouldQueue
 
     public $testimonies;
 
-    /**
-     * Create a new message instance.
-     */
     public function __construct($newRequestsCount, $answeredCount, $urgentRequests, $testimonies)
     {
         $this->newRequestsCount = $newRequestsCount;
@@ -30,12 +27,9 @@ class WeeklyIntercessorDigest extends Mailable implements ShouldQueue
         $this->testimonies = $testimonies;
     }
 
-    /**
-     * Build the message.
-     */
     public function build()
     {
-        return $this->subject('Resumo Semanal de Oração - '.config('app.name'))
-            ->view('notifications::mail.intercessor.weekly-digest');
+        return $this->subject('Resumo Semanal de Acompanhamentos - '.config('app.name'))
+            ->view('notifications::mail.pastoral.weekly-digest');
     }
 }

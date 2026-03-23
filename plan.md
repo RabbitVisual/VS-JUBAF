@@ -45,7 +45,7 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 
 1. **Higienizar autoload e registro de módulos**
 
-- Remover do `composer.json` todos os namespaces PSR-4 dos módulos excluídos (`Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Intercessor`, `Ministries`, `Worship`).
+- Remover do `composer.json` todos os namespaces PSR-4 dos módulos excluídos (`Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Ministries`, `Worship`).
 - Verificar se restaram referências textuais desses módulos em bootstrap/providers/config de módulos.
 
 1. **Remover Bots (CbavBot/EliasBot) do core e UI**
@@ -57,8 +57,8 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 
 1. **Limpar rotas órfãs dos módulos removidos**
 
-- Em `routes/admin.php`, remover blocos de rotas de `Ministries`, `EBD`, `Marketplace`, `Intercessor`, `Projection`, `Worship`, `SocialAction`, `Assets`, e rotas de gamificação ligadas aos módulos removidos.
-- Em `routes/member.php`, remover blocos de `Ministries`, `cbav-bot`, `Marketplace`, `EBD`, `Intercessor`, `Worship`, `Projection`.
+- Em `routes/admin.php`, remover blocos de rotas de `Ministries`, `EBD`, `Marketplace`, `Projection`, `Worship`, `SocialAction`, `Assets`, e rotas de gamificação ligadas aos módulos removidos.
+- Em `routes/member.php`, remover blocos de `Ministries`, `cbav-bot`, `Marketplace`, `EBD`, `Worship`, `Projection`.
 - Em `routes/liderancaal.php`, remover seções dependentes de `EBD`, `Ministries` e rotas de oração acopladas ao módulo removido.
 
 1. **Limpar menus/layouts nos painéis**
@@ -178,3 +178,6 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 
 
 ## Plano 3 / Fase 3
+
+Frase oficial de encerramento:
+Menções documentais legadas removidas; base alinhada 100% ao escopo JUBAF atual.

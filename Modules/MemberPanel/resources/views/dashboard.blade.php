@@ -221,8 +221,22 @@
                         </div>
                     @endif
 
-                    <!-- Intercessor Widget -->
-                    @include('intercessor::components.dashboard-widget')
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden">
+                        <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-800 flex items-center gap-3">
+                            <x-icon name="bell" class="w-4 h-4 text-gray-400 dark:text-slate-500" />
+                            <h3 class="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-slate-400">Central de Alertas</h3>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-sm text-gray-600 dark:text-slate-300 mb-4">
+                                Acompanhe seus avisos e retornos da liderança na central de notificações.
+                            </p>
+                            <a href="{{ route('memberpanel.notifications.index') }}"
+                                class="inline-flex items-center justify-center w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-sm transition-colors">
+                                <x-icon name="bell" class="w-4 h-4 mr-2" />
+                                Abrir notificações
+                            </a>
+                        </div>
+                    </div>
 
                     <!-- Quick Actions Grid -->
                     <div class="bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden" data-tour="dashboard-quick-actions">

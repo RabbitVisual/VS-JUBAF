@@ -20,7 +20,7 @@ class MembersImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnF
 
     public function __construct()
     {
-        $this->membroRole = Role::where('slug', 'membro')->first() ?? Role::first();
+        $this->membroRole = Role::where('name', 'Jovem')->first() ?? Role::first();
     }
 
     /**
@@ -58,7 +58,6 @@ class MembersImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnF
             'marital_status' => $this->mapMaritalStatus($row['estado_civil'] ?? ''),
             'date_of_birth' => $this->parseDate($row['data_nascimento'] ?? null),
             'membership_date' => $this->parseDate($row['data_protesto'] ?? $row['entrada'] ?? null),
-            'role_id' => $this->membroRole->id,
             'password' => $password,
             'is_active' => true,
         ]);

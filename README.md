@@ -23,7 +23,7 @@ O Vertex JUBAF e um sistema web modular, desenvolvido para:
 
 O sistema ja passou pela limpeza estrutural planejada e esta operando com foco no escopo JUBAF.
 
-- Modulos removidos do projeto: `Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Intercessor`, `Ministries`, `Worship`.
+- Modulos removidos do projeto: `Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Ministries`, `Worship`.
 - Bots removidos: `CbavBot` e `EliasBot`.
 - Padronizacao de nomenclatura concluida: `LiderancaPanel` e rotas `lideranca.*`.
 - Fundacao de novos modulos criada: `Igrejas` e `Comunicacao`.
@@ -173,7 +173,7 @@ Atue como Arquiteto de Software Senior no projeto Vertex JUBAF.
 Contexto:
 - O sistema e modular com nwidart/laravel-modules.
 - O escopo atual e JUBAF (Juventude Batista Feirense), nao mais VertexCBAV generico.
-- Modulos removidos: Gamification, Assets, EBD, Marketplace, SocialAction, Projection, Intercessor, Ministries, Worship.
+- Modulos removidos: Gamification, Assets, EBD, Marketplace, SocialAction, Projection, Ministries, Worship.
 - Modulos ativos: HomePage, Admin, MemberPanel, Notifications, Bible, PaymentGateway, Treasury, ChurchCouncil, Events, Sermons, LiderancaPanel, Igrejas, Comunicacao.
 - Nomenclatura oficial: Lideranca (nao usar pastor/pastoral em novos recursos).
 

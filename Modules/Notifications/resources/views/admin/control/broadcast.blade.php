@@ -59,8 +59,8 @@
                     <div id="target-roles-wrap" class="ml-6 mt-2 {{ old('target') !== 'roles' ? 'hidden' : '' }}">
                         @foreach($roles as $role)
                             <label class="inline-flex items-center gap-2 mr-4 cursor-pointer">
-                                <input type="checkbox" name="target_roles[]" value="{{ $role->slug }}" {{ in_array($role->slug, old('target_roles', [])) ? 'checked' : '' }}>
-                                <span class="text-sm">{{ $role->name ?? $role->slug }}</span>
+                                <input type="checkbox" name="target_roles[]" value="{{ $role->name }}" {{ in_array($role->name, old('target_roles', [])) ? 'checked' : '' }}>
+                                <span class="text-sm">{{ $role->name }}</span>
                             </label>
                         @endforeach
                     </div>

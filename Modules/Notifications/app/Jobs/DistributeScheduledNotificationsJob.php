@@ -48,7 +48,7 @@ class DistributeScheduledNotificationsJob implements ShouldQueue
             return $query->whereIn('id', $notification->target_users)->get();
         }
         if (! empty($notification->target_roles)) {
-            $query->whereHas('role', fn ($q) => $q->whereIn('slug', $notification->target_roles));
+            $query->whereHas('roles', fn ($q) => $q->whereIn('name', $notification->target_roles));
         }
         if (! empty($notification->target_ministries)) {
             $query->whereHas('ministries', fn ($q) => $q->whereIn('ministries.id', $notification->target_ministries)->wherePivot('status', 'active'));

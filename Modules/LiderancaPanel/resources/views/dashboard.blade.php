@@ -27,7 +27,7 @@
                         {{ $greeting }}, {{ auth()->user()->first_name ?? (auth()->user()->name ?? 'lideranca') }}!
                     </h1>
                     <p class="text-slate-300 text-lg max-w-xl">
-                        Bem-vindo ao seu gabinete. Aqui você acompanha o rebanho, pedidos de oração e a saúde da igreja.
+                        Bem-vindo ao seu gabinete. Aqui você acompanha o rebanho, pendências pastorais e a saúde da igreja.
                     </p>
                 </div>
                 <div class="hidden md:block shrink-0">
@@ -70,15 +70,15 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <x-icon name="hands-praying" class="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                            <x-icon name="clipboard-check" class="w-6 h-6 text-teal-600 dark:text-teal-400" />
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pedidos de Oração</p>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pendências Pastorais</p>
                             <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $stats['pedidos_oracao'] ?? 0 }}
                             </p>
                         </div>
                     </div>
-                    <p class="mt-3 text-xs text-gray-500 dark:text-gray-400 group-hover:text-teal-600">Ver pedidos pendentes
+                    <p class="mt-3 text-xs text-gray-500 dark:text-gray-400 group-hover:text-teal-600">Ver pendências
                     </p>
                 </a>
             @endif
@@ -116,15 +116,15 @@
             </div>
         </div>
 
-        {{-- Pedidos de Oração (widget: orar e marcar como orado sem sair do dashboard) --}}
+        {{-- Pendências pastorais --}}
         @if (isset($pedidosOracaoPendentes) && $pedidosOracaoPendentes->isNotEmpty())
             <div
                 class="rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
                 <div
                     class="px-6 py-4 border-b border-gray-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                        <x-icon name="hands-praying" class="w-5 h-5 text-teal-500" />
-                        Pedidos de Oração — ore e marque como orado
+                        <x-icon name="clipboard-check" class="w-5 h-5 text-teal-500" />
+                        Pendências pastorais
                     </h2>
                     <a href="{{ route('lideranca.oracao.index') }}"
                         class="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">Ver todos</a>
@@ -135,7 +135,7 @@
                             class="px-6 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors">
                             <div class="min-w-0 flex-1">
                                 <p class="font-medium text-gray-900 dark:text-white">
-                                    {{ $req->title ?? 'Pedido de oração' }}</p>
+                                    {{ $req->title ?? 'Solicitação pastoral' }}</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400">
                                     {{ $req->is_anonymous ? 'Anônimo' : $req->user->name ?? '—' }} ·
                                     {{ $req->created_at->format('d/m/Y H:i') }}</p>
@@ -144,8 +144,7 @@
                                 class="shrink-0">
                                 @csrf
                                 <button type="submit"
-                                    class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold">Marcar
-                                    como orado</button>
+                                    class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold">Concluir</button>
                             </form>
                         </div>
                     @endforeach
@@ -212,7 +211,7 @@
                     Elias · Conselheiro
                 </h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Aqui você verá insights sobre a saúde da igreja: frequência na EBD, pedidos de oração em alta e
+                    Aqui você verá insights sobre a saúde da igreja: frequência na EBD, alertas em alta e
                     sugestões de cuidado liderancaal.
                 </p>
                 @if (isset($eliasInsight) && !empty($eliasInsight['content']))
