@@ -47,7 +47,7 @@ class ReportController extends Controller
 
                 $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
                     ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
-                    : (bool) \App\Models\Settings::get('church_diretoria_allow_admin_approval', false);
+                    : (bool) \App\Models\Settings::get('jubaf_diretoria_allow_admin_approval', false);
 
                 $isAdminOrlideranca = method_exists($user, 'hasRole')
                     ? ($user->hasRole('admin') || $user->hasRole('lideranca'))

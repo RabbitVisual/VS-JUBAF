@@ -20,7 +20,8 @@
             @endcan
 
             @can('visualizar recursos')
-                <div class="pt-2 pb-1 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Hub de recursos</div>
+                <div class="pt-2 pb-1 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Hub de recursos
+                </div>
                 <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('lideranca.sermoes*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white' }}">
                     <x-icon name="book-open" class="w-4 h-4" />

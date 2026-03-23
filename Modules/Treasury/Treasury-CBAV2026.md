@@ -23,7 +23,7 @@ Resumo das funcionalidades e integrações do módulo Tesouraria após o alinham
 ## Despesas e fluxo de aprovação
 
 - **expense_status**: Coluna em `financial_entries` com valores `pending`, `approved`, `paid`. Ao criar despesa, inicia como `pending`. Quando o conselho aprova (Diretoria), o status é atualizado para `approved` em `executeFinancialRequestApproval`.
-- **Integração Diretoria**: Despesa acima de `church_diretoria_auto_approve_budget_limit` gera `diretoriaApproval` (tipo `financial_request`). Ao aprovar, além de `diretoria_approved_at`, a entrada recebe `expense_status = approved`.
+- **Integração Diretoria**: Despesa acima de `jubaf_diretoria_auto_approve_budget_limit` gera `diretoriaApproval` (tipo `financial_request`). Ao aprovar, além de `diretoria_approved_at`, a entrada recebe `expense_status = approved`.
 
 ## Centro de custos (fundos)
 

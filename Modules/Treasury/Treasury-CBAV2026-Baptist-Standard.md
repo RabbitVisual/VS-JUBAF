@@ -7,7 +7,7 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 ## Estado atual (resumo)
 
 - **Tabelas**: `financial_entries` (enum category, soft deletes, `diretoria_approval_id`), `campaigns`, `financial_goals`, `treasury_permissions`. Não existem `financial_categories`, `budgets`, `audit_financial_logs` nem tabela de fundos.
-- **Serviço**: [TreasuryApiService](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php) concentra CRUD de entradas, campanhas, metas, relatórios e importação de pagamentos; já cria [diretoriaApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) para despesas acima de `church_diretoria_auto_approve_budget_limit`.
+- **Serviço**: [TreasuryApiService](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php) concentra CRUD de entradas, campanhas, metas, relatórios e importação de pagamentos; já cria [diretoriaApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) para despesas acima de `jubaf_diretoria_auto_approve_budget_limit`.
 - **Integração Diretoria**: Despesa acima do limite gera `diretoriaApproval` (tipo `financial_request`); ao aprovar, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) atualiza `FinancialEntry.diretoria_approved_at`. Nenhum status explícito de despesa (Pendente/Aprovada/Paga).
 - **Dinheiro**: `decimal(15,2)` em todas as colunas; modelos com `decimal:2`. Sem trait de auditoria; sem log imutável de alterações.
 
@@ -62,7 +62,7 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 
 ### 4.2 Integração Diretoria (mantida e documentada)
 
-- Manter lógica atual em [TreasuryApiService::createEntry](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php): despesa com valor > `Settings::get('church_diretoria_auto_approve_budget_limit', 1000)` cria `diretoriaApproval` (tipo `financial_request`) e associa `diretoria_approval_id`.
+- Manter lógica atual em [TreasuryApiService::createEntry](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php): despesa com valor > `Settings::get('jubaf_diretoria_auto_approve_budget_limit', 1000)` cria `diretoriaApproval` (tipo `financial_request`) e associa `diretoria_approval_id`.
 - Ao aprovar no Diretoria, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) deve, além do atual, setar `expense_status = approved` na `FinancialEntry` (ajuste no listener/executor do Diretoria ou no Treasury ao ser notificado).
 
 ---

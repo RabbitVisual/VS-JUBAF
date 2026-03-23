@@ -241,7 +241,7 @@ class TreasuryApiService
 
             $limit = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
                 ? \Modules\Diretoria\App\Services\DiretoriaSettings::autoApproveBudgetLimit()
-                : (float) \App\Models\Settings::get('church_diretoria_auto_approve_budget_limit', 1000);
+                : (float) \App\Models\Settings::get('jubaf_diretoria_auto_approve_budget_limit', 1000);
             if ($entry->type === 'expense' && (float) $entry->amount > $limit && class_exists(\Modules\Diretoria\App\Models\DiretoriaApproval::class)) {
                 $approval = \Modules\Diretoria\App\Models\DiretoriaApproval::create([
                     'approvable_type' => FinancialEntry::class,
@@ -778,7 +778,7 @@ class TreasuryApiService
 
         $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
             ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
-            : (bool) \App\Models\Settings::get('church_diretoria_allow_admin_approval', false);
+            : (bool) \App\Models\Settings::get('jubaf_diretoria_allow_admin_approval', false);
 
         $isAdminOrlideranca = method_exists($user, 'hasRole')
             ? ($user->hasRole('admin') || $user->hasRole('lideranca'))

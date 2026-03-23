@@ -40,7 +40,7 @@ Com base nos [Princípios Batistas da CBB](https://www.convencaobatista.com.br/s
 
 **Problema**: [diretoriaController::updateSettings](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Http/Controllers/Admin/diretoriaController.php) retorna JSON sem salvar em `Settings`.
 
-**Solução**: Implementar persistência via `Settings::set()` para cada chave (`church_diretoria_name`, `church_diretoria_meeting_frequency`, etc.). Ajustar rota para aceitar POST (form já envia POST com `@method('PUT')` — usar `Route::match(['post','put'], ...)`).
+**Solução**: Implementar persistência via `Settings::set()` para cada chave (`jubaf_diretoria_name`, `jubaf_diretoria_meeting_frequency`, etc.). Ajustar rota para aceitar POST (form já envia POST com `@method('PUT')` — usar `Route::match(['post','put'], ...)`).
 
 ---
 
@@ -76,7 +76,7 @@ Para decisões que exigem votação da assembleia (ex.: orçamento anual, mudan�
 **Fluxo**: Despesas acima de um limite configurável exigem aprovação do conselho antes de serem efetivadas.
 
 - **diretoriaApproval**: `TYPE_FINANCIAL_REQUEST` já existe; implementar `executeApproval` para criar/liberar `FinancialEntry` ou marcar como aprovado.
-- **Treasury**: Adicionar campo `diretoria_approval_id` (nullable) em `financial_entries` ou criar tabela de vínculo. Quando valor > `church_diretoria_auto_approve_budget_limit`, criar `diretoriaApproval` e bloquear a entrada até aprovação.
+- **Treasury**: Adicionar campo `diretoria_approval_id` (nullable) em `financial_entries` ou criar tabela de vínculo. Quando valor > `jubaf_diretoria_auto_approve_budget_limit`, criar `diretoriaApproval` e bloquear a entrada até aprovação.
 - **Listener ou Service**: Ao criar `FinancialEntry` com valor acima do limite, criar `diretoriaApproval` com `approvable_type => FinancialEntry::class`, `approval_type => financial_request`.
 
 ### 3.2 Ministries
@@ -131,7 +131,7 @@ Registrar em [routes/api.php](../../../../../Users/Administrator/.cursor/plans/r
 ### 5.1 Admin x diretoria Member
 
 - **Admin**: Acesso total ao CRUD (membros, reuniões, pautas, aprovações, documentos, projetos, configurações). Aprovar/rejeitar exige que o usuário seja `diretoriaMember` — admins que não são do conselho não podem aprovar.
-- **Fallback**: Se a igreja não tiver conselho formal, permitir que admins com role `lideranca` ou `admin` aprovem mesmo sem `diretoriaMember` (configurável em Settings: `church_diretoria_allow_admin_approval`).
+- **Fallback**: Se a igreja não tiver conselho formal, permitir que admins com role `lideranca` ou `admin` aprovem mesmo sem `diretoriaMember` (configurável em Settings: `jubaf_diretoria_allow_admin_approval`).
 
 ### 5.2 MemberPanel - Quem Vê o Conselho
 

@@ -5,32 +5,32 @@ namespace Modules\Diretoria\App\Services;
 use App\Models\Settings;
 
 /**
- * Central access to Church diretoria settings stored in App\Models\Settings (church_diretoria_* keys).
+ * Central access to Church diretoria settings stored in App\Models\Settings (jubaf_diretoria_* keys).
  * Use this service everywhere (admin, member panel, PDFs, approvals) so settings are applied consistently.
  */
 class DiretoriaSettings
 {
-    public const KEY_NAME = 'church_diretoria_name';
+    public const KEY_NAME = 'jubaf_diretoria_name';
 
-    public const KEY_MEETING_FREQUENCY = 'church_diretoria_meeting_frequency';
+    public const KEY_MEETING_FREQUENCY = 'jubaf_diretoria_meeting_frequency';
 
-    public const KEY_QUORUM_PERCENTAGE = 'church_diretoria_quorum_percentage';
+    public const KEY_QUORUM_PERCENTAGE = 'jubaf_diretoria_quorum_percentage';
 
-    public const KEY_VOTING_DEADLINE_DAYS = 'church_diretoria_voting_deadline_days';
+    public const KEY_VOTING_DEADLINE_DAYS = 'jubaf_diretoria_voting_deadline_days';
 
-    public const KEY_AUTO_APPROVE_BUDGET_LIMIT = 'church_diretoria_auto_approve_budget_limit';
+    public const KEY_AUTO_APPROVE_BUDGET_LIMIT = 'jubaf_diretoria_auto_approve_budget_limit';
 
-    public const KEY_APPROVAL_DEADLINE_DAYS = 'church_diretoria_approval_deadline_days';
+    public const KEY_APPROVAL_DEADLINE_DAYS = 'jubaf_diretoria_approval_deadline_days';
 
-    public const KEY_ENABLED_APPROVAL_TYPES = 'church_diretoria_enabled_approval_types';
+    public const KEY_ENABLED_APPROVAL_TYPES = 'jubaf_diretoria_enabled_approval_types';
 
-    public const KEY_EMAIL_NOTIFICATIONS = 'church_diretoria_email_notifications';
+    public const KEY_EMAIL_NOTIFICATIONS = 'jubaf_diretoria_email_notifications';
 
-    public const KEY_REMINDER_NOTIFICATIONS = 'church_diretoria_reminder_notifications';
+    public const KEY_REMINDER_NOTIFICATIONS = 'jubaf_diretoria_reminder_notifications';
 
-    public const KEY_VOTING_REMINDERS = 'church_diretoria_voting_reminders';
+    public const KEY_VOTING_REMINDERS = 'jubaf_diretoria_voting_reminders';
 
-    public const KEY_ALLOW_ADMIN_APPROVAL = 'church_diretoria_allow_admin_approval';
+    public const KEY_ALLOW_ADMIN_APPROVAL = 'jubaf_diretoria_allow_admin_approval';
 
     /**
      * Get a single setting value.

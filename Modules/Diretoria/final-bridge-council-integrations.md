@@ -217,7 +217,7 @@ flowchart LR
 
 3. **Mapa de touchpoints por módulo (estado atual)**
 
-- **Admin**: define usuários/roles e configurações globais que impactam o conselho (ex.: `church_diretoria_allow_admin_approval`), além de expor o menu de acesso ao módulo Diretoria.
+- **Admin**: define usuários/roles e configurações globais que impactam o conselho (ex.: `jubaf_diretoria_allow_admin_approval`), além de expor o menu de acesso ao módulo Diretoria.
 - **Assets**: hoje sem fluxo direto de aprovação; futuras compras acima de limite podem usar `diretoriaApproval::TYPE_FINANCIAL_REQUEST` ou um futuro `TYPE_ASSET_ACQUISITION`.
 - **Bible**: sem decisões de governança; apenas insumo espiritual (leituras/planos) usado em outros módulos.
 - **Diretoria**: hub de governança (reuniões, pautas, atas, disciplina, cartas de transferência, recomendações à assembleia, parecer fiscal e homologação de eventos).
