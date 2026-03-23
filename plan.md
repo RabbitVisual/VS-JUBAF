@@ -181,3 +181,74 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 
 Frase oficial de encerramento:
 Menções documentais legadas removidas; base alinhada 100% ao escopo JUBAF atual.
+## Reset DB e build
+
+- overview: Executar limpeza de cache, reset completo do banco com seed, garantir usuário Super Admin fixo e validar build frontend sem erros.
+- todos:
+  - id: verify-seeder-admin
+    content: Adicionar/validar criação idempotente do usuário fixo Super Admin no seeder apropriado
+    status: pending
+  - id: run-cache-cleanup
+    content: Executar todos os comandos de limpeza de cache/autoload em sequência
+    status: pending
+  - id: run-fresh-seed-loop
+    content: Executar migrate:fresh --seed e corrigir migration se falhar até ficar verde
+    status: pending
+  - id: build-frontend
+    content: Executar npm run build e confirmar compilação
+    status: pending
+  - id: report-results
+    content: Reportar status final e credenciais de acesso admin
+    status: pending
+
+# Plano para reset de banco e validação completa
+
+## Objetivo
+
+Executar a preparação completa do ambiente Laravel (cache + migrate/seed + build), garantindo credencial fixa de Super Admin para acesso após o reset.
+
+## Escopo e arquivos-alvo
+
+- Validar e, se necessário, ajustar seeder principal em [C:\laragon\www\JUBAF\database\seeders\DatabaseSeeder.php](../../../Users/Administrator/.cursor/plans/C:\laragon\www\JUBAF\database\seeders\DatabaseSeeder.php)
+- Garantir criação do Super Admin em [C:\laragon\www\JUBAF\database\seeders\RolesAndPermissionsSeeder.php](../../../Users/Administrator/.cursor/plans/C:\laragon\www\JUBAF\database\seeders\RolesAndPermissionsSeeder.php)
+- (Somente se erro de migrate) corrigir migration específica que falhar durante `migrate:fresh --seed`
+
+## Estratégia de execução
+
+1. Rodar sequência de limpeza de cache/autoload:
+
+- `composer dump-autoload`
+- `php artisan optimize:clear`
+- `php artisan config:clear`
+- `php artisan cache:clear`
+- `php artisan view:clear`
+
+1. Garantir usuário Super Admin fixo no seeder antes do reset final:
+
+- `name = Admin`
+- `sobrenome = JUBAF`
+- `email = admin@jubaf.com.br`
+- `password = bcrypt('password')` (ou `Hash::make('password')` equivalente)
+- atribuição `assignRole('Super Admin')`
+- comportamento idempotente (`updateOrCreate`/`firstOrCreate`) para evitar duplicidade.
+
+1. Executar `php artisan migrate:fresh --seed`.
+2. Se houver falha em migration:
+
+- identificar migration quebrada pelo stack trace
+- corrigir o arquivo de migration com alteração mínima necessária
+- repetir `php artisan migrate:fresh --seed` até concluir sem erros.
+
+1. Rodar `npm run build` para recompilar assets com o estado atualizado dos módulos.
+2. Confirmar status final ao usuário:
+
+- resultado do `migrate:fresh --seed`
+- resultado do `npm run build`
+- credenciais finais de login do admin fixo.
+
+## Critérios de aceite
+
+- `migrate:fresh --seed` finaliza 100% sem erro.
+- `npm run build` finaliza com sucesso.
+- Usuário `admin@jubaf.com.br` existe e tem role `Super Admin`.
+- Entrega inclui dados de login solicitados.

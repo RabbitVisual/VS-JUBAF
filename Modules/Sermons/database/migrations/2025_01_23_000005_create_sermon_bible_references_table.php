@@ -30,7 +30,8 @@ return new class extends Migration
             $table->enum('type', ['main', 'support', 'illustration', 'other'])->default('main'); // Tipo de referência
             $table->text('context')->nullable(); // Contexto de uso no sermão
             $table->text('exegesis_notes')->nullable();
-            $table->foreignId('study_note_id')->nullable()->constrained('sermon_study_notes')->nullOnDelete();
+            // sermon_study_notes é criado em migration posterior (2026_*), sem FK antecipada.
+            $table->unsignedBigInteger('study_note_id')->nullable();
             $table->integer('order')->default(0); // Ordem de exibição
 
             $table->timestamps();

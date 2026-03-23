@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('event_price_rules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            $table->foreignId('registration_segment_id')->nullable()->constrained('event_registration_segments')->nullOnDelete();
+            // event_registration_segments é criado em migration posterior (2026_02_*).
+            $table->unsignedBigInteger('registration_segment_id')->nullable();
             $table->string('label'); // Ex: "Crianças", "Adultos", "Idosos"
             $table->string('rule_type')->nullable();
             $table->string('member_status')->nullable();

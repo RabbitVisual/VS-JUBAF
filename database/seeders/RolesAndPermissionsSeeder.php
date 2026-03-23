@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -139,5 +140,19 @@ class RolesAndPermissionsSeeder extends Seeder
         foreach ($leaderRoles as $roleName) {
             Role::findByName($roleName, 'web')->givePermissionTo('acesso painel lideranca');
         }
+
+        $superAdminUser = User::withoutEvents(function () {
+            return User::updateOrCreate(
+                ['email' => 'admin@jubaf.com.br'],
+                [
+                    'name' => 'Admin',
+                    'sobrenome' => 'JUBAF',
+                    'password' => bcrypt('password'),
+                    'is_active' => true,
+                ]
+            );
+        });
+
+        $superAdminUser->syncRoles(['Super Admin']);
     }
 }

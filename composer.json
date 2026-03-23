@@ -24,6 +24,7 @@
         "pusher/pusher-php-server": "*",
         "simplesoftwareio/simple-qrcode": "*",
         "spatie/browsershot": "^5.2",
+        "spatie/laravel-permission": "^6.25",
         "stichoza/google-translate-php": "^5.3",
         "stripe/stripe-php": "^19.2"
     },

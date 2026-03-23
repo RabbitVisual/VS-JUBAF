@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('registration_id')->constrained('registrations')->onDelete('cascade');
-            $table->foreignId('registration_segment_id')->nullable()->constrained('event_registration_segments')->nullOnDelete();
+            // event_registration_segments é criado em migration posterior (2026_02_*).
+            $table->unsignedBigInteger('registration_segment_id')->nullable();
             $table->string('name');
             $table->string('email');
             $table->date('birth_date');

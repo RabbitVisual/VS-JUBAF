@@ -28,7 +28,8 @@ return new class extends Migration
 
             // Categoria
             $table->foreignId('category_id')->nullable()->constrained('sermon_categories')->nullOnDelete();
-            $table->foreignId('series_id')->nullable()->constrained('bible_series')->nullOnDelete();
+            // bible_series é criado em migration posterior (2026_*), então evitamos FK antecipada.
+            $table->unsignedBigInteger('series_id')->nullable();
 
             // Autor/Criador
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

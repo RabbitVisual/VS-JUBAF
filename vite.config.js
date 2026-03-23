@@ -9,9 +9,6 @@ async function getPaths() {
         'resources/css/app.css',
         'resources/js/app.js',
         'resources/js/tours.js',
-        // Projection: console (Vue) and remote (Alpine) — also exported by Modules/Projection/vite.config.js
-        'Modules/Projection/resources/assets/js/app.js',
-        'Modules/Projection/resources/assets/js/remote.js',
     ];
 
     return await collectModuleAssetsPaths(paths, 'Modules');
