@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PautaVersion extends Model
 {
+    protected $table = 'pauta_versoes';
+
     protected $fillable = [
-        'diretoria_agenda_id',
+        'pauta_id',
         'version',
         'payload',
         'created_by',
@@ -21,7 +23,7 @@ class PautaVersion extends Model
 
     public function agenda(): BelongsTo
     {
-        return $this->belongsTo(Pauta::class, 'diretoria_agenda_id');
+        return $this->belongsTo(Pauta::class, 'pauta_id');
     }
 
     public function creator(): BelongsTo

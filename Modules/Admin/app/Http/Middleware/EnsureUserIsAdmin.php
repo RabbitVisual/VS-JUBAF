@@ -22,9 +22,8 @@ class EnsureUserIsAdmin
 
         $user = auth()->user();
 
-        // Apenas Admin ou lideranca podem acessar o painel admin (incluindo conselho)
-        if (! $user->hasAdminAccess()) {
-            abort(403, 'Acesso restrito.');
+        if (! $user->can('acesso painel admin')) {
+            abort(403, 'Acesso restrito ao painel administrativo.');
         }
 
         return $next($request);

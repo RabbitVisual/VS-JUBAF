@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', __('Diretoria::messages.approval'))
+@section('title', __('diretoria::messages.approval'))
 
 @section('content')
     <div class="space-y-6">
@@ -21,12 +21,12 @@
                         @csrf
                         <button type="submit"
                             class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold transition-all flex items-center gap-2">
-                            <x-icon name="check" class="w-5 h-5" /> {{ __('Diretoria::messages.approve') }}
+                            <x-icon name="check" class="w-5 h-5" /> {{ __('diretoria::messages.approve') }}
                         </button>
                     </form>
                     <button type="button" onclick="document.getElementById('reject-form').classList.toggle('hidden')"
                         class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all flex items-center gap-2">
-                        <x-icon name="xmark" class="w-5 h-5" /> {{ __('Diretoria::messages.reject') }}
+                        <x-icon name="xmark" class="w-5 h-5" /> {{ __('diretoria::messages.reject') }}
                     </button>
                     <form id="reject-form" action="{{ route('lideranca.conselho.approvals.reject', $approval) }}"
                         method="POST" class="hidden inline-flex items-center gap-2 flex-wrap" x-data
@@ -40,14 +40,14 @@
                 @endif
                 <a href="{{ route('lideranca.conselho.approvals') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                    <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('Diretoria::messages.back') }}
+                    <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('diretoria::messages.back') }}
                 </a>
             </div>
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6">
             <h2 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-3">
-                {{ __('Diretoria::messages.description') }}</h2>
+                {{ __('diretoria::messages.description') }}</h2>
             <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
                 {{ $approval->request_details ?? '—' }}
             </div>

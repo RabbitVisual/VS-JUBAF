@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diretoria_votes', function (Blueprint $table) {
+        Schema::create('votos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('agenda_id')->constrained('diretoria_agendas')->onDelete('cascade');
+            $table->foreignId('agenda_id')->constrained('pautas')->onDelete('cascade');
             $table->foreignId('diretoria_member_id')->constrained('diretoria_members')->onDelete('cascade');
             $table->enum('vote', ['yes', 'no', 'abstain', 'absent']);
             $table->text('comments')->nullable();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diretoria_votes');
+        Schema::dropIfExists('votos');
     }
 };

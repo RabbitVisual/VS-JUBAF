@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diretoria_documents', function (Blueprint $table) {
+        Schema::create('atas_documentos', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('document_type', ['statute', 'regiment', 'minute', 'resolution', 'declaracao_doutrinaria', 'pacto_igrejas', 'regimento_interno', 'other'])->default('other');
             $table->date('document_date')->nullable(); // Date of the document content
             $table->foreignId('uploaded_by')->constrained('users')->onDelete('cascade');
-            $table->foreignId('meeting_id')->nullable()->constrained('diretoria_meetings')->nullOnDelete(); // If related to a meeting (e.g. signed minutes)
+            $table->foreignId('meeting_id')->nullable()->constrained('reunioes')->nullOnDelete(); // If related to a meeting (e.g. signed minutes)
             $table->boolean('is_public')->default(false); // If true, visible to all church members
             $table->boolean('is_active')->default(true);
             $table->timestamps();
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diretoria_documents');
+        Schema::dropIfExists('atas_documentos');
     }
 };

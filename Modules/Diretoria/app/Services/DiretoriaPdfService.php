@@ -37,7 +37,7 @@ class DiretoriaPdfService
         ];
 
         return $this->pdf->downloadView(
-            'Diretoria::admin.pdf.minutes',
+            'diretoria::admin.pdf.minutes',
             [
                 'meeting' => $meeting,
                 'latestMinutes' => $latestMinutes,
@@ -61,7 +61,7 @@ class DiretoriaPdfService
         ];
 
         return $this->pdf->downloadView(
-            'Diretoria::admin.pdf.convocation',
+            'diretoria::admin.pdf.convocation',
             [
                 'meeting' => $meeting,
                 'settings' => $settings,

@@ -30,23 +30,23 @@
                     <select name="document_type" required
                         class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg py-2.5 px-4 focus:ring-blue-500 focus:border-blue-500">
                         <option value="minute" {{ $document->document_type == 'minute' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_minute') }}</option>
+                            {{ __('diretoria::messages.doc_type_minute') }}</option>
                         <option value="statute" {{ $document->document_type == 'statute' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_statute') }}</option>
+                            {{ __('diretoria::messages.doc_type_statute') }}</option>
                         <option value="regiment" {{ $document->document_type == 'regiment' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_regiment') }}</option>
+                            {{ __('diretoria::messages.doc_type_regiment') }}</option>
                         <option value="regimento_interno"
                             {{ $document->document_type == 'regimento_interno' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_regimento_interno') }}</option>
+                            {{ __('diretoria::messages.doc_type_regimento_interno') }}</option>
                         <option value="resolution" {{ $document->document_type == 'resolution' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_resolution') }}</option>
+                            {{ __('diretoria::messages.doc_type_resolution') }}</option>
                         <option value="declaracao_doutrinaria"
                             {{ $document->document_type == 'declaracao_doutrinaria' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
+                            {{ __('diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
                         <option value="pacto_igrejas" {{ $document->document_type == 'pacto_igrejas' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_pacto_igrejas') }}</option>
+                            {{ __('diretoria::messages.doc_type_pacto_igrejas') }}</option>
                         <option value="other" {{ $document->document_type == 'other' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_other') }}</option>
+                            {{ __('diretoria::messages.doc_type_other') }}</option>
                     </select>
                 </div>
 

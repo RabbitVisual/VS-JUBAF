@@ -16,17 +16,17 @@
                             class="px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-xs font-bold uppercase tracking-wider">Pautas</span>
                     </div>
                     <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">
-                        {{ __('Diretoria::messages.view_agendas') }}</h1>
-                    <p class="text-gray-300 max-w-xl">{{ __('Diretoria::messages.agendas_subtitle') }}</p>
+                        {{ __('diretoria::messages.view_agendas') }}</h1>
+                    <p class="text-gray-300 max-w-xl">{{ __('diretoria::messages.agendas_subtitle') }}</p>
                 </div>
                 <div class="flex flex-shrink-0 flex-wrap items-center gap-3">
                     <a href="{{ route('admin.Diretoria.meetings.index') }}"
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
-                        <x-icon name="calendar" class="w-5 h-5" /> {{ __('Diretoria::messages.view_meetings') }}
+                        <x-icon name="calendar" class="w-5 h-5" /> {{ __('diretoria::messages.view_meetings') }}
                     </a>
                     <a href="{{ route('admin.Diretoria.agendas.create', $meeting) }}"
                         class="px-6 py-3 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 shadow-lg shadow-white/10 inline-flex items-center gap-2">
-                        <x-icon name="plus" class="w-5 h-5 text-blue-600" /> {{ __('Diretoria::messages.new_agenda') }}
+                        <x-icon name="plus" class="w-5 h-5 text-blue-600" /> {{ __('diretoria::messages.new_agenda') }}
                     </a>
                 </div>
             </div>
@@ -44,10 +44,10 @@
                     <!-- Status Filter -->
                     <div class="md:col-span-3">
                         <label for="status"
-                            class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('Diretoria::messages.current_status') }}</label>
+                            class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('diretoria::messages.current_status') }}</label>
                         <select name="status" id="status"
                             class="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
-                            <option value="">{{ __('Diretoria::messages.all_statuses') }}</option>
+                            <option value="">{{ __('diretoria::messages.all_statuses') }}</option>
                             <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pendente
                             </option>
                             <option value="discussed" {{ request('status') === 'discussed' ? 'selected' : '' }}>Em
@@ -64,7 +64,7 @@
                     <!-- Priority Filter -->
                     <div class="md:col-span-3">
                         <label for="priority"
-                            class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('Diretoria::messages.priority') }}</label>
+                            class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">{{ __('diretoria::messages.priority') }}</label>
                         <select name="priority" id="priority"
                             class="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
                             <option value="">Todas as prioridades</option>
@@ -84,7 +84,7 @@
                             <button type="submit"
                                 class="flex-1 px-4 py-2.5 bg-gray-900 dark:bg-gray-600 hover:bg-gray-800 dark:hover:bg-gray-500 text-white rounded-xl font-medium transition-colors shadow-sm flex items-center justify-center">
                                 <x-icon name="filter" class="w-5 h-5 mr-2" />
-                                {{ __('Diretoria::messages.filter') }}
+                                {{ __('diretoria::messages.filter') }}
                             </button>
                             @if (request()->hasAny(['status', 'priority', 'meeting_id', 'search']))
                                 <a href="{{ route('admin.Diretoria.agendas.index', $meeting) }}"

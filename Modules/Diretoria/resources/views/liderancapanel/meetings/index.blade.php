@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', __('Diretoria::messages.meetings'))
+@section('title', __('diretoria::messages.meetings'))
 
 @section('content')
     <div class="space-y-6">
@@ -8,26 +8,26 @@
             <div>
                 <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-1">
                     <a href="{{ route('lideranca.conselho.index') }}"
-                        class="hover:text-white transition-colors">{{ __('Diretoria::messages.diretoria') }}</a>
+                        class="hover:text-white transition-colors">{{ __('diretoria::messages.diretoria') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                    <span class="text-white font-bold">{{ __('Diretoria::messages.meetings') }}</span>
+                    <span class="text-white font-bold">{{ __('diretoria::messages.meetings') }}</span>
                 </nav>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <x-icon name="calendar-days" class="w-7 h-7 text-amber-500" />
-                    {{ __('Diretoria::messages.meetings') }}
+                    {{ __('diretoria::messages.meetings') }}
                 </h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Diretoria::messages.view_meetings') }}</p>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('diretoria::messages.view_meetings') }}</p>
             </div>
             <div class="flex flex-wrap items-center gap-3">
                 @if (Route::has('admin.Diretoria.meetings.create'))
                     <a href="{{ route('admin.Diretoria.meetings.create') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
-                        <x-icon name="plus" class="w-5 h-5" /> {{ __('Diretoria::messages.new_meeting') }}
+                        <x-icon name="plus" class="w-5 h-5" /> {{ __('diretoria::messages.new_meeting') }}
                     </a>
                 @endif
                 <a href="{{ route('lideranca.conselho.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                    <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('Diretoria::messages.back') }}
+                    <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('diretoria::messages.back') }}
                 </a>
             </div>
         </div>
@@ -38,7 +38,7 @@
                     class="flex flex-wrap items-center gap-3">
                     <select name="status"
                         class="rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-2 text-sm">
-                        <option value="">{{ __('Diretoria::messages.all_statuses') }}</option>
+                        <option value="">{{ __('diretoria::messages.all_statuses') }}</option>
                         <option value="scheduled" {{ request('status') === 'scheduled' ? 'selected' : '' }}>Agendada
                         </option>
                         <option value="in_progress" {{ request('status') === 'in_progress' ? 'selected' : '' }}>Em
@@ -58,10 +58,10 @@
                         </option>
                     </select>
                     <button type="submit"
-                        class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-600 text-gray-800 dark:text-white text-sm font-medium">{{ __('Diretoria::messages.filter') }}</button>
+                        class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-600 text-gray-800 dark:text-white text-sm font-medium">{{ __('diretoria::messages.filter') }}</button>
                 </form>
                 <a href="{{ route('lideranca.conselho.meetings.index') }}"
-                    class="text-sm text-amber-500 hover:underline">{{ __('Diretoria::messages.clear_filters') }}</a>
+                    class="text-sm text-amber-500 hover:underline">{{ __('diretoria::messages.clear_filters') }}</a>
             </div>
         @endif
 

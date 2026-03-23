@@ -124,8 +124,56 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     });
 
     Route::prefix('conselho')->name('admin.Diretoria.')->group(function () {
-        $admindiretoria = \Modules\Diretoria\App\Http\Controllers\Admin\diretoriaController::class;
-        Route::get('/', [$admindiretoria, 'index'])->name('index');
-        Route::get('planejamento/homologacao', [$admindiretoria, 'planningApprovals'])->name('planning.index');
+        $board = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaController::class;
+        $cDocs = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaDocumentController::class;
+        $cDash = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaMinistriesDashboardController::class;
+
+        Route::get('/', [$board, 'index'])->name('index');
+        Route::get('/planejamento/homologacao', [$board, 'planningApprovals'])->name('planning.index');
+        Route::get('/ministerios/dashboard', [$cDash, 'index'])->name('ministries.dashboard');
+
+        Route::get('/membros', [$board, 'members'])->name('members.index');
+        Route::get('/membros/criar', [$board, 'createMember'])->name('members.create');
+        Route::post('/membros', [$board, 'storeMember'])->name('members.store');
+        Route::get('/membros/{member}/editar', [$board, 'editMember'])->name('members.edit');
+        Route::put('/membros/{member}', [$board, 'updateMember'])->name('members.update');
+        Route::delete('/membros/{member}', [$board, 'destroyMember'])->name('members.destroy');
+
+        Route::get('/reunioes', [$board, 'meetings'])->name('meetings.index');
+        Route::get('/reunioes/criar', [$board, 'createMeeting'])->name('meetings.create');
+        Route::post('/reunioes', [$board, 'storeMeeting'])->name('meetings.store');
+        Route::get('/reunioes/{meeting}', [$board, 'showMeeting'])->name('meetings.show');
+        Route::post('/reunioes/{meeting}/iniciar', [$board, 'startMeeting'])->name('meetings.start');
+        Route::post('/reunioes/{meeting}/encerrar', [$board, 'endMeeting'])->name('meetings.end');
+        Route::post('/reunioes/{meeting}/minutos/{minutesVersion}/assinar', [$board, 'signMinutes'])->name('meetings.minutes-signatures.store');
+
+        Route::get('/reunioes/{meeting}/pautas', [$board, 'agendas'])->name('agendas.index');
+        Route::get('/reunioes/{meeting}/pautas/criar', [$board, 'createAgenda'])->name('agendas.create');
+        Route::post('/reunioes/{meeting}/pautas', [$board, 'storeAgenda'])->name('agendas.store');
+        Route::get('/reunioes/{meeting}/pautas/{agenda}/editar', [$board, 'editAgenda'])->name('agendas.edit');
+        Route::put('/reunioes/{meeting}/pautas/{agenda}', [$board, 'updateAgenda'])->name('agendas.update');
+        Route::post('/reunioes/{meeting}/pautas/{agenda}/decisao', [$board, 'updateAgendaDecision'])->name('agendas.decision');
+
+        Route::get('/aprovacoes', [$board, 'approvals'])->name('approvals.index');
+        Route::get('/aprovacoes/{approval}', [$board, 'showApproval'])->name('approvals.show');
+        Route::post('/aprovacoes/{approval}/aprovar', [$board, 'approveRequest'])->name('approvals.approve');
+        Route::post('/aprovacoes/{approval}/rejeitar', [$board, 'rejectRequest'])->name('approvals.reject');
+
+        Route::get('/assembleia', [$board, 'assemblyRecommendations'])->name('assembly.index');
+        Route::get('/assembleia/{agenda}/editar', [$board, 'editAssemblyAgenda'])->name('assembly.edit');
+        Route::post('/assembleia/{agenda}/decisao', [$board, 'storeAssemblyDecision'])->name('assembly.store-decision');
+
+        Route::get('/configuracoes', [$board, 'settings'])->name('settings.index');
+        Route::put('/configuracoes', [$board, 'updateSettings'])->name('settings.update');
+
+        Route::get('/documentos', [$cDocs, 'index'])->name('documents.index');
+        Route::get('/documentos/criar', [$cDocs, 'create'])->name('documents.create');
+        Route::post('/documentos', [$cDocs, 'store'])->name('documents.store');
+        Route::get('/documentos/{document}/baixar', [$cDocs, 'show'])->name('documents.download');
+        Route::get('/documentos/{document}/editar', [$cDocs, 'edit'])->name('documents.edit');
+        Route::put('/documentos/{document}', [$cDocs, 'update'])->name('documents.update');
+        Route::delete('/documentos/{document}', [$cDocs, 'destroy'])->name('documents.destroy');
+        Route::get('/reunioes/{meeting}/pdf/ata', [$cDocs, 'exportMinutesPdf'])->name('meetings.export-minutes-pdf');
+        Route::get('/reunioes/{meeting}/pdf/edital', [$cDocs, 'exportConvocationPdf'])->name('meetings.export-convocation-pdf');
     });
 });

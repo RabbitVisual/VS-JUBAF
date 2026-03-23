@@ -226,23 +226,4 @@ class DiretoriaController extends Controller
         ]);
     }
 
-    /**
-     * GET /api/v1/church-diretoria/projects
-     */
-    public function projects(Request $request): JsonResponse
-    {
-        $perPage = min(max((int) $request->input('per_page', 15), 1), 50);
-        $status = $request->input('status');
-        $paginator = $this->api->listProjects($perPage, $status);
-
-        return response()->json([
-            'data' => $paginator->items(),
-            'meta' => [
-                'current_page' => $paginator->currentPage(),
-                'last_page' => $paginator->lastPage(),
-                'per_page' => $paginator->perPage(),
-                'total' => $paginator->total(),
-            ],
-        ]);
-    }
 }

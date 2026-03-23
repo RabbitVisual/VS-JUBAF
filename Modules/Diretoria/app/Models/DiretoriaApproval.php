@@ -254,34 +254,6 @@ class DiretoriaApproval extends Model
                 }
                 break;
 
-            case self::TYPE_MEMBERSHIP_TRANSFER_OUT:
-                if ($approvable instanceof \Modules\Diretoria\App\Models\TransferLetter) {
-                    $approvable->update([
-                        'status' => \Modules\Diretoria\App\Models\TransferLetter::STATUS_SENT,
-                        'issued_at' => now(),
-                    ]);
-
-                    if (class_exists(\Modules\Notifications\App\Services\InAppNotificationService::class)) {
-                        try {
-                            $member = $approvable->member;
-                            if ($member) {
-                                app(\Modules\Notifications\App\Services\InAppNotificationService::class)->sendToUser(
-                                    $member,
-                                    'Carta de transferência emitida',
-                                    'Sua carta de transferência foi emitida pela igreja. Procure a secretaria para receber o documento físico ou arquivo digital.',
-                                    [
-                                        'type' => 'success',
-                                        'priority' => 'normal',
-                                    ]
-                                );
-                            }
-                        } catch (\Throwable $e) {
-                            \Log::warning('Failed to send transfer letter notification: '.$e->getMessage());
-                        }
-                    }
-                }
-                break;
-
             default:
                 break;
         }

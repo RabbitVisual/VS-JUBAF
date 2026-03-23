@@ -18,8 +18,8 @@ class EnsureUserHasLiderancaAccess
             abort(403, 'Acesso não autorizado.');
         }
 
-        if (! auth()->user()->hasAdminAccess()) {
-            abort(403, 'Acesso restrito ao painel de lideranca.');
+        if (! auth()->user()->can('acesso painel lideranca')) {
+            abort(403, 'Acesso restrito ao painel de liderança.');
         }
 
         return $next($request);

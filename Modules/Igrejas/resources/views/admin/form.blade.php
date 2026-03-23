@@ -80,10 +80,7 @@
     </div>
 
     <div class="flex items-center justify-end gap-3">
-        @php
-            $cancelRoute = request()->routeIs('lideranca.igrejas.*') ? route('lideranca.igrejas.index') : route('admin.igrejas.index');
-        @endphp
-        <a href="{{ $cancelRoute }}" class="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+        <a href="{{ route('admin.igrejas.index') }}" class="px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
             Cancelar
         </a>
         <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/20 transition-colors">

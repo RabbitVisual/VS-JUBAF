@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class MeetingMinutesVersion extends Model
 {
     protected $fillable = [
-        'diretoria_meeting_id',
+        'reuniao_id',
         'version',
         'content',
         'state',
@@ -19,7 +19,7 @@ class MeetingMinutesVersion extends Model
 
     public function meeting(): BelongsTo
     {
-        return $this->belongsTo(Reuniao::class, 'diretoria_meeting_id');
+        return $this->belongsTo(Reuniao::class, 'reuniao_id');
     }
 
     public function creator(): BelongsTo

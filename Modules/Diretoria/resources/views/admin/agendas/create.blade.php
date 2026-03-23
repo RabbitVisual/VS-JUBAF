@@ -6,14 +6,14 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-                    {{ __('Diretoria::messages.new_agenda_for_meeting') }}</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Diretoria::messages.add_agenda_for_meeting') }}
+                    {{ __('diretoria::messages.new_agenda_for_meeting') }}</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('diretoria::messages.add_agenda_for_meeting') }}
                     {{ $meeting->title }}</p>
             </div>
             <a href="{{ route('admin.Diretoria.agendas.index', $meeting) }}"
                 class="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center sm:w-auto w-full">
                 <x-icon name="arrow-left" class="w-5 h-5 mr-2" />
-                {{ __('Diretoria::messages.back') }}
+                {{ __('diretoria::messages.back') }}
             </a>
         </div>
 
@@ -150,12 +150,12 @@
                 if (result.success) {
                     window.location.href = '{{ route('admin.Diretoria.agendas.index', $meeting) }}';
                 } else {
-                    alert(result.message || '{{ __('Diretoria::messages.agenda_update_error') }}');
+                    alert(result.message || '{{ __('diretoria::messages.agenda_update_error') }}');
                 }
             } catch (error) {
                 window.dispatchEvent(new CustomEvent('stop-loading'));
                 console.error(error);
-                alert('{{ __('Diretoria::messages.request_error') }}');
+                alert('{{ __('diretoria::messages.request_error') }}');
             }
         });
     </script>

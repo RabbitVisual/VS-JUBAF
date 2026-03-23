@@ -6,14 +6,14 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-                    {{ __('Diretoria::messages.edit_agenda') }}</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Diretoria::messages.meeting') }}:
+                    {{ __('diretoria::messages.edit_agenda') }}</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('diretoria::messages.meeting') }}:
                     {{ $meeting->title }}</p>
             </div>
             <a href="{{ route('admin.Diretoria.agendas.index', $meeting) }}"
                 class="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center sm:w-auto w-full">
                 <x-icon name="arrow-left" class="w-5 h-5 mr-2" />
-                {{ __('Diretoria::messages.back') }}
+                {{ __('diretoria::messages.back') }}
             </a>
         </div>
 
@@ -30,7 +30,7 @@
                             class="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                             <x-icon name="pencil-alt" class="w-5 h-5" />
                         </div>
-                        {{ __('Diretoria::messages.edit_information') }}
+                        {{ __('diretoria::messages.edit_information') }}
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
@@ -185,12 +185,12 @@
                 <div class="flex flex-col md:flex-row justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700">
                     <a href="{{ route('admin.Diretoria.agendas.index', $meeting) }}"
                         class="px-6 py-2.5 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 font-bold transition-all text-center">
-                        {{ __('Diretoria::messages.cancel') }}
+                        {{ __('diretoria::messages.cancel') }}
                     </a>
                     <button type="submit"
                         class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center">
                         <x-icon name="check" class="w-5 h-5 mr-2" />
-                        {{ __('Diretoria::messages.save_changes') }}
+                        {{ __('diretoria::messages.save_changes') }}
                     </button>
                 </div>
             </form>
@@ -225,12 +225,12 @@
                 if (result.success) {
                     window.location.href = '{{ route('admin.Diretoria.agendas.index', $meeting) }}';
                 } else {
-                    alert(result.message || '{{ __('Diretoria::messages.agenda_update_error') }}');
+                    alert(result.message || '{{ __('diretoria::messages.agenda_update_error') }}');
                 }
             } catch (error) {
                 window.dispatchEvent(new CustomEvent('stop-loading'));
                 console.error(error);
-                alert('{{ __('Diretoria::messages.request_error') }}');
+                alert('{{ __('diretoria::messages.request_error') }}');
             }
         });
     </script>

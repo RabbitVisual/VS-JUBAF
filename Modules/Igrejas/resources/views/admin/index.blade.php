@@ -1,9 +1,4 @@
-@php
-    $layout = request()->routeIs('lideranca.igrejas.*') ? 'liderancapanel::components.layouts.master' : 'admin::components.layouts.master';
-    $createRoute = request()->routeIs('lideranca.igrejas.*') ? route('lideranca.igrejas.create') : route('admin.igrejas.create');
-@endphp
-
-@extends($layout)
+@extends('admin::components.layouts.master')
 
 @section('title', 'Gestão de Igrejas')
 
@@ -20,7 +15,7 @@
                     <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Gestão de Igrejas</h1>
                     <p class="text-gray-300 max-w-xl">Gerencie as igrejas vinculadas à associação com uma visão centralizada.</p>
                 </div>
-                <a href="{{ $createRoute }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 transition-all shadow-lg shadow-white/10">
+                <a href="{{ route('admin.igrejas.create') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 transition-all shadow-lg shadow-white/10">
                     <x-icon name="plus" class="w-5 h-5 text-blue-600" />
                     Nova igreja
                 </a>
@@ -49,12 +44,8 @@
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                         @forelse($igrejas as $igreja)
                             @php
-                                $editRoute = request()->routeIs('lideranca.igrejas.*')
-                                    ? route('lideranca.igrejas.edit', $igreja)
-                                    : route('admin.igrejas.edit', $igreja);
-                                $destroyRoute = request()->routeIs('lideranca.igrejas.*')
-                                    ? route('lideranca.igrejas.destroy', $igreja)
-                                    : route('admin.igrejas.destroy', $igreja);
+                                $editRoute = route('admin.igrejas.edit', $igreja);
+                                $destroyRoute = route('admin.igrejas.destroy', $igreja);
                             @endphp
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/40 transition-colors">
                                 <td class="px-6 py-4">

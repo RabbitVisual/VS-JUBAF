@@ -29,16 +29,16 @@
                     <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Tipo *</label>
                     <select name="document_type" required
                         class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg py-2.5 px-4 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="minute">{{ __('Diretoria::messages.doc_type_minute') }}</option>
-                        <option value="statute">{{ __('Diretoria::messages.doc_type_statute') }}</option>
-                        <option value="regiment">{{ __('Diretoria::messages.doc_type_regiment') }}</option>
-                        <option value="regimento_interno">{{ __('Diretoria::messages.doc_type_regimento_interno') }}
+                        <option value="minute">{{ __('diretoria::messages.doc_type_minute') }}</option>
+                        <option value="statute">{{ __('diretoria::messages.doc_type_statute') }}</option>
+                        <option value="regiment">{{ __('diretoria::messages.doc_type_regiment') }}</option>
+                        <option value="regimento_interno">{{ __('diretoria::messages.doc_type_regimento_interno') }}
                         </option>
-                        <option value="resolution">{{ __('Diretoria::messages.doc_type_resolution') }}</option>
+                        <option value="resolution">{{ __('diretoria::messages.doc_type_resolution') }}</option>
                         <option value="declaracao_doutrinaria">
-                            {{ __('Diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
-                        <option value="pacto_igrejas">{{ __('Diretoria::messages.doc_type_pacto_igrejas') }}</option>
-                        <option value="other">{{ __('Diretoria::messages.doc_type_other') }}</option>
+                            {{ __('diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
+                        <option value="pacto_igrejas">{{ __('diretoria::messages.doc_type_pacto_igrejas') }}</option>
+                        <option value="other">{{ __('diretoria::messages.doc_type_other') }}</option>
                     </select>
                 </div>
 

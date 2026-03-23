@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diretoria_meetings', function (Blueprint $table) {
+        Schema::create('reunioes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diretoria_meetings');
+        Schema::dropIfExists('reunioes');
     }
 };

@@ -21,9 +21,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'acesso painel admin',
             'acesso painel lideranca',
             'acesso painel membro',
+            'gerenciar diretoria',
             'gerenciar igrejas',
             'gerenciar usuarios',
             'gerenciar financeiro',
+            'gerenciar financeiro_macro',
             'gerenciar tesouraria',
             'gerenciar campanhas',
             'gerenciar pagamentos',
@@ -38,10 +40,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'gerenciar homepage',
             'gerenciar intercessao',
             'gerenciar assets',
-            'gerenciar conselho',
+            'gerenciar mural',
+            'gerenciar caravana',
+            'visualizar recursos',
         ];
 
-        // Remove permissões legadas que não fazem mais parte do escopo atual.
         Permission::query()
             ->whereNotIn('name', $permissions)
             ->get()
@@ -72,74 +75,68 @@ class RolesAndPermissionsSeeder extends Seeder
             ]);
         }
 
-        $allPermissions = Permission::query()->pluck('name')->all();
-
-        Role::findByName('Super Admin', 'web')->syncPermissions($allPermissions);
-        Role::findByName('Presidente', 'web')->syncPermissions($allPermissions);
-
-        Role::findByName('Vice-Presidente', 'web')->syncPermissions([
-            'acesso painel lideranca',
+        $gabineteAdminPermissions = [
             'acesso painel admin',
-            'gerenciar usuarios',
+            'acesso painel lideranca',
+            'acesso painel membro',
+            'gerenciar diretoria',
             'gerenciar igrejas',
-            'gerenciar conselho',
-            'gerenciar eventos',
-            'gerenciar ministerios',
-            'gerenciar notificacoes',
-            'visualizar relatorios',
-        ]);
-
-        Role::findByName('Secretário', 'web')->syncPermissions([
-            'acesso painel lideranca',
             'gerenciar usuarios',
-            'gerenciar conselho',
-            'gerenciar eventos',
-            'gerenciar sermoes',
-            'gerenciar notificacoes',
-            'visualizar relatorios',
-        ]);
-
-        Role::findByName('Tesoureiro', 'web')->syncPermissions([
-            'acesso painel lideranca',
+            'gerenciar financeiro_macro',
+            'gerenciar mural',
             'gerenciar financeiro',
             'gerenciar tesouraria',
             'gerenciar campanhas',
             'gerenciar pagamentos',
             'visualizar relatorios',
+            'gerenciar eventos',
+            'gerenciar notificacoes',
+            'gerenciar biblia',
+            'gerenciar louvor',
+            'gerenciar projecao',
+            'gerenciar sermoes',
+            'gerenciar ministerios',
+            'gerenciar homepage',
+            'gerenciar intercessao',
+            'gerenciar assets',
+        ];
+
+        Role::findByName('Super Admin', 'web')->syncPermissions(Permission::query()->pluck('name')->all());
+
+        Role::findByName('Presidente', 'web')->syncPermissions($gabineteAdminPermissions);
+
+        Role::findByName('Vice-Presidente', 'web')->syncPermissions($gabineteAdminPermissions);
+
+        Role::findByName('Secretário', 'web')->syncPermissions($gabineteAdminPermissions);
+
+        Role::findByName('Tesoureiro', 'web')->syncPermissions([
+            'acesso painel admin',
+            'acesso painel lideranca',
+            'acesso painel membro',
+            'gerenciar diretoria',
+            'gerenciar igrejas',
+            'gerenciar financeiro_macro',
+            'gerenciar mural',
+            'gerenciar financeiro',
+            'gerenciar tesouraria',
+            'gerenciar campanhas',
+            'gerenciar pagamentos',
+            'visualizar relatorios',
+            'gerenciar eventos',
+            'gerenciar notificacoes',
         ]);
 
         Role::findByName('Líder Local', 'web')->syncPermissions([
             'acesso painel lideranca',
             'acesso painel membro',
-            'gerenciar eventos',
-            'gerenciar ministerios',
-            'gerenciar louvor',
-            'gerenciar projecao',
-            'gerenciar sermoes',
-            'gerenciar intercessao',
-            'gerenciar biblia',
+            'gerenciar caravana',
+            'visualizar recursos',
         ]);
 
         Role::findByName('Jovem', 'web')->syncPermissions([
             'acesso painel membro',
-            'gerenciar biblia',
-            'gerenciar eventos',
-            'gerenciar sermoes',
-            'gerenciar intercessao',
+            'visualizar recursos',
         ]);
-
-        $leaderRoles = [
-            'Super Admin',
-            'Presidente',
-            'Vice-Presidente',
-            'Secretário',
-            'Tesoureiro',
-            'Líder Local',
-        ];
-
-        foreach ($leaderRoles as $roleName) {
-            Role::findByName($roleName, 'web')->givePermissionTo('acesso painel lideranca');
-        }
 
         $superAdminUser = User::withoutEvents(function () {
             return User::updateOrCreate(

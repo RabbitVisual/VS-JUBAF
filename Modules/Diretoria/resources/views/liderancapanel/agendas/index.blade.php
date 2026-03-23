@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', __('Diretoria::messages.agendas'))
+@section('title', __('diretoria::messages.agendas'))
 
 @section('content')
     <div class="space-y-6">
@@ -8,19 +8,19 @@
             <div>
                 <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-1">
                     <a href="{{ route('lideranca.conselho.index') }}"
-                        class="hover:text-white transition-colors">{{ __('Diretoria::messages.diretoria') }}</a>
+                        class="hover:text-white transition-colors">{{ __('diretoria::messages.diretoria') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                    <span class="text-white font-bold">{{ __('Diretoria::messages.agendas') }}</span>
+                    <span class="text-white font-bold">{{ __('diretoria::messages.agendas') }}</span>
                 </nav>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <x-icon name="list-check" class="w-7 h-7 text-amber-500" />
-                    {{ __('Diretoria::messages.view_agendas') }}
+                    {{ __('diretoria::messages.view_agendas') }}
                 </h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Diretoria::messages.agendas_subtitle') }}</p>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('diretoria::messages.agendas_subtitle') }}</p>
             </div>
             <a href="{{ route('lideranca.conselho.index') }}"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('Diretoria::messages.back') }}
+                <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('diretoria::messages.back') }}
             </a>
         </div>
 
@@ -28,10 +28,10 @@
             <form method="GET" action="{{ route('lideranca.conselho.agendas.index') }}"
                 class="flex flex-wrap items-center gap-3">
                 <label
-                    class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Diretoria::messages.meeting') }}:</label>
+                    class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('diretoria::messages.meeting') }}:</label>
                 <select name="meeting_id" onchange="this.form.submit()"
                     class="rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-2 text-sm">
-                    <option value="">{{ __('Diretoria::messages.all_meetings') }}</option>
+                    <option value="">{{ __('diretoria::messages.all_meetings') }}</option>
                     @foreach ($meetings as $m)
                         <option value="{{ $m->id }}" {{ request('meeting_id') == $m->id ? 'selected' : '' }}>
                             {{ $m->title }} ({{ $m->scheduled_date ? $m->scheduled_date->format('d/m/Y') : '' }})
@@ -48,16 +48,16 @@
                         <tr>
                             <th
                                 class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                {{ __('Diretoria::messages.meeting') }}</th>
+                                {{ __('diretoria::messages.meeting') }}</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                {{ __('Diretoria::messages.agenda_title') }}</th>
+                                {{ __('diretoria::messages.agenda_title') }}</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                {{ __('Diretoria::messages.current_status') }}</th>
+                                {{ __('diretoria::messages.current_status') }}</th>
                             <th
                                 class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                {{ __('Diretoria::messages.decision') }}</th>
+                                {{ __('diretoria::messages.decision') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
@@ -80,7 +80,7 @@
                                 @elseif($agenda->status === 'approved') bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300
                                 @elseif($agenda->status === 'rejected') bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300
                                 @else bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 @endif">
-                                        {{ __('Diretoria::messages.status_' . $agenda->status) ?? $agenda->status }}
+                                        {{ __('diretoria::messages.status_' . $agenda->status) ?? $agenda->status }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
@@ -89,7 +89,7 @@
                         @empty
                             <tr>
                                 <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
-                                    {{ __('Diretoria::messages.no_agenda_found') }}</td>
+                                    {{ __('diretoria::messages.no_agenda_found') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

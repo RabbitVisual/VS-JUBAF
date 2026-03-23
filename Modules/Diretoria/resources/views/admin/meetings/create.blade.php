@@ -201,12 +201,12 @@
                 if (result.success) {
                     window.location.href = result.redirect || '{{ route('admin.Diretoria.meetings.index') }}';
                 } else {
-                    alert(result.message || '{{ __('Diretoria::messages.meeting_start_error') }}');
+                    alert(result.message || '{{ __('diretoria::messages.meeting_start_error') }}');
                 }
             } catch (error) {
                 window.dispatchEvent(new CustomEvent('stop-loading'));
                 console.error(error);
-                alert('{{ __('Diretoria::messages.request_error') }}');
+                alert('{{ __('diretoria::messages.request_error') }}');
             }
         });
     </script>

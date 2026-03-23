@@ -11,7 +11,7 @@ use Modules\Diretoria\App\Models\AtaDocumento;
 use Modules\Diretoria\App\Models\Reuniao;
 use Modules\Diretoria\App\Services\DiretoriaPdfService;
 
-class AtaDocumentoController extends Controller
+class DiretoriaDocumentController extends Controller
 {
     public function __construct(
         private DiretoriaPdfService $diretoriaPdf
@@ -31,7 +31,7 @@ class AtaDocumentoController extends Controller
 
         $documents = $query->orderBy('document_date', 'desc')->paginate(15);
 
-        return view('Diretoria::admin.documents.index', compact('documents'));
+        return view('diretoria::admin.documents.index', compact('documents'));
     }
 
     /**
@@ -41,7 +41,7 @@ class AtaDocumentoController extends Controller
     {
         $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(20)->get();
 
-        return view('Diretoria::admin.documents.create', compact('meetings'));
+        return view('diretoria::admin.documents.create', compact('meetings'));
     }
 
     /**
@@ -55,7 +55,7 @@ class AtaDocumentoController extends Controller
             'document_type' => 'required|in:statute,regiment,minute,resolution,declaracao_doutrinaria,pacto_igrejas,regimento_interno,other',
             'document_date' => 'required|date',
             'file' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx',
-            'meeting_id' => 'nullable|exists:diretoria_meetings,id',
+            'meeting_id' => 'nullable|exists:reunioes,id',
             'is_public' => 'boolean',
         ]);
 
@@ -96,7 +96,7 @@ class AtaDocumentoController extends Controller
     {
         $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(20)->get();
 
-        return view('Diretoria::admin.documents.edit', compact('document', 'meetings'));
+        return view('diretoria::admin.documents.edit', compact('document', 'meetings'));
     }
 
     /**
@@ -109,7 +109,7 @@ class AtaDocumentoController extends Controller
             'description' => 'nullable|string',
             'document_type' => 'required|in:statute,regiment,minute,resolution,declaracao_doutrinaria,pacto_igrejas,regimento_interno,other',
             'document_date' => 'required|date',
-            'meeting_id' => 'nullable|exists:diretoria_meetings,id',
+            'meeting_id' => 'nullable|exists:reunioes,id',
             'is_public' => 'boolean',
         ]);
 

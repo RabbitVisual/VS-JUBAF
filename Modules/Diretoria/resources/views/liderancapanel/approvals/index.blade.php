@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', __('Diretoria::messages.approvals'))
+@section('title', __('diretoria::messages.approvals'))
 
 @section('content')
     <div class="space-y-6">
@@ -8,13 +8,13 @@
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                     <x-icon name="scale-balanced" class="w-7 h-7 text-amber-500" />
-                    {{ __('Diretoria::messages.pending_approvals') }}
+                    {{ __('diretoria::messages.pending_approvals') }}
                 </h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('Diretoria::messages.diretoria_panel_intro') }}</p>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('diretoria::messages.diretoria_panel_intro') }}</p>
             </div>
             <a href="{{ route('lideranca.conselho.index') }}"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('Diretoria::messages.back') }}
+                <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('diretoria::messages.back') }}
             </a>
         </div>
 
@@ -38,7 +38,7 @@
                 @empty
                     <div class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                         <x-icon name="check-circle" class="w-12 h-12 mx-auto mb-2 text-green-500 opacity-50" />
-                        <p>{{ __('Diretoria::messages.pending_items') }}</p>
+                        <p>{{ __('diretoria::messages.pending_items') }}</p>
                     </div>
                 @endforelse
             </div>

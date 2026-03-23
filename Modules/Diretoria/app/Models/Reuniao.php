@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reuniao extends Model
 {
+    protected $table = 'reunioes';
+
     protected $fillable = [
         'title',
         'description',
@@ -76,7 +78,7 @@ class Reuniao extends Model
 
     public function minutesVersions(): HasMany
     {
-        return $this->hasMany(MeetingMinutesVersion::class, 'diretoria_meeting_id')->orderByDesc('version');
+        return $this->hasMany(MeetingMinutesVersion::class, 'reuniao_id')->orderByDesc('version');
     }
 
     /**

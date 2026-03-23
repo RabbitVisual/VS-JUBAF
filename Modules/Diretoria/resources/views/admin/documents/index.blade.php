@@ -23,12 +23,12 @@
                 <a href="{{ route('admin.Diretoria.index') }}"
                     class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors flex items-center gap-1">
                     <x-icon name="users-rectangle" style="duotone" class="w-4 h-4" />
-                    {{ __('Diretoria::messages.diretoria_title') }}
+                    {{ __('diretoria::messages.diretoria_title') }}
                 </a>
                 <x-icon name="chevron-right" class="w-3.5 h-3.5 text-gray-400 dark:text-gray-500" />
                 <span class="text-gray-900 dark:text-white font-bold flex items-center gap-1.5">
                     <x-icon name="file-lines" style="duotone" class="w-4 h-4 text-blue-500" />
-                    {{ __('Diretoria::messages.documents') }}
+                    {{ __('diretoria::messages.documents') }}
                 </span>
             </nav>
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -58,29 +58,29 @@
                         class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl py-2.5 px-4 text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="">Todos os tipos</option>
                         <option value="statute" {{ request('type') == 'statute' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_statute') }}</option>
+                            {{ __('diretoria::messages.doc_type_statute') }}</option>
                         <option value="regiment" {{ request('type') == 'regiment' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_regiment') }}</option>
+                            {{ __('diretoria::messages.doc_type_regiment') }}</option>
                         <option value="regimento_interno" {{ request('type') == 'regimento_interno' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_regimento_interno') }}</option>
+                            {{ __('diretoria::messages.doc_type_regimento_interno') }}</option>
                         <option value="minute" {{ request('type') == 'minute' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_minute') }}</option>
+                            {{ __('diretoria::messages.doc_type_minute') }}</option>
                         <option value="resolution" {{ request('type') == 'resolution' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_resolution') }}</option>
+                            {{ __('diretoria::messages.doc_type_resolution') }}</option>
                         <option value="declaracao_doutrinaria"
                             {{ request('type') == 'declaracao_doutrinaria' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
+                            {{ __('diretoria::messages.doc_type_declaracao_doutrinaria') }}</option>
                         <option value="pacto_igrejas" {{ request('type') == 'pacto_igrejas' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_pacto_igrejas') }}</option>
+                            {{ __('diretoria::messages.doc_type_pacto_igrejas') }}</option>
                         <option value="other" {{ request('type') == 'other' ? 'selected' : '' }}>
-                            {{ __('Diretoria::messages.doc_type_other') }}</option>
+                            {{ __('diretoria::messages.doc_type_other') }}</option>
                     </select>
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('admin.Diretoria.documents.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
                         <x-icon name="arrow-rotate-left" style="duotone" class="w-4 h-4" />
-                        {{ __('Diretoria::messages.clear_filters') }}
+                        {{ __('diretoria::messages.clear_filters') }}
                     </a>
                 </div>
             </form>
@@ -168,12 +168,12 @@
                                         <div class="flex items-center justify-end gap-1">
                                             <a href="{{ route('admin.Diretoria.documents.download', $doc) }}"
                                                 class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-gray-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
-                                                title="{{ __('Diretoria::messages.download') }}">
+                                                title="{{ __('diretoria::messages.download') }}">
                                                 <x-icon name="download" style="duotone" class="w-5 h-5" />
                                             </a>
                                             <a href="{{ route('admin.Diretoria.documents.edit', $doc) }}"
                                                 class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-gray-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors"
-                                                title="{{ __('Diretoria::messages.edit') }}">
+                                                title="{{ __('diretoria::messages.edit') }}">
                                                 <x-icon name="pencil" style="duotone" class="w-5 h-5" />
                                             </a>
                                             <form action="{{ route('admin.Diretoria.documents.destroy', $doc) }}"

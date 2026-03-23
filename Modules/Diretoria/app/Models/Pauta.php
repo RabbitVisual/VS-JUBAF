@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pauta extends Model
 {
+    protected $table = 'pautas';
+
     protected $fillable = [
         'meeting_id',
         'title',
@@ -92,7 +94,7 @@ class Pauta extends Model
 
     public function versions(): HasMany
     {
-        return $this->hasMany(PautaVersion::class, 'diretoria_agenda_id')->orderByDesc('version');
+        return $this->hasMany(PautaVersion::class, 'pauta_id')->orderByDesc('version');
     }
 
     /**

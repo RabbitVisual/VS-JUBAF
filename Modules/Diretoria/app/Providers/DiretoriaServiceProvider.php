@@ -3,7 +3,13 @@
 namespace Modules\Diretoria\App\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Modules\Diretoria\App\Models\AtaDocumento;
+use Modules\Diretoria\App\Models\DiretoriaApproval;
+use Modules\Diretoria\App\Models\MeetingMinutesVersion;
+use Modules\Diretoria\App\Models\Pauta;
+use Modules\Diretoria\App\Models\Reuniao;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
@@ -16,13 +22,19 @@ class DiretoriaServiceProvider extends ServiceProvider
 
     protected string $name = 'Diretoria';
 
-    protected string $nameLower = 'Diretoria';
+    protected string $nameLower = 'diretoria';
 
     /**
      * Boot the application events.
      */
     public function boot(): void
     {
+        Route::bind('meeting', fn ($value) => Reuniao::whereKey($value)->firstOrFail());
+        Route::bind('agenda', fn ($value) => Pauta::whereKey($value)->firstOrFail());
+        Route::bind('approval', fn ($value) => DiretoriaApproval::whereKey($value)->firstOrFail());
+        Route::bind('document', fn ($value) => AtaDocumento::whereKey($value)->firstOrFail());
+        Route::bind('minutesVersion', fn ($value) => MeetingMinutesVersion::whereKey($value)->firstOrFail());
+
         $this->registerCommands();
         $this->registerCommandSchedules();
         $this->registerTranslations();
@@ -43,9 +55,9 @@ class DiretoriaServiceProvider extends ServiceProvider
             $view->with('diretoria_display_name', DiretoriaSettings::diretoriaName());
         };
         View::composer([
-            'Diretoria::admin.*',
-            'Diretoria::memberpanel.*',
-            'Diretoria::liderancapanel.*',
+            'diretoria::admin.*',
+            'diretoria::memberpanel.*',
+            'diretoria::liderancapanel.*',
         ], $injectdiretoriaName);
         View::composer('admin::components.layouts.master', $injectdiretoriaName);
     }

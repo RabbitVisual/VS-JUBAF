@@ -9,7 +9,7 @@ use Modules\Ministries\App\Models\Ministry;
 use Modules\Ministries\App\Models\MinistryPlan;
 use Modules\Ministries\App\Models\MinistryReport;
 
-class diretoriaMinistriesDashboardController extends Controller
+class DiretoriaMinistriesDashboardController extends Controller
 {
     /**
      * Visão macro dos ministérios para o conselho: plano, líder, status, semáforo.
@@ -77,7 +77,7 @@ class diretoriaMinistriesDashboardController extends Controller
             ->sort()
             ->all();
 
-        return view('Diretoria::admin.ministries-dashboard.index', compact(
+        return view('diretoria::admin.ministries-dashboard.index', compact(
             'ministries',
             'planStatuses',
             'reportSubmitted',

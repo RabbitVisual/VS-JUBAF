@@ -439,12 +439,12 @@
                         if (data.success) {
                             location.reload();
                         } else {
-                            alert('{{ __('Diretoria::messages.meeting_start_error') }}: ' + (data.message || ''));
+                            alert('{{ __('diretoria::messages.meeting_start_error') }}: ' + (data.message || ''));
                         }
                     })
                     .catch(error => {
                         window.dispatchEvent(new CustomEvent('stop-loading'));
-                        alert('{{ __('Diretoria::messages.meeting_start_error') }}');
+                        alert('{{ __('diretoria::messages.meeting_start_error') }}');
                         console.error(error);
                     });
             }
@@ -466,12 +466,12 @@
                         if (data.success) {
                             location.reload();
                         } else {
-                            alert('{{ __('Diretoria::messages.meeting_end_error') }}: ' + (data.message || ''));
+                            alert('{{ __('diretoria::messages.meeting_end_error') }}: ' + (data.message || ''));
                         }
                     })
                     .catch(error => {
                         window.dispatchEvent(new CustomEvent('stop-loading'));
-                        alert('{{ __('Diretoria::messages.meeting_end_error') }}');
+                        alert('{{ __('diretoria::messages.meeting_end_error') }}');
                         console.error(error);
                     });
             }

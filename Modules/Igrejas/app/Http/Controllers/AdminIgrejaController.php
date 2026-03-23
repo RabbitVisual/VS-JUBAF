@@ -21,11 +21,10 @@ class AdminIgrejaController extends Controller
 
     public function create()
     {
-        $isLideranca = request()->routeIs('lideranca.igrejas.*');
         $igreja = new Igreja();
-        $formAction = $isLideranca ? route('lideranca.igrejas.store') : route('admin.igrejas.store');
+        $formAction = route('admin.igrejas.store');
         $formMethod = 'POST';
-        $layout = $isLideranca ? 'liderancapanel::components.layouts.master' : 'admin::components.layouts.master';
+        $layout = 'admin::components.layouts.master';
         $pageTitle = 'Nova Igreja';
 
         return view('igrejas::admin.create', compact('igreja', 'formAction', 'formMethod', 'layout', 'pageTitle'));
@@ -41,19 +40,16 @@ class AdminIgrejaController extends Controller
 
         Igreja::create($data);
 
-        $route = request()->routeIs('lideranca.igrejas.*') ? 'lideranca.igrejas.index' : 'admin.igrejas.index';
-
         return redirect()
-            ->route($route)
+            ->route('admin.igrejas.index')
             ->with('success', 'Igreja cadastrada com sucesso.');
     }
 
     public function edit(Igreja $igreja)
     {
-        $isLideranca = request()->routeIs('lideranca.igrejas.*');
-        $formAction = $isLideranca ? route('lideranca.igrejas.update', $igreja) : route('admin.igrejas.update', $igreja);
+        $formAction = route('admin.igrejas.update', $igreja);
         $formMethod = 'PUT';
-        $layout = $isLideranca ? 'liderancapanel::components.layouts.master' : 'admin::components.layouts.master';
+        $layout = 'admin::components.layouts.master';
         $pageTitle = 'Editar Igreja';
 
         return view('igrejas::admin.edit', compact('igreja', 'formAction', 'formMethod', 'layout', 'pageTitle'));
@@ -72,10 +68,8 @@ class AdminIgrejaController extends Controller
 
         $igreja->update($data);
 
-        $route = request()->routeIs('lideranca.igrejas.*') ? 'lideranca.igrejas.index' : 'admin.igrejas.index';
-
         return redirect()
-            ->route($route)
+            ->route('admin.igrejas.index')
             ->with('success', 'Igreja atualizada com sucesso.');
     }
 
@@ -87,10 +81,8 @@ class AdminIgrejaController extends Controller
 
         $igreja->delete();
 
-        $route = request()->routeIs('lideranca.igrejas.*') ? 'lideranca.igrejas.index' : 'admin.igrejas.index';
-
         return redirect()
-            ->route($route)
+            ->route('admin.igrejas.index')
             ->with('success', 'Igreja removida com sucesso.');
     }
 }

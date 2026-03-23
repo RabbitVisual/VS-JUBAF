@@ -31,13 +31,13 @@
                             class="px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-xs font-bold uppercase tracking-wider">Dashboard</span>
                     </div>
                     <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">
-                        {{ $diretoria_display_name ?? __('Diretoria::messages.diretoria_title') }}</h1>
-                    <p class="text-gray-300 max-w-xl">{{ __('Diretoria::messages.diretoria_subtitle') }}</p>
+                        {{ $diretoria_display_name ?? __('diretoria::messages.diretoria_title') }}</h1>
+                    <p class="text-gray-300 max-w-xl">{{ __('diretoria::messages.diretoria_subtitle') }}</p>
                 </div>
                 <div class="flex flex-shrink-0 flex-wrap items-center gap-3">
                     <a href="{{ route('admin.Diretoria.members.index') }}"
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
-                        <x-icon name="users" class="w-5 h-5" /> {{ __('Diretoria::messages.members') }}
+                        <x-icon name="users" class="w-5 h-5" /> {{ __('diretoria::messages.members') }}
                     </a>
                     <a href="{{ route('admin.Diretoria.ministries.dashboard') }}"
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
@@ -45,15 +45,11 @@
                     </a>
                     <a href="{{ route('admin.Diretoria.documents.index') }}"
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
-                        <x-icon name="file-lines" class="w-5 h-5" /> {{ __('Diretoria::messages.documents') }}
-                    </a>
-                    <a href="{{ route('admin.Diretoria.projects.index') }}"
-                        class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
-                        <x-icon name="diagram-project" class="w-5 h-5" /> {{ __('Diretoria::messages.projects') }}
+                        <x-icon name="file-lines" class="w-5 h-5" /> {{ __('diretoria::messages.documents') }}
                     </a>
                     <a href="{{ route('admin.Diretoria.meetings.create') }}"
                         class="px-6 py-3 rounded-xl bg-white text-gray-900 font-bold hover:bg-gray-100 shadow-lg shadow-white/10 inline-flex items-center gap-2">
-                        <x-icon name="plus" class="w-5 h-5 text-blue-600" /> {{ __('Diretoria::messages.new_meeting') }}
+                        <x-icon name="plus" class="w-5 h-5 text-blue-600" /> {{ __('diretoria::messages.new_meeting') }}
                     </a>
                 </div>
             </div>
@@ -69,13 +65,13 @@
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                        {{ __('Diretoria::messages.active_members') }}</p>
+                        {{ __('diretoria::messages.active_members') }}</p>
                     <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-2">
                         {{ number_format($stats['total_members'] ?? 0) }}
                     </h3>
                     <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400 font-medium">
                         <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
-                        {{ __('Diretoria::messages.counselors_registered') }}
+                        {{ __('diretoria::messages.counselors_registered') }}
                     </div>
                 </div>
             </div>
@@ -88,13 +84,13 @@
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                        {{ __('Diretoria::messages.upcoming_meetings') }}</p>
+                        {{ __('diretoria::messages.upcoming_meetings') }}</p>
                     <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-2">
                         {{ number_format($stats['upcoming_meetings'] ?? 0) }}
                     </h3>
                     <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400 font-medium">
                         <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                        {{ __('Diretoria::messages.scheduled') }}
+                        {{ __('diretoria::messages.scheduled') }}
                     </div>
                 </div>
             </div>
@@ -107,13 +103,13 @@
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                        {{ __('Diretoria::messages.pending_approvals') }}</p>
+                        {{ __('diretoria::messages.pending_approvals') }}</p>
                     <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-2">
                         {{ number_format($stats['pending_approvals'] ?? 0) }}
                     </h3>
                     <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400 font-medium">
                         <span class="inline-block w-2 h-2 rounded-full bg-yellow-500 mr-2"></span>
-                        {{ __('Diretoria::messages.pending') }}
+                        {{ __('diretoria::messages.pending') }}
                     </div>
                 </div>
             </div>
@@ -126,13 +122,13 @@
                 </div>
                 <div class="relative z-10">
                     <p class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                        {{ __('Diretoria::messages.completed_meetings') }}</p>
+                        {{ __('diretoria::messages.completed_meetings') }}</p>
                     <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-2">
                         {{ number_format($stats['completed_meetings'] ?? 0) }}
                     </h3>
                     <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400 font-medium">
                         <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
-                        {{ __('Diretoria::messages.total_history') }}
+                        {{ __('diretoria::messages.total_history') }}
                     </div>
                 </div>
             </div>

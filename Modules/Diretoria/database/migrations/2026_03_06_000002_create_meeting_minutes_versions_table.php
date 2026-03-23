@@ -14,14 +14,14 @@ return new class extends Migration
     {
         Schema::create('meeting_minutes_versions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diretoria_meeting_id')->constrained('diretoria_meetings')->onDelete('cascade');
+            $table->foreignId('reuniao_id')->constrained('reunioes')->onDelete('cascade');
             $table->unsignedInteger('version')->default(1);
             $table->longText('content');
             $table->enum('state', ['draft', 'diretoria_approved', 'assembly_approved'])->default('draft');
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
 
-            $table->unique(['diretoria_meeting_id', 'version']);
+            $table->unique(['reuniao_id', 'version']);
         });
     }
 

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diretoria_agendas', function (Blueprint $table) {
+        Schema::create('pautas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('meeting_id')->constrained('diretoria_meetings')->onDelete('cascade');
+            $table->foreignId('meeting_id')->constrained('reunioes')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->integer('order')->default(0);
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diretoria_agendas');
+        Schema::dropIfExists('pautas');
     }
 };

@@ -11,6 +11,8 @@ class AtaDocumento extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'atas_documentos';
+
     protected $fillable = [
         'title',
         'description',
@@ -55,14 +57,14 @@ class AtaDocumento extends Model
     public static function getDocumentTypeLabel(?string $type): string
     {
         return match ($type) {
-            self::TYPE_STATUTE => __('Diretoria::messages.doc_type_statute'),
-            self::TYPE_REGIMENT => __('Diretoria::messages.doc_type_regiment'),
-            self::TYPE_MINUTE => __('Diretoria::messages.doc_type_minute'),
-            self::TYPE_RESOLUTION => __('Diretoria::messages.doc_type_resolution'),
-            self::TYPE_DECLARACAO_DOUTRINARIA => __('Diretoria::messages.doc_type_declaracao_doutrinaria'),
-            self::TYPE_PACTO_IGREJAS => __('Diretoria::messages.doc_type_pacto_igrejas'),
-            self::TYPE_REGIMENTO_INTERNO => __('Diretoria::messages.doc_type_regimento_interno'),
-            default => __('Diretoria::messages.doc_type_other'),
+            self::TYPE_STATUTE => __('diretoria::messages.doc_type_statute'),
+            self::TYPE_REGIMENT => __('diretoria::messages.doc_type_regiment'),
+            self::TYPE_MINUTE => __('diretoria::messages.doc_type_minute'),
+            self::TYPE_RESOLUTION => __('diretoria::messages.doc_type_resolution'),
+            self::TYPE_DECLARACAO_DOUTRINARIA => __('diretoria::messages.doc_type_declaracao_doutrinaria'),
+            self::TYPE_PACTO_IGREJAS => __('diretoria::messages.doc_type_pacto_igrejas'),
+            self::TYPE_REGIMENTO_INTERNO => __('diretoria::messages.doc_type_regimento_interno'),
+            default => __('diretoria::messages.doc_type_other'),
         };
     }
 

@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', __('Diretoria::messages.welcome_diretoria'))
+@section('title', __('diretoria::messages.welcome_diretoria'))
 
 @section('content')
     <div
@@ -31,18 +31,18 @@
 
                 <!-- Header Info -->
                 <div class="flex-1 w-full text-center md:text-left">
-                    <h1 class="text-3xl font-bold text-white mb-2">{{ __('Diretoria::messages.welcome_user') }}, <span
+                    <h1 class="text-3xl font-bold text-white mb-2">{{ __('diretoria::messages.welcome_user') }}, <span
                             class="text-blue-300 dark:text-blue-500">{{ explode(' ', auth()->user()->name)[0] }}</span>!
                     </h1>
                     <p class="text-blue-100 dark:text-slate-400 max-w-2xl mx-auto md:mx-0">
-                        {{ __('Diretoria::messages.diretoria_panel_intro') }}
+                        {{ __('diretoria::messages.diretoria_panel_intro') }}
                     </p>
 
                     <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
                         <a href="{{ route('memberpanel.Diretoria.profile.index') }}"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 dark:bg-slate-800 dark:hover:bg-slate-700 text-white dark:text-slate-200 rounded-lg text-sm font-bold border border-white/20 dark:border-slate-700 transition-all hover:border-white/40 dark:hover:border-blue-500/50">
                             <x-icon name="circle-user" class="w-5 h-5 text-blue-300 dark:text-blue-500" />
-                            {{ __('Diretoria::messages.my_profile') }}
+                            {{ __('diretoria::messages.my_profile') }}
                         </a>
                     </div>
                 </div>
@@ -292,18 +292,6 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('memberpanel.Diretoria.projects.index') }}"
-                        class="group flex items-center gap-4 bg-white dark:bg-slate-900 rounded-xl p-5 border border-gray-200 dark:border-slate-800 hover:border-purple-500/50 transition-all shadow-sm hover:shadow-lg">
-                        <div
-                            class="w-12 h-12 rounded-lg bg-purple-50 dark:bg-purple-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <x-icon name="lightbulb" class="w-6 h-6 text-purple-600 dark:text-purple-500" />
-                        </div>
-                        <div>
-                            <span
-                                class="block text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Projetos</span>
-                            <span class="text-xs text-gray-500 dark:text-slate-400">Meus projetos</span>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>

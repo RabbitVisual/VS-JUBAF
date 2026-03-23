@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Voto extends Model
 {
+    protected $table = 'votos';
+
     protected $fillable = [
         'agenda_id',
         'diretoria_member_id',
@@ -39,7 +41,7 @@ class Voto extends Model
     /**
      * Get the diretoria member who cast this vote
      */
-    public function DiretoriaMember(): BelongsTo
+    public function member(): BelongsTo
     {
         return $this->belongsTo(DiretoriaMember::class, 'diretoria_member_id');
     }

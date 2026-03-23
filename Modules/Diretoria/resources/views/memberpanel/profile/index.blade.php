@@ -104,12 +104,6 @@
                                 <span class="text-xs font-bold text-gray-500 dark:text-slate-500 uppercase">Pautas
                                     Aprov.</span>
                             </div>
-                            <div
-                                class="bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700 p-4 rounded-xl text-center">
-                                <span
-                                    class="block text-2xl font-black text-orange-600 dark:text-orange-400">{{ $stats['total_projects'] }}</span>
-                                <span class="text-xs font-bold text-gray-500 dark:text-slate-500 uppercase">Projetos</span>
-                            </div>
                         </div>
                     </div>
 
@@ -225,49 +219,6 @@
                         @endif
                     </div>
 
-                    <!-- My Projects -->
-                    <div
-                        class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm dark:shadow-sm border border-gray-200 dark:border-slate-800 p-6 transition-colors duration-200">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                            <x-icon name="lightbulb" class="w-5 h-5 text-yellow-500" />
-                            Meus Projetos
-                        </h3>
-
-                        @if ($myprojects->count() > 0)
-                            <div class="grid gap-4">
-                                @foreach ($myprojects as $project)
-                                    <div
-                                        class="p-4 rounded-xl border border-gray-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-slate-600 transition-colors bg-gray-50 dark:bg-slate-900/50">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <h4 class="text-sm font-bold text-gray-900 dark:text-white">
-                                                    {{ $project->title }}</h4>
-                                                <p class="text-xs text-gray-500 dark:text-slate-500 mt-1 line-clamp-1">
-                                                    {{ $project->description }}</p>
-                                            </div>
-                                            <span
-                                                class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border border-current
-                                            @if ($project->status == 'approved') text-emerald-600 bg-emerald-50 border-emerald-200 dark:text-emerald-400 dark:border-emerald-500/30 dark:bg-emerald-500/10
-                                            @elseif($project->status == 'submitted') text-blue-600 bg-blue-50 border-blue-200 dark:text-blue-400 dark:border-blue-500/30 dark:bg-blue-500/10
-                                            @else text-gray-500 bg-gray-100 border-gray-200 dark:text-slate-400 dark:border-slate-600 dark:bg-slate-800 @endif">
-                                                {{ ucfirst($project->status) }}
-                                            </span>
-                                        </div>
-                                        <div
-                                            class="flex items-center justify-between mt-3 text-xs text-gray-500 dark:text-slate-500">
-                                            <span>{{ $project->created_at->format('d/m/Y') }}</span>
-                                            <a href="{{ route('memberpanel.Diretoria.projects.show', $project) }}"
-                                                class="text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300 font-bold transition-colors">Ver
-                                                Detalhes</a>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @else
-                            <p class="text-sm text-gray-500 dark:text-slate-500 text-center py-4">Nenhum projeto submetido
-                                ainda.</p>
-                        @endif
-                    </div>
                 </div>
             </div>
         </div>

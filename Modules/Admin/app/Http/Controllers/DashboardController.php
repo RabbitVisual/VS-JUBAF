@@ -119,8 +119,8 @@ class DashboardController extends Controller
                 ->whereDate('created_at', Carbon::now()->toDateString())
                 ->count();
         }
-        if (Module::has('Diretoria') && Module::isEnabled('Diretoria') && Schema::hasTable('diretoria_agendas')) {
-            $stats['diretoria_agendas_pending'] = DB::table('diretoria_agendas')
+        if (Module::has('Diretoria') && Module::isEnabled('Diretoria') && Schema::hasTable('pautas')) {
+            $stats['diretoria_agendas_pending'] = DB::table('pautas')
                 ->whereIn('status', ['pending', 'discussed'])
                 ->count();
         }

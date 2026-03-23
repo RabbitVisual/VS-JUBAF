@@ -9,11 +9,9 @@ use Modules\Diretoria\App\Models\DiretoriaApproval;
 use Modules\Diretoria\App\Models\AtaDocumento;
 use Modules\Diretoria\App\Models\Reuniao;
 use Modules\Diretoria\App\Models\DiretoriaMember;
-use Modules\Diretoria\App\Models\diretoriaProject;
-
 /**
- * Serviço central da API de conselho (v1).
- * Expõe reuniões, membros, pautas, votos, aprovações, documentos e projetos.
+ * Serviço central da API da Diretoria (v1).
+ * Expõe reuniões, membros, pautas, votos, aprovações e documentos.
  */
 class DiretoriaApiService
 {
@@ -115,19 +113,19 @@ class DiretoriaApiService
      */
     public function getAgendaById(int $id): ?Pauta
     {
-        return Pauta::with(['meeting', 'presenter.user', 'decisionMaker.user', 'votes.DiretoriaMember.user'])->find($id);
+        return Pauta::with(['meeting', 'presenter.user', 'decisionMaker.user', 'votes.member.user'])->find($id);
     }
 
     /**
      * Registra voto em pauta (member panel).
      */
-    public function castVote(Pauta $agenda, int $DiretoriaMemberId, string $vote, ?string $comments = null): bool
+    public function castVote(Pauta $agenda, int $diretoriaMemberId, string $vote, ?string $comments = null): bool
     {
         if (! in_array($vote, ['yes', 'no', 'abstain'], true)) {
             return false;
         }
         $agenda->votes()->updateOrCreate(
-            ['diretoria_member_id' => $DiretoriaMemberId],
+            ['diretoria_member_id' => $diretoriaMemberId],
             ['vote' => $vote, 'comments' => $comments, 'voted_at' => now()]
         );
 
@@ -166,19 +164,4 @@ class DiretoriaApiService
         return $query->paginate($perPage);
     }
 
-    /**
-     * Lista projetos.
-     *
-     * @return LengthAwarePaginator<diretoriaProject>
-     */
-    public function listProjects(int $perPage = 15, ?string $status = null): LengthAwarePaginator
-    {
-        $query = diretoriaProject::with(['proposer', 'reviewer.user', 'ministry'])->latest();
-
-        if ($status !== null && $status !== '') {
-            $query->where('status', $status);
-        }
-
-        return $query->paginate($perPage);
-    }
 }

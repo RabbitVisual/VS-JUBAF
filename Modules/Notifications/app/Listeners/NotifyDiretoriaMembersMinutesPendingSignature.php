@@ -24,7 +24,7 @@ class NotifyDiretoriaMembersMinutesPendingSignature
         $this->inApp->sendToUsers(
             $diretoriaUsers,
             'Ata pendente de visto',
-            "A ata da reunião de " . $meeting->scheduled_at?->format('d/m/Y') . " está disponível para seu visto digital.",
+            'A ata da reunião de '.$meeting->scheduled_date?->format('d/m/Y').' está disponível para seu visto digital.',
             [
                 'type' => 'info',
                 'priority' => 'normal',

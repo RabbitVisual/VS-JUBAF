@@ -1,6 +1,6 @@
 @extends('liderancapanel::components.layouts.master')
 
-@section('title', $meeting->title . ' - ' . __('Diretoria::messages.meeting'))
+@section('title', $meeting->title . ' - ' . __('diretoria::messages.meeting'))
 
 @section('content')
     <div class="space-y-6">
@@ -8,10 +8,10 @@
             <div>
                 <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-1">
                     <a href="{{ route('lideranca.conselho.index') }}"
-                        class="hover:text-white transition-colors">{{ __('Diretoria::messages.diretoria') }}</a>
+                        class="hover:text-white transition-colors">{{ __('diretoria::messages.diretoria') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                     <a href="{{ route('lideranca.conselho.meetings.index') }}"
-                        class="hover:text-white transition-colors">{{ __('Diretoria::messages.meetings') }}</a>
+                        class="hover:text-white transition-colors">{{ __('diretoria::messages.meetings') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                     <span class="text-white font-bold">{{ $meeting->title }}</span>
                 </nav>
@@ -45,7 +45,7 @@
                 @if (Route::has('lideranca.conselho.meetings.minutes-pdf'))
                     <a href="{{ route('lideranca.conselho.meetings.minutes-pdf', $meeting) }}" target="_blank"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
-                        <x-icon name="file-pdf" class="w-5 h-5" /> {{ __('Diretoria::messages.minutes') }} (PDF)
+                        <x-icon name="file-pdf" class="w-5 h-5" /> {{ __('diretoria::messages.minutes') }} (PDF)
                     </a>
                 @endif
                 @if (Route::has('lideranca.conselho.meetings.convocation-pdf'))
@@ -56,7 +56,7 @@
                 @endif
                 <a href="{{ route('lideranca.conselho.meetings.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                    <x-icon name="arrow-left" class="w-5 h-5" /> {{ __('Diretoria::messages.back') }}
+                    <x-icon name="arrow-left" class="w-5 h-5" /> {{ __('diretoria::messages.back') }}
                 </a>
             </div>
         </div>
@@ -66,12 +66,12 @@
                 <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6">
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                         <x-icon name="document-text" class="w-5 h-5 text-amber-500" />
-                        {{ __('Diretoria::messages.meeting_details') }}
+                        {{ __('diretoria::messages.meeting_details') }}
                     </h2>
                     @if ($meeting->description)
                         <div class="mb-4">
                             <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2">
-                                {{ __('Diretoria::messages.initial_agenda_description') }}</h3>
+                                {{ __('diretoria::messages.initial_agenda_description') }}</h3>
                             <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{{ $meeting->description }}
                             </p>
                         </div>
@@ -79,7 +79,7 @@
                     @if ($meeting->objectives ?? null)
                         <div class="mb-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20">
                             <h3 class="text-sm font-bold text-amber-800 dark:text-amber-200 mb-2">
-                                {{ __('Diretoria::messages.main_objectives') }}</h3>
+                                {{ __('diretoria::messages.main_objectives') }}</h3>
                             <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{{ $meeting->objectives }}
                             </p>
                         </div>
@@ -108,7 +108,7 @@
                 <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6">
                     <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                         <x-icon name="list-check" class="w-5 h-5 text-amber-500" />
-                        {{ __('Diretoria::messages.agendas') }}
+                        {{ __('diretoria::messages.agendas') }}
                     </h2>
                     @if ($meeting->agendas->count() > 0)
                         <div class="space-y-3">
@@ -124,7 +124,7 @@
                                 @elseif($agenda->status === 'approved') bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300
                                 @elseif($agenda->status === 'rejected') bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300
                                 @else bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 @endif">
-                                            {{ __('Diretoria::messages.status_' . $agenda->status) ?? $agenda->status }}
+                                            {{ __('diretoria::messages.status_' . $agenda->status) ?? $agenda->status }}
                                         </span>
                                     </div>
                                     @if ($agenda->description)
@@ -133,7 +133,7 @@
                                     @endif
                                     @if ($agenda->decision)
                                         <p class="text-sm font-medium text-gray-800 dark:text-gray-200 mt-2">
-                                            {{ __('Diretoria::messages.decision') }}:
+                                            {{ __('diretoria::messages.decision') }}:
                                             {{ Str::limit($agenda->decision, 80) }}</p>
                                     @endif
                                 </div>
@@ -141,7 +141,7 @@
                         </div>
                     @else
                         <p class="text-gray-500 dark:text-gray-400 text-sm">
-                            {{ __('Diretoria::messages.no_agendas_yet') }}</p>
+                            {{ __('diretoria::messages.no_agendas_yet') }}</p>
                     @endif
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 @if ($meeting->minutesVersions->count() > 0)
                     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6">
                         <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-3">
-                            {{ __('Diretoria::messages.minutes') }} (versões)</h3>
+                            {{ __('diretoria::messages.minutes') }} (versões)</h3>
                         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                             @foreach ($meeting->minutesVersions->take(5) as $v)
                                 <li>v{{ $v->version }} · {{ $v->created_at->format('d/m/Y') }}</li>

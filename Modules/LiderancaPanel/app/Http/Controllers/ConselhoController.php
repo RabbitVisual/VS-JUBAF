@@ -11,7 +11,6 @@ use Modules\Diretoria\App\Models\DiretoriaApproval;
 use Modules\Diretoria\App\Models\AtaDocumento;
 use Modules\Diretoria\App\Models\Reuniao;
 use Modules\Diretoria\App\Models\DiretoriaMember;
-use Modules\Diretoria\App\Models\diretoriaProject;
 use Modules\Diretoria\App\Services\DiretoriaApiService;
 use Modules\Diretoria\App\Services\DiretoriaPdfService;
 use Modules\Diretoria\App\Services\DiretoriaSettings;
@@ -26,7 +25,7 @@ class ConselhoController extends Controller
     public function index(): View
     {
         if (! class_exists(Reuniao::class)) {
-            return view('Diretoria::liderancapanel.index', [
+            return view('diretoria::liderancapanel.index', [
                 'stats' => ['total_members' => 0, 'upcoming_meetings' => 0, 'pending_approvals' => 0, 'completed_meetings' => 0],
                 'recentMeetings' => collect(),
                 'pendingApprovals' => collect(),
@@ -51,7 +50,7 @@ class ConselhoController extends Controller
             ->limit(10)
             ->get();
 
-        return view('Diretoria::liderancapanel.index', compact('stats', 'recentMeetings', 'pendingApprovals'));
+        return view('diretoria::liderancapanel.index', compact('stats', 'recentMeetings', 'pendingApprovals'));
     }
 
     /**
@@ -64,7 +63,7 @@ class ConselhoController extends Controller
             ->orderBy('submitted_at', 'asc')
             ->paginate(15);
 
-        return view('Diretoria::liderancapanel.approvals.index', compact('pendingApprovals'));
+        return view('diretoria::liderancapanel.approvals.index', compact('pendingApprovals'));
     }
 
     /**
@@ -74,7 +73,7 @@ class ConselhoController extends Controller
     {
         $approval = DiretoriaApproval::with(['requester', 'approver'])->findOrFail($approval);
 
-        return view('Diretoria::liderancapanel.approvals.show', compact('approval'));
+        return view('diretoria::liderancapanel.approvals.show', compact('approval'));
     }
 
     /**
@@ -167,7 +166,7 @@ class ConselhoController extends Controller
             $request->input('date_from')
         );
 
-        return view('Diretoria::liderancapanel.meetings.index', compact('meetings'));
+        return view('diretoria::liderancapanel.meetings.index', compact('meetings'));
     }
 
     /**
@@ -184,7 +183,7 @@ class ConselhoController extends Controller
             'minutesVersions.signatures.user',
         ]);
 
-        return view('Diretoria::liderancapanel.meetings.show', compact('meeting'));
+        return view('diretoria::liderancapanel.meetings.show', compact('meeting'));
     }
 
     /**
@@ -217,7 +216,7 @@ class ConselhoController extends Controller
         $agendas = $query->paginate(20);
         $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(50)->get();
 
-        return view('Diretoria::liderancapanel.agendas.index', compact('agendas', 'meetings'));
+        return view('diretoria::liderancapanel.agendas.index', compact('agendas', 'meetings'));
     }
 
     /**
@@ -233,7 +232,7 @@ class ConselhoController extends Controller
 
         $documents = $query->orderBy('document_date', 'desc')->paginate(15);
 
-        return view('Diretoria::liderancapanel.documents.index', compact('documents'));
+        return view('diretoria::liderancapanel.documents.index', compact('documents'));
     }
 
     /**
@@ -243,7 +242,7 @@ class ConselhoController extends Controller
     {
         $document->load('meeting');
 
-        return view('Diretoria::liderancapanel.documents.show', compact('document'));
+        return view('diretoria::liderancapanel.documents.show', compact('document'));
     }
 
     /**
@@ -255,28 +254,6 @@ class ConselhoController extends Controller
             $document->file_path,
             $document->title . '.' . $document->file_type
         );
-    }
-
-    /**
-     * Lista de projetos (somente leitura).
-     */
-    public function projectsIndex(Request $request): View
-    {
-        $projects = diretoriaProject::with(['proposer', 'ministry', 'reviewer.user'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
-
-        return view('Diretoria::liderancapanel.projects.index', compact('projects'));
-    }
-
-    /**
-     * Detalhe do projeto (somente leitura).
-     */
-    public function projectShow(diretoriaProject $project): View
-    {
-        $project->load(['proposer', 'ministry', 'reviewer.user']);
-
-        return view('Diretoria::liderancapanel.projects.show', compact('project'));
     }
 
     /**
@@ -292,6 +269,6 @@ class ConselhoController extends Controller
 
         $members = $query->orderBy('diretoria_role')->orderBy('term_start')->paginate(20);
 
-        return view('Diretoria::liderancapanel.members.index', compact('members'));
+        return view('diretoria::liderancapanel.members.index', compact('members'));
     }
 }
