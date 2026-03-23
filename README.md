@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
   <img src="assets/images/logo_oficial.png" alt="VertexCBAV Logo" width="320">
 
@@ -196,3 +197,7 @@ This project is for **private use only** and is under a **proprietary license**.
   <br>
   <em>VertexCBAV: High Performance for the Higher Calling.</em>
 </div>
+=======
+# VS-JUBAF
+Vertex Solutions LTDA, sistema pensado e voltado para a Juventude Batista Feirense pensado para auxiliar e conectar liderança juventude com a organização.
+>>>>>>> f2fea77523a8124286bef986b15da8de8402fb93
