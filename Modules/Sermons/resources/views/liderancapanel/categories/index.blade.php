@@ -15,7 +15,7 @@
                     <h1 class="text-2xl md:text-3xl font-bold mt-2">Categorias de Sermões</h1>
                     <p class="text-slate-300 mt-1">Organize os sermões por categoria</p>
                 </div>
-                <a href="{{ route('pastor.sermoes.categories.create') }}"
+                <a href="{{ route('lideranca.sermoes.categories.create') }}"
                     class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors shrink-0">
                     <x-icon name="plus" class="w-5 h-5" />
                     Nova Categoria
@@ -77,9 +77,9 @@
                                     {{ $category->order }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
-                                        <a href="{{ route('pastor.sermoes.categories.edit', $category) }}"
+                                        <a href="{{ route('lideranca.sermoes.categories.edit', $category) }}"
                                             class="text-amber-600 dark:text-amber-400 hover:underline font-medium">Editar</a>
-                                        <form action="{{ route('pastor.sermoes.categories.destroy', $category) }}"
+                                        <form action="{{ route('lideranca.sermoes.categories.destroy', $category) }}"
                                             method="POST" class="inline"
                                             onsubmit="return confirm('Tem certeza que deseja deletar esta categoria?');">
                                             @csrf
@@ -102,7 +102,7 @@
                                             ainda</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Organize seus sermões por
                                             categoria. Crie a primeira para começar.</p>
-                                        <a href="{{ route('pastor.sermoes.categories.create') }}"
+                                        <a href="{{ route('lideranca.sermoes.categories.create') }}"
                                             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                                             <x-icon name="plus" class="w-5 h-5" />
                                             Nova categoria

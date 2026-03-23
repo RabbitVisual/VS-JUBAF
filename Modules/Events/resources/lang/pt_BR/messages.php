@@ -447,7 +447,7 @@ return [
     'price_rules_single_intro' => 'Defina aqui as regras que determinam o valor por participante. Idade, data de inscrição e quantidade já são usados automaticamente; para código promocional use um campo extra com nome discount_code.',
     'default_form_fields_unified' => 'O sistema sempre coleta: Nome, E-mail, Data de nascimento, CPF/RG/Título (por faixa), Telefone (se ativo). Não repita esses campos em «Campos extras». As regras de preço usam esses dados (idade, data, quantidade) ou um campo extra com o nome correto — ex.: discount_code para código promocional, member_status, location.',
     'coupons_title' => 'Cupons de desconto',
-    'coupons_intro' => 'Configure códigos promocionais pastorais (sem privilégios de luxo), com limites de uso e período de validade.',
+    'coupons_intro' => 'Configure códigos promocionais liderancaais (sem privilégios de luxo), com limites de uso e período de validade.',
     'coupons_linked_to_form' => 'Os cupons aqui configurados são aplicados no checkout quando o participante informar o código. No formulário de inscrição, use um campo com nome discount_code (ou «Código promocional») nos Campos adicionais (modo único) ou nos Campos extras da faixa.',
 
     // Programação (serve para congresso, kids, almoço, oficinas, etc.)
@@ -465,7 +465,7 @@ return [
     'speaker_name' => 'Nome',
     'speaker_name_placeholder' => 'Nome da pessoa',
     'speaker_role' => 'Cargo / Função',
-    'speaker_role_placeholder' => 'Ex.: Pastor, Palestrante, Monitor, Coordenador',
+    'speaker_role_placeholder' => 'Ex.: lideranca, Palestrante, Monitor, Coordenador',
     'speaker_photo' => 'Foto',
     'speaker_order' => 'Ordem',
     'add_speaker' => 'Adicionar',

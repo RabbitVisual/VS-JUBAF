@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('council_position'); // Presidente, Vice-Presidente, Secretário, Tesoureiro, etc.
-            $table->enum('council_role', ['president', 'vice_president', 'secretary', 'treasurer', 'member', 'pastor'])->default('member');
+            $table->enum('council_role', ['president', 'vice_president', 'secretary', 'treasurer', 'member', 'lideranca'])->default('member');
             $table->date('term_start');
             $table->date('term_end')->nullable();
             $table->boolean('is_active')->default(true);

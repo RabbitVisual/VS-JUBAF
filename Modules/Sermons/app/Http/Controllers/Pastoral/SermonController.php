@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\Pastoral;
+namespace Modules\Sermons\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -148,7 +148,7 @@ class SermonController extends Controller
                 }
             }
         }
-        return redirect()->route('pastor.sermoes.sermons.show', $sermon)->with('success', 'Sermão criado com sucesso!');
+        return redirect()->route('lideranca.sermoes.sermons.show', $sermon)->with('success', 'Sermão criado com sucesso!');
     }
 
     public function show(Sermon $sermon): View
@@ -251,14 +251,14 @@ class SermonController extends Controller
                 }
             }
         }
-        return redirect()->route('pastor.sermoes.sermons.show', $sermon)->with('success', 'Sermão atualizado com sucesso!');
+        return redirect()->route('lideranca.sermoes.sermons.show', $sermon)->with('success', 'Sermão atualizado com sucesso!');
     }
 
     public function destroy(Sermon $sermon): RedirectResponse
     {
         $this->authorize('delete', $sermon);
         $sermon->delete();
-        return redirect()->route('pastor.sermoes.sermons.index')->with('success', 'Sermão removido com sucesso!');
+        return redirect()->route('lideranca.sermoes.sermons.index')->with('success', 'Sermão removido com sucesso!');
     }
 
     public function inviteCollaborator(Request $request, Sermon $sermon): RedirectResponse

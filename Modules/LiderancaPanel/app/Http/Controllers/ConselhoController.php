@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class ConselhoController extends Controller
 {
     /**
-     * Conselho - visão pastoral (layout pastoral).
+     * Conselho - visão liderancaal (layout liderancaal).
      */
     public function index(): View
     {
@@ -55,7 +55,7 @@ class ConselhoController extends Controller
     }
 
     /**
-     * Aprovações pendentes (layout pastoral).
+     * Aprovações pendentes (layout liderancaal).
      */
     public function approvals(): View
     {
@@ -68,7 +68,7 @@ class ConselhoController extends Controller
     }
 
     /**
-     * Detalhe de uma aprovação (layout pastoral).
+     * Detalhe de uma aprovação (layout liderancaal).
      */
     public function showApproval($approval): View
     {
@@ -78,7 +78,7 @@ class ConselhoController extends Controller
     }
 
     /**
-     * Aprovar solicitação (mantém pastor no layout pastoral).
+     * Aprovar solicitação (mantém lideranca no layout liderancaal).
      */
     public function approve(Request $request, $approval): RedirectResponse
     {
@@ -88,11 +88,11 @@ class ConselhoController extends Controller
         $user = auth()->user();
         $councilMember = $user->councilMember ?? null;
         $allowAdminApproval = class_exists(ChurchCouncilSettings::class) ? ChurchCouncilSettings::allowAdminApproval() : true;
-        $isAdminOrPastor = $user->hasRole('admin') || $user->hasRole('pastor');
+        $isAdminOrlideranca = $user->hasRole('admin') || $user->hasRole('lideranca');
 
         if ($councilMember) {
             $approval->approve($councilMember, $request->input('notes'));
-        } elseif ($allowAdminApproval && $isAdminOrPastor) {
+        } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
                 'status' => CouncilApproval::STATUS_APPROVED,
                 'approved_by' => null,
@@ -102,18 +102,18 @@ class ConselhoController extends Controller
             ]);
             $approval->runApprovalAction();
         } else {
-            return redirect()->route('pastor.conselho.approvals')->with('error', 'Você não tem permissão para aprovar.');
+            return redirect()->route('lideranca.conselho.approvals')->with('error', 'Você não tem permissão para aprovar.');
         }
 
         if (class_exists(CouncilAuditService::class)) {
             app(CouncilAuditService::class)->log('approval_approved', $approval, ['approval_type' => $approval->approval_type]);
         }
 
-        return redirect()->route('pastor.conselho.approvals')->with('success', 'Solicitação aprovada com sucesso.');
+        return redirect()->route('lideranca.conselho.approvals')->with('success', 'Solicitação aprovada com sucesso.');
     }
 
     /**
-     * Rejeitar solicitação (mantém pastor no layout pastoral).
+     * Rejeitar solicitação (mantém lideranca no layout liderancaal).
      */
     public function reject(Request $request, $approval): RedirectResponse
     {
@@ -123,11 +123,11 @@ class ConselhoController extends Controller
         $user = auth()->user();
         $councilMember = $user->councilMember ?? null;
         $allowAdminApproval = class_exists(ChurchCouncilSettings::class) ? ChurchCouncilSettings::allowAdminApproval() : true;
-        $isAdminOrPastor = $user->hasRole('admin') || $user->hasRole('pastor');
+        $isAdminOrlideranca = $user->hasRole('admin') || $user->hasRole('lideranca');
 
         if ($councilMember) {
             $approval->reject($councilMember, $request->input('reason'));
-        } elseif ($allowAdminApproval && $isAdminOrPastor) {
+        } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
                 'status' => CouncilApproval::STATUS_REJECTED,
                 'approved_by' => null,
@@ -135,7 +135,7 @@ class ConselhoController extends Controller
                 'reviewed_at' => now(),
                 'metadata' => array_merge($approval->metadata ?? [], ['approved_by_user_id' => $user->id]),
             ]);
-        } elseif ($isAdminOrPastor) {
+        } elseif ($isAdminOrlideranca) {
             $approval->update([
                 'status' => CouncilApproval::STATUS_REJECTED,
                 'approved_by' => null,
@@ -144,14 +144,14 @@ class ConselhoController extends Controller
                 'metadata' => array_merge($approval->metadata ?? [], ['approved_by_user_id' => $user->id, 'dismissed_by_admin' => true]),
             ]);
         } else {
-            return redirect()->route('pastor.conselho.approvals')->with('error', 'Você não tem permissão para rejeitar.');
+            return redirect()->route('lideranca.conselho.approvals')->with('error', 'Você não tem permissão para rejeitar.');
         }
 
         if (class_exists(CouncilAuditService::class)) {
             app(CouncilAuditService::class)->log('approval_rejected', $approval, ['approval_type' => $approval->approval_type]);
         }
 
-        return redirect()->route('pastor.conselho.approvals')->with('success', 'Solicitação rejeitada.');
+        return redirect()->route('lideranca.conselho.approvals')->with('success', 'Solicitação rejeitada.');
     }
 
     /**

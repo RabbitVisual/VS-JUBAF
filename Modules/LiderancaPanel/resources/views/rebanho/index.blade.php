@@ -12,7 +12,7 @@
                         <x-icon name="users-rays" class="w-7 h-7 text-amber-400" />
                         Rebanho
                     </h1>
-                    <p class="text-slate-300 mt-1">Lista de membros ativos para cuidado pastoral.</p>
+                    <p class="text-slate-300 mt-1">Lista de membros ativos para cuidado liderancaal.</p>
                 </div>
                 @if (Route::has('admin.users.create'))
                     <a href="{{ route('admin.users.create') }}"
@@ -26,7 +26,7 @@
 
         <div
             class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-            <form action="{{ route('pastor.rebanho.index') }}" method="GET"
+            <form action="{{ route('lideranca.rebanho.index') }}" method="GET"
                 class="p-4 border-b border-gray-200 dark:border-slate-700">
                 <div class="flex gap-3">
                     <input type="text" name="search" value="{{ request('search') }}"
@@ -57,8 +57,8 @@
                                     {{ $user->first_name ?? $user->name }} {{ $user->last_name ?? '' }}</td>
                                 <td class="px-6 py-4 text-gray-600 dark:text-gray-400">{{ $user->email }}</td>
                                 <td class="px-6 py-4">
-                                    @if (Route::has('pastor.rebanho.show'))
-                                        <a href="{{ route('pastor.rebanho.show', $user) }}"
+                                    @if (Route::has('lideranca.rebanho.show'))
+                                        <a href="{{ route('lideranca.rebanho.show', $user) }}"
                                             class="text-amber-600 dark:text-amber-400 hover:underline font-medium">Ver
                                             perfil</a>
                                     @elseif(Route::has('admin.users.show'))

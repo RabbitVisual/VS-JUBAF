@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\Pastoral;
+namespace Modules\Sermons\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -44,7 +44,7 @@ class BibleSeriesController extends Controller
             $validated['image'] = $request->file('image_file')->store('sermons/series', 'public');
         }
         BibleSeries::create($validated);
-        return redirect()->route('pastor.sermoes.series.index')->with('success', 'Série criada com sucesso!');
+        return redirect()->route('lideranca.sermoes.series.index')->with('success', 'Série criada com sucesso!');
     }
 
     public function edit(BibleSeries $series): View
@@ -71,12 +71,12 @@ class BibleSeriesController extends Controller
             $validated['image'] = $request->file('image_file')->store('sermons/series', 'public');
         }
         $series->update($validated);
-        return redirect()->route('pastor.sermoes.series.index')->with('success', 'Série atualizada com sucesso!');
+        return redirect()->route('lideranca.sermoes.series.index')->with('success', 'Série atualizada com sucesso!');
     }
 
     public function destroy(BibleSeries $series): RedirectResponse
     {
         $series->delete();
-        return redirect()->route('pastor.sermoes.series.index')->with('success', 'Série removida com sucesso!');
+        return redirect()->route('lideranca.sermoes.series.index')->with('success', 'Série removida com sucesso!');
     }
 }

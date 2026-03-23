@@ -1,6 +1,6 @@
 # Treasury CBAV2026 Baptist Standard
-Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas explícito, receitas/despesas categorizadas, centros de custo (fundos), fluxo de aprovação de despesas integrado ao ChurchCouncil, Plano Cooperativo, auditoria imutável, transações em DB e relatórios de prestação de contas (balancete, recibos).
 
+Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas explícito, receitas/despesas categorizadas, centros de custo (fundos), fluxo de aprovação de despesas integrado ao ChurchCouncil, Plano Cooperativo, auditoria imutável, transações em DB e relatórios de prestação de contas (balancete, recibos).
 
 # Treasury CBAV2026 – Padrão Batista Completo e Integração
 
@@ -34,14 +34,14 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 
 - Nova migration: **financial_categories** com `id`, `type` (enum: income, expense), `slug` (string, unique), `name` (string), `description` (nullable), `is_system` (boolean, default true), `order` (int, default 0), `timestamps`.
 - Seed **TreasuryCategoriesSeeder** com categorias pré-definidas:
-  - **Receitas**: Dízimos (`tithe`), Ofertas Alçadas (`offering`), Ofertas de Missões – Nacional (`offering_missions_national`), Estadual (`offering_missions_state`), Mundial (`offering_missions_world`), Fundo de Construção (`construction_fund`), Doações (`donation`), Doação Ministério (`ministry_donation`), Campanha (`campaign`), Outros (`other`).
-  - **Despesas**: Preletores (`preachers`), Manutenção (`maintenance`), Ação Social (`social_action`), Educação Cristã (`christian_education`), Salários e Encargos (`salary_benefits`), Contas/Utilidades (`utilities`), Equipamentos (`equipment`), Eventos (`event`), Outros (`other`).
+    - **Receitas**: Dízimos (`tithe`), Ofertas Alçadas (`offering`), Ofertas de Missões – Nacional (`offering_missions_national`), Estadual (`offering_missions_state`), Mundial (`offering_missions_world`), Fundo de Construção (`construction_fund`), Doações (`donation`), Doação Ministério (`ministry_donation`), Campanha (`campaign`), Outros (`other`).
+    - **Despesas**: Preletores (`preachers`), Manutenção (`maintenance`), Ação Social (`social_action`), Educação Cristã (`christian_education`), Salários e Encargos (`salary_benefits`), Contas/Utilidades (`utilities`), Equipamentos (`equipment`), Eventos (`event`), Outros (`other`).
 - Migration em **financial_entries**: adicionar `category_id` (nullable FK para `financial_categories`). Manter temporariamente a coluna enum `category` para compatibilidade; preencher `category_id` a partir de um mapeamento slug ↔ enum nos seeders e no serviço; em seguida (ou em passo posterior) migrar dados e deixar de usar o enum (ou manter enum apenas como cache/legado e passar a usar só `category_id` nas novas escritas). Decisão mínima para CBAV2026: criar tabela e seeder; em `financial_entries` adicionar `category_id` nullable e, no serviço, ao criar/editar entrada, definir `category_id` a partir do slug escolhido (e continuar preenchendo `category` para relatórios atuais que filtram por enum).
 
 ### 2.2 Identificação de dízimo (member_id) e sigilo
 
 - Nova coluna em **financial_entries**: `member_id` (nullable FK para `users`). Usar apenas para receitas (ex.: dízimos) quando a igreja quiser vincular ao membro para recibo ou relatório restrito.
-- Política de acesso: apenas perfis com permissão (ex.: pastor, tesoureiro, `canViewReports` + permissão interna para “ver identificação de dízimos”) podem ver ou filtrar por `member_id`. Listagens padrão não expõem `member_id`; relatório de recibos anuais usa-o com permissão.
+- Política de acesso: apenas perfis com permissão (ex.: lideranca, tesoureiro, `canViewReports` + permissão interna para “ver identificação de dízimos”) podem ver ou filtrar por `member_id`. Listagens padrão não expõem `member_id`; relatório de recibos anuais usa-o com permissão.
 
 ---
 
@@ -71,7 +71,7 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 
 - **Configuração**: Nova chave em Settings (Admin): `treasury_plano_cooperativo_percent` (ex.: 10). Opcional: `treasury_plano_cooperativo_base` (tithes_only | tithes_offerings | total_income) para definir a base de cálculo.
 - **Comportamento**: Não alterar automaticamente lançamentos existentes. Oferecer:
-  - No **relatório** (dashboard ou balancete): bloco “Plano Cooperativo” mostrando o percentual configurado, a base do período (soma conforme `_base`) e o **valor a repassar** (sugerido). Opcional: botão “Gerar lançamento de contribuição” que cria uma despesa com categoria “Contribuição Denominacional” (nova categoria em `financial_categories`) e valor calculado, com `expense_status = pending` (e, se acima do limite, fluxo de CouncilApproval).
+    - No **relatório** (dashboard ou balancete): bloco “Plano Cooperativo” mostrando o percentual configurado, a base do período (soma conforme `_base`) e o **valor a repassar** (sugerido). Opcional: botão “Gerar lançamento de contribuição” que cria uma despesa com categoria “Contribuição Denominacional” (nova categoria em `financial_categories`) e valor calculado, com `expense_status = pending` (e, se acima do limite, fluxo de CouncilApproval).
 - **Categoria**: Adicionar em `financial_categories` (expense): `denominational_contribution` (Contribuição Denominacional / Plano Cooperativo).
 
 ---
@@ -103,7 +103,7 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 
 ### 8.3 Comprovante de contribuição (recibo anual para membros)
 
-- Novo endpoint ou ação: “Recibo anual de contribuição” por membro e ano. Filtrar entradas com `member_id = X`, `type = income`, `entry_date` no ano, agrupando por categoria (dízimos, ofertas, etc.). Gerar PDF (uma view dedicada) com nome do membro, ano, totais por categoria e total geral. Protegido por permissão (pastor/tesoureiro ou o próprio membro apenas para seu recibo). Pode ser uma rota em Admin/MemberPanel e opcionalmente exposta na API v1.
+- Novo endpoint ou ação: “Recibo anual de contribuição” por membro e ano. Filtrar entradas com `member_id = X`, `type = income`, `entry_date` no ano, agrupando por categoria (dízimos, ofertas, etc.). Gerar PDF (uma view dedicada) com nome do membro, ano, totais por categoria e total geral. Protegido por permissão (lideranca/tesoureiro ou o próprio membro apenas para seu recibo). Pode ser uma rota em Admin/MemberPanel e opcionalmente exposta na API v1.
 
 ---
 

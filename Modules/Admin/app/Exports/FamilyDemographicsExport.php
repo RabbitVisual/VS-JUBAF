@@ -22,7 +22,7 @@ class FamilyDemographicsExport implements FromArray, WithStyles, WithTitle
     {
         $comp = $this->report['composition'] ?? [];
         $byNeighborhood = $this->report['by_neighborhood'] ?? [];
-        $highlights = $this->report['pastoral_highlights'] ?? [];
+        $highlights = $this->report['liderancaal_highlights'] ?? [];
         $churchName = \App\Models\Settings::get('site_name', 'Igreja Batista Avenida');
 
         $rows = [
@@ -43,7 +43,7 @@ class FamilyDemographicsExport implements FromArray, WithStyles, WithTitle
         }
 
         $rows[] = [];
-        $rows[] = ['Destaques pastorais', '', ''];
+        $rows[] = ['Destaques liderancaais', '', ''];
         foreach ($highlights as $h) {
             $rows[] = [$h, '', ''];
         }

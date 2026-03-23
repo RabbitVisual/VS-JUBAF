@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Treasury\App\Http\Controllers\Pastoral;
+namespace Modules\Treasury\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use App\Services\PdfService;

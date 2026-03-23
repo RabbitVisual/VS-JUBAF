@@ -69,7 +69,7 @@ class EventPriceRule extends Model
     const MEMBER_BAPTIZED  = 'batizado';
     const MEMBER_WORKER    = 'obreiro';
     const MEMBER_DEACON    = 'diacono';
-    const MEMBER_PASTOR    = 'pastor';
+    const MEMBER_lideranca    = 'lideranca';
 
     public static function getMemberStatusOptions(): array
     {
@@ -78,7 +78,7 @@ class EventPriceRule extends Model
             self::MEMBER_BAPTIZED => 'Batizado',
             self::MEMBER_WORKER   => 'Obreiro',
             self::MEMBER_DEACON   => 'Diácono',
-            self::MEMBER_PASTOR   => 'Pastor/Ministro',
+            self::MEMBER_lideranca   => 'lideranca/Ministro',
             self::MEMBER_VISITOR  => 'Visitante',
         ];
     }

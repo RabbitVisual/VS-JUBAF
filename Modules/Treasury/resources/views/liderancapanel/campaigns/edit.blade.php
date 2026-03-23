@@ -11,10 +11,10 @@
             <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.tesouraria.dashboard') }}"
+                        <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                             class="hover:text-white transition-colors">Tesouraria</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                        <a href="{{ route('pastor.tesouraria.campaigns.index') }}"
+                        <a href="{{ route('lideranca.tesouraria.campaigns.index') }}"
                             class="hover:text-white transition-colors">Campanhas</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">Editar</span>
@@ -22,7 +22,7 @@
                     <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-1">Editar campanha</h1>
                     <p class="text-slate-300 text-sm max-w-xl">{{ $campaign->name }}</p>
                 </div>
-                <a href="{{ route('pastor.tesouraria.campaigns.show', $campaign) }}"
+                <a href="{{ route('lideranca.tesouraria.campaigns.show', $campaign) }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors">
                     <x-icon name="arrow-left" class="w-5 h-5" /> Voltar
                 </a>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
-            <form action="{{ route('pastor.tesouraria.campaigns.update', $campaign) }}" method="POST"
+            <form action="{{ route('lideranca.tesouraria.campaigns.update', $campaign) }}" method="POST"
                 enctype="multipart/form-data" class="p-6 space-y-6" x-data
                 x-on:submit="window.dispatchEvent(new CustomEvent('loading-overlay:show', { detail: { message: 'Atualizando...' } }))">
                 @csrf
@@ -126,7 +126,7 @@
                         ativa</label>
                 </div>
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-slate-700">
-                    <a href="{{ route('pastor.tesouraria.campaigns.show', $campaign) }}"
+                    <a href="{{ route('lideranca.tesouraria.campaigns.show', $campaign) }}"
                         class="px-6 py-2.5 text-sm font-bold text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 transition-all">Cancelar</a>
                     <button type="submit"
                         class="px-8 py-2.5 text-sm font-bold text-white bg-amber-500 hover:bg-amber-600 rounded-xl transition-all inline-flex items-center gap-2">

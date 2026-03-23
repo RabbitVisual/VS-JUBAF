@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Services\PdfService;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class EventosController extends Controller
 {
     /**
-     * Lista de eventos (painel pastoral).
+     * Lista de eventos (painel liderancaal).
      */
     public function index(Request $request): View
     {
@@ -115,7 +115,7 @@ class EventosController extends Controller
 
         try {
             app(EventService::class)->confirmRegistration($registration);
-            return redirect()->route('pastor.eventos.registrations.show', [$event, $registration])
+            return redirect()->route('lideranca.eventos.registrations.show', [$event, $registration])
                 ->with('success', __('events::messages.registration_confirmed_success') ?? 'Inscrição confirmada com sucesso!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -132,7 +132,7 @@ class EventosController extends Controller
         $reason = $request->validate(['reason' => 'nullable|string|max:500'])['reason'] ?? null;
         app(EventService::class)->cancelRegistration($registration, $reason ?? __('events::messages.cancelled_by_admin') ?? 'Cancelado pelo administrador');
 
-        return redirect()->route('pastor.eventos.registrations.show', [$event, $registration])
+        return redirect()->route('lideranca.eventos.registrations.show', [$event, $registration])
             ->with('success', __('events::messages.registration_cancelled_success') ?? 'Inscrição cancelada com sucesso!');
     }
 

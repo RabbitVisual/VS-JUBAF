@@ -6,14 +6,14 @@
     <div class="max-w-4xl mx-auto space-y-6">
         <div class="flex items-center justify-between">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Novo Comentário Bíblico</h1>
-            <a href="{{ route('pastor.sermoes.commentaries.index') }}"
+            <a href="{{ route('lideranca.sermoes.commentaries.index') }}"
                 class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                 &larr; Voltar
             </a>
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <form action="{{ route('pastor.sermoes.commentaries.store') }}" method="POST" class="space-y-6"
+            <form action="{{ route('lideranca.sermoes.commentaries.store') }}" method="POST" class="space-y-6"
                 enctype="multipart/form-data">
                 @csrf
 

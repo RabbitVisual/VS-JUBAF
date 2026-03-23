@@ -16,12 +16,12 @@
                     <p class="text-gray-600 dark:text-gray-400 mt-1">Sermon Engine 2.0 - Edição</p>
                 </div>
                 <div class="flex gap-3">
-                    <a href="{{ route('pastor.sermoes.sermons.show', $sermon) }}" target="_blank"
+                    <a href="{{ route('lideranca.sermoes.sermons.show', $sermon) }}" target="_blank"
                         class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                         <x-icon name="eye" class="-ml-1 mr-2 h-5 w-5" />
                         Ver
                     </a>
-                    <a href="{{ route('pastor.sermoes.sermons.index') }}"
+                    <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                         class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                         <x-icon name="arrow-left" class="-ml-1 mr-2 h-5 w-5" />
                         Voltar
@@ -30,7 +30,7 @@
             </div>
 
             <!-- Form -->
-            <form id="sermon-form" action="{{ route('pastor.sermoes.sermons.update', $sermon) }}" method="POST"
+            <form id="sermon-form" action="{{ route('lideranca.sermoes.sermons.update', $sermon) }}" method="POST"
                 enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 @method('PUT')
@@ -375,7 +375,8 @@
                                 </li>
                             @endforelse
                         </ul>
-                        <form method="post" action="{{ route('pastor.sermoes.sermons.collaborators.invite', $sermon) }}"
+                        <form method="post"
+                            action="{{ route('lideranca.sermoes.sermons.collaborators.invite', $sermon) }}"
                             class="flex gap-2">
                             @csrf
                             <input type="email" name="email" placeholder="E-mail do colaborador" required
@@ -394,7 +395,7 @@
 
                 <!-- Form Actions -->
                 <div class="flex items-center justify-end space-x-3 pb-20">
-                    <a href="{{ route('pastor.sermoes.sermons.index') }}"
+                    <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                         class="px-6 py-3 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                         Cancelar
                     </a>

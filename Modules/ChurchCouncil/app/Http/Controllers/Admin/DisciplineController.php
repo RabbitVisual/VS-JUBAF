@@ -89,7 +89,7 @@ class DisciplineController extends Controller
             $this->inApp->sendToUsers(
                 $councilUsers,
                 'Novo caso disciplinar aberto',
-                'Um novo caso disciplinar foi registrado para avaliação pastoral.',
+                'Um novo caso disciplinar foi registrado para avaliação liderancaal.',
                 [
                     'type' => 'warning',
                     'priority' => 'high',
@@ -184,14 +184,14 @@ class DisciplineController extends Controller
         }
 
         $councilMember = $user->councilMember;
-        $isAdminOrPastor = method_exists($user, 'hasRole')
-            ? ($user->hasRole('admin') || $user->hasRole('pastor'))
+        $isAdminOrlideranca = method_exists($user, 'hasRole')
+            ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $councilMember && ! $isAdminOrPastor) {
+        if (! $councilMember && ! $isAdminOrlideranca) {
             return response()->json([
                 'success' => false,
-                'message' => 'Apenas conselho, pastores ou admins podem anexar documentos disciplinares.',
+                'message' => 'Apenas conselho, liderancaes ou admins podem anexar documentos disciplinares.',
             ], 403);
         }
 
@@ -238,11 +238,11 @@ class DisciplineController extends Controller
         }
 
         $councilMember = $user->councilMember;
-        $isAdminOrPastor = method_exists($user, 'hasRole')
-            ? ($user->hasRole('admin') || $user->hasRole('pastor'))
+        $isAdminOrlideranca = method_exists($user, 'hasRole')
+            ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $councilMember && ! $isAdminOrPastor && $user->id !== $case->user_id) {
+        if (! $councilMember && ! $isAdminOrlideranca && $user->id !== $case->user_id) {
             abort(403, 'Você não tem permissão para acessar este documento.');
         }
 
@@ -253,4 +253,3 @@ class DisciplineController extends Controller
         return Storage::disk('protected')->download($file->path, $file->original_name);
     }
 }
-

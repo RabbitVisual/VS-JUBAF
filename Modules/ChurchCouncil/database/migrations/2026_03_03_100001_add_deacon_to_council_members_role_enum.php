@@ -13,7 +13,7 @@ return new class extends Migration
     {
         $driver = DB::getDriverName();
         if ($driver === 'mysql') {
-            DB::statement("ALTER TABLE council_members MODIFY council_role ENUM('president','vice_president','secretary','treasurer','member','pastor','deacon') DEFAULT 'member'");
+            DB::statement("ALTER TABLE council_members MODIFY council_role ENUM('president','vice_president','secretary','treasurer','member','lideranca','deacon') DEFAULT 'member'");
         } elseif ($driver === 'pgsql') {
             DB::statement("ALTER TABLE council_members ALTER COLUMN council_role TYPE VARCHAR(32)");
         }
@@ -27,7 +27,7 @@ return new class extends Migration
     {
         $driver = DB::getDriverName();
         if ($driver === 'mysql') {
-            DB::statement("ALTER TABLE council_members MODIFY council_role ENUM('president','vice_president','secretary','treasurer','member','pastor') DEFAULT 'member'");
+            DB::statement("ALTER TABLE council_members MODIFY council_role ENUM('president','vice_president','secretary','treasurer','member','lideranca') DEFAULT 'member'");
         }
     }
 };

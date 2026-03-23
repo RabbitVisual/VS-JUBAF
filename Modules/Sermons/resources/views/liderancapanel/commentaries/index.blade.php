@@ -9,7 +9,7 @@
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Comentários Bíblicos</h1>
                 <p class="text-gray-600 dark:text-gray-400 mt-1">Gerencie comentários versículo a versículo</p>
             </div>
-            <a href="{{ route('pastor.sermoes.commentaries.create') }}"
+            <a href="{{ route('lideranca.sermoes.commentaries.create') }}"
                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                 <x-icon name="plus" class="w-5 h-5" />
                 Novo Comentário
@@ -18,7 +18,7 @@
 
         <!-- Filters -->
         <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
-            <form method="GET" action="{{ route('pastor.sermoes.commentaries.index') }}"
+            <form method="GET" action="{{ route('lideranca.sermoes.commentaries.index') }}"
                 class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <input type="text" name="search" value="{{ request('search') }}"
                     class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white"
@@ -34,7 +34,7 @@
                         Filtrar
                     </button>
                     @if (request()->hasAny(['search', 'book']))
-                        <a href="{{ route('pastor.sermoes.commentaries.index') }}"
+                        <a href="{{ route('lideranca.sermoes.commentaries.index') }}"
                             class="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
                             Limpar
                         </a>
@@ -117,9 +117,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
-                                        <a href="{{ route('pastor.sermoes.commentaries.edit', $comment) }}"
+                                        <a href="{{ route('lideranca.sermoes.commentaries.edit', $comment) }}"
                                             class="text-amber-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Editar</a>
-                                        <form action="{{ route('pastor.sermoes.commentaries.destroy', $comment) }}"
+                                        <form action="{{ route('lideranca.sermoes.commentaries.destroy', $comment) }}"
                                             method="POST" class="inline"
                                             onsubmit="return confirm('Tem certeza que deseja deletar este comentário?');">
                                             @csrf
@@ -142,7 +142,7 @@
                                             ainda</h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Cadastre comentários
                                             bíblicos para consulta. Crie o primeiro registro.</p>
-                                        <a href="{{ route('pastor.sermoes.commentaries.create') }}"
+                                        <a href="{{ route('lideranca.sermoes.commentaries.create') }}"
                                             class="inline-flex items-center px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-xl transition-all">
                                             <x-icon name="plus" class="w-5 h-5 mr-2" />
                                             Novo comentário

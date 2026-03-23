@@ -15,7 +15,7 @@
                     <h1 class="text-2xl md:text-3xl font-bold mt-2">Editar Categoria</h1>
                     <p class="text-slate-300 mt-1">Atualize: {{ $category->name }}</p>
                 </div>
-                <a href="{{ route('pastor.sermoes.categories.index') }}"
+                <a href="{{ route('lideranca.sermoes.categories.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600">
                     <x-icon name="arrow-left" class="w-5 h-5" />
                     Voltar
@@ -24,7 +24,7 @@
         </div>
 
         <!-- Form -->
-        <form action="{{ route('pastor.sermoes.categories.update', $category) }}" method="POST" class="space-y-6">
+        <form action="{{ route('lideranca.sermoes.categories.update', $category) }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -94,7 +94,7 @@
             </div>
 
             <div class="flex items-center justify-end gap-3">
-                <a href="{{ route('pastor.sermoes.categories.index') }}"
+                <a href="{{ route('lideranca.sermoes.categories.index') }}"
                     class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600">Cancelar</a>
                 <button type="submit"
                     class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium">Atualizar

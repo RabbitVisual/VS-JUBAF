@@ -16,7 +16,7 @@
             <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.transparencia.index') }}"
+                        <a href="{{ route('lideranca.transparencia.index') }}"
                             class="hover:text-white transition-colors">Transparência</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">Tesouraria</span>
@@ -29,17 +29,17 @@
                     </p>
                 </div>
                 <div class="flex flex-shrink-0 flex-wrap items-center gap-3">
-                    <a href="{{ route('pastor.tesouraria.reports.index') }}"
+                    <a href="{{ route('lideranca.tesouraria.reports.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors">
                         <x-icon name="chart-bar" class="w-5 h-5" /> Relatórios
                     </a>
                     @if ($permission->canCreateEntries())
-                        <a href="{{ route('pastor.tesouraria.entries.create') }}"
+                        <a href="{{ route('lideranca.tesouraria.entries.create') }}"
                             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                             <x-icon name="plus" class="w-5 h-5" /> Nova Entrada
                         </a>
                     @endif
-                    <a href="{{ route('pastor.tesouraria.entries.index') }}"
+                    <a href="{{ route('lideranca.tesouraria.entries.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors">
                         <x-icon name="list" class="w-5 h-5" /> Lançamentos
                     </a>
@@ -173,7 +173,7 @@
             <div
                 class="px-5 py-3 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-700/50 flex items-center justify-between">
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Últimas Entradas</h3>
-                <a href="{{ route('pastor.tesouraria.entries.index') }}"
+                <a href="{{ route('lideranca.tesouraria.entries.index') }}"
                     class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">Ver todas</a>
             </div>
             @if ($recentEntries->count() > 0)
@@ -223,7 +223,7 @@
                 <div class="flex items-center justify-between">
                     <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Campanhas Ativas
                     </h3>
-                    <a href="{{ route('pastor.tesouraria.campaigns.index') }}"
+                    <a href="{{ route('lideranca.tesouraria.campaigns.index') }}"
                         class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">Ver todas</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

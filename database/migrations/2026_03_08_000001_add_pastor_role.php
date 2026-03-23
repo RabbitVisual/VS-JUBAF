@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
-     * Add pastor role for Gabinete Pastoral access.
+     * Add lideranca role for Gabinete liderancaal access.
      */
     public function up(): void
     {
-        if (DB::table('roles')->where('slug', 'pastor')->doesntExist()) {
+        if (DB::table('roles')->where('slug', 'lideranca')->doesntExist()) {
             DB::table('roles')->insert([
-                'name' => 'Pastor',
-                'slug' => 'pastor',
-                'description' => 'Acesso ao Gabinete Pastoral e painel admin (gestão ministerial)',
+                'name' => 'lideranca',
+                'slug' => 'lideranca',
+                'description' => 'Acesso ao Gabinete liderancaal e painel admin (gestão ministerial)',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::table('roles')->where('slug', 'pastor')->delete();
+        DB::table('roles')->where('slug', 'lideranca')->delete();
     }
 };

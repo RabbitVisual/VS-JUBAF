@@ -49,11 +49,11 @@ class ReportController extends Controller
                     ? \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval()
                     : (bool) \App\Models\Settings::get('church_council_allow_admin_approval', false);
 
-                $isAdminOrPastor = method_exists($user, 'hasRole')
-                    ? ($user->hasRole('admin') || $user->hasRole('pastor'))
+                $isAdminOrlideranca = method_exists($user, 'hasRole')
+                    ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
                     : false;
 
-                $canCouncilApprove = $isCouncilMember || ($allowAdminApproval && $isAdminOrPastor);
+                $canCouncilApprove = $isCouncilMember || ($allowAdminApproval && $isAdminOrlideranca);
 
                 try {
                     $monthlyClosing = $this->api->getOrCreateMonthlyClosing($data['start_date'], $data['end_date'], $user);
@@ -274,7 +274,7 @@ class ReportController extends Controller
     }
 
     /**
-     * Comprovante anual de contribuição (CBAV2026). Por member_id e ano. Membro só pode ver o próprio; tesoureiro/pastor pode ver qualquer.
+     * Comprovante anual de contribuição (CBAV2026). Por member_id e ano. Membro só pode ver o próprio; tesoureiro/lideranca pode ver qualquer.
      */
     public function contributionReceiptPdf(Request $request): StreamedResponse
     {

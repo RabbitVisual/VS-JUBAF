@@ -24,7 +24,7 @@
                     <x-icon name="xmark" class="w-4 h-4 shrink-0" x-show="scanning" />
                     <span x-text="scanning ? 'Parar' : (cameraBusy ? 'Aguarde...' : 'Iniciar Scanner')"></span>
                 </button>
-                <a href="{{ route('pastor.eventos.index') }}"
+                <a href="{{ route('lideranca.eventos.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-lg text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <x-icon name="arrow-left" class="w-4 h-4" />
                     <span class="hidden xs:inline">Voltar</span>
@@ -236,7 +236,7 @@
                 onScanSuccess(decodedText) {
                     if (this.feedback.visible) return;
                     if (this.lastScannedHash === decodedText && (Date.now() - (this._lastScanTime ||
-                        0)) < this.scanCooldownMs) return;
+                            0)) < this.scanCooldownMs) return;
                     this.lastScannedHash = decodedText;
                     this._lastScanTime = Date.now();
                     this.validateTicket(decodedText);
@@ -294,12 +294,12 @@
                 async validateTicket(hash) {
                     try {
                         const response = await fetch(
-                            "{{ route('pastor.eventos.checkin.validate') }}", {
+                            "{{ route('lideranca.eventos.checkin.validate') }}", {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': document.querySelector(
-                                            'meta[name="csrf-token"]')?.getAttribute(
+                                        'meta[name="csrf-token"]')?.getAttribute(
                                         'content') || '',
                                     'Accept': 'application/json'
                                 },

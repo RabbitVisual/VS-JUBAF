@@ -91,7 +91,7 @@
                         <div class="mt-6 flex gap-3 justify-end">
                             <button type="button" @click="exportModalOpen = false"
                                 class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600">Cancelar</button>
-                            <a :href="'{{ route('pastor.sermoes.sermons.export-pdf', $sermon) }}?format=' + format + '&size=' +
+                            <a :href="'{{ route('lideranca.sermoes.sermons.export-pdf', $sermon) }}?format=' + format + '&size=' +
                                 size"
                                 target="_blank" @click="exportModalOpen = false"
                                 class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 rounded-lg">
@@ -101,12 +101,12 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{ route('pastor.sermoes.sermons.edit', $sermon) }}"
+                <a href="{{ route('lideranca.sermoes.sermons.edit', $sermon) }}"
                     class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <x-icon name="pen-to-square" style="duotone" class="-ml-1 mr-2 h-5 w-5" />
                     Editar
                 </a>
-                <a href="{{ route('pastor.sermoes.sermons.index') }}"
+                <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                     class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <x-icon name="arrow-left" style="duotone" class="-ml-1 mr-2 h-5 w-5" />
                     Voltar

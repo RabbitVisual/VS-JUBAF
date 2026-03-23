@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RebanhoController extends Controller
 {
     /**
-     * Lista de membros (rebanho) com layout pastoral.
+     * Lista de membros (rebanho) com layout liderancaal.
      */
     public function index(Request $request)
     {
@@ -31,7 +31,7 @@ class RebanhoController extends Controller
     }
 
     /**
-     * Perfil pastoral do membro: árvore genealógica e histórico ministerial (sem campos técnicos).
+     * Perfil liderancaal do membro: árvore genealógica e histórico ministerial (sem campos técnicos).
      */
     public function show(User $user)
     {

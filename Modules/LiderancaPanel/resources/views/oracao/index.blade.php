@@ -6,7 +6,7 @@
     <div class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Pedidos de Oração</h1>
-            <a href="{{ route('pastor.dashboard') }}"
+            <a href="{{ route('lideranca.dashboard') }}"
                 class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-medium hover:underline">
                 <x-icon name="arrow-left" class="w-4 h-4" /> Voltar ao dashboard
             </a>
@@ -35,9 +35,9 @@
                             </p>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
-                            <a href="{{ route('pastor.oracao.show', $req) }}"
+                            <a href="{{ route('lideranca.oracao.show', $req) }}"
                                 class="px-3 py-2 rounded-xl border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 text-sm font-medium hover:bg-gray-50 dark:hover:bg-slate-700">Ver</a>
-                            <form action="{{ route('pastor.oracao.marcar-orado', $req) }}" method="POST" class="inline">
+                            <form action="{{ route('lideranca.oracao.marcar-orado', $req) }}" method="POST" class="inline">
                                 @csrf
                                 <input type="hidden" name="from" value="list">
                                 <button type="submit"

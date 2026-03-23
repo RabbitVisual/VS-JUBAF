@@ -15,7 +15,7 @@
             </div>
             <div class="flex flex-wrap items-center gap-3">
                 @if ($approval->status === 'pending')
-                    <form action="{{ route('pastor.conselho.approvals.approve', $approval) }}" method="POST" class="inline"
+                    <form action="{{ route('lideranca.conselho.approvals.approve', $approval) }}" method="POST" class="inline"
                         x-data
                         x-on:submit="window.dispatchEvent(new CustomEvent('loading-overlay:show', { detail: { message: 'Processando...' } }))">
                         @csrf
@@ -28,7 +28,7 @@
                         class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all flex items-center gap-2">
                         <x-icon name="xmark" class="w-5 h-5" /> {{ __('churchcouncil::messages.reject') }}
                     </button>
-                    <form id="reject-form" action="{{ route('pastor.conselho.approvals.reject', $approval) }}"
+                    <form id="reject-form" action="{{ route('lideranca.conselho.approvals.reject', $approval) }}"
                         method="POST" class="hidden inline-flex items-center gap-2 flex-wrap" x-data
                         x-on:submit="window.dispatchEvent(new CustomEvent('loading-overlay:show', { detail: { message: 'Processando...' } }))">
                         @csrf
@@ -38,7 +38,7 @@
                             class="px-4 py-2 bg-red-700 hover:bg-red-800 text-white rounded-xl text-sm font-bold">Enviar</button>
                     </form>
                 @endif
-                <a href="{{ route('pastor.conselho.approvals') }}"
+                <a href="{{ route('lideranca.conselho.approvals') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                     <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('churchcouncil::messages.back') }}
                 </a>

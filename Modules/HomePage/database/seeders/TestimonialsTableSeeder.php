@@ -35,7 +35,7 @@ class TestimonialsTableSeeder extends Seeder
             [
                 'name' => 'Ana Costa',
                 'photo' => null,
-                'testimonial' => 'Através dos estudos bíblicos e do acompanhamento pastoral, encontrei direção e propósito para minha vida. Sou grata por fazer parte desta comunidade.',
+                'testimonial' => 'Através dos estudos bíblicos e do acompanhamento liderancaal, encontrei direção e propósito para minha vida. Sou grata por fazer parte desta comunidade.',
                 'position' => 'Membro',
                 'is_active' => true,
                 'order' => 3,

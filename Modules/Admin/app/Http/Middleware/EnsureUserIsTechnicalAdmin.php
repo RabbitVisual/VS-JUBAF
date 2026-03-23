@@ -15,7 +15,7 @@ class EnsureUserIsTechnicalAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if user is authenticated and is Admin (not just Pastor)
+        // Check if user is authenticated and is Admin (not just lideranca)
         if (! auth()->check() || ! auth()->user()->isAdmin()) {
             abort(403, 'Acesso restrito a administradores técnicos.');
         }

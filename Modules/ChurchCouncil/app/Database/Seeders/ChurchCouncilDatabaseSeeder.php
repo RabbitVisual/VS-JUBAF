@@ -40,7 +40,7 @@ class ChurchCouncilDatabaseSeeder extends Seeder
             ]
         );
 
-        // Criar outros membros de exemplo (pastor, diáconos, secretário, tesoureiro, membros)
+        // Criar outros membros de exemplo (lideranca, diáconos, secretário, tesoureiro, membros)
         $members = [
             [
                 'name' => 'João Silva',

@@ -7,7 +7,7 @@
         <div class="flex items-center justify-between flex-wrap gap-4">
             <div>
                 <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-1">
-                    <a href="{{ route('pastor.conselho.index') }}"
+                    <a href="{{ route('lideranca.conselho.index') }}"
                         class="hover:text-white transition-colors">{{ __('churchcouncil::messages.council') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                     <span class="text-white font-bold">{{ __('churchcouncil::messages.meetings') }}</span>
@@ -25,7 +25,7 @@
                         <x-icon name="plus" class="w-5 h-5" /> {{ __('churchcouncil::messages.new_meeting') }}
                     </a>
                 @endif
-                <a href="{{ route('pastor.conselho.index') }}"
+                <a href="{{ route('lideranca.conselho.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                     <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('churchcouncil::messages.back') }}
                 </a>
@@ -34,7 +34,7 @@
 
         @if (request()->hasAny(['status', 'type']) || request()->has('date_from'))
             <div class="flex flex-wrap items-center gap-2">
-                <form method="GET" action="{{ route('pastor.conselho.meetings.index') }}"
+                <form method="GET" action="{{ route('lideranca.conselho.meetings.index') }}"
                     class="flex flex-wrap items-center gap-3">
                     <select name="status"
                         class="rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-2 text-sm">
@@ -60,7 +60,7 @@
                     <button type="submit"
                         class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-600 text-gray-800 dark:text-white text-sm font-medium">{{ __('churchcouncil::messages.filter') }}</button>
                 </form>
-                <a href="{{ route('pastor.conselho.meetings.index') }}"
+                <a href="{{ route('lideranca.conselho.meetings.index') }}"
                     class="text-sm text-amber-500 hover:underline">{{ __('churchcouncil::messages.clear_filters') }}</a>
             </div>
         @endif
@@ -68,7 +68,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
             <div class="divide-y divide-gray-200 dark:divide-slate-700">
                 @forelse($meetings as $meeting)
-                    <a href="{{ route('pastor.conselho.meetings.show', $meeting) }}"
+                    <a href="{{ route('lideranca.conselho.meetings.show', $meeting) }}"
                         class="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors">
                         <div class="flex flex-wrap items-center justify-between gap-4">
                             <div>

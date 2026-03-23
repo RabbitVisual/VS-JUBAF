@@ -14,12 +14,12 @@ class DemoUsersSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get roles (ensure pastor exists for Gabinete Pastoral)
+        // Get roles (ensure lideranca exists for Gabinete liderancaal)
         $adminRole = Role::where('slug', 'admin')->first();
         $memberRole = Role::where('slug', 'membro')->first();
-        $pastorRole = Role::firstOrCreate(
-            ['slug' => 'pastor'],
-            ['name' => 'Pastor', 'description' => 'Acesso ao Gabinete Pastoral e painel admin (gestão ministerial)', 'created_at' => now(), 'updated_at' => now()]
+        $liderancaRole = Role::firstOrCreate(
+            ['slug' => 'lideranca'],
+            ['name' => 'lideranca', 'description' => 'Acesso ao Gabinete liderancaal e painel admin (gestão ministerial)', 'created_at' => now(), 'updated_at' => now()]
         );
 
         if (! $adminRole || ! $memberRole) {
@@ -79,21 +79,21 @@ class DemoUsersSeeder extends Seeder
 
         $this->command->info('✅ Membro Demo criado: membro@demo.com / membro123');
 
-        // Pastor Demo User (acesso ao Gabinete Pastoral)
+        // lideranca Demo User (acesso ao Gabinete liderancaal)
         User::updateOrCreate(
-            ['email' => 'pastor@demo.com'],
+            ['email' => 'lideranca@demo.com'],
             [
-                'name' => 'Pastor Demo',
-                'first_name' => 'Pastor',
+                'name' => 'lideranca Demo',
+                'first_name' => 'lideranca',
                 'last_name' => 'Demo',
-                'email' => 'pastor@demo.com',
-                'password' => Hash::make('pastor123'),
-                'role_id' => $pastorRole->id,
+                'email' => 'lideranca@demo.com',
+                'password' => Hash::make('lideranca123'),
+                'role_id' => $liderancaRole->id,
                 'is_active' => true,
                 'email_verified_at' => now(),
             ]
         );
 
-        $this->command->info('✅ Pastor Demo criado: pastor@demo.com / pastor123');
+        $this->command->info('✅ lideranca Demo criado: lideranca@demo.com / lideranca123');
     }
 }

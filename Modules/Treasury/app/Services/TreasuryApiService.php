@@ -719,7 +719,7 @@ class TreasuryApiService
 
     /**
      * Get or create a monthly closing snapshot for a full calendar month.
-     * Permission: canViewReports + (council member or admin/pastor with council override).
+     * Permission: canViewReports + (council member or admin/lideranca with council override).
      */
     public function getOrCreateMonthlyClosing(string $startDate, string $endDate, User|int $userOrId): TreasuryMonthlyClosing
     {
@@ -780,12 +780,12 @@ class TreasuryApiService
             ? \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval()
             : (bool) \App\Models\Settings::get('church_council_allow_admin_approval', false);
 
-        $isAdminOrPastor = method_exists($user, 'hasRole')
-            ? ($user->hasRole('admin') || $user->hasRole('pastor'))
+        $isAdminOrlideranca = method_exists($user, 'hasRole')
+            ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $isCouncilMember && ! ($allowAdminApproval && $isAdminOrPastor)) {
-            abort(403, 'Apenas o conselho ou pastor/admin autorizado pode aprovar fechamentos mensais.');
+        if (! $isCouncilMember && ! ($allowAdminApproval && $isAdminOrlideranca)) {
+            abort(403, 'Apenas o conselho ou lideranca/admin autorizado pode aprovar fechamentos mensais.');
         }
 
         if (! $closing->ready_for_assembly) {

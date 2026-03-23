@@ -12,28 +12,28 @@ Este documento descreve **como o módulo funciona**, o que foi implementado no u
 
 - **Representa** um sermão ou esboço (rascunho ou publicado).
 - **Campos principais:**
-  - Identificação: `title`, `slug`, `subtitle`, `description`.
-  - Conteúdo: `full_content` (editor rico), `introduction`, `development`, `conclusion`, `application`.
-  - Estrutura homilética: `sermon_structure_type` (expositivo | temático | textual), `structure_meta` (JSON).
-  - Classificação: `category_id`, `series_id`, tags (pivot), `sermon_date`, `worship_suggestion_id`.
-  - Mídia: `cover_image`, `attachments` (JSON).
-  - Controle: `status` (draft | published | archived), `visibility` (public | members | private), `is_collaborative`, `is_featured`.
-  - Métricas: `views`, `likes`, `downloads`, `published_at`, `user_id`.
+    - Identificação: `title`, `slug`, `subtitle`, `description`.
+    - Conteúdo: `full_content` (editor rico), `introduction`, `development`, `conclusion`, `application`.
+    - Estrutura homilética: `sermon_structure_type` (expositivo | temático | textual), `structure_meta` (JSON).
+    - Classificação: `category_id`, `series_id`, tags (pivot), `sermon_date`, `worship_suggestion_id`.
+    - Mídia: `cover_image`, `attachments` (JSON).
+    - Controle: `status` (draft | published | archived), `visibility` (public | members | private), `is_collaborative`, `is_featured`.
+    - Métricas: `views`, `likes`, `downloads`, `published_at`, `user_id`.
 - **Relações importantes:**
-  - `user` → autor.
-  - `category` → SermonCategory.
-  - `series` → BibleSeries (série bíblica).
-  - `tags` → SermonTag (many-to-many).
-  - `bibleReferences` → SermonBibleReference (referências citadas).
-  - `studyNotes` → SermonStudyNote (notas de exegese).
-  - `collaborators` → SermonCollaborator (co-autores).
-  - `comments` → SermonComment (comentários públicos).
-  - `favorites` → SermonFavorite.
+    - `user` → autor.
+    - `category` → SermonCategory.
+    - `series` → BibleSeries (série bíblica).
+    - `tags` → SermonTag (many-to-many).
+    - `bibleReferences` → SermonBibleReference (referências citadas).
+    - `studyNotes` → SermonStudyNote (notas de exegese).
+    - `collaborators` → SermonCollaborator (co-autores).
+    - `comments` → SermonComment (comentários públicos).
+    - `favorites` → SermonFavorite.
 - **Regras de negócio:**
-  - Novo sermão nasce **privado** e em **rascunho**; publicação é explícita (“Publicar para a Igreja”).
-  - `canView($user)`: público publicado → todos; members publicado → autenticados; privado → dono ou co-autor aceito.
-  - `canEdit($user)`: dono, admin/pastor ou co-autor aceito com `can_edit`.
-  - `canDelete($user)`: apenas dono ou admin/pastor (co-autor não pode excluir).
+    - Novo sermão nasce **privado** e em **rascunho**; publicação é explícita (“Publicar para a Igreja”).
+    - `canView($user)`: público publicado → todos; members publicado → autenticados; privado → dono ou co-autor aceito.
+    - `canEdit($user)`: dono, admin/lideranca ou co-autor aceito com `can_edit`.
+    - `canDelete($user)`: apenas dono ou admin/lideranca (co-autor não pode excluir).
 
 ### 1.2. SermonBibleReference
 
@@ -154,9 +154,9 @@ flowchart TB
 1. No editor (create/edit), painel **Elias** (ícone gavel): botões “Sugerir Ilustração”, “Verificar Coerência”, “Pesquisa Histórica”.
 2. Front envia `POST .../cbav-bot/chat` com `context: { sermon_studio: true, action, main_point?, reference?, book_number? }`.
 3. `CbavBotChatService::respond()` detecta `sermon_studio` + `action` e delega a `respondSermonStudio()`:
-   - **suggest_illustration:** usa `main_point` + `BibleApiService::search()` para versículos ilustrativos.
-   - **check_coherence:** retorna checklist/dicas de coerência (CBB).
-   - **historical_research:** usa panorama (`bible_book_panoramas`) ou referência para contexto histórico.
+    - **suggest_illustration:** usa `main_point` + `BibleApiService::search()` para versículos ilustrativos.
+    - **check_coherence:** retorna checklist/dicas de coerência (CBB).
+    - **historical_research:** usa panorama (`bible_book_panoramas`) ou referência para contexto histórico.
 4. Resposta exibida no painel; sem auto-execução.
 
 ---
@@ -230,21 +230,21 @@ stateDiagram-v2
 
 ## 6. Melhorias e Funcionalidades do Upgrade (Sermon Studio)
 
-| Área | O que foi implementado |
-|------|-------------------------|
-| **Bible – Panorama** | Tabela `bible_book_panoramas` (book_number, author, date_written, theme_central, recipients); seeder 66 livros; `BibleApiService::getPanoramaByBookNumber()`; `GET /api/v1/bible/panorama?book_number=`. |
-| **Contexto Bíblico** | Painel lateral no editor (create/edit): seleção de livro → chama API panorama e exibe autor, data, tema, destinatários. |
-| **Bible Picker** | “Buscar Texto” deixa de ser mock: `fetch('/api/v1/bible/verses?' + URLSearchParams(...))` com tratamento de loading/erro. |
-| **Smart @ (linker)** | Botão/referência no editor: usuário informa ref (ex.: João 3:16) → `GET /api/v1/bible/find?ref=` → insere blockquote com `data-bible-ref`. |
-| **Notas de exegese** | Tabela `sermon_study_notes`; `SermonStudyNote`; API v1 `GET/POST /api/v1/sermons/study-notes` e `GET/PUT/DELETE .../study-notes/{id}`; colunas `exegesis_notes` e `study_note_id` em `sermon_bible_references`. |
-| **Privacidade** | Default create: `visibility = private`, `status = draft`; toggle “Publicar para a Igreja” no formulário (admin e member). |
-| **Estrutura homilética** | Colunas `sermon_structure_type` (expositivo/temático/textual) e `structure_meta`; dropdown no create/edit; constantes no model. |
-| **Elias Sermon Studio** | `CbavBotChatService::respondSermonStudio()` com ações suggest_illustration, check_coherence, historical_research; painel Elias no editor com três botões e envio de context. |
-| **Export PDF** | `exportPdf` Admin e MemberPanel; parâmetros `format=full|topics`, `size=a4|a5`; marcadores [TRANSIÇÃO] e [APELO] destacados; Mpdf. |
-| **RBAC** | `SermonPolicy` (view, update, delete); delete delega a `canDelete($user)` (só dono ou admin). Autorização em controllers Admin, MemberPanel e API v1. |
-| **Co-autoria** | Admin: bloco Co-autores na edit + `POST admin/sermons/sermons/{sermon}/collaborators`; notificação in-app com link para MemberPanel. MemberPanel: `showCollaboratorInvite`, `respondCollaborator` (aceitar/recusar). |
-| **API v1 paridade** | `SermonApiService`: create/update aceitam e sincronizam `bible_references` e `tags`; list/show incluem tags e bibleReferences; autorização via policy. |
-| **MemberPanel edição** | Rotas edit/update/destroy em `painel/sermoes/{sermon}`; mesma experiência de editor (rico, estrutura, sidebars); export PDF quando canEdit; loading overlay em submits. |
+| Área                     | O que foi implementado                                                                                                                                                                                               |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------- |
+| **Bible – Panorama**     | Tabela `bible_book_panoramas` (book_number, author, date_written, theme_central, recipients); seeder 66 livros; `BibleApiService::getPanoramaByBookNumber()`; `GET /api/v1/bible/panorama?book_number=`.             |
+| **Contexto Bíblico**     | Painel lateral no editor (create/edit): seleção de livro → chama API panorama e exibe autor, data, tema, destinatários.                                                                                              |
+| **Bible Picker**         | “Buscar Texto” deixa de ser mock: `fetch('/api/v1/bible/verses?' + URLSearchParams(...))` com tratamento de loading/erro.                                                                                            |
+| **Smart @ (linker)**     | Botão/referência no editor: usuário informa ref (ex.: João 3:16) → `GET /api/v1/bible/find?ref=` → insere blockquote com `data-bible-ref`.                                                                           |
+| **Notas de exegese**     | Tabela `sermon_study_notes`; `SermonStudyNote`; API v1 `GET/POST /api/v1/sermons/study-notes` e `GET/PUT/DELETE .../study-notes/{id}`; colunas `exegesis_notes` e `study_note_id` em `sermon_bible_references`.      |
+| **Privacidade**          | Default create: `visibility = private`, `status = draft`; toggle “Publicar para a Igreja” no formulário (admin e member).                                                                                            |
+| **Estrutura homilética** | Colunas `sermon_structure_type` (expositivo/temático/textual) e `structure_meta`; dropdown no create/edit; constantes no model.                                                                                      |
+| **Elias Sermon Studio**  | `CbavBotChatService::respondSermonStudio()` com ações suggest_illustration, check_coherence, historical_research; painel Elias no editor com três botões e envio de context.                                         |
+| **Export PDF**           | `exportPdf` Admin e MemberPanel; parâmetros `format=full                                                                                                                                                             | topics`, `size=a4 | a5`; marcadores [TRANSIÇÃO] e [APELO] destacados; Mpdf. |
+| **RBAC**                 | `SermonPolicy` (view, update, delete); delete delega a `canDelete($user)` (só dono ou admin). Autorização em controllers Admin, MemberPanel e API v1.                                                                |
+| **Co-autoria**           | Admin: bloco Co-autores na edit + `POST admin/sermons/sermons/{sermon}/collaborators`; notificação in-app com link para MemberPanel. MemberPanel: `showCollaboratorInvite`, `respondCollaborator` (aceitar/recusar). |
+| **API v1 paridade**      | `SermonApiService`: create/update aceitam e sincronizam `bible_references` e `tags`; list/show incluem tags e bibleReferences; autorização via policy.                                                               |
+| **MemberPanel edição**   | Rotas edit/update/destroy em `painel/sermoes/{sermon}`; mesma experiência de editor (rico, estrutura, sidebars); export PDF quando canEdit; loading overlay em submits.                                              |
 
 ---
 
@@ -274,11 +274,11 @@ stateDiagram-v2
 
 ## 8. Rotas Resumidas
 
-| Contexto | Rotas principais |
-|----------|------------------|
-| **Admin** | `admin.sermons.sermons.*` (index, create, store, edit, update, destroy), `admin.sermons.sermons.show`, `admin.sermons.sermons.export-pdf`, `admin.sermons.sermons.collaborators.invite` (POST). |
+| Contexto        | Rotas principais                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin**       | `admin.sermons.sermons.*` (index, create, store, edit, update, destroy), `admin.sermons.sermons.show`, `admin.sermons.sermons.export-pdf`, `admin.sermons.sermons.collaborators.invite` (POST).                                                                                                                                                                                                                                                          |
 | **MemberPanel** | `memberpanel.sermons.index`, `memberpanel.sermons.my-sermons`, `memberpanel.sermons.my-favorites`, `memberpanel.sermons.create`, `memberpanel.sermons.store`, `memberpanel.sermons.show`, `memberpanel.sermons.edit`, `memberpanel.sermons.update`, `memberpanel.sermons.destroy`, `memberpanel.sermons.export-pdf`, `memberpanel.sermons.collaborator.invite` (GET), `memberpanel.sermons.collaborator.respond` (POST), toggle-favorite, store-comment. |
-| **API v1** | `GET/POST /api/v1/sermons`, `GET/PUT/DELETE /api/v1/sermons/{id}`; `GET/POST /api/v1/sermons/study-notes`, `GET/PUT/DELETE /api/v1/sermons/study-notes/{id}` (auth). |
+| **API v1**      | `GET/POST /api/v1/sermons`, `GET/PUT/DELETE /api/v1/sermons/{id}`; `GET/POST /api/v1/sermons/study-notes`, `GET/PUT/DELETE /api/v1/sermons/study-notes/{id}` (auth).                                                                                                                                                                                                                                                                                     |
 
 ---
 

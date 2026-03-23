@@ -15,7 +15,7 @@
                     <h1 class="text-2xl md:text-3xl font-bold mt-2">Séries Bíblicas</h1>
                     <p class="text-slate-300 mt-1">Gerencie coleções de sermões e estudos</p>
                 </div>
-                <a href="{{ route('pastor.sermoes.series.create') }}"
+                <a href="{{ route('lideranca.sermoes.series.create') }}"
                     class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors shrink-0">
                     <x-icon name="plus" class="w-5 h-5" />
                     Nova Série
@@ -24,7 +24,7 @@
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm p-4">
-            <form method="GET" action="{{ route('pastor.sermoes.series.index') }}"
+            <form method="GET" action="{{ route('lideranca.sermoes.series.index') }}"
                 class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por título..."
                     class="rounded-xl border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white px-3 py-2">
@@ -39,7 +39,7 @@
                     <button type="submit"
                         class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium">Filtrar</button>
                     @if (request()->hasAny(['search', 'status']))
-                        <a href="{{ route('pastor.sermoes.series.index') }}"
+                        <a href="{{ route('lideranca.sermoes.series.index') }}"
                             class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600">Limpar</a>
                     @endif
                 </div>
@@ -117,10 +117,10 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end gap-2">
-                                        <a href="{{ route('pastor.sermoes.series.edit', $item) }}"
+                                        <a href="{{ route('lideranca.sermoes.series.edit', $item) }}"
                                             class="text-amber-600 dark:text-amber-400 hover:underline font-medium">Editar</a>
-                                        <form action="{{ route('pastor.sermoes.series.destroy', $item) }}" method="POST"
-                                            class="inline"
+                                        <form action="{{ route('lideranca.sermoes.series.destroy', $item) }}"
+                                            method="POST" class="inline"
                                             onsubmit="return confirm('Tem certeza que deseja deletar esta série?');">
                                             @csrf
                                             @method('DELETE')
@@ -143,7 +143,7 @@
                                         </h3>
                                         <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Agrupe sermões por livro ou
                                             tema. Crie sua primeira série bíblica.</p>
-                                        <a href="{{ route('pastor.sermoes.series.create') }}"
+                                        <a href="{{ route('lideranca.sermoes.series.create') }}"
                                             class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                                             <x-icon name="plus" class="w-5 h-5" />
                                             Nova série

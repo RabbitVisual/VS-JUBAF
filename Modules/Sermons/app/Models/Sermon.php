@@ -234,8 +234,8 @@ class Sermon extends Model
      */
     public function canEdit(User $user): bool
     {
-        // Admin / pastor can edit any sermon in the admin panel
-        if ($user->isAdmin() || $user->isPastor()) {
+        // Admin / lideranca can edit any sermon in the admin panel
+        if ($user->isAdmin() || $user->islideranca()) {
             return true;
         }
 
@@ -256,7 +256,7 @@ class Sermon extends Model
      */
     public function canDelete(User $user): bool
     {
-        if ($user->isAdmin() || $user->isPastor()) {
+        if ($user->isAdmin() || $user->islideranca()) {
             return true;
         }
         return $this->user_id === $user->id;

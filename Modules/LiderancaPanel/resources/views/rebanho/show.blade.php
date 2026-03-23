@@ -41,7 +41,7 @@
                                 {{ $user->membership_date->format('d/m/Y') }}</span>
                         @endif
                     </div>
-                    <a href="{{ route('pastor.rebanho.index') }}"
+                    <a href="{{ route('lideranca.rebanho.index') }}"
                         class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-200 hover:bg-amber-500/30 text-sm font-medium transition-colors">
                         <x-icon name="arrow-left" class="w-4 h-4" /> Voltar ao Rebanho
                     </a>
@@ -100,8 +100,8 @@
                                     class="p-4 bg-gray-50 dark:bg-slate-700/30 rounded-xl border border-gray-100 dark:border-slate-600">
                                     <div class="flex items-center gap-3">
                                         @if ($rel->related_user_id && $rel->relatedUser)
-                                            @if (Route::has('pastor.rebanho.show'))
-                                                <a href="{{ route('pastor.rebanho.show', $rel->relatedUser) }}"
+                                            @if (Route::has('lideranca.rebanho.show'))
+                                                <a href="{{ route('lideranca.rebanho.show', $rel->relatedUser) }}"
                                                     class="shrink-0">
                                             @endif
                                             @if ($rel->relatedUser->photo)
@@ -114,12 +114,12 @@
                                                     {{ strtoupper(mb_substr($rel->relatedUser->first_name ?? ($rel->relatedUser->name ?? '?'), 0, 1)) }}
                                                 </div>
                                             @endif
-                                            @if (Route::has('pastor.rebanho.show'))
+                                            @if (Route::has('lideranca.rebanho.show'))
                                                 </a>
                                             @endif
                                             <div class="min-w-0">
-                                                @if (Route::has('pastor.rebanho.show'))
-                                                    <a href="{{ route('pastor.rebanho.show', $rel->relatedUser) }}"
+                                                @if (Route::has('lideranca.rebanho.show'))
+                                                    <a href="{{ route('lideranca.rebanho.show', $rel->relatedUser) }}"
                                                         class="font-bold text-gray-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 block truncate">{{ $rel->relatedUser->name }}</a>
                                                 @else
                                                     <span

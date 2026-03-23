@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,7 +10,7 @@ use Nwidart\Modules\Facades\Module;
 class DashboardController extends Controller
 {
     /**
-     * Display the pastoral dashboard (Gabinete do Pastor).
+     * Display the liderancaal dashboard (Gabinete do lideranca).
      */
     public function index()
     {

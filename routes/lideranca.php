@@ -2,40 +2,40 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified', 'pastor'])->prefix('pastor')->name('pastor.')->group(function () {
-    Route::get('/', [\Modules\liderancapanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [\Modules\liderancapanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name('lideranca.')->group(function () {
+    Route::get('/', [\Modules\LiderancaPanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [\Modules\LiderancaPanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::prefix('rebanho')->name('rebanho.')->group(function () {
-        Route::get('/', [\Modules\liderancapanel\App\Http\Controllers\RebanhoController::class, 'index'])->name('index');
+        Route::get('/', [\Modules\LiderancaPanel\App\Http\Controllers\RebanhoController::class, 'index'])->name('index');
         Route::get('/criar', [\Modules\Admin\App\Http\Controllers\UserController::class, 'create'])->name('create');
         Route::post('/', [\Modules\Admin\App\Http\Controllers\UserController::class, 'store'])->name('store');
-        Route::get('/{user}', [\Modules\liderancapanel\App\Http\Controllers\RebanhoController::class, 'show'])->name('show');
+        Route::get('/{user}', [\Modules\LiderancaPanel\App\Http\Controllers\RebanhoController::class, 'show'])->name('show');
         Route::get('/{user}/editar', [\Modules\Admin\App\Http\Controllers\UserController::class, 'edit'])->name('edit');
         Route::put('/{user}', [\Modules\Admin\App\Http\Controllers\UserController::class, 'update'])->name('update');
     });
 
     Route::prefix('sermoes')->name('sermoes.')->group(function () {
-        Route::get('/', fn () => redirect()->route('pastor.sermoes.sermons.index'))->name('index');
-        Route::get('sermons/{sermon}/export-pdf', [\Modules\Sermons\App\Http\Controllers\Pastoral\SermonController::class, 'exportPdf'])->name('sermons.export-pdf');
-        Route::post('sermons/{sermon}/collaborators', [\Modules\Sermons\App\Http\Controllers\Pastoral\SermonController::class, 'inviteCollaborator'])->name('sermons.collaborators.invite');
-        Route::resource('sermons', \Modules\Sermons\App\Http\Controllers\Pastoral\SermonController::class);
-        Route::resource('categories', \Modules\Sermons\App\Http\Controllers\Pastoral\CategoryController::class)->except(['show']);
-        Route::resource('series', \Modules\Sermons\App\Http\Controllers\Pastoral\BibleSeriesController::class)->except(['show']);
-        Route::resource('studies', \Modules\Sermons\App\Http\Controllers\Pastoral\BibleStudyController::class)->except(['show']);
-        Route::resource('commentaries', \Modules\Sermons\App\Http\Controllers\Pastoral\BibleCommentaryController::class)->except(['show']);
+        Route::get('/', fn () => redirect()->route('lideranca.sermoes.sermons.index'))->name('index');
+        Route::get('sermons/{sermon}/export-pdf', [\Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class, 'exportPdf'])->name('sermons.export-pdf');
+        Route::post('sermons/{sermon}/collaborators', [\Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class, 'inviteCollaborator'])->name('sermons.collaborators.invite');
+        Route::resource('sermons', \Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class);
+        Route::resource('categories', \Modules\Sermons\App\Http\Controllers\liderancaal\CategoryController::class)->except(['show']);
+        Route::resource('series', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleSeriesController::class)->except(['show']);
+        Route::resource('studies', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleStudyController::class)->except(['show']);
+        Route::resource('commentaries', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleCommentaryController::class)->except(['show']);
     });
 
     Route::prefix('transparencia')->name('transparencia.')->group(function () {
-        Route::get('/', [\Modules\liderancapanel\App\Http\Controllers\TransparenciaController::class, 'index'])->name('index');
+        Route::get('/', [\Modules\LiderancaPanel\App\Http\Controllers\TransparenciaController::class, 'index'])->name('index');
     });
 
     Route::prefix('tesouraria')->name('tesouraria.')->group(function () {
-        $dash = \Modules\Treasury\App\Http\Controllers\Pastoral\DashboardController::class;
-        $entryCtrl = \Modules\Treasury\App\Http\Controllers\Pastoral\FinancialEntryController::class;
-        $campaignCtrl = \Modules\Treasury\App\Http\Controllers\Pastoral\CampaignController::class;
-        $goalCtrl = \Modules\Treasury\App\Http\Controllers\Pastoral\FinancialGoalController::class;
-        $reportCtrl = \Modules\Treasury\App\Http\Controllers\Pastoral\ReportController::class;
+        $dash = \Modules\Treasury\App\Http\Controllers\liderancaal\DashboardController::class;
+        $entryCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\FinancialEntryController::class;
+        $campaignCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\CampaignController::class;
+        $goalCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\FinancialGoalController::class;
+        $reportCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\ReportController::class;
 
         Route::get('/', [$dash, 'index'])->name('dashboard');
         Route::get('/dashboard', [$dash, 'index'])->name('dashboard.index');
@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified', 'pastor'])->prefix('pastor')->name('pasto
         Route::get('/reports', [$reportCtrl, 'index'])->name('reports.index');
     });
 
-    $conselhoCtrl = \Modules\liderancapanel\App\Http\Controllers\ConselhoController::class;
+    $conselhoCtrl = \Modules\LiderancaPanel\App\Http\Controllers\ConselhoController::class;
     Route::prefix('conselho')->name('conselho.')->group(function () use ($conselhoCtrl) {
         Route::get('/', [$conselhoCtrl, 'index'])->name('index');
         Route::get('/aprovacoes', [$conselhoCtrl, 'approvals'])->name('approvals');
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified', 'pastor'])->prefix('pastor')->name('pasto
         Route::post('/aprovacoes/{approval}/rejeitar', [$conselhoCtrl, 'reject'])->name('approvals.reject');
     });
 
-    $eventosCtrl = \Modules\liderancapanel\App\Http\Controllers\EventosController::class;
+    $eventosCtrl = \Modules\LiderancaPanel\App\Http\Controllers\EventosController::class;
     Route::prefix('eventos')->name('eventos.')->group(function () use ($eventosCtrl) {
         Route::get('/', [$eventosCtrl, 'index'])->name('index');
         Route::get('/check-in', [$eventosCtrl, 'checkinIndex'])->name('checkin.index');

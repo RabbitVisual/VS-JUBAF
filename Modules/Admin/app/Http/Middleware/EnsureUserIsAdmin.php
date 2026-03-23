@@ -22,7 +22,7 @@ class EnsureUserIsAdmin
 
         $user = auth()->user();
 
-        // Apenas Admin ou Pastor podem acessar o painel admin (incluindo conselho)
+        // Apenas Admin ou lideranca podem acessar o painel admin (incluindo conselho)
         if (! $user->hasAdminAccess()) {
             abort(403, 'Acesso restrito.');
         }

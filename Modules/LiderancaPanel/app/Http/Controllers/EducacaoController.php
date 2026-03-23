@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 class EducacaoController extends Controller
 {
     /**
-     * Educação - visão macro EBD e Worship Academy (layout pastoral).
+     * Educação - visão macro EBD e Worship Academy (layout liderancaal).
      */
     public function index()
     {

@@ -18,13 +18,13 @@
                     <div class="flex items-center gap-3 mb-2 flex-wrap">
                         <span
                             class="px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-xs font-bold uppercase tracking-wider">Gabinete
-                            Pastoral</span>
+                            liderancaal</span>
                         <span
                             class="px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-bold uppercase tracking-wider">Cuidado
                             & Alimentação</span>
                     </div>
                     <h1 class="text-3xl md:text-5xl font-black tracking-tight mb-2">
-                        {{ $greeting }}, {{ auth()->user()->first_name ?? (auth()->user()->name ?? 'Pastor') }}!
+                        {{ $greeting }}, {{ auth()->user()->first_name ?? (auth()->user()->name ?? 'lideranca') }}!
                     </h1>
                     <p class="text-slate-300 text-lg max-w-xl">
                         Bem-vindo ao seu gabinete. Aqui você acompanha o rebanho, pedidos de oração e a saúde da igreja.
@@ -47,7 +47,7 @@
 
         {{-- Widgets --}}
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            <a href="{{ route('pastor.rebanho.index') }}"
+            <a href="{{ route('lideranca.rebanho.index') }}"
                 class="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-amber-500/40 transition-all duration-200 p-6">
                 <div class="flex items-center gap-4">
                     <div
@@ -64,8 +64,8 @@
                     Ver lista de membros</p>
             </a>
 
-            @if (Route::has('pastor.oracao.index'))
-                <a href="{{ route('pastor.oracao.index') }}"
+            @if (Route::has('lideranca.oracao.index'))
+                <a href="{{ route('lideranca.oracao.index') }}"
                     class="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-amber-500/40 transition-all duration-200 p-6">
                     <div class="flex items-center gap-4">
                         <div
@@ -83,8 +83,8 @@
                 </a>
             @endif
 
-            @if (Route::has('pastor.sermoes.index'))
-                <a href="{{ route('pastor.sermoes.index') }}"
+            @if (Route::has('lideranca.sermoes.index'))
+                <a href="{{ route('lideranca.sermoes.index') }}"
                     class="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-amber-500/40 transition-all duration-200 p-6">
                     <div class="flex items-center gap-4">
                         <div
@@ -112,7 +112,7 @@
                         <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $aniversariantes->count() }}</p>
                     </div>
                 </div>
-                <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Contato pastoral</p>
+                <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Contato liderancaal</p>
             </div>
         </div>
 
@@ -126,7 +126,7 @@
                         <x-icon name="hands-praying" class="w-5 h-5 text-teal-500" />
                         Pedidos de Oração — ore e marque como orado
                     </h2>
-                    <a href="{{ route('pastor.oracao.index') }}"
+                    <a href="{{ route('lideranca.oracao.index') }}"
                         class="text-sm font-medium text-teal-600 dark:text-teal-400 hover:underline">Ver todos</a>
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-slate-700 max-h-96 overflow-y-auto">
@@ -140,7 +140,8 @@
                                     {{ $req->is_anonymous ? 'Anônimo' : $req->user->name ?? '—' }} ·
                                     {{ $req->created_at->format('d/m/Y H:i') }}</p>
                             </div>
-                            <form action="{{ route('pastor.oracao.marcar-orado', $req) }}" method="POST" class="shrink-0">
+                            <form action="{{ route('lideranca.oracao.marcar-orado', $req) }}" method="POST"
+                                class="shrink-0">
                                 @csrf
                                 <button type="submit"
                                     class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-sm font-bold">Marcar
@@ -188,8 +189,8 @@
                                     </p>
                                 </div>
                             </div>
-                            @if (Route::has('pastor.rebanho.show'))
-                                <a href="{{ route('pastor.rebanho.show', $membro) }}"
+                            @if (Route::has('lideranca.rebanho.show'))
+                                <a href="{{ route('lideranca.rebanho.show', $membro) }}"
                                     class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline">Ver
                                     perfil</a>
                             @endif
@@ -212,7 +213,7 @@
                 </h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
                     Aqui você verá insights sobre a saúde da igreja: frequência na EBD, pedidos de oração em alta e
-                    sugestões de cuidado pastoral.
+                    sugestões de cuidado liderancaal.
                 </p>
                 @if (isset($eliasInsight) && !empty($eliasInsight['content']))
                     <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-100 text-sm">

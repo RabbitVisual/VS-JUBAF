@@ -9,10 +9,10 @@
             <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.tesouraria.dashboard') }}"
+                        <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                             class="hover:text-white transition-colors">Tesouraria</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                        <a href="{{ route('pastor.tesouraria.entries.index') }}"
+                        <a href="{{ route('lideranca.tesouraria.entries.index') }}"
                             class="hover:text-white transition-colors">Lançamentos</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">Nova entrada</span>
@@ -21,7 +21,7 @@
                     <p class="text-slate-300 text-sm max-w-xl">Registre receita ou despesa. Dados detalhados para prestação
                         de contas.</p>
                 </div>
-                <a href="{{ route('pastor.tesouraria.entries.index') }}"
+                <a href="{{ route('lideranca.tesouraria.entries.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors">
                     <x-icon name="arrow-left" class="w-5 h-5" /> Voltar
                 </a>

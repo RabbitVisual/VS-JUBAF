@@ -39,7 +39,7 @@ Resumo das funcionalidades e integrações do módulo Tesouraria após o alinham
 
 - **Balancete mensal**: PDF gerado para o período; quando o período cobre exatamente um mês civil, o título do PDF é "Balancete Mensal" (para assembleia).
 - **Dashboard**: Mantido; agrupamentos por categoria usam `financial_categories` quando disponível.
-- **Comprovante anual de contribuição**: Rota `GET treasury/reports/contribution-receipt?member_id=&year=`. Emite PDF com totais por categoria para o membro no ano. Membro pode emitir apenas o próprio; tesoureiro/pastor (canExportData) pode emitir de qualquer membro.
+- **Comprovante anual de contribuição**: Rota `GET treasury/reports/contribution-receipt?member_id=&year=`. Emite PDF com totais por categoria para o membro no ano. Membro pode emitir apenas o próprio; tesoureiro/lideranca (canExportData) pode emitir de qualquer membro.
 
 ## Integrações
 

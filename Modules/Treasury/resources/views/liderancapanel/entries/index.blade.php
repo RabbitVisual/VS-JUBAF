@@ -22,7 +22,7 @@
             <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.tesouraria.dashboard') }}"
+                        <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                             class="hover:text-white transition-colors">Tesouraria</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">Lançamentos</span>
@@ -32,7 +32,7 @@
                         categoria e período.</p>
                 </div>
                 @if ($permission->canCreateEntries())
-                    <a href="{{ route('pastor.tesouraria.entries.create') }}"
+                    <a href="{{ route('lideranca.tesouraria.entries.create') }}"
                         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                         <x-icon name="plus" class="w-5 h-5" /> Nova Entrada
                     </a>
@@ -47,7 +47,7 @@
                 <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Filtros</h3>
             </div>
             <div class="p-5">
-                <form method="GET" action="{{ route('pastor.tesouraria.entries.index') }}"
+                <form method="GET" action="{{ route('lideranca.tesouraria.entries.index') }}"
                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo</label>
@@ -203,7 +203,7 @@
                                     <div
                                         class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                         @if ($permission->canCreateEntries() && !$entry->reversal_of_id && !isset($reversedEntryIds[$entry->id]))
-                                            <form action="{{ route('pastor.tesouraria.entries.reverse', $entry) }}"
+                                            <form action="{{ route('lideranca.tesouraria.entries.reverse', $entry) }}"
                                                 method="POST" class="inline"
                                                 onsubmit="if(confirm('Confirmar estorno? Será criada uma entrada inversa vinculada.')) { window.dispatchEvent(new CustomEvent('loading-overlay:show', { detail: { message: 'Estornando...' } })); return true; } return false;">
                                                 @csrf
@@ -215,14 +215,14 @@
                                             </form>
                                         @endif
                                         @if ($permission->canEditEntries())
-                                            <a href="{{ route('pastor.tesouraria.entries.edit', $entry) }}"
+                                            <a href="{{ route('lideranca.tesouraria.entries.edit', $entry) }}"
                                                 class="p-2 text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-xl transition-colors"
                                                 title="Editar">
                                                 <x-icon name="pencil" class="w-4 h-4" />
                                             </a>
                                         @endif
                                         @if ($permission->canDeleteEntries())
-                                            <form action="{{ route('pastor.tesouraria.entries.destroy', $entry) }}"
+                                            <form action="{{ route('lideranca.tesouraria.entries.destroy', $entry) }}"
                                                 method="POST" class="inline"
                                                 onsubmit="if(confirm('Excluir esta entrada?')) { window.dispatchEvent(new CustomEvent('loading-overlay:show')); return true; } return false;">
                                                 @csrf
@@ -250,7 +250,7 @@
                                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Ajuste os filtros ou crie
                                             uma nova entrada.</p>
                                         @if ($permission->canCreateEntries())
-                                            <a href="{{ route('pastor.tesouraria.entries.create') }}"
+                                            <a href="{{ route('lideranca.tesouraria.entries.create') }}"
                                                 class="mt-4 inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition-all text-sm">
                                                 <x-icon name="plus" class="w-4 h-4" /> Nova Entrada
                                             </a>

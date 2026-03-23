@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 class SermoesController extends Controller
 {
     /**
-     * Estúdio da Palavra - listagem pastoral (layout pastoral).
+     * Estúdio da Palavra - listagem liderancaal (layout liderancaal).
      */
     public function index()
     {

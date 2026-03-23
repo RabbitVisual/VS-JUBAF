@@ -232,7 +232,7 @@ class User extends Authenticatable
      */
     public function canProject()
     {
-        return $this->can_project || $this->isAdmin() || $this->isPastor();
+        return $this->can_project || $this->isAdmin() || $this->islideranca();
     }
 
     /**
@@ -260,11 +260,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Verifica se o usuário é Pastor
+     * Verifica se o usuário é lideranca
      */
-    public function isPastor()
+    public function islideranca()
     {
-        return $this->role && $this->role->slug === 'pastor';
+        return $this->role && $this->role->slug === 'lideranca';
     }
 
     /**
@@ -272,7 +272,7 @@ class User extends Authenticatable
      */
     public function hasAdminAccess()
     {
-        return $this->isAdmin() || $this->isPastor();
+        return $this->isAdmin() || $this->islideranca();
     }
 
     /**

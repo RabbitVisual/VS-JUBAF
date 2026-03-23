@@ -12,7 +12,7 @@ class Igreja extends Model
 
     protected $fillable = [
         'nome',
-        'pastor_titular',
+        'lideranca_titular',
         'lider_jovens',
         'cidade',
         'estado',

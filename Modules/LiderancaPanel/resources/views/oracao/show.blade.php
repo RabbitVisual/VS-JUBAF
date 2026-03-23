@@ -5,7 +5,7 @@
 @section('content')
     <div class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <a href="{{ route('pastor.oracao.index') }}"
+            <a href="{{ route('lideranca.oracao.index') }}"
                 class="inline-flex items-center gap-2 text-amber-600 dark:text-amber-400 font-medium hover:underline">
                 <x-icon name="arrow-left" class="w-4 h-4" /> Voltar
             </a>
@@ -23,7 +23,8 @@
             </div>
             @if ($prayerRequest->status === 'pending')
                 <div class="mt-6 pt-4 border-t border-gray-200 dark:border-slate-700">
-                    <form action="{{ route('pastor.oracao.marcar-orado', $prayerRequest) }}" method="POST" class="inline">
+                    <form action="{{ route('lideranca.oracao.marcar-orado', $prayerRequest) }}" method="POST"
+                        class="inline">
                         @csrf
                         <button type="submit"
                             class="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold">Marcar como

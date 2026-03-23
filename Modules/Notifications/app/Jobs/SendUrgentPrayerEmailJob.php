@@ -31,12 +31,12 @@ class SendUrgentPrayerEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        // Find targets: Intercessors, Admins, Pastors.
+        // Find targets: Intercessors, Admins, liderancas.
         // Assuming roles are by slug.
         // A more optimized way would be User::whereHas('role', fn($q) => $q->whereIn('slug', [...]))->chunk(...)
 
         $recipients = User::whereHas('role', function ($q) {
-            $q->whereIn('slug', ['intercessor', 'admin', 'pastor']);
+            $q->whereIn('slug', ['intercessor', 'admin', 'lideranca']);
         })->get(); // Get all for now. If list is huge, chunking is needed.
 
         foreach ($recipients as $recipient) {

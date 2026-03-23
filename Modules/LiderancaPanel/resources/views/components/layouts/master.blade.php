@@ -15,9 +15,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>@yield('title', $title ?? 'Gabinete Pastoral') | {{ \App\Models\Settings::get('site_name', config('app.name', 'Laravel')) }}</title>
+    <title>@yield('title', $title ?? 'Gabinete liderancaal') | {{ \App\Models\Settings::get('site_name', config('app.name', 'Laravel')) }}</title>
 
-    <meta name="description" content="{{ $description ?? 'Gabinete Pastoral - Cuidado e Alimentação do Rebanho' }}">
+    <meta name="description" content="{{ $description ?? 'Gabinete liderancaal - Cuidado e Alimentação do Rebanho' }}">
     <meta name="author" content="Reinan Rodrigues - Vertex Solutions LTDA © 2025">
 
     @php

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Treasury\App\Http\Controllers\Pastoral;
+namespace Modules\Treasury\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -48,7 +48,7 @@ class CampaignController extends Controller
         }
         $this->api->createCampaign($validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.campaigns.index')
+        return redirect()->route('lideranca.tesouraria.campaigns.index')
             ->with('success', 'Campanha criada com sucesso!');
     }
 
@@ -87,7 +87,7 @@ class CampaignController extends Controller
         }
         $this->api->updateCampaign($campaign, $validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.campaigns.index')
+        return redirect()->route('lideranca.tesouraria.campaigns.index')
             ->with('success', 'Campanha atualizada com sucesso!');
     }
 
@@ -95,7 +95,7 @@ class CampaignController extends Controller
     {
         $this->api->deleteCampaign($campaign, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.campaigns.index')
+        return redirect()->route('lideranca.tesouraria.campaigns.index')
             ->with('success', 'Campanha removida com sucesso!');
     }
 }

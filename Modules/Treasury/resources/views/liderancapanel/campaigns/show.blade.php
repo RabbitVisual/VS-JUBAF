@@ -18,10 +18,10 @@
             <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.tesouraria.dashboard') }}"
+                        <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                             class="hover:text-white transition-colors">Tesouraria</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                        <a href="{{ route('pastor.tesouraria.campaigns.index') }}"
+                        <a href="{{ route('lideranca.tesouraria.campaigns.index') }}"
                             class="hover:text-white transition-colors">Campanhas</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">{{ $campaign->name }}</span>
@@ -36,12 +36,12 @@
                     </p>
                 </div>
                 <div class="flex flex-shrink-0 flex-wrap items-center gap-3">
-                    <a href="{{ route('pastor.tesouraria.campaigns.index') }}"
+                    <a href="{{ route('lideranca.tesouraria.campaigns.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors">
                         <x-icon name="arrow-left" class="w-5 h-5" /> Voltar
                     </a>
                     @if (isset($permission) && $permission->canManageCampaigns())
-                        <a href="{{ route('pastor.tesouraria.campaigns.edit', $campaign) }}"
+                        <a href="{{ route('lideranca.tesouraria.campaigns.edit', $campaign) }}"
                             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                             <x-icon name="pencil" class="w-5 h-5" /> Editar
                         </a>

@@ -28,8 +28,8 @@
             <p class="text-slate-300 mt-1">
                 {{ __('events::messages.manage_church_events') ?? 'Acompanhe eventos, inscrições e check-in.' }}</p>
             <div class="mt-6 flex flex-wrap gap-3">
-                @if (Route::has('pastor.eventos.checkin.index'))
-                    <a href="{{ route('pastor.eventos.checkin.index') }}"
+                @if (Route::has('lideranca.eventos.checkin.index'))
+                    <a href="{{ route('lideranca.eventos.checkin.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
                         <x-icon name="camera" class="w-5 h-5" />
                         Check-in
@@ -46,7 +46,8 @@
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-5">
-            <form method="GET" action="{{ route('pastor.eventos.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <form method="GET" action="{{ route('lideranca.eventos.index') }}"
+                class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="{{ __('events::messages.search_events') ?? 'Buscar' }}"
                     class="w-full px-4 py-2.5 border border-gray-300 dark:border-slate-600 rounded-xl bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white">
@@ -74,7 +75,7 @@
                     <button type="submit"
                         class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-medium">{{ __('events::messages.filter') ?? 'Filtrar' }}</button>
                     @if (request()->hasAny(['search', 'status', 'event_type_id', 'date_from', 'date_to']))
-                        <a href="{{ route('pastor.eventos.index') }}"
+                        <a href="{{ route('lideranca.eventos.index') }}"
                             class="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-gray-800 dark:text-white rounded-xl font-medium">Limpar</a>
                     @endif
                 </div>
@@ -84,7 +85,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
             <div class="divide-y divide-gray-200 dark:divide-slate-700">
                 @forelse($events as $event)
-                    <a href="{{ route('pastor.eventos.show', $event) }}"
+                    <a href="{{ route('lideranca.eventos.show', $event) }}"
                         class="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors">
                         <div class="flex flex-wrap items-center justify-between gap-4">
                             <div>

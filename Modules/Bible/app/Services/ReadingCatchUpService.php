@@ -69,10 +69,10 @@ final class ReadingCatchUpService
     }
 
     /**
-     * Create a private prayer request in Intercessor for "Disciplina e Deleite na Palavra" (pastoral_only).
+     * Create a private prayer request in Intercessor for "Disciplina e Deleite na Palavra" (liderancaal_only).
      * No-op if Intercessor is not available or user already has an active request in this category
-     * (avoids overloading the pastor with multiple requests for the same unresolved issue).
-     * When $subscription is provided, stores the created request id on the subscription for pastoral report linking.
+     * (avoids overloading the lideranca with multiple requests for the same unresolved issue).
+     * When $subscription is provided, stores the created request id on the subscription for liderancaal report linking.
      */
     public function createPrayerRequestForDelay(User $user, int $delayDays, ?BiblePlanSubscription $subscription = null): void
     {
@@ -95,7 +95,7 @@ final class ReadingCatchUpService
             'category_id' => $category->id,
             'title' => 'Disciplina e Deleite na Palavra',
             'description' => 'Peço oração por disciplina e deleite na leitura da Bíblia. Estou atrasado(a) no plano de leitura e quero retomar com fidelidade.',
-            'privacy_level' => 'pastoral_only',
+            'privacy_level' => 'liderancaal_only',
             'urgency_level' => 'normal',
             'is_anonymous' => false,
             'status' => 'active',

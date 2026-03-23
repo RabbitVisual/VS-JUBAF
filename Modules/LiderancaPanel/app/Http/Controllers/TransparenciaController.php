@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Treasury\App\Services\TreasuryApiService;
@@ -8,7 +8,7 @@ use Modules\Treasury\App\Services\TreasuryApiService;
 class TransparenciaController extends Controller
 {
     /**
-     * Saúde financeira e balancetes em modo somente leitura (layout pastoral).
+     * Saúde financeira e balancetes em modo somente leitura (layout liderancaal).
      */
     public function index()
     {

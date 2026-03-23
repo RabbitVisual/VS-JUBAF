@@ -15,7 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         then: function () {
             Route::middleware('web')->group(base_path('routes/member.php'));
             Route::middleware('web')->group(base_path('routes/admin.php'));
-            Route::middleware('web')->group(base_path('routes/pastoral.php'));
+            Route::middleware('web')->group(base_path('routes/lideranca.php'));
             // Treasury: garante rotas /treasury/* carregadas (evita 404 no sidebar admin)
             if (file_exists($treasuryRoutes = base_path('Modules/Treasury/routes/web.php'))) {
                 Route::middleware('web')->group($treasuryRoutes);
@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
         $middleware->alias([
             'admin' => \Modules\Admin\App\Http\Middleware\EnsureUserIsAdmin::class,
-            'pastor' => \Modules\liderancapanel\App\Http\Middleware\EnsureUserHasPastoralAccess::class,
+            'lideranca' => \Modules\LiderancaPanel\App\Http\Middleware\EnsureUserHasliderancaalAccess::class,
             'optional_sanctum' => \App\Http\Middleware\OptionalSanctum::class,
         ]);
         // Webhook canônico de pagamento é POST /api/v1/gateway/webhook/{driver} (rota API, sem CSRF)

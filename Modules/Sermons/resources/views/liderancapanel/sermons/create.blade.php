@@ -15,7 +15,7 @@
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Criar Novo Sermão</h1>
                     <p class="text-gray-600 dark:text-gray-400 mt-1">Sermon Engine 2.0 - Criação de Conteúdo Profissional</p>
                 </div>
-                <a href="{{ route('pastor.sermoes.sermons.index') }}"
+                <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                     class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <x-icon name="arrow-left" class="-ml-1 mr-2 h-5 w-5" />
                     Voltar
@@ -23,7 +23,7 @@
             </div>
 
             <!-- Form -->
-            <form id="sermon-form" action="{{ route('pastor.sermoes.sermons.store') }}" method="POST"
+            <form id="sermon-form" action="{{ route('lideranca.sermoes.sermons.store') }}" method="POST"
                 enctype="multipart/form-data" class="space-y-6">
                 @csrf
 
@@ -166,7 +166,8 @@
                             <div class="flex flex-col gap-2 md:col-span-2">
                                 <p class="text-xs text-gray-500 dark:text-gray-400">Por padrão o sermão fica
                                     <strong>privado</strong> e em <strong>rascunho</strong>. Marque "Publicar para a Igreja"
-                                    para disponibilizar no painel.</p>
+                                    para disponibilizar no painel.
+                                </p>
                                 <div class="flex flex-wrap items-center gap-4">
                                     <label class="inline-flex items-center gap-2 cursor-pointer">
                                         <input type="checkbox" name="publish_for_church" id="publish_for_church"
@@ -299,7 +300,7 @@
 
                 <!-- Form Actions -->
                 <div class="flex items-center justify-end space-x-3 pb-20">
-                    <a href="{{ route('pastor.sermoes.sermons.index') }}"
+                    <a href="{{ route('lideranca.sermoes.sermons.index') }}"
                         class="px-6 py-3 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
                         Cancelar
                     </a>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\Pastoral;
+namespace Modules\Sermons\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +66,7 @@ class BibleStudyController extends Controller
             $validated['audio_file'] = null;
         }
         BibleStudy::create($validated);
-        return redirect()->route('pastor.sermoes.studies.index')->with('success', 'Estudo Bíblico criado com sucesso!');
+        return redirect()->route('lideranca.sermoes.studies.index')->with('success', 'Estudo Bíblico criado com sucesso!');
     }
 
     public function edit(BibleStudy $study): View
@@ -117,7 +117,7 @@ class BibleStudyController extends Controller
             $validated['audio_file'] = null;
         }
         $study->update($validated);
-        return redirect()->route('pastor.sermoes.studies.index')->with('success', 'Estudo Bíblico atualizado com sucesso!');
+        return redirect()->route('lideranca.sermoes.studies.index')->with('success', 'Estudo Bíblico atualizado com sucesso!');
     }
 
     public function destroy(BibleStudy $study): RedirectResponse
@@ -126,6 +126,6 @@ class BibleStudyController extends Controller
             \Storage::disk('public')->delete($study->audio_file);
         }
         $study->delete();
-        return redirect()->route('pastor.sermoes.studies.index')->with('success', 'Estudo removido com sucesso!');
+        return redirect()->route('lideranca.sermoes.studies.index')->with('success', 'Estudo removido com sucesso!');
     }
 }

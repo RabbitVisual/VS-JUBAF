@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\Pastoral;
+namespace Modules\Sermons\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -78,7 +78,7 @@ class BibleCommentaryController extends Controller
             $validated['audio_path'] = null;
         }
         BibleCommentary::create($validated);
-        return redirect()->route('pastor.sermoes.commentaries.index')->with('success', 'Comentário Bíblico criado com sucesso!');
+        return redirect()->route('lideranca.sermoes.commentaries.index')->with('success', 'Comentário Bíblico criado com sucesso!');
     }
 
     public function edit(BibleCommentary $commentary): View
@@ -153,12 +153,12 @@ class BibleCommentaryController extends Controller
             $validated['audio_path'] = null;
         }
         $commentary->update($validated);
-        return redirect()->route('pastor.sermoes.commentaries.index')->with('success', 'Comentário atualizado com sucesso!');
+        return redirect()->route('lideranca.sermoes.commentaries.index')->with('success', 'Comentário atualizado com sucesso!');
     }
 
     public function destroy(BibleCommentary $commentary): RedirectResponse
     {
         $commentary->delete();
-        return redirect()->route('pastor.sermoes.commentaries.index')->with('success', 'Comentário removido com sucesso!');
+        return redirect()->route('lideranca.sermoes.commentaries.index')->with('success', 'Comentário removido com sucesso!');
     }
 }

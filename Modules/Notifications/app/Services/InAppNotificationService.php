@@ -126,14 +126,14 @@ class InAppNotificationService
     }
 
     /**
-     * Send an in-app notification to all admins/pastors.
+     * Send an in-app notification to all admins/liderancas.
      *
      * @param  array  $options  same as sendToUser
      */
     public function sendToAdmins(string $title, string $message, array $options = []): SystemNotification
     {
         $users = User::where('is_active', true)
-            ->whereHas('role', fn ($q) => $q->whereIn('slug', ['admin', 'pastor']))
+            ->whereHas('role', fn ($q) => $q->whereIn('slug', ['admin', 'lideranca']))
             ->get();
 
         return $this->sendToUsers($users, $title, $message, $options);

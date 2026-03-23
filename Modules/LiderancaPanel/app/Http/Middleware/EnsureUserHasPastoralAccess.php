@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Middleware;
+namespace Modules\LiderancaPanel\App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureUserHasPastoralAccess
+class EnsureUserHasliderancaalAccess
 {
     /**
      * Handle an incoming request.
-     * Allow Admin and Pastor to access the Gabinete Pastoral.
+     * Allow Admin and lideranca to access the Gabinete liderancaal.
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -19,7 +19,7 @@ class EnsureUserHasPastoralAccess
         }
 
         if (! auth()->user()->hasAdminAccess()) {
-            abort(403, 'Acesso restrito ao Gabinete Pastoral.');
+            abort(403, 'Acesso restrito ao Gabinete liderancaal.');
         }
 
         return $next($request);

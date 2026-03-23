@@ -12,7 +12,7 @@
                 </h1>
                 <p class="text-gray-500 dark:text-gray-400 mt-1">{{ __('churchcouncil::messages.council_panel_intro') }}</p>
             </div>
-            <a href="{{ route('pastor.conselho.index') }}"
+            <a href="{{ route('lideranca.conselho.index') }}"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                 <x-icon name="arrow-left" class="w-4 h-4" /> {{ __('churchcouncil::messages.back') }}
             </a>
@@ -21,7 +21,7 @@
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 overflow-hidden">
             <div class="divide-y divide-gray-200 dark:divide-slate-700">
                 @forelse($pendingApprovals as $approval)
-                    <a href="{{ route('pastor.conselho.approvals.show', $approval) }}"
+                    <a href="{{ route('lideranca.conselho.approvals.show', $approval) }}"
                         class="block px-6 py-4 hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors">
                         <div class="flex items-center justify-between gap-4">
                             <div>

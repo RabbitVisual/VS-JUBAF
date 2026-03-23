@@ -54,14 +54,14 @@ class FamilyAnalysisService
         $nuclei = $this->buildNuclei();
         $composition = $this->computeComposition($nuclei);
         $byNeighborhood = $this->familiesByNeighborhood($nuclei);
-        $highlights = $this->buildPastoralHighlights($nuclei, $composition);
+        $highlights = $this->buildliderancaalHighlights($nuclei, $composition);
         $ageDistribution = $this->averageChildrenAgeByNucleus($nuclei);
 
         return [
             'nuclei' => $nuclei,
             'composition' => $composition,
             'by_neighborhood' => $byNeighborhood,
-            'pastoral_highlights' => $highlights,
+            'liderancaal_highlights' => $highlights,
             'age_distribution' => $ageDistribution,
             'total_users_with_relations' => $this->acceptedRelationships->pluck('user_id')->merge($this->acceptedRelationships->pluck('related_user_id'))->filter()->unique()->count(),
             'total_relationships' => $this->acceptedRelationships->count(),
@@ -258,9 +258,9 @@ class FamilyAnalysisService
     }
 
     /**
-     * Destaques pastorais: frases prontas para o dashboard.
+     * Destaques liderancaais: frases prontas para o dashboard.
      */
-    protected function buildPastoralHighlights(array $nuclei, array $composition): array
+    protected function buildliderancaalHighlights(array $nuclei, array $composition): array
     {
         $highlights = [];
         $today = now();
@@ -317,14 +317,14 @@ class FamilyAnalysisService
         }
 
         if ($highlights === []) {
-            $highlights[] = 'Cadastre vínculos de parentesco (pai, mãe, cônjuge, filho) para enriquecer os destaques pastorais.';
+            $highlights[] = 'Cadastre vínculos de parentesco (pai, mãe, cônjuge, filho) para enriquecer os destaques liderancaais.';
         }
 
         return $highlights;
     }
 
     /**
-     * Resumo em texto/array para o Elias (contexto da análise pastoral).
+     * Resumo em texto/array para o Elias (contexto da análise liderancaal).
      */
     public function getSummaryForElias(): array
     {
@@ -333,7 +333,7 @@ class FamilyAnalysisService
         return [
             'composition' => $report['composition'],
             'by_neighborhood' => $report['by_neighborhood'],
-            'pastoral_highlights' => $report['pastoral_highlights'],
+            'liderancaal_highlights' => $report['liderancaal_highlights'],
             'total_nuclei' => $report['composition']['total_nuclei'],
             'total_relationships' => $report['total_relationships'],
         ];

@@ -15,14 +15,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\liderancapanel\\": "app/",
-            "Modules\\liderancapanel\\Database\\Factories\\": "database/factories/",
-            "Modules\\liderancapanel\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\LiderancaPanel\\": "app/",
+            "Modules\\LiderancaPanel\\Database\\Factories\\": "database/factories/",
+            "Modules\\LiderancaPanel\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Modules\\liderancapanel\\Tests\\": "tests/"
+            "Modules\\LiderancaPanel\\Tests\\": "tests/"
         }
     }
 }

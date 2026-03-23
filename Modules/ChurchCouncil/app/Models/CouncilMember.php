@@ -38,7 +38,7 @@ class CouncilMember extends Model
 
     const ROLE_MEMBER = 'member';
 
-    const ROLE_PASTOR = 'pastor';
+    const ROLE_lideranca = 'lideranca';
 
     const ROLE_DEACON = 'deacon';
 
@@ -135,7 +135,7 @@ class CouncilMember extends Model
             self::ROLE_VICE_PRESIDENT => 'Vice-Presidente',
             self::ROLE_SECRETARY => 'Secretário',
             self::ROLE_TREASURER => 'Tesoureiro',
-            self::ROLE_PASTOR => 'Pastor',
+            self::ROLE_lideranca => 'lideranca',
             self::ROLE_DEACON => 'Diácono',
             self::ROLE_MEMBER => 'Membro',
             default => 'Membro'

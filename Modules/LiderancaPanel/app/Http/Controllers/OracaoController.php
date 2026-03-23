@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\liderancapanel\App\Http\Controllers;
+namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -10,7 +10,7 @@ use Illuminate\View\View;
 class OracaoController extends Controller
 {
     /**
-     * Lista de pedidos de oração (layout pastoral).
+     * Lista de pedidos de oração (layout liderancaal).
      */
     public function index(): View
     {
@@ -26,7 +26,7 @@ class OracaoController extends Controller
     }
 
     /**
-     * Detalhe de um pedido (layout pastoral).
+     * Detalhe de um pedido (layout liderancaal).
      */
     public function show(int $request): View
     {
@@ -68,9 +68,9 @@ class OracaoController extends Controller
 
         $back = $req->input('from', $req->query('from', 'dashboard'));
         if ($back === 'list') {
-            return redirect()->route('pastor.oracao.index')->with('success', 'Pedido marcado como orado.');
+            return redirect()->route('lideranca.oracao.index')->with('success', 'Pedido marcado como orado.');
         }
 
-        return redirect()->route('pastor.dashboard')->with('success', 'Pedido marcado como orado.');
+        return redirect()->route('lideranca.dashboard')->with('success', 'Pedido marcado como orado.');
     }
 }

@@ -36,7 +36,7 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
     - [C:/laragon/www/JUBAF/composer.json](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/composer.json)
     - [C:/laragon/www/JUBAF/routes/admin.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/admin.php)
     - [C:/laragon/www/JUBAF/routes/member.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/member.php)
-    - [C:/laragon/www/JUBAF/routes/pastoral.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/pastoral.php)
+    - [C:/laragon/www/JUBAF/routes/liderancaal.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/liderancaal.php)
     - [C:/laragon/www/JUBAF/Modules/Admin/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Admin/resources/views/components/sidebar.blade.php)
     - [C:/laragon/www/JUBAF/Modules/MemberPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/MemberPanel/resources/views/components/sidebar.blade.php)
     - [C:/laragon/www/JUBAF/Modules/liderancapanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/liderancapanel/resources/views/components/sidebar.blade.php)
@@ -52,14 +52,14 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 
 - Excluir rotas de bot em `routes/admin.php` e `routes/member.php`.
 - Remover controller/view de configuração do bot no Admin (incluindo entradas de menu).
-- Remover widgets/partials/blades do Elias em telas administrativas/pastorais (especialmente no módulo Sermons).
+- Remover widgets/partials/blades do Elias em telas administrativas/liderancaais (especialmente no módulo Sermons).
 - Eliminar chamadas de serviços de bot em controllers que hoje invocam análise Elias.
 
 1. **Limpar rotas órfãs dos módulos removidos**
 
 - Em `routes/admin.php`, remover blocos de rotas de `Ministries`, `EBD`, `Marketplace`, `Intercessor`, `Projection`, `Worship`, `SocialAction`, `Assets`, e rotas de gamificação ligadas aos módulos removidos.
 - Em `routes/member.php`, remover blocos de `Ministries`, `cbav-bot`, `Marketplace`, `EBD`, `Intercessor`, `Worship`, `Projection`.
-- Em `routes/pastoral.php`, remover seções dependentes de `EBD`, `Ministries` e rotas de oração acopladas ao módulo removido.
+- Em `routes/liderancaal.php`, remover seções dependentes de `EBD`, `Ministries` e rotas de oração acopladas ao módulo removido.
 
 1. **Limpar menus/layouts nos painéis**
 
@@ -69,7 +69,7 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 1. **Gerar novos módulos JUBAF**
 
 - Criar módulo `Igrejas` via laravel-modules.
-- Criar migration + model `Igreja` com campos: `nome`, `pastor_titular`, `lider_jovens`, `cidade`, `estado`, `logo_path`.
+- Criar migration + model `Igreja` com campos: `nome`, `lideranca_titular`, `lider_jovens`, `cidade`, `estado`, `logo_path`.
 - Criar módulo `Comunicacao` via laravel-modules.
 - Criar migration + model `Postagem` com campos: `titulo`, `conteudo` (text), `tipo` enum (`edital`, `ata`, `aviso`, `noticia`), `anexo_path`, `user_id`.
 - Garantir registro/autoload dos novos módulos no `composer.json` e em `modules_statuses.json`.

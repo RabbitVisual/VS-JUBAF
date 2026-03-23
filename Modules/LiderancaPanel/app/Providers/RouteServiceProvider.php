@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\liderancapanel\Providers;
+namespace Modules\LiderancaPanel\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected string $name = 'liderancapanel';
+    protected string $name = 'LiderancaPanel';
 
     /**
      * Called before routes are registered.

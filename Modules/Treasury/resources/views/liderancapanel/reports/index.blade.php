@@ -9,7 +9,7 @@
             <div class="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                     <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-2">
-                        <a href="{{ route('pastor.tesouraria.dashboard') }}"
+                        <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                             class="hover:text-white transition-colors">Tesouraria</a>
                         <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                         <span class="text-white font-bold">Relatórios</span>
@@ -23,12 +23,12 @@
                 </div>
                 @if ($permission->canExportData())
                     <div class="flex flex-wrap items-center gap-3">
-                        <a href="{{ route('pastor.tesouraria.reports.export.pdf', ['start_date' => $startDate, 'end_date' => $endDate]) }}"
+                        <a href="{{ route('lideranca.tesouraria.reports.export.pdf', ['start_date' => $startDate, 'end_date' => $endDate]) }}"
                             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-colors text-sm"
                             title="Relatório completo em PDF">
                             <x-icon name="file-pdf" class="w-5 h-5" /> PDF
                         </a>
-                        <a href="{{ route('pastor.tesouraria.reports.export.excel', ['start_date' => $startDate, 'end_date' => $endDate]) }}"
+                        <a href="{{ route('lideranca.tesouraria.reports.export.excel', ['start_date' => $startDate, 'end_date' => $endDate]) }}"
                             class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors text-sm">
                             <x-icon name="file-excel" class="w-5 h-5" /> Excel
                         </a>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <form method="GET" action="{{ route('pastor.tesouraria.reports.index') }}"
+        <form method="GET" action="{{ route('lideranca.tesouraria.reports.index') }}"
             class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-5">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                 <div class="space-y-2">

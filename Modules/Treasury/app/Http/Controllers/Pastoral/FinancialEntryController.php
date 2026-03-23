@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Treasury\App\Http\Controllers\Pastoral;
+namespace Modules\Treasury\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -72,7 +72,7 @@ class FinancialEntryController extends Controller
 
         $this->api->createEntry($validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.entries.index')
+        return redirect()->route('lideranca.tesouraria.entries.index')
             ->with('success', 'Lançamento criado com sucesso!');
     }
 
@@ -115,7 +115,7 @@ class FinancialEntryController extends Controller
 
         $this->api->updateEntry($entry, $validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.entries.index')
+        return redirect()->route('lideranca.tesouraria.entries.index')
             ->with('success', 'Lançamento atualizado com sucesso!');
     }
 
@@ -123,7 +123,7 @@ class FinancialEntryController extends Controller
     {
         $this->api->deleteEntry($entry, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.entries.index')
+        return redirect()->route('lideranca.tesouraria.entries.index')
             ->with('success', 'Lançamento removido com sucesso!');
     }
 
@@ -131,11 +131,11 @@ class FinancialEntryController extends Controller
     {
         try {
             $this->api->reverseEntry($entry, auth()->user());
-            return redirect()->route('pastor.tesouraria.entries.index')
+            return redirect()->route('lideranca.tesouraria.entries.index')
                 ->with('success', 'Estorno registrado com sucesso.');
         } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e) {
             if ($e->getStatusCode() === 422) {
-                return redirect()->route('pastor.tesouraria.entries.index')
+                return redirect()->route('lideranca.tesouraria.entries.index')
                     ->with('error', $e->getMessage());
             }
             throw $e;
@@ -146,11 +146,11 @@ class FinancialEntryController extends Controller
     {
         try {
             $this->api->importPayment($payment, auth()->user());
-            return redirect()->route('pastor.tesouraria.entries.index')
+            return redirect()->route('lideranca.tesouraria.entries.index')
                 ->with('success', 'Pagamento importado com sucesso!');
         } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e) {
             if ($e->getStatusCode() === 422) {
-                return redirect()->route('pastor.tesouraria.entries.index')
+                return redirect()->route('lideranca.tesouraria.entries.index')
                     ->with('error', $e->getMessage());
             }
             throw $e;

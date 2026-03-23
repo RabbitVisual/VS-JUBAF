@@ -24,7 +24,7 @@ class FamilyDemographicsController extends Controller
     ) {}
 
     /**
-     * Exibe o dashboard demográfico com gráficos e destaques pastorais.
+     * Exibe o dashboard demográfico com gráficos e destaques liderancaais.
      */
     public function index(): View
     {
@@ -33,7 +33,7 @@ class FamilyDemographicsController extends Controller
         return view('admin::reports.family_demographics', [
             'composition' => $report['composition'],
             'byNeighborhood' => $report['by_neighborhood'],
-            'pastoralHighlights' => $report['pastoral_highlights'],
+            'liderancaalHighlights' => $report['liderancaal_highlights'],
             'ageDistribution' => $report['age_distribution'],
             'totalUsersWithRelations' => $report['total_users_with_relations'],
             'totalRelationships' => $report['total_relationships'],
@@ -55,7 +55,7 @@ class FamilyDemographicsController extends Controller
             [
                 'composition' => $report['composition'],
                 'byNeighborhood' => $report['by_neighborhood'],
-                'pastoralHighlights' => $report['pastoral_highlights'],
+                'liderancaalHighlights' => $report['liderancaal_highlights'],
                 'churchName' => $churchName,
                 'generatedAt' => now()->format('d/m/Y H:i'),
             ],

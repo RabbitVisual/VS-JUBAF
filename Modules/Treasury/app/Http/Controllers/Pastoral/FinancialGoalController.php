@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Treasury\App\Http\Controllers\Pastoral;
+namespace Modules\Treasury\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -48,7 +48,7 @@ class FinancialGoalController extends Controller
         ]);
         $this->api->createGoal($validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.goals.index')
+        return redirect()->route('lideranca.tesouraria.goals.index')
             ->with('success', 'Meta financeira criada com sucesso!');
     }
 
@@ -85,7 +85,7 @@ class FinancialGoalController extends Controller
         ]);
         $this->api->updateGoal($goal, $validated, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.goals.index')
+        return redirect()->route('lideranca.tesouraria.goals.index')
             ->with('success', 'Meta financeira atualizada com sucesso!');
     }
 
@@ -93,7 +93,7 @@ class FinancialGoalController extends Controller
     {
         $this->api->deleteGoal($goal, auth()->user());
 
-        return redirect()->route('pastor.tesouraria.goals.index')
+        return redirect()->route('lideranca.tesouraria.goals.index')
             ->with('success', 'Meta financeira removida com sucesso!');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\Pastoral;
+namespace Modules\Sermons\App\Http\Controllers\liderancaal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +32,7 @@ class CategoryController extends Controller
             'is_active' => 'boolean',
         ]);
         SermonCategory::create($validated);
-        return redirect()->route('pastor.sermoes.categories.index')->with('success', 'Categoria criada com sucesso!');
+        return redirect()->route('lideranca.sermoes.categories.index')->with('success', 'Categoria criada com sucesso!');
     }
 
     public function edit(SermonCategory $category): View
@@ -51,16 +51,16 @@ class CategoryController extends Controller
             'is_active' => 'boolean',
         ]);
         $category->update($validated);
-        return redirect()->route('pastor.sermoes.categories.index')->with('success', 'Categoria atualizada com sucesso!');
+        return redirect()->route('lideranca.sermoes.categories.index')->with('success', 'Categoria atualizada com sucesso!');
     }
 
     public function destroy(SermonCategory $category): RedirectResponse
     {
         if ($category->sermons()->count() > 0) {
-            return redirect()->route('pastor.sermoes.categories.index')
+            return redirect()->route('lideranca.sermoes.categories.index')
                 ->with('error', 'Não é possível deletar uma categoria que possui sermões.');
         }
         $category->delete();
-        return redirect()->route('pastor.sermoes.categories.index')->with('success', 'Categoria removida com sucesso!');
+        return redirect()->route('lideranca.sermoes.categories.index')->with('success', 'Categoria removida com sucesso!');
     }
 }

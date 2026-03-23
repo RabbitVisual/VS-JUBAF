@@ -52,7 +52,7 @@ class NotificationService
     }
 
     /**
-     * Send a notification to all Admins and Pastors.
+     * Send a notification to all Admins and liderancas.
      *
      * @param Notification $notification
      * @return void
@@ -60,7 +60,7 @@ class NotificationService
     public function notifyAdmins(Notification $notification): void
     {
          $users = User::whereHas('role', function($query) {
-            $query->whereIn('slug', ['admin', 'pastor']);
+            $query->whereIn('slug', ['admin', 'lideranca']);
         })->get();
 
         if ($users->isNotEmpty()) {

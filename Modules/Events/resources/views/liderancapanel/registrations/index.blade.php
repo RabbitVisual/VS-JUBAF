@@ -7,10 +7,10 @@
         <div class="flex items-center justify-between flex-wrap gap-4">
             <div>
                 <nav class="flex items-center gap-2 text-sm text-slate-400 font-medium mb-1">
-                    <a href="{{ route('pastor.eventos.index') }}"
+                    <a href="{{ route('lideranca.eventos.index') }}"
                         class="hover:text-white transition-colors">{{ __('events::messages.events') }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
-                    <a href="{{ route('pastor.eventos.show', $event) }}"
+                    <a href="{{ route('lideranca.eventos.show', $event) }}"
                         class="hover:text-white transition-colors">{{ $event->title }}</a>
                     <x-icon name="chevron-right" class="w-3.5 h-3.5" />
                     <span class="text-white font-bold">{{ __('events::messages.registrations') }}</span>
@@ -20,24 +20,24 @@
             </div>
             <div class="flex flex-wrap items-center gap-3">
                 @if (\Illuminate\Support\Facades\Gate::allows('export', $event))
-                    <a href="{{ route('pastor.eventos.registrations.export-pdf', $event) }}?{{ http_build_query(request()->query()) }}"
+                    <a href="{{ route('lideranca.eventos.registrations.export-pdf', $event) }}?{{ http_build_query(request()->query()) }}"
                         target="_blank"
                         class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                         <x-icon name="file-pdf" class="w-5 h-5 text-red-500" />
                         {{ __('events::messages.export_pdf') ?? 'PDF' }}
                     </a>
-                    <a href="{{ route('pastor.eventos.registrations.export-badges', $event) }}?{{ http_build_query(request()->query()) }}"
+                    <a href="{{ route('lideranca.eventos.registrations.export-badges', $event) }}?{{ http_build_query(request()->query()) }}"
                         target="_blank"
                         class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                         <x-icon name="id-card" class="w-5 h-5" /> {{ __('events::messages.print_badges') ?? 'Crachás' }}
                     </a>
-                    <a href="{{ route('pastor.eventos.registrations.export-excel', $event) }}?{{ http_build_query(request()->query()) }}"
+                    <a href="{{ route('lideranca.eventos.registrations.export-excel', $event) }}?{{ http_build_query(request()->query()) }}"
                         class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                         <x-icon name="file-excel" class="w-5 h-5 text-green-600" />
                         {{ __('events::messages.export_excel') ?? 'Excel' }}
                     </a>
                 @endif
-                <a href="{{ route('pastor.eventos.show', $event) }}"
+                <a href="{{ route('lideranca.eventos.show', $event) }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-gray-800 dark:text-white font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
                     <x-icon name="arrow-left" class="w-5 h-5" /> {{ __('events::messages.back') }}
                 </a>
@@ -45,7 +45,7 @@
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-4">
-            <form method="GET" action="{{ route('pastor.eventos.registrations.index', $event) }}"
+            <form method="GET" action="{{ route('lideranca.eventos.registrations.index', $event) }}"
                 class="flex flex-wrap items-center gap-4">
                 <select name="status"
                     class="px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-white">
@@ -60,7 +60,7 @@
                 <button type="submit"
                     class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-medium">{{ __('events::messages.filter') ?? 'Filtrar' }}</button>
                 @if (request()->has('status'))
-                    <a href="{{ route('pastor.eventos.registrations.index', $event) }}"
+                    <a href="{{ route('lideranca.eventos.registrations.index', $event) }}"
                         class="px-4 py-2 bg-slate-200 dark:bg-slate-600 text-gray-800 dark:text-white rounded-xl font-medium">Limpar</a>
                 @endif
             </form>
@@ -110,7 +110,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
                                     {{ $registration->created_at->format('d/m/Y H:i') }}</td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('pastor.eventos.registrations.show', [$event, $registration]) }}"
+                                    <a href="{{ route('lideranca.eventos.registrations.show', [$event, $registration]) }}"
                                         class="text-amber-600 dark:text-amber-400 hover:underline font-medium">{{ __('events::messages.view_details') ?? 'Ver' }}</a>
                                 </td>
                             </tr>

@@ -1,11 +1,11 @@
 {
-    "name": "liderancapanel",
+    "name": "LiderancaPanel",
     "alias": "liderancapanel",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\liderancapanel\\Providers\\liderancapanelServiceProvider"
+        "Modules\\LiderancaPanel\\Providers\\LiderancaPanelServiceProvider"
     ],
     "files": []
 }

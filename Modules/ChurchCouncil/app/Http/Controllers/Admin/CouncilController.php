@@ -114,7 +114,7 @@ class CouncilController extends Controller
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'council_position' => 'required|string|max:255',
-            'council_role' => 'required|in:president,vice_president,secretary,treasurer,member,pastor,deacon',
+            'council_role' => 'required|in:president,vice_president,secretary,treasurer,member,lideranca,deacon',
             'term_start' => 'required|date',
             'term_end' => 'nullable|date|after:term_start',
             'responsibilities' => 'nullable|string',
@@ -157,7 +157,7 @@ class CouncilController extends Controller
     {
         $validated = $request->validate([
             'council_position' => 'required|string|max:255',
-            'council_role' => 'required|in:president,vice_president,secretary,treasurer,member,pastor,deacon',
+            'council_role' => 'required|in:president,vice_president,secretary,treasurer,member,lideranca,deacon',
             'term_start' => 'required|date',
             'term_end' => 'nullable|date|after:term_start',
             'is_active' => 'boolean',
@@ -724,7 +724,7 @@ class CouncilController extends Controller
     }
 
     /**
-     * Approve request (council member or admin/pastor when allow_admin_approval is on).
+     * Approve request (council member or admin/lideranca when allow_admin_approval is on).
      */
     public function approveRequest(Request $request, CouncilApproval $approval): JsonResponse
     {
@@ -734,11 +734,11 @@ class CouncilController extends Controller
 
         $councilMember = auth()->user()->councilMember;
         $allowAdminApproval = \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval();
-        $isAdminOrPastor = auth()->user()->hasRole('admin') || auth()->user()->hasRole('pastor');
+        $isAdminOrlideranca = auth()->user()->hasRole('admin') || auth()->user()->hasRole('lideranca');
 
         if ($councilMember) {
             $approval->approve($councilMember, $validated['notes'] ?? null);
-        } elseif ($allowAdminApproval && $isAdminOrPastor) {
+        } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
                 'status' => CouncilApproval::STATUS_APPROVED,
                 'approved_by' => null,
@@ -765,8 +765,8 @@ class CouncilController extends Controller
     }
 
     /**
-     * Reject request (council member, or admin/pastor to dismiss wrongly-placed items).
-     * Admin/pastor can always reject so they can clear requests that don't belong in the council queue.
+     * Reject request (council member, or admin/lideranca to dismiss wrongly-placed items).
+     * Admin/lideranca can always reject so they can clear requests that don't belong in the council queue.
      */
     public function rejectRequest(Request $request, CouncilApproval $approval): JsonResponse
     {
@@ -776,11 +776,11 @@ class CouncilController extends Controller
 
         $councilMember = auth()->user()->councilMember;
         $allowAdminApproval = \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval();
-        $isAdminOrPastor = auth()->user()->hasRole('admin') || auth()->user()->hasRole('pastor');
+        $isAdminOrlideranca = auth()->user()->hasRole('admin') || auth()->user()->hasRole('lideranca');
 
         if ($councilMember) {
             $approval->reject($councilMember, $validated['reason']);
-        } elseif ($allowAdminApproval && $isAdminOrPastor) {
+        } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
                 'status' => CouncilApproval::STATUS_REJECTED,
                 'approved_by' => null,
@@ -788,8 +788,8 @@ class CouncilController extends Controller
                 'reviewed_at' => now(),
                 'metadata' => array_merge($approval->metadata ?? [], ['approved_by_user_id' => auth()->id()]),
             ]);
-        } elseif ($isAdminOrPastor) {
-            // Admin/pastor can always reject (dismiss) to clear wrongly-placed requests from the queue
+        } elseif ($isAdminOrlideranca) {
+            // Admin/lideranca can always reject (dismiss) to clear wrongly-placed requests from the queue
             $approval->update([
                 'status' => CouncilApproval::STATUS_REJECTED,
                 'approved_by' => null,
