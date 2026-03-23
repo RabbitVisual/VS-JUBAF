@@ -16,9 +16,9 @@ O módulo Events é a plataforma de eventos cristãos da igreja: inscrições p�
 
 - **Entrada**: `/eventos` (listagem) ou `/eventos/{slug}` (detalhe) ou `/eventos/{slug}/landing` (página de divulgação).
 - **Inscrição**: Toda inscrição pública passa pelo wizard único em `eventos/{slug}/inscrever` (ou modal na landing). Redirecionamentos legados:
-  - `eventos-v2/{slug}/checkout` → `eventos/{slug}/landing?openRegistration=1`
-  - `eventos-v2/checkout/confirmation/{uuid}` → `eventos/inscricao/{uuid}/pagar`
-  - `eventos-v2/ticket/{uuid}/download` → `eventos/inscricao/{uuid}/ingresso`
+    - `eventos-v2/{slug}/checkout` → `eventos/{slug}/landing?openRegistration=1`
+    - `eventos-v2/checkout/confirmation/{uuid}` → `eventos/inscricao/{uuid}/pagar`
+    - `eventos-v2/ticket/{uuid}/download` → `eventos/inscricao/{uuid}/ingresso`
 - **Eventos visíveis**: Apenas eventos com `visibility` in `public` ou `both` e `status = published`.
 
 ### 2.2 Painel de membros (MemberPanel)
@@ -43,9 +43,9 @@ O módulo Events é a plataforma de eventos cristãos da igreja: inscrições p�
 
 - **Tipos**: Fonte única `EventTypesSeeder` (Retiro, Congresso, Culto, Curso, Workshop, Louvores, Conferência, etc.). Filtro por tipo no admin e no público.
 - **Visibilidade**:
-  - `public`: só listagem pública e home.
-  - `members`: só painel de membros.
-  - `both`: público e painel de membros.
+    - `public`: só listagem pública e home.
+    - `members`: só painel de membros.
+    - `both`: público e painel de membros.
 
 ### 3.2 Inscrição e vagas
 
@@ -61,7 +61,7 @@ O módulo Events é a plataforma de eventos cristãos da igreja: inscrições p�
 
 ### 3.4 Aprovação conciliar
 
-- **Campo**: `requires_council_approval` (boolean). Quando ativo e o evento é publicado, é criado um `CouncilApproval` (ChurchCouncil) e o evento permanece em `draft` até aprovação.
+- **Campo**: `requires_diretoria_approval` (boolean). Quando ativo e o evento é publicado, é criado um `diretoriaApproval` (Diretoria) e o evento permanece em `draft` até aprovação.
 - **Uso**: Eventos que implicam grandes gastos, mudanças ou assembleias.
 
 ---
@@ -120,4 +120,4 @@ Transições e idempotência (criação de inscrição e pagamento por uuid) dev
 
 ---
 
-*Documento gerado no âmbito do plano Baptist Events Module – Full Upgrade.*
+_Documento gerado no âmbito do plano Baptist Events Module – Full Upgrade._

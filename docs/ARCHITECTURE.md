@@ -26,7 +26,7 @@ Base tecnica:
 
 - `Igrejas`: cadastro e contexto das igrejas vinculadas.
 - `Comunicacao`: feed oficial (atas, editais, avisos, noticias).
-- `ChurchCouncil`: governanca, pautas, reunioes, aprovacoes.
+- `Diretoria`: governanca, pautas, reunioes, aprovacoes.
 
 ### Dominio operacional
 
@@ -46,10 +46,10 @@ Base tecnica:
 ### Camada de interface
 
 - Web routes por painel:
-  - `routes/web.php` (publico)
-  - `routes/admin.php`
-  - `routes/member.php`
-  - `routes/lideranca.php`
+    - `routes/web.php` (publico)
+    - `routes/admin.php`
+    - `routes/member.php`
+    - `routes/lideranca.php`
 - Views Blade e componentes por modulo.
 
 ### Camada de aplicacao
@@ -96,7 +96,7 @@ flowchart LR
 - `Events` <-> `PaymentGateway`: criacao e atualizacao de transacoes.
 - `PaymentGateway` -> `Treasury`: consolidacao financeira.
 - `Treasury` -> `Notifications`: comunicacao de eventos financeiros.
-- `ChurchCouncil` <-> `LiderancaPanel`: governanca e decisao.
+- `Diretoria` <-> `LiderancaPanel`: governanca e decisao.
 - `Comunicacao` -> todos os paineis: comunicados oficiais segmentados.
 
 ## 6. Convencoes tecnicas
@@ -124,11 +124,11 @@ php artisan test
 ## 8. Riscos conhecidos e mitigacao
 
 - **Risco:** referencia residual a namespace/pasta antiga.
-  - **Mitigacao:** busca global e validacao de autoload.
+    - **Mitigacao:** busca global e validacao de autoload.
 - **Risco:** regressao no fluxo financeiro de eventos.
-  - **Mitigacao:** testes de integracao por cenario de confirmacao de pagamento.
+    - **Mitigacao:** testes de integracao por cenario de confirmacao de pagamento.
 - **Risco:** divergencia entre documentacao e estado real.
-  - **Mitigacao:** atualizar este arquivo a cada fase relevante.
+    - **Mitigacao:** atualizar este arquivo a cada fase relevante.
 
 ## 9. Proximos passos arquiteturais
 

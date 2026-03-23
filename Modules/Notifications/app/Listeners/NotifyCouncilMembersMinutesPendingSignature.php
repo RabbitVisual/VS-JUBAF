@@ -2,11 +2,11 @@
 
 namespace Modules\Notifications\App\Listeners;
 
-use Modules\ChurchCouncil\App\Events\MinutesPendingSignature;
-use Modules\ChurchCouncil\App\Models\CouncilMember;
+use Modules\Diretoria\App\Events\MinutesPendingSignature;
+use Modules\Diretoria\App\Models\diretoriaMember;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
-class NotifyCouncilMembersMinutesPendingSignature
+class NotifydiretoriaMembersMinutesPendingSignature
 {
     public function __construct(
         protected InAppNotificationService $inApp
@@ -15,22 +15,22 @@ class NotifyCouncilMembersMinutesPendingSignature
     public function handle(MinutesPendingSignature $event): void
     {
         $meeting = $event->meeting;
-        $councilUsers = CouncilMember::active()->with('user')->get()->pluck('user')->filter();
+        $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
 
-        if ($councilUsers->isEmpty()) {
+        if ($diretoriaUsers->isEmpty()) {
             return;
         }
 
         $this->inApp->sendToUsers(
-            $councilUsers,
+            $diretoriaUsers,
             'Ata pendente de visto',
             "A ata da reunião de " . $meeting->scheduled_at?->format('d/m/Y') . " está disponível para seu visto digital.",
             [
                 'type' => 'info',
                 'priority' => 'normal',
-                'action_url' => route('admin.churchcouncil.meetings.show', $meeting),
+                'action_url' => route('admin.Diretoria.meetings.show', $meeting),
                 'action_text' => 'Assinar ata',
-                'notification_type' => 'churchcouncil_minutes',
+                'notification_type' => 'Diretoria_minutes',
             ]
         );
     }

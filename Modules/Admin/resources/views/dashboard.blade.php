@@ -235,7 +235,7 @@
             </div>
 
             <!-- Níveis de gamificação (quando disponível) -->
-            @if (isset($gamificationStats) && (($gamificationStats['total_levels'] ?? 0) > 0))
+            @if (isset($gamificationStats) && ($gamificationStats['total_levels'] ?? 0) > 0)
                 <div
                     class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group">
                     <div
@@ -255,7 +255,9 @@
                                 class="text-2xl font-black text-gray-900 dark:text-white">{{ $gamificationStats['total_levels'] ?? 0 }}</span>
                             <span class="text-sm text-gray-400">níveis</span>
                         </div>
-                        <p class="text-sm text-gray-400 mt-2">{{ number_format($gamificationStats['average_points'] ?? 0, 1, ',', '.') }} pontos médios por usuário</p>
+                        <p class="text-sm text-gray-400 mt-2">
+                            {{ number_format($gamificationStats['average_points'] ?? 0, 1, ',', '.') }} pontos médios por
+                            usuário</p>
                     </div>
                 </div>
             @endif
@@ -312,10 +314,10 @@
                     'route' => 'admin.notifications.index',
                 ];
             }
-            if (($stats['council_agendas_pending'] ?? 0) > 0) {
+            if (($stats['diretoria_agendas_pending'] ?? 0) > 0) {
                 $extraIndicators[] = [
                     'label' => 'Pautas pendentes',
-                    'value' => $stats['council_agendas_pending'],
+                    'value' => $stats['diretoria_agendas_pending'],
                     'icon' => 'clipboard-list',
                     'route' => null,
                 ];

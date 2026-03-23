@@ -56,7 +56,7 @@
             "Modules\\PaymentGateway\\Database\\Seeders\\": "Modules/PaymentGateway/database/seeders/",
             "Modules\\Treasury\\App\\": "Modules/Treasury/app/",
             "Modules\\Treasury\\Database\\Seeders\\": "Modules/Treasury/database/seeders/",
-            "Modules\\ChurchCouncil\\App\\": "Modules/ChurchCouncil/app/",
+            "Modules\\Diretoria\\App\\": "Modules/Diretoria/app/",
             "Modules\\Events\\App\\": "Modules/Events/app/",
             "Modules\\Events\\Database\\Seeders\\": "Modules/Events/database/seeders/",
             "Modules\\Sermons\\App\\": "Modules/Sermons/app/",

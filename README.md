@@ -39,7 +39,7 @@ De acordo com `modules_statuses.json`, os modulos ativos sao:
 - `Bible`
 - `PaymentGateway`
 - `Treasury`
-- `ChurchCouncil`
+- `Diretoria`
 - `Events`
 - `Sermons`
 - `LiderancaPanel`
@@ -68,21 +68,21 @@ De acordo com `modules_statuses.json`, os modulos ativos sao:
 
 ## Modulos e responsabilidades (estado atual)
 
-| Modulo | Responsabilidade principal |
-|---|---|
-| `Admin` | Usuarios, papeis, configuracoes globais, operacao administrativa central. |
-| `HomePage` | Conteudo institucional publico (cms da landing). |
-| `MemberPanel` | Painel do membro e fluxos de participacao. |
-| `LiderancaPanel` | Painel de lideranca para acompanhamento ministerial, conselho e operacao. |
-| `ChurchCouncil` | Reunioes, pautas, aprovacoes, historico de decisoes e governanca. |
-| `Events` | Ciclo de eventos, inscricoes, lotes e check-in. |
-| `Sermons` | Acervo e gestao de sermoes, series, estudos e comentarios. |
-| `Treasury` | Lancamentos financeiros, campanhas, metas, relatorios e prestacao de contas. |
-| `PaymentGateway` | Integracao de pagamentos (Stripe, Mercado Pago, PIX) e webhook unico. |
-| `Notifications` | Centro de notificacoes internas e templates. |
-| `Bible` | Referencia biblica local, planos e recursos de leitura. |
-| `Igrejas` | Cadastro e gestao de igrejas/congregacoes vinculadas. |
-| `Comunicacao` | Feed oficial da diretoria: editais, atas, avisos e noticias. |
+| Modulo           | Responsabilidade principal                                                   |
+| ---------------- | ---------------------------------------------------------------------------- |
+| `Admin`          | Usuarios, papeis, configuracoes globais, operacao administrativa central.    |
+| `HomePage`       | Conteudo institucional publico (cms da landing).                             |
+| `MemberPanel`    | Painel do membro e fluxos de participacao.                                   |
+| `LiderancaPanel` | Painel de lideranca para acompanhamento ministerial, conselho e operacao.    |
+| `Diretoria`      | Reunioes, pautas, aprovacoes, historico de decisoes e governanca.            |
+| `Events`         | Ciclo de eventos, inscricoes, lotes e check-in.                              |
+| `Sermons`        | Acervo e gestao de sermoes, series, estudos e comentarios.                   |
+| `Treasury`       | Lancamentos financeiros, campanhas, metas, relatorios e prestacao de contas. |
+| `PaymentGateway` | Integracao de pagamentos (Stripe, Mercado Pago, PIX) e webhook unico.        |
+| `Notifications`  | Centro de notificacoes internas e templates.                                 |
+| `Bible`          | Referencia biblica local, planos e recursos de leitura.                      |
+| `Igrejas`        | Cadastro e gestao de igrejas/congregacoes vinculadas.                        |
+| `Comunicacao`    | Feed oficial da diretoria: editais, atas, avisos e noticias.                 |
 
 ## Principais decisoes de refatoracao ja aplicadas
 
@@ -173,7 +173,7 @@ Senha padrao para auto login e seeders dev: `password`
 
 ## Roadmap funcional (JUBAF)
 
-1. Consolidar governanca (`ChurchCouncil` + `LiderancaPanel`) com fluxos completos.
+1. Consolidar governanca (`Diretoria` + `LiderancaPanel`) com fluxos completos.
 2. Evoluir `Igrejas` para operacao multi-congregacao (vinculos, historico de lideranca, indicadores).
 3. Evoluir `Comunicacao` para feed oficial com anexos, trilha de publicacao e distribuicao.
 4. Integrar eventos + financeiro + notificacoes para ciclo completo de inscricao e transparencia.
@@ -190,7 +190,7 @@ Contexto:
 - O sistema e modular com nwidart/laravel-modules.
 - O escopo atual e JUBAF (Juventude Batista Feirense), nao mais VertexCBAV generico.
 - Modulos removidos: Gamification, Assets, EBD, Marketplace, SocialAction, Projection, Ministries, Worship.
-- Modulos ativos: HomePage, Admin, MemberPanel, Notifications, Bible, PaymentGateway, Treasury, ChurchCouncil, Events, Sermons, LiderancaPanel, Igrejas, Comunicacao.
+- Modulos ativos: HomePage, Admin, MemberPanel, Notifications, Bible, PaymentGateway, Treasury, Diretoria, Events, Sermons, LiderancaPanel, Igrejas, Comunicacao.
 - Nomenclatura oficial: Lideranca (nao usar pastor/pastoral em novos recursos).
 
 Diretrizes:

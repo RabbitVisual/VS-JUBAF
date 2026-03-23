@@ -73,13 +73,13 @@ Route::middleware(['throttle:60,1', 'web', 'auth'])->prefix('v1/treasury')->name
     Route::get('permissions', [$treasuryV1, 'permissions'])->name('permissions.index');
 });
 
-$churchCouncilV1 = \Modules\ChurchCouncil\App\Http\Controllers\Api\V1\ChurchCouncilController::class;
-Route::middleware(['throttle:60,1', 'web', 'auth'])->prefix('v1/church-council')->name('churchcouncil.api.')->group(function () use ($churchCouncilV1) {
-    Route::get('/', [$churchCouncilV1, 'index'])->name('index');
-    Route::get('/members', [$churchCouncilV1, 'members'])->name('members');
-    Route::get('/agendas', [$churchCouncilV1, 'agendas'])->name('agendas');
-    Route::get('/approvals', [$churchCouncilV1, 'approvals'])->name('approvals');
-    Route::get('/documents', [$churchCouncilV1, 'documents'])->name('documents');
+$DiretoriaV1 = \Modules\Diretoria\App\Http\Controllers\Api\V1\DiretoriaController::class;
+Route::middleware(['throttle:60,1', 'web', 'auth'])->prefix('v1/church-diretoria')->name('Diretoria.api.')->group(function () use ($DiretoriaV1) {
+    Route::get('/', [$DiretoriaV1, 'index'])->name('index');
+    Route::get('/members', [$DiretoriaV1, 'members'])->name('members');
+    Route::get('/agendas', [$DiretoriaV1, 'agendas'])->name('agendas');
+    Route::get('/approvals', [$DiretoriaV1, 'approvals'])->name('approvals');
+    Route::get('/documents', [$DiretoriaV1, 'documents'])->name('documents');
 });
 
 $sermonsV1 = \Modules\Sermons\App\Http\Controllers\Api\V1\SermonController::class;

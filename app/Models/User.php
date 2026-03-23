@@ -27,7 +27,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url', 'avatar_url', 'profile_photo_url'];
 
     /**
      * Boot function from Laravel
@@ -480,17 +480,17 @@ class User extends Authenticatable
     /**
      * Relacionamento com Conselho da Igreja
      */
-    public function councilMember()
+    public function diretoriaMember()
     {
-        return $this->hasOne(\Modules\ChurchCouncil\App\Models\CouncilMember::class);
+        return $this->hasOne(\Modules\Diretoria\App\Models\diretoriaMember::class);
     }
 
     /**
      * Verifica se o usuário é membro ativo do conselho (pode acessar rotas admin/conselho/*).
      */
-    public function isActiveCouncilMember(): bool
+    public function isActivediretoriaMember(): bool
     {
-        $member = $this->councilMember;
+        $member = $this->diretoriaMember;
 
         return $member && $member->isActive();
     }
@@ -557,6 +557,10 @@ class User extends Authenticatable
      */
     public function getActivePhoto()
     {
+        if (! \Illuminate\Support\Facades\Schema::hasTable('user_photos')) {
+            return null;
+        }
+
         return $this->profilePhotos()->where('is_active', true)->first();
     }
 

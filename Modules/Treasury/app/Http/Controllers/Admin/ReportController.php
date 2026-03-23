@@ -30,7 +30,7 @@ class ReportController extends Controller
         $data = $this->api->getReportAggregates($startDate, $endDate, auth()->user());
 
         $monthlyClosing = null;
-        $canCouncilApprove = false;
+        $candiretoriaApprove = false;
 
         $user = auth()->user();
         if ($user) {
@@ -42,18 +42,18 @@ class ReportController extends Controller
             $isSingleMonth = $start->isSameDay($monthStart) && $end->isSameDay($monthEnd);
 
             if ($isSingleMonth) {
-                $isCouncilMember = class_exists(\Modules\ChurchCouncil\App\Models\CouncilMember::class)
-                    && \Modules\ChurchCouncil\App\Models\CouncilMember::where('user_id', $user->id)->where('is_active', true)->exists();
+                $isdiretoriaMember = class_exists(\Modules\Diretoria\App\Models\diretoriaMember::class)
+                    && \Modules\Diretoria\App\Models\diretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
 
-                $allowAdminApproval = class_exists(\Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::class)
-                    ? \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval()
-                    : (bool) \App\Models\Settings::get('church_council_allow_admin_approval', false);
+                $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
+                    ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
+                    : (bool) \App\Models\Settings::get('church_diretoria_allow_admin_approval', false);
 
                 $isAdminOrlideranca = method_exists($user, 'hasRole')
                     ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
                     : false;
 
-                $canCouncilApprove = $isCouncilMember || ($allowAdminApproval && $isAdminOrlideranca);
+                $candiretoriaApprove = $isdiretoriaMember || ($allowAdminApproval && $isAdminOrlideranca);
 
                 try {
                     $monthlyClosing = $this->api->getOrCreateMonthlyClosing($data['start_date'], $data['end_date'], $user);
@@ -88,7 +88,7 @@ class ReportController extends Controller
             'expenseByMonth' => $data['expense_by_month'],
             'planoCooperativo' => $data['plano_cooperativo'] ?? null,
             'monthlyClosing' => $monthlyClosing,
-            'canCouncilApprove' => $canCouncilApprove,
+            'candiretoriaApprove' => $candiretoriaApprove,
         ]);
     }
 

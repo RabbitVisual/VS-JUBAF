@@ -239,21 +239,21 @@ class TreasuryApiService
         $entry = DB::transaction(function () use ($data, $user) {
             $entry = FinancialEntry::create($data);
 
-            $limit = class_exists(\Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::class)
-                ? \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::autoApproveBudgetLimit()
-                : (float) \App\Models\Settings::get('church_council_auto_approve_budget_limit', 1000);
-            if ($entry->type === 'expense' && (float) $entry->amount > $limit && class_exists(\Modules\ChurchCouncil\App\Models\CouncilApproval::class)) {
-                $approval = \Modules\ChurchCouncil\App\Models\CouncilApproval::create([
+            $limit = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
+                ? \Modules\Diretoria\App\Services\DiretoriaSettings::autoApproveBudgetLimit()
+                : (float) \App\Models\Settings::get('church_diretoria_auto_approve_budget_limit', 1000);
+            if ($entry->type === 'expense' && (float) $entry->amount > $limit && class_exists(\Modules\Diretoria\App\Models\diretoriaApproval::class)) {
+                $approval = \Modules\Diretoria\App\Models\diretoriaApproval::create([
                     'approvable_type' => FinancialEntry::class,
                     'approvable_id' => $entry->id,
-                    'approval_type' => \Modules\ChurchCouncil\App\Models\CouncilApproval::TYPE_FINANCIAL_REQUEST,
-                    'status' => \Modules\ChurchCouncil\App\Models\CouncilApproval::STATUS_PENDING,
+                    'approval_type' => \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_FINANCIAL_REQUEST,
+                    'status' => \Modules\Diretoria\App\Models\diretoriaApproval::STATUS_PENDING,
                     'request_details' => "Despesa acima do limite (R$ " . number_format($limit, 2, ',', '.') . "): {$entry->title} - R$ " . number_format((float) $entry->amount, 2, ',', '.'),
                     'requested_by' => $user->id,
                     'submitted_at' => now(),
                     'metadata' => ['amount' => (float) $entry->amount, 'entry_date' => $entry->entry_date?->toDateString()],
                 ]);
-                $entry->update(['council_approval_id' => $approval->id]);
+                $entry->update(['diretoria_approval_id' => $approval->id]);
                 if (class_exists(\Modules\Notifications\App\Services\InAppNotificationService::class)) {
                     try {
                         app(\Modules\Notifications\App\Services\InAppNotificationService::class)->sendToAdmins(
@@ -262,13 +262,13 @@ class TreasuryApiService
                             [
                                 'type' => 'warning',
                                 'priority' => 'high',
-                                'action_url' => route('admin.churchcouncil.approvals.show', $approval),
+                                'action_url' => route('admin.Diretoria.approvals.show', $approval),
                                 'action_text' => 'Ver aprovação',
                                 'notification_type' => 'treasury_approval',
                             ]
                         );
                     } catch (\Throwable $e) {
-                        \Log::warning('Treasury: failed to send notification for council approval: ' . $e->getMessage());
+                        \Log::warning('Treasury: failed to send notification for diretoria approval: ' . $e->getMessage());
                     }
                 }
             }
@@ -719,7 +719,7 @@ class TreasuryApiService
 
     /**
      * Get or create a monthly closing snapshot for a full calendar month.
-     * Permission: canViewReports + (council member or admin/lideranca with council override).
+     * Permission: canViewReports + (diretoria member or admin/lideranca with diretoria override).
      */
     public function getOrCreateMonthlyClosing(string $startDate, string $endDate, User|int $userOrId): TreasuryMonthlyClosing
     {
@@ -763,7 +763,7 @@ class TreasuryApiService
     }
 
     /**
-     * Mark a monthly closing as ready for assembly with council approval.
+     * Mark a monthly closing as ready for assembly with diretoria approval.
      */
     public function markClosingReadyForAssembly(TreasuryMonthlyClosing $closing, User|int $userOrId, ?string $notes = null): TreasuryMonthlyClosing
     {
@@ -773,38 +773,38 @@ class TreasuryApiService
             abort(403, 'Você não tem permissão para aprovar fechamentos.');
         }
 
-        $isCouncilMember = class_exists(\Modules\ChurchCouncil\App\Models\CouncilMember::class)
-            && \Modules\ChurchCouncil\App\Models\CouncilMember::where('user_id', $user->id)->where('is_active', true)->exists();
+        $isdiretoriaMember = class_exists(\Modules\Diretoria\App\Models\diretoriaMember::class)
+            && \Modules\Diretoria\App\Models\diretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
 
-        $allowAdminApproval = class_exists(\Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::class)
-            ? \Modules\ChurchCouncil\App\Services\ChurchCouncilSettings::allowAdminApproval()
-            : (bool) \App\Models\Settings::get('church_council_allow_admin_approval', false);
+        $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
+            ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
+            : (bool) \App\Models\Settings::get('church_diretoria_allow_admin_approval', false);
 
         $isAdminOrlideranca = method_exists($user, 'hasRole')
             ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $isCouncilMember && ! ($allowAdminApproval && $isAdminOrlideranca)) {
+        if (! $isdiretoriaMember && ! ($allowAdminApproval && $isAdminOrlideranca)) {
             abort(403, 'Apenas o conselho ou lideranca/admin autorizado pode aprovar fechamentos mensais.');
         }
 
         if (! $closing->ready_for_assembly) {
             $closing->update([
                 'ready_for_assembly' => true,
-                'council_approved_at' => now(),
-                'council_approved_by' => $user->id,
+                'diretoria_approved_at' => now(),
+                'diretoria_approved_by' => $user->id,
                 'notes' => $notes ?? $closing->notes,
             ]);
 
-            if (class_exists(\Modules\ChurchCouncil\App\Services\CouncilAuditService::class)) {
+            if (class_exists(\Modules\Diretoria\App\Services\diretoriaAuditService::class)) {
                 try {
-                    app(\Modules\ChurchCouncil\App\Services\CouncilAuditService::class)->log('treasury_closing_ready_for_assembly', $closing, [
+                    app(\Modules\Diretoria\App\Services\diretoriaAuditService::class)->log('treasury_closing_ready_for_assembly', $closing, [
                         'year' => $closing->year,
                         'month' => $closing->month,
                         'balance' => $closing->balance,
                     ]);
                 } catch (\Throwable $e) {
-                    \Log::warning('Council audit for treasury closing failed: '.$e->getMessage());
+                    \Log::warning('diretoria audit for treasury closing failed: '.$e->getMessage());
                 }
             }
 

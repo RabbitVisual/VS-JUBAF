@@ -32,8 +32,8 @@ class FinancialEntry extends Model
         'payment_method',
         'reference_number',
         'metadata',
-        'council_approval_id',
-        'council_approved_at',
+        'diretoria_approval_id',
+        'diretoria_approved_at',
         'expense_status',
     ];
 
@@ -41,7 +41,7 @@ class FinancialEntry extends Model
         'amount' => 'decimal:2',
         'entry_date' => 'date',
         'metadata' => 'array',
-        'council_approved_at' => 'datetime',
+        'diretoria_approved_at' => 'datetime',
     ];
 
     public const EXPENSE_STATUS_PENDING = 'pending';
@@ -93,9 +93,9 @@ class FinancialEntry extends Model
     /**
      * Aprovação do conselho (quando despesa acima do limite).
      */
-    public function councilApproval(): BelongsTo
+    public function diretoriaApproval(): BelongsTo
     {
-        return $this->belongsTo(\Modules\ChurchCouncil\App\Models\CouncilApproval::class, 'council_approval_id');
+        return $this->belongsTo(\Modules\Diretoria\App\Models\diretoriaApproval::class, 'diretoria_approval_id');
     }
 
     public function financialCategory(): BelongsTo

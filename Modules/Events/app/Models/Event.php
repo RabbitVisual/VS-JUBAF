@@ -36,7 +36,7 @@ class Event extends Model
         'is_featured',
         'ticket_template_id',
         'options',
-        'requires_council_approval',
+        'requires_diretoria_approval',
         'treasury_campaign_id',
         // Extended fields (v3)
         'target_audience',
@@ -69,7 +69,7 @@ class Event extends Model
         'max_per_registration'   => 'integer',
         'is_featured'            => 'boolean',
         'options'                => 'array',
-        'requires_council_approval' => 'boolean',
+        'requires_diretoria_approval' => 'boolean',
         'theme_config'           => 'array',
     ];
 

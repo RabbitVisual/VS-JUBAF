@@ -22,8 +22,8 @@ Resumo das funcionalidades e integrações do módulo Tesouraria após o alinham
 
 ## Despesas e fluxo de aprovação
 
-- **expense_status**: Coluna em `financial_entries` com valores `pending`, `approved`, `paid`. Ao criar despesa, inicia como `pending`. Quando o conselho aprova (ChurchCouncil), o status é atualizado para `approved` em `executeFinancialRequestApproval`.
-- **Integração ChurchCouncil**: Despesa acima de `church_council_auto_approve_budget_limit` gera `CouncilApproval` (tipo `financial_request`). Ao aprovar, além de `council_approved_at`, a entrada recebe `expense_status = approved`.
+- **expense_status**: Coluna em `financial_entries` com valores `pending`, `approved`, `paid`. Ao criar despesa, inicia como `pending`. Quando o conselho aprova (Diretoria), o status é atualizado para `approved` em `executeFinancialRequestApproval`.
+- **Integração Diretoria**: Despesa acima de `church_diretoria_auto_approve_budget_limit` gera `diretoriaApproval` (tipo `financial_request`). Ao aprovar, além de `diretoria_approved_at`, a entrada recebe `expense_status = approved`.
 
 ## Centro de custos (fundos)
 
@@ -45,7 +45,7 @@ Resumo das funcionalidades e integrações do módulo Tesouraria após o alinham
 
 - **PaymentGateway**: Pagamentos importados via `TreasuryApiService::importPayment`; entrada criada com `createEntry` (transação + auditoria); `category_id` e categorias legadas mapeados.
 - **Events**: `RegistrationConfirmedListener` cria entrada para inscrição confirmada.
-- **ChurchCouncil**: Despesa acima do limite gera aprovação; ao aprovar, `expense_status = approved` na entrada.
+- **Diretoria**: Despesa acima do limite gera aprovação; ao aprovar, `expense_status = approved` na entrada.
 - **Ministries**: `ministry_id` em entradas mantido.
 - **HomePage**: Campanhas ativas para vitrine.
 

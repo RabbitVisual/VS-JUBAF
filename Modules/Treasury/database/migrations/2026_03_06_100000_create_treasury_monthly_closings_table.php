@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('total_expense', 15, 2)->default(0);
             $table->decimal('balance', 15, 2)->default(0);
             $table->boolean('ready_for_assembly')->default(false);
-            $table->timestamp('council_approved_at')->nullable();
-            $table->foreignId('council_approved_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('diretoria_approved_at')->nullable();
+            $table->foreignId('diretoria_approved_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('notes', 500)->nullable();
             $table->timestamps();
 
@@ -39,4 +39,3 @@ return new class extends Migration
         Schema::dropIfExists('treasury_monthly_closings');
     }
 };
-

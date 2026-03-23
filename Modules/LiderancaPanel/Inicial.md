@@ -50,7 +50,7 @@ Reúna as funcionalidades de outros módulos, simplificando a interface para o l
 - **Educação:** Visão macro da `EBD` e `Worship Academy` (progresso dos alunos).
 - **Ministérios:** Gestão das lideranças e escalas.
 - **Transparência (Treasury):** Gráficos de entradas/saídas e balancetes (Leitura), sem as configurações de conta bancária/gateway.
-- **Conselho (ChurchCouncil):** Atas e aprovações pendentes.
+- **Conselho (Diretoria):** Atas e aprovações pendentes.
 
 ## 4. UI/UX "Shepherd Style"
 

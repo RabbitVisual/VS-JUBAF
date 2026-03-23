@@ -52,7 +52,7 @@ class NotificationTemplatesSeeder extends Seeder
                 'channels' => ['in_app', 'email', 'webpush'],
             ],
             [
-                'key' => 'churchcouncil_minutes',
+                'key' => 'Diretoria_minutes',
                 'name' => 'Ata do conselho pendente de assinatura',
                 'subject' => 'Ata pendente de visto — {{ title }}',
                 'body' => "<p>Prezado(a) conselheiro(a),</p>\n\n<p><strong>{{ title }}</strong></p>\n\n<p>{{ message }}</p>\n\n<p><a href=\"{{ action_url }}\" style=\"display:inline-block;padding:10px 20px;background:#0d9488;color:#fff;text-decoration:none;border-radius:6px;font-weight:600;\">{{ action_text }}</a></p>\n\n<p style=\"color:#6b7280;font-size:12px;margin-top:24px;\">VertexCBAV — Conselho</p>",

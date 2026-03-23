@@ -12,7 +12,7 @@ class NotificationPreferencesController extends Controller
     protected static array $notificationTypes = [
         'worship_roster' => 'Escalas de louvor publicadas',
         'ebd_lesson' => 'Novas lições da EBD',
-        'churchcouncil_minutes' => 'Atas do conselho pendentes de assinatura',
+        'Diretoria_minutes' => 'Atas do conselho pendentes de assinatura',
         'sermon_collaboration' => 'Convites para co-autoria de sermões',
         'treasury_approval' => 'Despesas aguardando aprovação (tesouraria)',
         'event_registration' => 'Inscrições em eventos',

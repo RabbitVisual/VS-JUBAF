@@ -7,7 +7,7 @@
     <div class="min-h-[calc(100vh-8rem)]">
         {{-- Hero --}}
         <div class="relative overflow-hidden rounded-3xl mb-10 border border-gray-200/80 dark:border-slate-700/80 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 text-white shadow-2xl shadow-blue-900/20">
-            <div class="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent"></div>
             <div class="relative px-6 py-10 md:px-12 md:py-14 max-w-4xl">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 backdrop-blur border border-white/20">
@@ -79,3 +79,4 @@
         </div>
     </div>
 @endsection
+

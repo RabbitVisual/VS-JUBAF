@@ -93,7 +93,7 @@ class UpdateEventRequest extends FormRequest
             'options.has_ticket'      => 'nullable|boolean',
 
             // Integrations
-            'requires_council_approval' => 'nullable|boolean',
+            'requires_diretoria_approval' => 'nullable|boolean',
             'treasury_campaign_id'      => 'nullable|exists:campaigns,id',
 
             // Schedule

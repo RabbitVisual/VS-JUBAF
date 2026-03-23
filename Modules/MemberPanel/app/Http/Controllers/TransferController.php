@@ -7,15 +7,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Modules\ChurchCouncil\App\Models\CouncilApproval;
-use Modules\ChurchCouncil\App\Models\TransferLetter;
-use Modules\ChurchCouncil\App\Services\CouncilAuditService;
+use Modules\Diretoria\App\Models\diretoriaApproval;
+use Modules\Diretoria\App\Models\TransferLetter;
+use Modules\Diretoria\App\Services\diretoriaAuditService;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
 class TransferController extends Controller
 {
     public function __construct(
-        private CouncilAuditService $audit,
+        private diretoriaAuditService $audit,
         private InAppNotificationService $inApp,
     ) {
     }
@@ -45,7 +45,7 @@ class TransferController extends Controller
     }
 
     /**
-     * Store a new outgoing transfer request and open a council approval.
+     * Store a new outgoing transfer request and open a diretoria approval.
      */
     public function store(Request $request): JsonResponse
     {
@@ -62,14 +62,14 @@ class TransferController extends Controller
             'direction' => TransferLetter::DIRECTION_OUTGOING,
             'from_church' => $fromChurch,
             'to_church' => $validated['to_church'],
-            'status' => TransferLetter::STATUS_PENDING_COUNCIL,
+            'status' => TransferLetter::STATUS_PENDING_diretoria,
         ]);
 
-        CouncilApproval::create([
+        diretoriaApproval::create([
             'approvable_type' => TransferLetter::class,
             'approvable_id' => $letter->id,
-            'approval_type' => CouncilApproval::TYPE_MEMBERSHIP_TRANSFER_OUT,
-            'status' => CouncilApproval::STATUS_PENDING,
+            'approval_type' => diretoriaApproval::TYPE_MEMBERSHIP_TRANSFER_OUT,
+            'status' => diretoriaApproval::STATUS_PENDING,
             'request_details' => 'Pedido de carta de transferência para: '.$validated['to_church'],
             'requested_by' => $user->id,
             'submitted_at' => now(),
@@ -101,4 +101,3 @@ class TransferController extends Controller
         ]);
     }
 }
-

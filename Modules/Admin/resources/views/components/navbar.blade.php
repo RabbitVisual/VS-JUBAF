@@ -159,7 +159,7 @@
                                             'bg' => 'bg-amber-100 dark:bg-amber-900/30',
                                             'iconColor' => 'text-amber-600 dark:text-amber-400',
                                         ],
-                                        'churchcouncil_minutes' => [
+                                        'Diretoria_minutes' => [
                                             'icon' => 'scale-balanced',
                                             'bg' => 'bg-violet-100 dark:bg-violet-900/30',
                                             'iconColor' => 'text-violet-600 dark:text-violet-400',

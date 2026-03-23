@@ -23,8 +23,8 @@ class EventServiceProvider extends ServiceProvider
         \Modules\EBD\App\Events\StudentLeveledUp::class => [
             \Modules\Notifications\App\Listeners\SendStudentLeveledUpNotification::class,
         ],
-        \Modules\ChurchCouncil\App\Events\MinutesPendingSignature::class => [
-            \Modules\Notifications\App\Listeners\NotifyCouncilMembersMinutesPendingSignature::class,
+        \Modules\Diretoria\App\Events\MinutesPendingSignature::class => [
+            \Modules\Notifications\App\Listeners\NotifydiretoriaMembersMinutesPendingSignature::class,
         ],
         \Modules\EBD\App\Events\NewLessonAvailable::class => [
             \Modules\Notifications\App\Listeners\NotifyNewEbdLessonAvailable::class,

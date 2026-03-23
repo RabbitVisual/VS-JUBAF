@@ -91,24 +91,25 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 # Plano 2 / Fase 2
 
 ## Despoluir Migrations Seeders
+
 - overview: Despoluir migrations/seeders da raiz, unificar schema de usuários no arquivo base do Laravel e alinhar o seeding oficial da JUBAF com roles/permissões Spatie e foco em LiderancaPanel.
 
 - todos:
-  - id: map-delete-migrations
-    content: Remover migrations lixo e modularizadas indevidamente na raiz
-    status: in_progress
-  - id: rewrite-users-migration
-    content: Substituir migration base de users com schema unificado JUBAF
-    status: pending
-  - id: update-user-model
-    content: Atualizar User model com fillable novo e traits HasRoles/SoftDeletes
-    status: pending
-  - id: rework-seeders
-    content: Remover seeders demo, criar RolesAndPermissionsSeeder e simplificar DatabaseSeeder
-    status: pending
-  - id: final-static-validation
-    content: Validar lints e listar com precisão arquivos removidos/modificados
-    status: pending
+    - id: map-delete-migrations
+      content: Remover migrations lixo e modularizadas indevidamente na raiz
+      status: in_progress
+    - id: rewrite-users-migration
+      content: Substituir migration base de users com schema unificado JUBAF
+      status: pending
+    - id: update-user-model
+      content: Atualizar User model com fillable novo e traits HasRoles/SoftDeletes
+      status: pending
+    - id: rework-seeders
+      content: Remover seeders demo, criar RolesAndPermissionsSeeder e simplificar DatabaseSeeder
+      status: pending
+    - id: final-static-validation
+      content: Validar lints e listar com precisão arquivos removidos/modificados
+      status: pending
 
 # Plano de Despoluição e Padronização (JUBAF)
 
@@ -121,85 +122,85 @@ Eliminar referências quebradas dos módulos removidos e dos bots, estabilizar a
 ## 1) Despoluição de `database/migrations`
 
 - Remover arquivos explicitamente listados pelo pedido que existem hoje na raiz:
-  - [database/migrations/2025_12_22_000001_create_user_badges_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_22_000001_create_user_badges_table.php)
-  - [database/migrations/2025_12_29_205554_create_testimonials_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205554_create_testimonials_table.php)
-  - [database/migrations/2025_12_29_205612_create_gallery_images_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205612_create_gallery_images_table.php)
-  - [database/migrations/2026_01_23_174743_create_contact_messages_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_23_174743_create_contact_messages_table.php)
-  - [database/migrations/2026_01_22_023422_drop_ebd_tables.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_22_023422_drop_ebd_tables.php)
-  - [database/migrations/2026_02_03_045041_add_xp_and_level_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_03_045041_add_xp_and_level_to_users_table.php)
-  - [database/migrations/2026_02_03_055014_add_can_project_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_03_055014_add_can_project_to_users_table.php)
-  - [database/migrations/2026_02_19_160000_add_cbav_bot_enabled_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_19_160000_add_cbav_bot_enabled_to_users_table.php)
-  - [database/migrations/2026_01_20_201007_create_user_photos_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_20_201007_create_user_photos_table.php)
-  - [database/migrations/2026_01_21_055158_add_birth_date_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_21_055158_add_birth_date_to_users_table.php)
-  - [database/migrations/2026_03_07_120000_add_two_factor_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_03_07_120000_add_two_factor_to_users_table.php)
-  - [database/migrations/2026_03_08_000001_add_lideranca_role.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_03_08_000001_add_lideranca_role.php)
+    - [database/migrations/2025_12_22_000001_create_user_badges_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_22_000001_create_user_badges_table.php)
+    - [database/migrations/2025_12_29_205554_create_testimonials_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205554_create_testimonials_table.php)
+    - [database/migrations/2025_12_29_205612_create_gallery_images_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205612_create_gallery_images_table.php)
+    - [database/migrations/2026_01_23_174743_create_contact_messages_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_23_174743_create_contact_messages_table.php)
+    - [database/migrations/2026_01_22_023422_drop_ebd_tables.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_22_023422_drop_ebd_tables.php)
+    - [database/migrations/2026_02_03_045041_add_xp_and_level_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_03_045041_add_xp_and_level_to_users_table.php)
+    - [database/migrations/2026_02_03_055014_add_can_project_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_03_055014_add_can_project_to_users_table.php)
+    - [database/migrations/2026_02_19_160000_add_cbav_bot_enabled_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_19_160000_add_cbav_bot_enabled_to_users_table.php)
+    - [database/migrations/2026_01_20_201007_create_user_photos_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_20_201007_create_user_photos_table.php)
+    - [database/migrations/2026_01_21_055158_add_birth_date_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_21_055158_add_birth_date_to_users_table.php)
+    - [database/migrations/2026_03_07_120000_add_two_factor_to_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_03_07_120000_add_two_factor_to_users_table.php)
+    - [database/migrations/2026_03_08_000001_add_lideranca_role.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_03_08_000001_add_lideranca_role.php)
 - Remover também migrations de domínio modular que estão indevidamente na raiz:
-  - Events: [database/migrations/2025_12_29_205603_create_events_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205603_create_events_table.php)
-  - Newsletter: [database/migrations/2025_12_29_210216_create_newsletter_subscribers_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_210216_create_newsletter_subscribers_table.php)
-  - Financial goals: [database/migrations/2026_02_07_000000_add_icon_and_color_to_financial_goals_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_07_000000_add_icon_and_color_to_financial_goals_table.php) e [database/migrations/2026_02_07_004935_add_icon_and_color_to_financial_goals_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_07_004935_add_icon_and_color_to_financial_goals_table.php)
-  - Bible favorites: [database/migrations/2026_01_24_142949_add_color_to_bible_favorites_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_24_142949_add_color_to_bible_favorites_table.php) e [database/migrations/2026_01_26_100536_add_color_and_note_to_bible_favorites_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_26_100536_add_color_and_note_to_bible_favorites_table.php)
+    - Events: [database/migrations/2025_12_29_205603_create_events_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_205603_create_events_table.php)
+    - Newsletter: [database/migrations/2025_12_29_210216_create_newsletter_subscribers_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2025_12_29_210216_create_newsletter_subscribers_table.php)
+    - Financial goals: [database/migrations/2026_02_07_000000_add_icon_and_color_to_financial_goals_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_07_000000_add_icon_and_color_to_financial_goals_table.php) e [database/migrations/2026_02_07_004935_add_icon_and_color_to_financial_goals_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_02_07_004935_add_icon_and_color_to_financial_goals_table.php)
+    - Bible favorites: [database/migrations/2026_01_24_142949_add_color_to_bible_favorites_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_24_142949_add_color_to_bible_favorites_table.php) e [database/migrations/2026_01_26_100536_add_color_and_note_to_bible_favorites_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/2026_01_26_100536_add_color_and_note_to_bible_favorites_table.php)
 
 ## 2) Unificar `users` no arquivo base
 
 - Substituir integralmente [database/migrations/0001_01_01_000000_create_users_table.php](../../../Users/Administrator/.cursor/plans/database/migrations/0001_01_01_000000_create_users_table.php) para conter apenas o schema alvo JUBAF em `users`:
-  - `id`, `name`, `sobrenome` (nullable), `email` (unique), `email_verified_at`, `password`, `whatsapp` (nullable), `data_nascimento` (nullable), `cpf` (unique nullable), `avatar` (nullable), `is_active` (default true), `igreja_id` (unsignedBigInteger nullable), `remember_token`, `timestamps`, `softDeletes`.
+    - `id`, `name`, `sobrenome` (nullable), `email` (unique), `email_verified_at`, `password`, `whatsapp` (nullable), `data_nascimento` (nullable), `cpf` (unique nullable), `avatar` (nullable), `is_active` (default true), `igreja_id` (unsignedBigInteger nullable), `remember_token`, `timestamps`, `softDeletes`.
 - Manter `password_reset_tokens` e `sessions` no mesmo arquivo (padrão Laravel atual).
 - Não criar FK de `igreja_id` agora (seguir ordem de boot do módulo Igrejas, conforme pedido).
 
 ## 3) Ajustar `App\Models\User`
 
 - Em [app/Models/User.php](../../../Users/Administrator/.cursor/plans/app/Models/User.php):
-  - Garantir `use HasRoles;` (Spatie) e `use SoftDeletes;` no model/traits.
-  - Atualizar `$fillable` para refletir apenas os campos da nova unificação de `users`.
-  - Manter o restante do model funcional sem quebra imediata, mas alinhando nomes (`avatar`, `data_nascimento`, `sobrenome`, `whatsapp`, etc.) para consistência com migration base.
+    - Garantir `use HasRoles;` (Spatie) e `use SoftDeletes;` no model/traits.
+    - Atualizar `$fillable` para refletir apenas os campos da nova unificação de `users`.
+    - Manter o restante do model funcional sem quebra imediata, mas alinhando nomes (`avatar`, `data_nascimento`, `sobrenome`, `whatsapp`, etc.) para consistência com migration base.
 
 ## 4) Seeder oficial JUBAF
 
 - Remover seeders de demonstração da raiz:
-  - [database/seeders/DemoUsersSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/DemoUsersSeeder.php)
-  - [database/seeders/LocalDemoSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/LocalDemoSeeder.php)
-  - (Se houver `GamificationSeeder` na raiz, também remover; hoje não foi encontrado.)
+    - [database/seeders/DemoUsersSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/DemoUsersSeeder.php)
+    - [database/seeders/LocalDemoSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/LocalDemoSeeder.php)
+    - (Se houver `GamificationSeeder` na raiz, também remover; hoje não foi encontrado.)
 - Criar/substituir [database/seeders/RolesAndPermissionsSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/RolesAndPermissionsSeeder.php) com:
-  - Permissões macro mínimas: `acesso painel admin`, `acesso painel lideranca`, `gerenciar igrejas`, `gerenciar usuarios`, `gerenciar financeiro` + essenciais operacionais (ex.: `visualizar relatorios`, `gerenciar eventos`, `gerenciar notificacoes`).
-  - Roles exatas: `Super Admin`, `Presidente`, `Vice-Presidente`, `Secretário`, `Tesoureiro`, `Líder Local`, `Jovem`.
-  - Regras: todas permissões para `Super Admin` e `Presidente`; permissão `acesso painel lideranca` para todos os papéis de liderança.
+    - Permissões macro mínimas: `acesso painel admin`, `acesso painel lideranca`, `gerenciar igrejas`, `gerenciar usuarios`, `gerenciar financeiro` + essenciais operacionais (ex.: `visualizar relatorios`, `gerenciar eventos`, `gerenciar notificacoes`).
+    - Roles exatas: `Super Admin`, `Presidente`, `Vice-Presidente`, `Secretário`, `Tesoureiro`, `Líder Local`, `Jovem`.
+    - Regras: todas permissões para `Super Admin` e `Presidente`; permissão `acesso painel lideranca` para todos os papéis de liderança.
 - Atualizar [database/seeders/DatabaseSeeder.php](../../../Users/Administrator/.cursor/plans/database/seeders/DatabaseSeeder.php) para chamar apenas:
-  - `RolesAndPermissionsSeeder::class`
-  - e o seeder de admin principal se aplicável (na base atual, [Modules/Admin/database/seeders/AdminDatabaseSeeder.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/database/seeders/AdminDatabaseSeeder.php), hoje vazio).
+    - `RolesAndPermissionsSeeder::class`
+    - e o seeder de admin principal se aplicável (na base atual, [Modules/Admin/database/seeders/AdminDatabaseSeeder.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/database/seeders/AdminDatabaseSeeder.php), hoje vazio).
 
 ## 5) Validação estática final (sem migrate)
 
 - Conferir diffs e lista final de arquivos apagados/modificados.
 - Conferir lints dos arquivos alterados.
 - Entregar relatório objetivo com:
-  - arquivos removidos,
-  - arquivos modificados/criados,
-  - observações de compatibilidade imediata (se houver referências legadas a `photo`, `date_of_birth`, etc.).
-
+    - arquivos removidos,
+    - arquivos modificados/criados,
+    - observações de compatibilidade imediata (se houver referências legadas a `photo`, `date_of_birth`, etc.).
 
 ## Plano 3 / Fase 3
 
 Frase oficial de encerramento:
 Menções documentais legadas removidas; base alinhada 100% ao escopo JUBAF atual.
+
 ## Reset DB e build
 
 - overview: Executar limpeza de cache, reset completo do banco com seed, garantir usuário Super Admin fixo e validar build frontend sem erros.
 - todos:
-  - id: verify-seeder-admin
-    content: Adicionar/validar criação idempotente do usuário fixo Super Admin no seeder apropriado
-    status: pending
-  - id: run-cache-cleanup
-    content: Executar todos os comandos de limpeza de cache/autoload em sequência
-    status: pending
-  - id: run-fresh-seed-loop
-    content: Executar migrate:fresh --seed e corrigir migration se falhar até ficar verde
-    status: pending
-  - id: build-frontend
-    content: Executar npm run build e confirmar compilação
-    status: pending
-  - id: report-results
-    content: Reportar status final e credenciais de acesso admin
-    status: pending
+    - id: verify-seeder-admin
+      content: Adicionar/validar criação idempotente do usuário fixo Super Admin no seeder apropriado
+      status: pending
+    - id: run-cache-cleanup
+      content: Executar todos os comandos de limpeza de cache/autoload em sequência
+      status: pending
+    - id: run-fresh-seed-loop
+      content: Executar migrate:fresh --seed e corrigir migration se falhar até ficar verde
+      status: pending
+    - id: build-frontend
+      content: Executar npm run build e confirmar compilação
+      status: pending
+    - id: report-results
+      content: Reportar status final e credenciais de acesso admin
+      status: pending
 
 # Plano para reset de banco e validação completa
 
@@ -254,37 +255,39 @@ Executar a preparação completa do ambiente Laravel (cache + migrate/seed + bui
 - Entrega inclui dados de login solicitados.
 
 # Plano 4 / Fase 4
+
 ## Fase1 Igrejas Usuarios
+
 - overview: Implementar o alicerce da associação com CRUD de Igrejas, integração completa na gestão de usuários com vínculo de igreja + cargo Spatie, e navegação nos painéis Admin/Liderança.
 
 - todos:
-  - id: schema-igrejas-pastor
-    content: Adicionar migration para pastor_titular e compatibilidade com lideranca_titular no model Igreja
-    status: pending
-  - id: crud-igrejas-controller-requests
-    content: Criar AdminIgrejaController e Form Requests de store/update com upload de logo
-    status: pending
-  - id: routes-igrejas-admin-lideranca
-    content: Configurar rotas protegidas admin.igrejas.* e lideranca.igrejas.* com can:gerenciar igrejas
-    status: pending
-  - id: views-igrejas-admin
-    content: Criar views admin/index/form/create/edit premium para Igrejas
-    status: pending
-  - id: admin-usercontroller-integracao
-    content: Atualizar UserController para carregar igrejas/roles e persistir igreja_id + syncRoles
-    status: pending
-  - id: admin-users-views-update
-    content: Atualizar views de usuários com colunas Igreja/Cargo e selects de Igreja/Cargo
-    status: pending
-  - id: user-model-relationship
-    content: Adicionar relacionamento igreja() no app/Models/User.php
-    status: pending
-  - id: sidebars-link-gestao-igrejas
-    content: Adicionar link Gestão de Igrejas nas sidebars Admin e Liderança com @can
-    status: pending
-  - id: validacao-final-fase1
-    content: Executar validações de rota, lints e fluxo funcional ponta a ponta
-    status: pending
+    - id: schema-igrejas-pastor
+      content: Adicionar migration para pastor_titular e compatibilidade com lideranca_titular no model Igreja
+      status: pending
+    - id: crud-igrejas-controller-requests
+      content: Criar AdminIgrejaController e Form Requests de store/update com upload de logo
+      status: pending
+    - id: routes-igrejas-admin-lideranca
+      content: Configurar rotas protegidas admin.igrejas._ e lideranca.igrejas._ com can:gerenciar igrejas
+      status: pending
+    - id: views-igrejas-admin
+      content: Criar views admin/index/form/create/edit premium para Igrejas
+      status: pending
+    - id: admin-usercontroller-integracao
+      content: Atualizar UserController para carregar igrejas/roles e persistir igreja_id + syncRoles
+      status: pending
+    - id: admin-users-views-update
+      content: Atualizar views de usuários com colunas Igreja/Cargo e selects de Igreja/Cargo
+      status: pending
+    - id: user-model-relationship
+      content: Adicionar relacionamento igreja() no app/Models/User.php
+      status: pending
+    - id: sidebars-link-gestao-igrejas
+      content: Adicionar link Gestão de Igrejas nas sidebars Admin e Liderança com @can
+      status: pending
+    - id: validacao-final-fase1
+      content: Executar validações de rota, lints e fluxo funcional ponta a ponta
+      status: pending
 
 # Fase 1: Alicerce da Associação (Igrejas + Usuários)
 
@@ -315,11 +318,11 @@ Arquivos alvo:
 - Criar `AdminIgrejaController` com `index/create/store/edit/update/destroy`.
 - Implementar upload de logo em `public/igrejas` com validação e substituição segura no update.
 - Criar Form Requests:
-  - `StoreIgrejaRequest`
-  - `UpdateIgrejaRequest`
+    - `StoreIgrejaRequest`
+    - `UpdateIgrejaRequest`
 - Reestruturar rotas do módulo em grupos protegidos:
-  - Admin: prefixo `admin/igrejas`, nomes `admin.igrejas.`, middleware `auth` + `can:gerenciar igrejas`.
-  - Liderança: prefixo `lideranca/igrejas`, nomes `lideranca.igrejas.`, middleware equivalente + `can:gerenciar igrejas`.
+    - Admin: prefixo `admin/igrejas`, nomes `admin.igrejas.`, middleware `auth` + `can:gerenciar igrejas`.
+    - Liderança: prefixo `lideranca/igrejas`, nomes `lideranca.igrejas.`, middleware equivalente + `can:gerenciar igrejas`.
 
 Arquivos alvo:
 
@@ -330,9 +333,9 @@ Arquivos alvo:
 ### 3) Views premium do módulo Igrejas (Tailwind/Flowbite)
 
 - Criar `admin/index.blade.php` com data table moderna:
-  - Logo/avatar, Nome, Pastor, Líder de Jovens, Ações.
+    - Logo/avatar, Nome, Pastor, Líder de Jovens, Ações.
 - Criar `admin/form.blade.php` reutilizável para create/edit:
-  - Cards limpos, espaçamento premium, campos solicitados, preview de upload.
+    - Cards limpos, espaçamento premium, campos solicitados, preview de upload.
 - Criar wrappers `create.blade.php` e `edit.blade.php` reutilizando o form.
 
 Arquivos alvo:
@@ -342,11 +345,11 @@ Arquivos alvo:
 ### 4) Gestão de Usuários (Admin) com Igrejas + Cargo
 
 - Em `Modules\Admin\App\Http\Controllers\UserController`:
-  - `create/edit`: carregar `Igreja::orderBy('nome')->get()` e `Role::all()`.
-  - `store/update`: persistir `igreja_id` e sincronizar role com `syncRoles($request->role)`.
+    - `create/edit`: carregar `Igreja::orderBy('nome')->get()` e `Role::all()`.
+    - `store/update`: persistir `igreja_id` e sincronizar role com `syncRoles($request->role)`.
 - Ajustar validações de `store/update` para aceitar `igreja_id` e `role` (slug/nome de role) sem quebrar fluxo atual.
 - Adicionar relação no `User` model:
-  - `igreja(): belongsTo(Igreja::class, 'igreja_id')`.
+    - `igreja(): belongsTo(Igreja::class, 'igreja_id')`.
 
 Arquivos alvo:
 
@@ -356,11 +359,11 @@ Arquivos alvo:
 ### 5) Views de Usuário (Admin)
 
 - `index.blade.php`:
-  - adicionar coluna **Igreja** (`$user->igreja->nome ?? '-'`)
-  - adicionar coluna **Cargo** (primeira role em badge Flowbite).
+    - adicionar coluna **Igreja** (`$user->igreja->nome ?? '-'`)
+    - adicionar coluna **Cargo** (primeira role em badge Flowbite).
 - `create/edit` (ou parcial de form):
-  - select moderno para **Igreja Pertencente**
-  - select moderno para **Cargo na JUBAF**.
+    - select moderno para **Igreja Pertencente**
+    - select moderno para **Cargo na JUBAF**.
 
 Arquivos alvo:
 
@@ -373,8 +376,8 @@ Arquivos alvo:
 - Incluir link “Gestão de Igrejas” com ícone de igreja no padrão de ícones do projeto.
 - Exibir apenas com `@can('gerenciar igrejas')`.
 - Usar rotas por contexto:
-  - Admin -> `admin.igrejas.index`
-  - Liderança -> `lideranca.igrejas.index`
+    - Admin -> `admin.igrejas.index`
+    - Liderança -> `lideranca.igrejas.index`
 
 Arquivos alvo:
 
@@ -384,15 +387,15 @@ Arquivos alvo:
 ### 7) Verificação técnica
 
 - Rodar checagens pós-implementação:
-  - limpeza de cache quando necessário
-  - `route:list` para confirmar nomes de rotas
-  - validação de upload e CRUD ponta a ponta
-  - leitura de lints nos arquivos alterados
+    - limpeza de cache quando necessário
+    - `route:list` para confirmar nomes de rotas
+    - validação de upload e CRUD ponta a ponta
+    - leitura de lints nos arquivos alterados
 - Confirmar cenários:
-  - CRUD Igrejas Admin/Liderança
-  - vínculo usuário-igreja
-  - sincronização correta de role Spatie
-  - visibilidade condicional em sidebars
+    - CRUD Igrejas Admin/Liderança
+    - vínculo usuário-igreja
+    - sincronização correta de role Spatie
+    - visibilidade condicional em sidebars
 
 ## Critérios de aceite
 
@@ -403,29 +406,30 @@ Arquivos alvo:
 - Layout responsivo, limpo e consistente com Tailwind/Flowbite.
 
 # Plano 5 / Fase 5
+
 ## Fase 2: Motor de Eventos e Caravanas (JUBAF)
+
 - overview: Implementar a Fase 2 no módulo Events com jornada completa para Jovem, Líder Local e Diretoria, adicionando gestão de caravanas por igreja, ranking no admin e navegação dedicada nos painéis.
 
 - todos:
-  - id: memberpanel-events
-    content: Ajustar fluxo MemberPanel (index, inscrições e my-registrations) com CTA/badges conforme Fase 2
-    status: pending
-  - id: lideranca-caravana-controller
-    content: Criar CaravanaController com filtros por igreja_id e métricas de caravana
-    status: pending
-  - id: lideranca-caravana-views
-    content: Criar views liderancapanel/caravanas (index e show) com Data Table e cards de resumo
-    status: pending
-  - id: admin-ranking-caravanas
-    content: Adicionar query agregada e seção Ranking de Caravanas no show do evento (admin)
-    status: pending
-  - id: routes-and-sidebars
-    content: Registrar rotas member/lideranca e atualizar sidebars com novos links e permissões
-    status: pending
-  - id: validation-pass
-    content: Validar rotas, lints e consistência visual/funcional ponta a ponta
-    status: pending
-
+    - id: memberpanel-events
+      content: Ajustar fluxo MemberPanel (index, inscrições e my-registrations) com CTA/badges conforme Fase 2
+      status: pending
+    - id: lideranca-caravana-controller
+      content: Criar CaravanaController com filtros por igreja_id e métricas de caravana
+      status: pending
+    - id: lideranca-caravana-views
+      content: Criar views liderancapanel/caravanas (index e show) com Data Table e cards de resumo
+      status: pending
+    - id: admin-ranking-caravanas
+      content: Adicionar query agregada e seção Ranking de Caravanas no show do evento (admin)
+      status: pending
+    - id: routes-and-sidebars
+      content: Registrar rotas member/lideranca e atualizar sidebars com novos links e permissões
+      status: pending
+    - id: validation-pass
+      content: Validar rotas, lints e consistência visual/funcional ponta a ponta
+      status: pending
 
 # Fase 2: Motor de Eventos e Caravanas (JUBAF)
 
@@ -442,37 +446,37 @@ Entregar um fluxo completo e alinhado ao propósito da JUBAF:
 ### 1) MemberPanel: vitrine + inscrições + acompanhamento
 
 - Atualizar o controller [Modules/Events/app/Http/Controllers/MemberPanel/EventController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/MemberPanel/EventController.php):
-  - `index`: manter filtro eficiente para eventos ativos/publicados e futuros (usar scopes existentes `published()`, `members()` e critério de data em `start_date/end_date`).
-  - `myRegistrations` (compatível com `minhasInscricoes` solicitado): garantir eager loading de `event` (e `participants/latestPayment` quando necessário para badges/status).
-  - `register`/`inscrever (POST)`: manter endpoint de inscrição já existente (`memberpanel.events.register`) com criação vinculada ao usuário logado e status inicial pendente, reaproveitando `EventService` para não quebrar o fluxo de pagamento atual.
+    - `index`: manter filtro eficiente para eventos ativos/publicados e futuros (usar scopes existentes `published()`, `members()` e critério de data em `start_date/end_date`).
+    - `myRegistrations` (compatível com `minhasInscricoes` solicitado): garantir eager loading de `event` (e `participants/latestPayment` quando necessário para badges/status).
+    - `register`/`inscrever (POST)`: manter endpoint de inscrição já existente (`memberpanel.events.register`) com criação vinculada ao usuário logado e status inicial pendente, reaproveitando `EventService` para não quebrar o fluxo de pagamento atual.
 - Refinar views já existentes para aderir ao layout pedido:
-  - [Modules/Events/resources/views/memberpanel/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/index.blade.php): cards premium com capa/título/data/local e CTA textual `Garantir Vaga`.
-  - [Modules/Events/resources/views/memberpanel/my-registrations.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/my-registrations.blade.php): formato de tickets e badges de pagamento (amarelo pendente, verde pago/confirmado).
+    - [Modules/Events/resources/views/memberpanel/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/index.blade.php): cards premium com capa/título/data/local e CTA textual `Garantir Vaga`.
+    - [Modules/Events/resources/views/memberpanel/my-registrations.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/my-registrations.blade.php): formato de tickets e badges de pagamento (amarelo pendente, verde pago/confirmado).
 
 ### 2) Liderança: nova gestão de caravana por igreja
 
 - Criar controller [Modules/Events/app/Http/Controllers/Lideranca/CaravanaController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/Lideranca/CaravanaController.php):
-  - `index`: eventos que tenham pelo menos 1 inscrição de usuários com `igreja_id` igual ao líder autenticado.
-  - `show(Event $event)`: inscrições do evento filtradas por `user.igreja_id`, com eager loading (`user`, `batch`, `participants`, `latestPayment`) e métricas (`total_na_caravana`, `total_pago`).
+    - `index`: eventos que tenham pelo menos 1 inscrição de usuários com `igreja_id` igual ao líder autenticado.
+    - `show(Event $event)`: inscrições do evento filtradas por `user.igreja_id`, com eager loading (`user`, `batch`, `participants`, `latestPayment`) e métricas (`total_na_caravana`, `total_pago`).
 - Criar views de liderança:
-  - [Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php): grid/lista de eventos da caravana.
-  - [Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php): datatable com colunas `Nome do Jovem`, `WhatsApp` (link direto), `Tipo de Ingresso`, `Status do Pagamento`, além de cards de resumo.
+    - [Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php): grid/lista de eventos da caravana.
+    - [Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php): datatable com colunas `Nome do Jovem`, `WhatsApp` (link direto), `Tipo de Ingresso`, `Status do Pagamento`, além de cards de resumo.
 
 ### 3) Admin: ranking de caravanas no detalhe do evento
 
 - Atualizar [Modules/Events/app/Http/Controllers/Admin/EventController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/Admin/EventController.php) no método `show`:
-  - adicionar query agregada por igreja via `event_registrations -> users -> igrejas` com `COUNT(*)` ordenado desc.
-  - entregar dataset `caravanaRanking` para a view.
+    - adicionar query agregada por igreja via `event_registrations -> users -> igrejas` com `COUNT(*)` ordenado desc.
+    - entregar dataset `caravanaRanking` para a view.
 - Atualizar [Modules/Events/resources/views/admin/events/show.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/admin/events/show.blade.php):
-  - seção premium “Ranking de Caravanas” (tabela HTML/Tailwind/Flowbite), exibindo posição, igreja e total de inscritos.
+    - seção premium “Ranking de Caravanas” (tabela HTML/Tailwind/Flowbite), exibindo posição, igreja e total de inscritos.
 
 ### 4) Rotas e navegação
 
 - Registrar rotas da caravana no escopo de liderança em [routes/lideranca.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/lideranca.php) com padrão `lideranca.caravanas.*`.
 - Ajustar rotas member (se necessário alias sem quebrar compatibilidade) em [routes/member.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/member.php), preservando padrão `memberpanel.events.*` e endpoint de inscrições.
 - Atualizar sidebars:
-  - [Modules/MemberPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/MemberPanel/resources/views/components/sidebar.blade.php): links `Próximos Eventos` e `Minhas Inscrições`.
-  - [Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php): link `Minha Caravana` com `@can('acesso painel lideranca')`.
+    - [Modules/MemberPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/MemberPanel/resources/views/components/sidebar.blade.php): links `Próximos Eventos` e `Minhas Inscrições`.
+    - [Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php): link `Minha Caravana` com `@can('acesso painel lideranca')`.
 
 ### 5) Validação técnica e UX
 
@@ -488,3 +492,137 @@ Entregar um fluxo completo e alinhado ao propósito da JUBAF:
 - Sidebars e rotas novos funcionando com nomenclatura solicitada e permissões aplicadas.
 
 # Plano 6 / Fase 6
+
+## Fase 3 Governança Mural
+
+- overview: Renomear a linguagem do Diretoria para “Diretoria” (views + traduções + sidebars), implementar CRUD de postagens no módulo Comunicacao com upload em `public/comunicacao/anexos`, feed autenticado em `/mural`, e integrar links nos três painéis e gestão no Admin/Liderança.
+
+- todos:
+    - id: Diretoria-copy
+      content: Atualizar lang pt_BR + blades Diretoria + PDFs/settings; sidebars Admin e Liderança (Gestão da Diretoria + ícone briefcase)
+      status: completed
+    - id: comunicacao-backend
+      content: Postagem::autor, Form Requests, AdminPostagemController (upload public/comunicacao/anexos + user_id), FeedController, rotas web.php com names admin.comunicacao.postagens.\* e mural.index
+      status: completed
+    - id: comunicacao-views
+      content: Views admin index/form + feed/index premium (badges por tipo, download, paginate)
+      status: completed
+    - id: navigation
+      content: "Sidebars Admin, Liderança e Member: Gestão do Mural + Mural Oficial (bullhorn)"
+      status: completed
+    - id: cleanup-verify
+      content: Remover/ajustar stub ComunicacaoController e api.php; verificar storage:link e route:list
+      status: completed
+      isProject: false
+
+---
+
+# Fase 3: Diretoria + Mural Oficial (Comunicacao)
+
+## Contexto do código
+
+- **Diretoria**: Rotas admin usam prefixo de URL `admin/conselho` e nome `admin.Diretoria.`_ ([routes/admin.php](../../../Users/Administrator/.cursor/plans/routes/admin.php)); o texto da sidebar admin está em [Modules/Admin/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/components/sidebar.blade.php). Liderança usa `route('lideranca.conselho.index')` com label “Conselho” ([Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php)). Muitas blades usam `\_\_('Diretoria::messages._')` — você confirmou **atualizar também** [Modules/Diretoria/lang/pt_BR/messages.php](../../../Users/Administrator/.cursor/plans/Modules/Diretoria/lang/pt_BR/messages.php).
+- **Comunicacao**: Tabela `postagens` e colunas já definidas na migration [Modules/Comunicacao/database/migrations/2026_03_23_153433_create_postagems_table.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/database/migrations/2026_03_23_create_postagems_table.php) (nome do arquivo menciona `postagems`, mas `Schema::create('postagens')`); model [Modules/Comunicacao/app/Models/Postagem.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/app/Models/Postagem.php). Rotas atuais do módulo são um stub ([Modules/Comunicacao/routes/web.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/routes/web.php)) carregadas pelo `RouteServiceProvider` do módulo (não é necessário duplicar em `bootstrap/app.php` como o Treasury).
+- **Middleware**: `admin` resolve para [Modules/Admin/App/Http/Middleware/EnsureUserIsAdmin.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/App/Http/Middleware/EnsureUserIsAdmin.php) e permite quem tem `hasAdminAccess()` — adequado para CRUD acessível tanto do Admin quanto da Liderança com o mesmo link.
+
+```mermaid
+flowchart LR
+  subgraph adminFlow [Gestao Mural]
+    A[AdminPostagemController] --> S[Store/Update Postagem]
+    S --> U[Upload anexo public disk]
+    U --> DB[(postagens)]
+  end
+  subgraph feedFlow [Mural]
+    F[FeedController index] --> DB
+    F --> V[feed/index.blade.php]
+  end
+```
+
+---
+
+## Passo 1 — Diretoria → linguagem “Diretoria”
+
+1. **Traduções** — Em [Modules/Diretoria/lang/pt_BR/messages.php](../../../Users/Administrator/.cursor/plans/Modules/Diretoria/lang/pt_BR/messages.php), substituir o vocabulário de “Conselho” por “Diretoria” onde fizer sentido, incluindo ajustes gramaticais em PT-BR, por exemplo:
+
+- `diretoria` / `diretoria_title` / frases com “Conselho da Igreja” → equivalentes com **Diretoria** (e “Cargo **na** Diretoria”, “Membro **da** Diretoria”, “Reuniões **da** Diretoria”, “Presidente **da** Diretoria” quando aparecerem nas strings).
+- `view_agendas`, `diretoria_panel_intro`, `welcome_diretoria`, `counselors_registered` (ex.: “Diretores registrados” ou “Membros da diretoria registrados”), `user_already_member`, `not_diretoria_member`, `create_first_agenda`, etc.
+
+1. **Views** — Em `Modules/Diretoria/resources/views/**/*.blade.php`, substituir ocorrências literais de “Conselho”, “Membros do Conselho”, “Reuniões do Conselho”, “Conselho da Igreja”, “Membro do Conselho”, “Cargo no Conselho”, “Presidente do Conselho”, etc., alinhadas às mesmas regras (incluindo PDFs em `admin/pdf/` e placeholders em `admin/settings`).
+2. **Sidebars (texto apenas)**
+
+- **Admin**: Em [Modules/Admin/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/components/sidebar.blade.php), manter `href="{{ route('admin.Diretoria.index') }}"` e `request()->routeIs('admin.Diretoria*')`, trocar o label para **“Gestão da Diretoria”** e adicionar ícone via `<x-icon name="briefcase" class="w-4 h-4" />` (padrão do projeto: Font Awesome via componente; evitar `fa-solid` cru no layout).
+- **Liderança**: Mesmo critério visual para o item que hoje diz “Conselho” (mesma rota `lideranca.conselho.index`): label **“Gestão da Diretoria”** + ícone `briefcase`.
+
+1. **Opcional / consistência (recomendado no mesmo PR)**: Defaults em [Modules/Diretoria/app/Services/DiretoriaSettings.php](../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Services/DiretoriaSettings.php) e strings em observers/notificações que ainda digam “Conselho” (ex.: [Modules/Diretoria/app/Observers/diretoriaApprovalObserver.php](../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Observers/diretoriaApprovalObserver.php)) para não misturar terminologia in-app.
+
+**Não alterar** nomes de rotas (`admin.Diretoria.`, prefixo URL `conselho`) salvo pedido explícito — só copy/UX.
+
+---
+
+## Passo 2 — Módulo Comunicacao: CRUD + Feed
+
+### Model e relacionamento
+
+- Em [Modules/Comunicacao/app/Models/Postagem.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/app/Models/Postagem.php): adicionar `autor()` como `belongsTo(User::class, 'user_id')` (importar `App\Models\User`).
+- Garantir `$casts` se necessário (`created_at`/`updated_at` já são datas).
+
+### Form Requests
+
+- Criar `Modules/Comunicacao/app/Http/Requests/StorePostagemRequest.php` e `UpdatePostagemRequest.php` com regras:
+    - `titulo`: `required`, `string`, `max:255` (ou coerente com coluna).
+    - `conteudo`: `required`, `string`.
+    - `tipo`: `required`, `Rule::in(['edital', 'ata', 'aviso', 'noticia'])`.
+    - `anexo`: `nullable`, `file`, `max:...` (definir limite razoável, ex. 10–20 MB conforme padrão do projeto).
+
+### Controllers
+
+- `**AdminPostagemController` em `Modules/Comunicacao/app/Http/Controllers/` (mesmo namespace que [ComunicacaoController](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/app/Http/Controllers/ComunicacaoController.php)):
+    - `index`, `create`, `store`, `edit`, `update`, `destroy`.
+    - `store`/`update`: `user_id` = `Auth::id()`; upload opcional com `$request->file('anexo')` → `store('comunicacao/anexos', 'public')` (ou `Storage::disk('public')`), persistir caminho relativo em `anexo_path`; em update, remover arquivo antigo do disco se substituído.
+    - Garantir que existe diretório público servido: uso do disco `public` implica URL via `asset('storage/...')` após `php artisan storage:link` (documentar no PR se a pasta ainda não existir no deploy).
+- `**FeedController`: método `index` com `Postagem::with('autor')->latest()->paginate(10)` e retorno da view `comunicacao::feed.index`.
+
+### Views — Admin
+
+- `Modules/Comunicacao/resources/views/admin/index.blade.php`: tabela responsiva (título, tipo, autor, data, ações) alinhada ao layout admin existente (glass/cards como outros módulos).
+- `Modules/Comunicacao/resources/views/admin/form.blade.php`: campos título, tipo (select), conteúdo — **textarea grande** (mínimo viável) ou, se o projeto já tiver editor (Trix/CKEditor) em outro módulo, reutilizar o mesmo padrão; campo file `anexo` com preview do anexo atual em edit.
+- Incluir `<x-loading-overlay />` nos forms se o layout admin já depender de submit global (seguir [AGENTS.md](../../../Users/Administrator/.cursor/plans/AGENTS.md)).
+
+### Views — Feed (prioridade UX)
+
+- `Modules/Comunicacao/resources/views/feed/index.blade.php`: timeline de cards largos (max-width container, espaçamento generoso, tipografia clara), **badge por tipo** com classes Tailwind estilo Flowbite (ex.: edital vermelho, aviso âmbar, notícia azul, ata cinza/neutro), data formatada (`d/m/Y H:i`), nome do autor, conteúdo com `{!! nl2br(e($postagem->conteudo)) !!}` (seguro) — só usar HTML bruto se no futuro houver sanitização; inicialmente texto/plain.
+- Botão de download visível quando `anexo_path` preenchido (`target="_blank"` + ícone `<x-icon />`).
+- Layout: estender o master mais adequado ao uso “tela mais lida” — por exemplo o master do MemberPanel ou um layout leve do Comunicacao que reutilize navbar/brand JUBAF; manter **auth** e aparência premium (gradiente suave, bordas, sombra).
+
+### Rotas do módulo
+
+- Substituir o resource stub em [Modules/Comunicacao/routes/web.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/routes/web.php) por algo equivalente a:
+    - Grupo `middleware(['web', 'auth', 'verified', 'admin'])`, `prefix('admin')`, `name('admin.')`:
+        - `Route::resource('comunicacao/postagens', AdminPostagemController::class)->parameters(['postagens' => 'postagem'])->names([...])` para nomes canônicos tipo `admin.comunicacao.postagens.index` (ajustar `names()` para evitar singularização estranha de `postagens`).
+    - `Route::get('/mural', [FeedController::class, 'index'])->middleware(['auth'])->name('mural.index');`
+      (Se `verified` for obrigatório em todo o app autenticado, alinhar ao restante das rotas member/admin.)
+- Remover ou deixar deprecado [ComunicacaoController](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/app/Http/Controllers/ComunicacaoController.php) e rotas `comunicacaos` antigas para não haver conflito.
+
+### API do módulo
+
+- Ajustar [Modules/Comunicacao/routes/api.php](../../../Users/Administrator/.cursor/plans/Modules/Comunicacao/routes/api.php) se ainda referenciar o controller removido.
+
+---
+
+## Passo 3 — Navegação
+
+- **Admin** ([Modules/Admin/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/components/sidebar.blade.php)): link **“Gestão do Mural”** → `route('admin.comunicacao.postagens.index')` (ou nome final definido no `resource`), com destaque visual opcional.
+- **Liderança** ([Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php)): mesmo link de gestão + item **“Mural Oficial”** com `<x-icon name="bullhorn" />` → `route('mural.index')`.
+- **Member** ([Modules/MemberPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/MemberPanel/resources/views/components/sidebar.blade.php)): **“Mural Oficial”** + `bullhorn` → `route('mural.index')` (lista textual e/ou ícones na coluna estreita, conforme encaixe no layout).
+
+Active state: `request()->routeIs('admin.comunicacao.postagens*')` e `request()->routeIs('mural.index')` onde aplicável.
+
+---
+
+## Verificação manual sugerida
+
+- `php artisan route:list --name=comunicacao --name=mural`
+- Fluxo: criar postagem com anexo, editar, excluir; abrir `/mural` e conferir paginação e badges.
+- Acesso: usuário só membro vê feed; usuário com `hasAdminAccess()` acessa CRUD.
+
+# Plano 7 / Fase 7

@@ -5,7 +5,7 @@ Roadmap oficial para evolucao funcional e tecnica da plataforma Vertex JUBAF, co
 ## Contexto atual
 
 - Base Laravel modular estabilizada com `nwidart/laravel-modules`.
-- Modulos ativos: `HomePage`, `Admin`, `MemberPanel`, `Notifications`, `Bible`, `PaymentGateway`, `Treasury`, `ChurchCouncil`, `Events`, `Sermons`, `LiderancaPanel`, `Igrejas`, `Comunicacao`.
+- Modulos ativos: `HomePage`, `Admin`, `MemberPanel`, `Notifications`, `Bible`, `PaymentGateway`, `Treasury`, `Diretoria`, `Events`, `Sermons`, `LiderancaPanel`, `Igrejas`, `Comunicacao`.
 - Escopo legado removido: bots, gamificacao e modulos nao aderentes ao objetivo JUBAF.
 - Nomenclatura funcional consolidada para `lideranca` (rotas e painel).
 
@@ -32,16 +32,19 @@ Consolidar o Vertex JUBAF como plataforma de governanca, operacao e conexao da J
 ## Fase 2 - Governanca e Operacao Core (prioridade alta)
 
 ### Igrejas
+
 - [ ] CRUD completo de igrejas com validacoes de dominio.
 - [ ] Cadastro de historico de lideranca por igreja.
 - [ ] Vinculo de igrejas a eventos e comunicados segmentados.
 
 ### Comunicacao
+
 - [ ] CRUD completo de postagens (`edital`, `ata`, `aviso`, `noticia`).
 - [ ] Publicacao com anexos e trilha de auditoria.
 - [ ] Controle de visibilidade (publico, lideranca, interno).
 
-### LiderancaPanel + ChurchCouncil
+### LiderancaPanel + Diretoria
+
 - [ ] Fluxo completo de pautas, reunioes, aprovacoes e decisoes.
 - [ ] Painel sintetico de indicadores de governanca.
 - [ ] Exportacoes e historico institucional.
@@ -49,12 +52,14 @@ Consolidar o Vertex JUBAF como plataforma de governanca, operacao e conexao da J
 ## Fase 3 - Ciclo operacional integrado (prioridade alta)
 
 ### Fluxo Eventos -> Pagamentos -> Tesouraria -> Notificacoes
+
 - [ ] Garantir idempotencia ponta a ponta no fechamento financeiro de inscricoes.
 - [ ] Dashboard de conciliacao entre inscricoes, pagamentos e lancamentos.
 - [ ] Alertas operacionais automaticos para divergencias e pendencias.
 - [ ] Templates de notificacao por evento e por etapa do ciclo.
 
 ### Tesouraria
+
 - [ ] Evoluir relatorios para prestacao de contas por periodo e centro de custo.
 - [ ] Melhorar trilha de auditoria de alteracoes financeiras.
 

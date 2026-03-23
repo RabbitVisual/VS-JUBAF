@@ -151,8 +151,8 @@ Route::prefix('biblia-online')->name('bible.public.')->group(function () {
 });
 
 // =====================================================================
-// ChurchCouncil - Rotas públicas (placeholder para futuro)
+// Diretoria - Rotas públicas (placeholder para futuro)
 // =====================================================================
-Route::prefix('conselho')->name('public.churchcouncil.')->group(function () {
+Route::prefix('conselho')->name('public.Diretoria.')->group(function () {
     // Informações públicas do conselho, se necessário
 });

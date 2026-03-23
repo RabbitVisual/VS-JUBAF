@@ -22,7 +22,7 @@ Understand the role of each module before making modifications:
 - **Admin**: The nervous system. Handles User management, Roles/Permissions (Spatie), Global Settings, and Audit Logs.
 - **Assets**: The inventory tracker. Manages physical church property and digital resources.
 - **Bible**: **The Spiritual Core.** Contains multiple offline Bible versions. Use this for ANY scripture-related feature.
-- **ChurchCouncil**: Leadership hub. Manages meeting agendas, minutes, decisions, and leadership history. Agenda status uses model constants (`pending`, `discussed`, `approved`, `rejected`, `postponed`); decision text (approve/reject) is stored in `CouncilAgenda.decision`. i18n via `churchcouncil::messages` (lang in `Modules/ChurchCouncil/lang`).
+- **Diretoria**: Leadership hub. Manages meeting agendas, minutes, decisions, and leadership history. Agenda status uses model constants (`pending`, `discussed`, `approved`, `rejected`, `postponed`); decision text (approve/reject) is stored in `diretoriaAgenda.decision`. i18n via `Diretoria::messages` (lang in `Modules/Diretoria/lang`).
 - **EBD**: The Vertex Academy. Sunday School management, gamification (XP/Levels), and student tracking.
 - **Events Pro**: Event lifecycle. Handles calendar, public registrations, ticketing batches, and QR check-in flows.
 - **HomePage**: Public CMS. Manages landing page sections, hero carousels, testimonials, and church info.
@@ -155,7 +155,7 @@ NUNCA usar `migrate:fresh` em ambientes com dados reais. Toda a estratégia de s
         - `Modules/HomePage` (testemunhos, eventos vitrine, galeria) — só insere se as tabelas estiverem vazias;
         - `Modules/Gamification` (insights, coaching rules, page insights);
         - `Modules/Treasury` (reutiliza o seeder; não recria lançamentos se já existirem);
-        - `Modules/Events`, `ChurchCouncil`, `SocialAction`, `Intercessor`, `Sermons`, `Ministries`, `Assets`, `Projection`, `MemberPanel`, `Admin`, `Notifications`, `Bible`.
+        - `Modules/Events`, `Diretoria`, `SocialAction`, `Intercessor`, `Sermons`, `Ministries`, `Assets`, `Projection`, `MemberPanel`, `Admin`, `Notifications`, `Bible`.
 
 - **Comandos recomendados**:
     - **Ambiente local/homologação (para encher tudo de dados demo)**:

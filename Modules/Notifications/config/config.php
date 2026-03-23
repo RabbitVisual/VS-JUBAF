@@ -25,7 +25,7 @@ return [
     'notification_types' => [
         'worship_roster',
         'ebd_lesson',
-        'churchcouncil_minutes',
+        'Diretoria_minutes',
         'sermon_collaboration',
         'treasury_approval',
         'event_registration',

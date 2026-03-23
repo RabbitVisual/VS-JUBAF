@@ -9,28 +9,28 @@ Este documento descreve como o módulo funciona, os fluxos principais e como us�
 ## 1. Domínio e Principais Entidades
 
 - **SystemNotification**
-  - Notificação “global” criada pelo sistema (título, mensagem, tipo, prioridade, destinos).
-  - Campos principais: `title`, `message`, `type` (info|success|warning|error), `priority` (low|normal|high|urgent), `target_users`, `target_roles`, `target_ministries`, `action_url`, `action_text`, `notification_type` (para agrupamento), `group_count`, `uuid`, `created_by`, `scheduled_at`, `expires_at`.
-  - Relações: `creator()`, `users()` (via pivot `user_notifications`).
+    - Notificação “global” criada pelo sistema (título, mensagem, tipo, prioridade, destinos).
+    - Campos principais: `title`, `message`, `type` (info|success|warning|error), `priority` (low|normal|high|urgent), `target_users`, `target_roles`, `target_ministries`, `action_url`, `action_text`, `notification_type` (para agrupamento), `group_count`, `uuid`, `created_by`, `scheduled_at`, `expires_at`.
+    - Relações: `creator()`, `users()` (via pivot `user_notifications`).
 
 - **UserNotification**
-  - Pivot “caixa de entrada” do usuário: liga `user_id` a `notification_id`, com `is_read`, `read_at`, `uuid`.
-  - O sino e a listagem consomem apenas `UserNotification` do usuário autenticado.
+    - Pivot “caixa de entrada” do usuário: liga `user_id` a `notification_id`, com `is_read`, `read_at`, `uuid`.
+    - O sino e a listagem consomem apenas `UserNotification` do usuário autenticado.
 
 - **NotificationTemplate**
-  - Templates reutilizáveis por `key` (ex: `worship_roster`, `ebd_lesson`, `churchcouncil_minutes`). Corpo com placeholders `{{ title }}`, `{{ message }}`, `{{ action_url }}`, `{{ action_text }}`. Usado pelo dispatcher multi-canal e pelo Admin para edição sem código.
+    - Templates reutilizáveis por `key` (ex: `worship_roster`, `ebd_lesson`, `Diretoria_minutes`). Corpo com placeholders `{{ title }}`, `{{ message }}`, `{{ action_url }}`, `{{ action_text }}`. Usado pelo dispatcher multi-canal e pelo Admin para edição sem código.
 
 - **UserNotificationPreference**
-  - Preferências por usuário e `notification_type`: canais habilitados (`in_app`, `email`, `webpush`), e DND (`dnd_from`, `dnd_to`). Central de preferências no MemberPanel.
+    - Preferências por usuário e `notification_type`: canais habilitados (`in_app`, `email`, `webpush`), e DND (`dnd_from`, `dnd_to`). Central de preferências no MemberPanel.
 
 - **NotificationFailedDelivery** (DLQ)
-  - Registros de entregas que falharam após retentativas (canal, payload, erro). Admin pode reenviar manualmente.
+    - Registros de entregas que falharam após retentativas (canal, payload, erro). Admin pode reenviar manualmente.
 
 - **NotificationChannelStatus**
-  - Estado do circuit breaker por canal/provedor (falhas, `open_until`).
+    - Estado do circuit breaker por canal/provedor (falhas, `open_until`).
 
 - **NotificationAuditLog**
-  - Rastreio de envios (data, usuário, canal, status, payload, erro).
+    - Rastreio de envios (data, usuário, canal, status, payload, erro).
 
 ---
 
@@ -87,7 +87,7 @@ O script `resources/js/notifications.js` implementa **inteligência de conexão*
 3. **Respeito à preferência:** o broadcast só é disparado se o usuário tiver canal `in_app` habilitado para aquele `notification_type` (`InAppNotificationService::shouldBroadcastToUser`).
 4. **Se Pusher conectar:** `connection.state === 'connected'` → modo `pusher`, polling desativado; badge e lista atualizam ao receber o evento.
 5. **Se falhar ou "Limit Exceeded":** modo `polling`, Smart Polling ativo (20s, count-first, só com aba visível, falha silenciosa).
-6. **Admin:** quando em modo polling, o Control Room exibe o alerta discreto: *"Sistema operando em modo de Polling Otimizado (Contingência ativa)"*.
+6. **Admin:** quando em modo polling, o Control Room exibe o alerta discreto: _"Sistema operando em modo de Polling Otimizado (Contingência ativa)"_.
 
 ```mermaid
 flowchart TD
@@ -148,14 +148,14 @@ flowchart TD
 
 Todas as rotas sob `GET/POST/DELETE /api/v1/notifications/*` (middleware `web` + `auth`). Respostas no padrão `{ data }`.
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/v1/notifications` | Lista notificações do usuário (paginado; `per_page` opcional). |
-| GET | `/api/v1/notifications/unread-count` | Contagem de não lidas + `last_updated_at` (para smart polling). |
-| POST | `/api/v1/notifications/read-all` | Marca todas como lidas (batch update). |
-| POST | `/api/v1/notifications/{id}/read` | Marca uma como lida. |
-| DELETE | `/api/v1/notifications/clear-all` | Exclui todas do usuário. |
-| DELETE | `/api/v1/notifications/{id}` | Exclui uma notificação do usuário. |
+| Método | Endpoint                             | Descrição                                                       |
+| ------ | ------------------------------------ | --------------------------------------------------------------- |
+| GET    | `/api/v1/notifications`              | Lista notificações do usuário (paginado; `per_page` opcional).  |
+| GET    | `/api/v1/notifications/unread-count` | Contagem de não lidas + `last_updated_at` (para smart polling). |
+| POST   | `/api/v1/notifications/read-all`     | Marca todas como lidas (batch update).                          |
+| POST   | `/api/v1/notifications/{id}/read`    | Marca uma como lida.                                            |
+| DELETE | `/api/v1/notifications/clear-all`    | Exclui todas do usuário.                                        |
+| DELETE | `/api/v1/notifications/{id}`         | Exclui uma notificação do usuário.                              |
 
 - **Serviço:** `NotificationApiService` (contagem, listagem, marcar lida, marcar todas, excluir).
 - **Controller:** `Modules\Notifications\App\Http\Controllers\Api\V1\NotificationController`.
@@ -166,19 +166,19 @@ Todas as rotas sob `GET/POST/DELETE /api/v1/notifications/*` (middleware `web` +
 
 - **Badge:** `#notification-badge` e `#notification-count-label` (“X nova(s)”) atualizados pelo JS (smart polling) e pelo botão “Marcar todas como lidas”.
 - **Dropdown (Admin e MemberPanel):**
-  - **Borda por prioridade:** barra lateral esquerda (azul info, amarelo aviso, vermelho urgente/alto).
-  - **Actionable:** se houver `action_url` e `action_text`, exibe botão de destaque (“Resolver Agora” / “Ver Detalhes”) além do link do card.
+    - **Borda por prioridade:** barra lateral esquerda (azul info, amarelo aviso, vermelho urgente/alto).
+    - **Actionable:** se houver `action_url` e `action_text`, exibe botão de destaque (“Resolver Agora” / “Ver Detalhes”) além do link do card.
 - **Marcar todas como lidas:** um único batch update no backend; o JS atualiza badge e lista em seguida (sem erro de console em falha de rede).
 
 ---
 
 ## 5. Como outros módulos enviam notificações
 
-- **In-App apenas:**  
+- **In-App apenas:**
   `app(InAppNotificationService::class)->sendToUser($user, 'Título', 'Mensagem', ['type' => 'success', 'action_url' => route('...'), 'action_text' => 'Ver']);`
-- **Para agrupamento:** passe `notification_type` e opcionalmente `group_label`:  
+- **Para agrupamento:** passe `notification_type` e opcionalmente `group_label`:
   `sendToUser($user, 'Novo alerta pastoral', '...', ['notification_type' => 'pastoral_alert', 'group_label' => 'alertas pastorais']);`
-- **Para admins:**  
+- **Para admins:**
   `sendToAdmins('Alerta', 'Mensagem', ['priority' => 'high']);`
 - **Multi-canal (e-mail, web push):** use as mesmas opções e ative `dispatch_multi_channel`; o `NotificationDispatcherService` respeita preferências e DND.
 

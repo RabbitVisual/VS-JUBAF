@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -82,7 +83,9 @@
         </div>
     </div>
 
-    <div id="notification-toast-container" class="fixed bottom-4 right-4 z-[100] flex flex-col items-end max-w-sm pointer-events-none" aria-live="polite"></div>
+    <div id="notification-toast-container"
+        class="fixed bottom-4 right-4 z-[100] flex flex-col items-end max-w-sm pointer-events-none" aria-live="polite">
+    </div>
 
     @stack('scripts')
     @yield('scripts')
@@ -212,14 +215,14 @@
                         }
                     });
 
-                    // ChurchCouncil Accordion
-                    const churchcouncilButtons = document.querySelectorAll(
-                        'button[onclick*="churchcouncilOpen"]');
-                    churchcouncilButtons.forEach(function(button) {
+                    // Diretoria Accordion
+                    const DiretoriaButtons = document.querySelectorAll(
+                        'button[onclick*="DiretoriaOpen"]');
+                    DiretoriaButtons.forEach(function(button) {
                         const menu = button.nextElementSibling;
                         if (menu && menu.classList.contains('mt-1')) {
                             const isActive =
-                                '{{ request()->routeIs('admin.churchcouncil*') ? 'true' : 'false' }}' ===
+                                '{{ request()->routeIs('admin.Diretoria*') ? 'true' : 'false' }}' ===
                                 'true';
                             menu.style.display = isActive ? 'block' : 'none';
                             button.addEventListener('click', function(e) {

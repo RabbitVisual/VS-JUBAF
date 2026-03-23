@@ -15,15 +15,15 @@ class TreasuryMonthlyClosing extends Model
         'total_expense',
         'balance',
         'ready_for_assembly',
-        'council_approved_at',
-        'council_approved_by',
+        'diretoria_approved_at',
+        'diretoria_approved_by',
         'notes',
     ];
 
     protected $casts = [
         'period_start' => 'date',
         'period_end' => 'date',
-        'council_approved_at' => 'datetime',
+        'diretoria_approved_at' => 'datetime',
         'ready_for_assembly' => 'boolean',
         'total_income' => 'float',
         'total_expense' => 'float',
@@ -40,4 +40,3 @@ class TreasuryMonthlyClosing extends Model
         return $query->where('ready_for_assembly', true);
     }
 }
-

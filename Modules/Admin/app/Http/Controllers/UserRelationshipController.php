@@ -7,7 +7,7 @@ use App\Models\UserRelationship;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\ChurchCouncil\App\Services\CouncilAuditService;
+use Modules\Diretoria\App\Services\diretoriaAuditService;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
 class UserRelationshipController extends Controller
@@ -29,8 +29,8 @@ class UserRelationshipController extends Controller
 
         $user_relationship->update(['status' => UserRelationship::STATUS_ACCEPTED]);
 
-        if (class_exists(CouncilAuditService::class)) {
-            app(CouncilAuditService::class)->log('family_relationship_accepted', $user_relationship, [
+        if (class_exists(diretoriaAuditService::class)) {
+            app(diretoriaAuditService::class)->log('family_relationship_accepted', $user_relationship, [
                 'user_id' => $user_relationship->user_id,
                 'related_user_id' => $user_relationship->related_user_id,
             ]);

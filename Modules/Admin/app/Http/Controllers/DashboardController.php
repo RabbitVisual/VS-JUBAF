@@ -93,7 +93,7 @@ class DashboardController extends Controller
         $stats['worship_setlists'] = 0;
         $stats['assets_count'] = 0;
         $stats['pastoral_alerts'] = 0;
-        $stats['council_agendas_pending'] = 0;
+        $stats['diretoria_agendas_pending'] = 0;
         if (Module::has('Notifications') && Module::isEnabled('Notifications') && Schema::hasTable('system_notifications')) {
             $stats['notifications_today'] = DB::table('system_notifications')
                 ->whereDate('created_at', Carbon::now()->toDateString())
@@ -119,8 +119,8 @@ class DashboardController extends Controller
                 ->whereDate('created_at', Carbon::now()->toDateString())
                 ->count();
         }
-        if (Module::has('ChurchCouncil') && Module::isEnabled('ChurchCouncil') && Schema::hasTable('council_agendas')) {
-            $stats['council_agendas_pending'] = DB::table('council_agendas')
+        if (Module::has('Diretoria') && Module::isEnabled('Diretoria') && Schema::hasTable('diretoria_agendas')) {
+            $stats['diretoria_agendas_pending'] = DB::table('diretoria_agendas')
                 ->whereIn('status', ['pending', 'discussed'])
                 ->count();
         }

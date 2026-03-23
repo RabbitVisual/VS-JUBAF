@@ -1,14 +1,14 @@
 # Treasury CBAV2026 Baptist Standard
 
-Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas explícito, receitas/despesas categorizadas, centros de custo (fundos), fluxo de aprovação de despesas integrado ao ChurchCouncil, Plano Cooperativo, auditoria imutável, transações em DB e relatórios de prestação de contas (balancete, recibos).
+Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas explícito, receitas/despesas categorizadas, centros de custo (fundos), fluxo de aprovação de despesas integrado ao Diretoria, Plano Cooperativo, auditoria imutável, transações em DB e relatórios de prestação de contas (balancete, recibos).
 
 # Treasury CBAV2026 – Padrão Batista Completo e Integração
 
 ## Estado atual (resumo)
 
-- **Tabelas**: `financial_entries` (enum category, soft deletes, `council_approval_id`), `campaigns`, `financial_goals`, `treasury_permissions`. Não existem `financial_categories`, `budgets`, `audit_financial_logs` nem tabela de fundos.
-- **Serviço**: [TreasuryApiService](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php) concentra CRUD de entradas, campanhas, metas, relatórios e importação de pagamentos; já cria [CouncilApproval](../../../../../Users/Administrator/.cursor/plans/Modules/ChurchCouncil/app/Models/CouncilApproval.php) para despesas acima de `church_council_auto_approve_budget_limit`.
-- **Integração ChurchCouncil**: Despesa acima do limite gera `CouncilApproval` (tipo `financial_request`); ao aprovar, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/ChurchCouncil/app/Models/CouncilApproval.php) atualiza `FinancialEntry.council_approved_at`. Nenhum status explícito de despesa (Pendente/Aprovada/Paga).
+- **Tabelas**: `financial_entries` (enum category, soft deletes, `diretoria_approval_id`), `campaigns`, `financial_goals`, `treasury_permissions`. Não existem `financial_categories`, `budgets`, `audit_financial_logs` nem tabela de fundos.
+- **Serviço**: [TreasuryApiService](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php) concentra CRUD de entradas, campanhas, metas, relatórios e importação de pagamentos; já cria [diretoriaApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) para despesas acima de `church_diretoria_auto_approve_budget_limit`.
+- **Integração Diretoria**: Despesa acima do limite gera `diretoriaApproval` (tipo `financial_request`); ao aprovar, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) atualiza `FinancialEntry.diretoria_approved_at`. Nenhum status explícito de despesa (Pendente/Aprovada/Paga).
 - **Dinheiro**: `decimal(15,2)` em todas as colunas; modelos com `decimal:2`. Sem trait de auditoria; sem log imutável de alterações.
 
 ---
@@ -58,12 +58,12 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 ### 4.1 Status de despesa
 
 - Nova coluna em **financial_entries**: `expense_status` (enum: pending, approved, paid), nullable. Apenas para `type = expense`; receitas ignoram.
-- Regra: ao criar despesa, `expense_status = pending`. Se valor > limite e ChurchCouncil ativo, criar `CouncilApproval` (como já feito); quando o conselho aprovar, além de `council_approved_at`, atualizar `expense_status = approved`. Transição para `paid` (Pago) manual ou por integração (ex.: quando houver comprovante de pagamento). Listagens e relatórios de despesas podem filtrar por `expense_status`.
+- Regra: ao criar despesa, `expense_status = pending`. Se valor > limite e Diretoria ativo, criar `diretoriaApproval` (como já feito); quando o conselho aprovar, além de `diretoria_approved_at`, atualizar `expense_status = approved`. Transição para `paid` (Pago) manual ou por integração (ex.: quando houver comprovante de pagamento). Listagens e relatórios de despesas podem filtrar por `expense_status`.
 
-### 4.2 Integração ChurchCouncil (mantida e documentada)
+### 4.2 Integração Diretoria (mantida e documentada)
 
-- Manter lógica atual em [TreasuryApiService::createEntry](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php): despesa com valor > `Settings::get('church_council_auto_approve_budget_limit', 1000)` cria `CouncilApproval` (tipo `financial_request`) e associa `council_approval_id`.
-- Ao aprovar no ChurchCouncil, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/ChurchCouncil/app/Models/CouncilApproval.php) deve, além do atual, setar `expense_status = approved` na `FinancialEntry` (ajuste no listener/executor do ChurchCouncil ou no Treasury ao ser notificado).
+- Manter lógica atual em [TreasuryApiService::createEntry](../../../../../Users/Administrator/.cursor/plans/Modules/Treasury/app/Services/TreasuryApiService.php): despesa com valor > `Settings::get('church_diretoria_auto_approve_budget_limit', 1000)` cria `diretoriaApproval` (tipo `financial_request`) e associa `diretoria_approval_id`.
+- Ao aprovar no Diretoria, [executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) deve, além do atual, setar `expense_status = approved` na `FinancialEntry` (ajuste no listener/executor do Diretoria ou no Treasury ao ser notificado).
 
 ---
 
@@ -71,7 +71,7 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 
 - **Configuração**: Nova chave em Settings (Admin): `treasury_plano_cooperativo_percent` (ex.: 10). Opcional: `treasury_plano_cooperativo_base` (tithes_only | tithes_offerings | total_income) para definir a base de cálculo.
 - **Comportamento**: Não alterar automaticamente lançamentos existentes. Oferecer:
-    - No **relatório** (dashboard ou balancete): bloco “Plano Cooperativo” mostrando o percentual configurado, a base do período (soma conforme `_base`) e o **valor a repassar** (sugerido). Opcional: botão “Gerar lançamento de contribuição” que cria uma despesa com categoria “Contribuição Denominacional” (nova categoria em `financial_categories`) e valor calculado, com `expense_status = pending` (e, se acima do limite, fluxo de CouncilApproval).
+    - No **relatório** (dashboard ou balancete): bloco “Plano Cooperativo” mostrando o percentual configurado, a base do período (soma conforme `_base`) e o **valor a repassar** (sugerido). Opcional: botão “Gerar lançamento de contribuição” que cria uma despesa com categoria “Contribuição Denominacional” (nova categoria em `financial_categories`) e valor calculado, com `expense_status = pending` (e, se acima do limite, fluxo de diretoriaApproval).
 - **Categoria**: Adicionar em `financial_categories` (expense): `denominational_contribution` (Contribuição Denominacional / Plano Cooperativo).
 
 ---
@@ -121,11 +121,11 @@ Alinhar o módulo Treasury aos padrões de tesouraria batista: plano de contas e
 ### 9.2 Serviço e trait
 
 - **AuditableTransaction**: trait em `Modules/Treasury/App/Traits/AuditableTransaction.php`; método `logAudit(...)` gravando em `audit_financial_logs`; chamado por `TreasuryApiService` após cada create/update/delete dentro da mesma transação.
-- **TreasuryApiService**: todas as escritas (createEntry, updateEntry, deleteEntry, importPayment, atualização de campaign/goal) dentro de `DB::transaction` e, ao final da transação, chamada a `AuditableTransaction::logAudit`. Ao criar/editar entrada, preencher `category_id` a partir do slug da categoria; validar `expense_status` e `fund_id` conforme regras acima. Para despesas acima do limite, manter criação de `CouncilApproval`; quando o ChurchCouncil aprovar, garantir que `expense_status` seja atualizado para `approved` (pode ser no `executeFinancialRequestApproval` do ChurchCouncil chamando método do Treasury ou no Treasury ao verificar aprovação).
+- **TreasuryApiService**: todas as escritas (createEntry, updateEntry, deleteEntry, importPayment, atualização de campaign/goal) dentro de `DB::transaction` e, ao final da transação, chamada a `AuditableTransaction::logAudit`. Ao criar/editar entrada, preencher `category_id` a partir do slug da categoria; validar `expense_status` e `fund_id` conforme regras acima. Para despesas acima do limite, manter criação de `diretoriaApproval`; quando o Diretoria aprovar, garantir que `expense_status` seja atualizado para `approved` (pode ser no `executeFinancialRequestApproval` do Diretoria chamando método do Treasury ou no Treasury ao verificar aprovação).
 
-### 9.3 ChurchCouncil
+### 9.3 Diretoria
 
-- Em [CouncilApproval::executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/ChurchCouncil/app/Models/CouncilApproval.php) (ou no observer/listener que dispara após aprovação), além de setar `council_approved_at` na `FinancialEntry`, setar `expense_status = approved`. Isso mantém a integração “Treasury ↔ ChurchCouncil” única e consistente.
+- Em [diretoriaApproval::executeFinancialRequestApproval](../../../../../Users/Administrator/.cursor/plans/Modules/Diretoria/app/Models/diretoriaApproval.php) (ou no observer/listener que dispara após aprovação), além de setar `diretoria_approved_at` na `FinancialEntry`, setar `expense_status = approved`. Isso mantém a integração “Treasury ↔ Diretoria” única e consistente.
 
 ---
 
@@ -150,9 +150,9 @@ flowchart TB
     A --> B
     B --> C
   end
-  subgraph approval [ChurchCouncil]
+  subgraph approval [Diretoria]
     D[Despesa maior que limite]
-    E[CouncilApproval]
+    E[diretoriaApproval]
     F[Aprovação]
     G[expense_status = approved]
     D --> E
@@ -180,9 +180,9 @@ flowchart TB
 1. Migrations: `financial_categories` + seeder; `audit_financial_logs`; `category_id`, `member_id`, `expense_status`, `fund_id` em `financial_entries`; `financial_funds` + seeder opcional.
 2. Trait `AuditableTransaction` e uso em `TreasuryApiService` (transações + log).
 3. Ajustes em `TreasuryApiService`: preenchimento de `category_id`, validação de `expense_status` e `fund_id`; preferência por estorno quando aplicável.
-4. ChurchCouncil: em `executeFinancialRequestApproval` (ou listener), setar `expense_status = approved` na entrada.
+4. Diretoria: em `executeFinancialRequestApproval` (ou listener), setar `expense_status = approved` na entrada.
 5. Settings e lógica do Plano Cooperativo (cálculo no relatório + categoria + opcional “gerar lançamento”).
 6. Views/forms: dropdowns de categorias a partir de `financial_categories`; fundo; expense_status em despesas.
 7. Balancete: ajuste de título/estrutura do PDF existente.
 8. Recibo anual de contribuição (endpoint + view PDF + permissão).
-9. Documentação no módulo (README ou Treasury-CBAV2026.md) com resumo das funcionalidades e integração ChurchCouncil/Treasury.
+9. Documentação no módulo (README ou Treasury-CBAV2026.md) com resumo das funcionalidades e integração Diretoria/Treasury.

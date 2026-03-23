@@ -39,7 +39,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('event_type_id')->nullable();
                 $table->unsignedBigInteger('treasury_campaign_id')->nullable();
                 $table->unsignedBigInteger('ministry_plan_id')->nullable();
-                $table->boolean('requires_council_approval')->default(false);
+                $table->boolean('requires_diretoria_approval')->default(false);
                 $table->unsignedBigInteger('ticket_template_id')->nullable();
                 $table->string('logo_path')->nullable();
 

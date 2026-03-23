@@ -165,12 +165,12 @@ class EventController extends Controller
         }
 
         // Se exige aprovação do conselho e foi criado como publicado, envia para aprovação e mantém em \"aguardando conselho\"
-        if ($event->requires_council_approval && $event->status === Event::STATUS_PUBLISHED && class_exists(\Modules\ChurchCouncil\App\Models\CouncilApproval::class)) {
-            \Modules\ChurchCouncil\App\Models\CouncilApproval::create([
+        if ($event->requires_diretoria_approval && $event->status === Event::STATUS_PUBLISHED && class_exists(\Modules\Diretoria\App\Models\diretoriaApproval::class)) {
+            \Modules\Diretoria\App\Models\diretoriaApproval::create([
                 'approvable_type' => Event::class,
                 'approvable_id' => $event->id,
-                'approval_type' => \Modules\ChurchCouncil\App\Models\CouncilApproval::TYPE_EVENT_CREATION,
-                'status' => \Modules\ChurchCouncil\App\Models\CouncilApproval::STATUS_PENDING,
+                'approval_type' => \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_EVENT_CREATION,
+                'status' => \Modules\Diretoria\App\Models\diretoriaApproval::STATUS_PENDING,
                 'request_details' => "Publicação do evento: {$event->title}",
                 'requested_by' => auth()->id(),
                 'submitted_at' => now(),
@@ -539,18 +539,18 @@ class EventController extends Controller
         }
 
         // Se exige aprovação do conselho e foi alterado para publicado, envia para aprovação e mantém em \"aguardando conselho\"
-        if ($event->requires_council_approval && $event->status === Event::STATUS_PUBLISHED && class_exists(\Modules\ChurchCouncil\App\Models\CouncilApproval::class)) {
-            $existing = \Modules\ChurchCouncil\App\Models\CouncilApproval::where('approvable_type', Event::class)
+        if ($event->requires_diretoria_approval && $event->status === Event::STATUS_PUBLISHED && class_exists(\Modules\Diretoria\App\Models\diretoriaApproval::class)) {
+            $existing = \Modules\Diretoria\App\Models\diretoriaApproval::where('approvable_type', Event::class)
                 ->where('approvable_id', $event->id)
-                ->where('approval_type', \Modules\ChurchCouncil\App\Models\CouncilApproval::TYPE_EVENT_CREATION)
+                ->where('approval_type', \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_EVENT_CREATION)
                 ->whereIn('status', ['pending', 'requires_revision'])
                 ->exists();
             if (! $existing) {
-                \Modules\ChurchCouncil\App\Models\CouncilApproval::create([
+                \Modules\Diretoria\App\Models\diretoriaApproval::create([
                     'approvable_type' => Event::class,
                     'approvable_id' => $event->id,
-                    'approval_type' => \Modules\ChurchCouncil\App\Models\CouncilApproval::TYPE_EVENT_CREATION,
-                    'status' => \Modules\ChurchCouncil\App\Models\CouncilApproval::STATUS_PENDING,
+                    'approval_type' => \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_EVENT_CREATION,
+                    'status' => \Modules\Diretoria\App\Models\diretoriaApproval::STATUS_PENDING,
                     'request_details' => "Publicação do evento: {$event->title}",
                     'requested_by' => auth()->id(),
                     'submitted_at' => now(),

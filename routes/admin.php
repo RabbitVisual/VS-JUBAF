@@ -123,9 +123,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
         Route::post('checkin/validate', [\Modules\Events\App\Http\Controllers\Admin\CheckinController::class, 'validateCheckin'])->name('checkin.validate');
     });
 
-    Route::prefix('conselho')->name('admin.churchcouncil.')->group(function () {
-        $adminCouncil = \Modules\ChurchCouncil\App\Http\Controllers\Admin\CouncilController::class;
-        Route::get('/', [$adminCouncil, 'index'])->name('index');
-        Route::get('planejamento/homologacao', [$adminCouncil, 'planningApprovals'])->name('planning.index');
+    Route::prefix('conselho')->name('admin.Diretoria.')->group(function () {
+        $admindiretoria = \Modules\Diretoria\App\Http\Controllers\Admin\diretoriaController::class;
+        Route::get('/', [$admindiretoria, 'index'])->name('index');
+        Route::get('planejamento/homologacao', [$admindiretoria, 'planningApprovals'])->name('planning.index');
     });
 });

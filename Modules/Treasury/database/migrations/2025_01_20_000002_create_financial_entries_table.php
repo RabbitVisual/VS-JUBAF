@@ -42,8 +42,8 @@ return new class extends Migration
             $table->string('payment_method')->nullable(); // Método de pagamento (cash, transfer, etc)
             $table->string('reference_number')->nullable(); // Número de referência/comprovante
             $table->json('metadata')->nullable(); // Dados extras
-            $table->unsignedBigInteger('council_approval_id')->nullable();
-            $table->timestamp('council_approved_at')->nullable();
+            $table->unsignedBigInteger('diretoria_approval_id')->nullable();
+            $table->timestamp('diretoria_approved_at')->nullable();
             $table->enum('expense_status', ['pending', 'approved', 'paid'])->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -72,8 +72,8 @@ return new class extends Migration
 
             $table->foreign('reversal_of_id')->references('id')->on('financial_entries')->onDelete('set null');
 
-            if (Schema::hasTable('council_approvals')) {
-                $table->foreign('council_approval_id')->references('id')->on('council_approvals')->onDelete('set null');
+            if (Schema::hasTable('diretoria_approvals')) {
+                $table->foreign('diretoria_approval_id')->references('id')->on('diretoria_approvals')->onDelete('set null');
             }
         });
     }
