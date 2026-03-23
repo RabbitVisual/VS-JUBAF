@@ -2,9 +2,10 @@
 
 namespace Modules\Comunicacao\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Comunicacao\Database\Factories\PostagemFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Postagem extends Model
 {
@@ -20,8 +21,8 @@ class Postagem extends Model
         'user_id',
     ];
 
-    // protected static function newFactory(): PostagemFactory
-    // {
-    //     // return PostagemFactory::new();
-    // }
+    public function autor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -2,7 +2,7 @@
 
 return [
     // General
-    'council' => 'Conselho',
+    'council' => 'Diretoria',
     'dashboard' => 'Dashboard',
     'back' => 'Voltar',
     'save' => 'Salvar',
@@ -24,7 +24,7 @@ return [
     'settings' => 'Configurações',
 
     // Council dashboard
-    'council_title' => 'Conselho da Igreja',
+    'council_title' => 'Diretoria',
     'council_subtitle' => 'Visão geral administrativa e gestão de reuniões',
     'active_members' => 'Membros Ativos',
     'upcoming_meetings' => 'Próximas Reuniões',
@@ -33,9 +33,9 @@ return [
     'new_meeting' => 'Nova Reunião',
     'view_meetings' => 'Ver Reuniões',
     'new_agenda' => 'Nova Pauta',
-    'view_agendas' => 'Pautas do Conselho',
+    'view_agendas' => 'Pautas da Diretoria',
     'agendas_subtitle' => 'Gerencie as pautas e votações das reuniões.',
-    'counselors_registered' => 'Conselheiros registrados',
+    'counselors_registered' => 'Membros da diretoria registrados',
     'scheduled' => 'Agendadas',
 
     // Meetings
@@ -86,7 +86,7 @@ return [
     'not_associated' => 'Não associada',
     'no_agenda_found' => 'Nenhuma pauta encontrada',
     'no_agenda_with_filters' => 'Não foram encontradas pautas com os filtros aplicados.',
-    'create_first_agenda' => 'Comece criando a primeira pauta do conselho.',
+    'create_first_agenda' => 'Comece criando a primeira pauta da diretoria.',
     'create_agenda' => 'Criar Pauta',
     'new_agenda_for_meeting' => 'Nova Pauta',
     'add_agenda_for_meeting' => 'Adicione uma nova pauta para a reunião:',
@@ -108,7 +108,7 @@ return [
     'member' => 'Membro',
     'create_member' => 'Criar Membro',
     'edit_member' => 'Editar Membro',
-    'council_position' => 'Cargo no Conselho',
+    'council_position' => 'Cargo na Diretoria',
     'council_role' => 'Função',
     'term_start' => 'Início do Mandato',
     'term_end' => 'Fim do Mandato',
@@ -116,14 +116,14 @@ return [
     'member_stored_success' => 'Membro cadastrado com sucesso!',
     'member_updated_success' => 'Membro atualizado com sucesso!',
     'member_deleted_success' => 'Membro removido com sucesso!',
-    'user_already_member' => 'Este usuário já possui um cargo ativo no conselho.',
+    'user_already_member' => 'Este usuário já possui um cargo ativo na diretoria.',
 
     // Approvals
     'approval' => 'Aprovação',
     'pending' => 'Pendente',
     'approved' => 'Aprovado',
     'rejected' => 'Rejeitado',
-    'not_council_member' => 'Você não é membro do conselho.',
+    'not_council_member' => 'Você não é membro da diretoria.',
     'agenda_must_be_discussed_approve' => 'Pauta deve estar em discussão para ser aprovada.',
     'agenda_must_be_discussed_reject' => 'Pauta deve estar em discussão para ser rejeitada.',
 
@@ -146,9 +146,9 @@ return [
     'new_project' => 'Novo Projeto',
 
     // Member panel
-    'welcome_council' => 'Dashboard - Conselho da Igreja',
+    'welcome_council' => 'Dashboard - Diretoria',
     'welcome_user' => 'Bem-vindo',
-    'council_panel_intro' => 'Você está no painel do Conselho da Igreja. Acompanhe reuniões, pautas e vote em decisões importantes.',
+    'council_panel_intro' => 'Você está no painel da Diretoria. Acompanhe reuniões, pautas e vote em decisões importantes.',
     'my_profile' => 'Meu Perfil',
     'no_info' => 'Não informado',
     'view_all' => 'Ver todas',

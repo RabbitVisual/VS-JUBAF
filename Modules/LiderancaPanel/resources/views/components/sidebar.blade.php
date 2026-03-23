@@ -25,7 +25,20 @@
             <a href="{{ route('lideranca.tesouraria.dashboard') }}"
                 class="flex items-center px-4 py-2.5 text-sm rounded-xl text-slate-300 hover:bg-slate-700/50 hover:text-white">Tesouraria</a>
             <a href="{{ route('lideranca.conselho.index') }}"
-                class="flex items-center px-4 py-2.5 text-sm rounded-xl text-slate-300 hover:bg-slate-700/50 hover:text-white">Conselho</a>
+                class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl text-slate-300 hover:bg-slate-700/50 hover:text-white">
+                <x-icon name="briefcase" class="w-4 h-4" />
+                Gestão da Diretoria
+            </a>
+            <a href="{{ route('admin.comunicacao.postagens.index') }}"
+                class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.comunicacao.postagens*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white' }}">
+                <x-icon name="pen-to-square" class="w-4 h-4" />
+                Gestão do Mural
+            </a>
+            <a href="{{ route('mural.index') }}"
+                class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('mural.index') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white' }}">
+                <x-icon name="bullhorn" class="w-4 h-4" />
+                Mural Oficial
+            </a>
             <a href="{{ route('lideranca.eventos.index') }}"
                 class="flex items-center px-4 py-2.5 text-sm rounded-xl text-slate-300 hover:bg-slate-700/50 hover:text-white">Eventos</a>
             @can('acesso painel lideranca')

@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Meu Perfil - Conselho da Igreja')
+@section('title', 'Meu Perfil - Diretoria')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -108,7 +108,7 @@
                             <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ $member->user->email }}</span>
                         </div>
                         <div>
-                            <span class="block text-xs text-gray-500 dark:text-slate-500">Cargo no Conselho</span>
+                            <span class="block text-xs text-gray-500 dark:text-slate-500">Cargo na Diretoria</span>
                             <span class="text-sm font-medium text-gray-900 dark:text-slate-200">{{ $member->council_position ?? 'Membro' }}</span>
                         </div>
                     </div>

@@ -5,7 +5,7 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
-                    Ministérios – Visão do Conselho
+                    Ministérios – Visão da Diretoria
                 </h1>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
                     Quadro geral de planos, líderes e relatórios mensais.

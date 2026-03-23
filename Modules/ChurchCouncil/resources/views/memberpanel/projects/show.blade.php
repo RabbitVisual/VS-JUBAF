@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Detalhes do Projeto - Conselho da Igreja')
+@section('title', 'Detalhes do Projeto - Diretoria')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -61,7 +61,7 @@
                     <div class="bg-blue-50 dark:bg-blue-900/10 rounded-2xl p-6 border border-blue-100 dark:border-blue-500/20">
                         <h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 mb-3 flex items-center uppercase tracking-widest">
                             <x-icon name="comment" class="w-4 h-4 mr-2" />
-                            Parecer do Conselho
+                            Parecer da Diretoria
                         </h3>
                         <p class="text-blue-800 dark:text-blue-200/80 italic leading-relaxed">
                             "{{ $project->council_comments }}"

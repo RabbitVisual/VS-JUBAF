@@ -26,11 +26,11 @@
                 <div>
                     <div class="flex items-center gap-3 mb-2">
                         <span
-                            class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Conselho</span>
+                            class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Diretoria</span>
                         <span
                             class="px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-xs font-bold uppercase tracking-wider">Configurações</span>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Configurações do Conselho</h1>
+                    <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">Configurações da Diretoria</h1>
                     <p class="text-gray-300 max-w-xl">Personalize parâmetros, regras de aprovação e notificações. Aplicadas
                         em todo o sistema (admin, painel do membro, PDFs e Tesouraria).</p>
                 </div>
@@ -58,22 +58,21 @@
                     <div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white">Configurações Gerais</h3>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Parâmetros básicos usados em reuniões, atas,
-                            editais e telas do conselho.</p>
+                            editais e telas da diretoria.</p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="council_name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                            Nome do Conselho
+                            Nome da Diretoria
                         </label>
                         <input type="text" name="council_name" id="council_name"
-                            value="{{ old('council_name', $settings['council_name'] ?? 'Conselho da Igreja') }}"
+                            value="{{ old('council_name', $settings['council_name'] ?? 'Diretoria') }}"
                             class="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
-                            placeholder="Ex: Conselho da Igreja">
+                            placeholder="Ex: Diretoria">
                         <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">Exibido em títulos, PDFs de atas e
-                            convocações, painel do membro e sidebar. Ex.: &quot;Conselho da Igreja&quot; ou &quot;Conselho
-                            Diretor&quot;.</p>
+                            convocações, painel do membro e sidebar. Ex.: &quot;Diretoria&quot; ou nome completo da sua entidade.</p>
                         @error('council_name')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -142,7 +141,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Regras de Aprovação</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Limites e prazos que integram o conselho com a
+                <p class="text-sm text-gray-500 dark:text-gray-400">Limites e prazos que integram a diretoria com a
                     Tesouraria e fluxos de aprovação.</p>
             </div>
         </div>
@@ -163,7 +162,7 @@
                         class="w-full pl-10 px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
                 </div>
                 <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">Despesas acima deste valor na Tesouraria geram
-                    solicitação de aprovação do conselho. Abaixo do limite, a despesa segue sem exigir aprovação formal.</p>
+                    solicitação de aprovação da diretoria. Abaixo do limite, a despesa segue sem exigir aprovação formal.</p>
             </div>
 
             <div>
@@ -174,7 +173,7 @@
                 <input type="number" name="approval_deadline_days" id="approval_deadline_days" min="1"
                     max="90" value="{{ old('approval_deadline_days', $settings['approval_deadline_days'] ?? 15) }}"
                     class="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm">
-                <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">Prazo máximo em dias para o conselho responder a
+                <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">Prazo máximo em dias para a diretoria responder a
                     uma solicitação de aprovação (1 a 90 dias). Usado em alertas e relatórios.</p>
             </div>
         </div>
@@ -183,7 +182,7 @@
             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
                 Tipos de Aprovação Habilitados
             </label>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Selecione quais tipos de aprovação o conselho utiliza.
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Selecione quais tipos de aprovação a diretoria utiliza.
                 Estes tipos aparecem ao criar solicitações de aprovação (orçamento, projetos, políticas, etc.).</p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @php
@@ -222,7 +221,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Notificações</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Define como e quando os membros do conselho são
+                <p class="text-sm text-gray-500 dark:text-gray-400">Define como e quando os membros da diretoria são
                     notificados (e-mail e alertas na aplicação).</p>
             </div>
         </div>
@@ -241,7 +240,7 @@
                         Notificações por E-mail
                     </label>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Enviar notificações importantes (novas
-                        pautas, aprovações, convocações) por e-mail aos membros do conselho.</p>
+                        pautas, aprovações, convocações) por e-mail aos membros da diretoria.</p>
                 </div>
             </div>
 
@@ -292,7 +291,7 @@
                         Permitir aprovação por administrador
                     </label>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Se ativo, usuários com perfil de lideranca
-                        ou administrador podem aprovar/rejeitar pautas e fechamentos mesmo sem serem membros do conselho.
+                        ou administrador podem aprovar/rejeitar pautas e fechamentos mesmo sem serem membros da diretoria.
                         Usado no admin e na Tesouraria (fechamento mensal).</p>
                 </div>
             </div>

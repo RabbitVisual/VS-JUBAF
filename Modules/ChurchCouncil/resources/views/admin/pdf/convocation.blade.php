@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Edital de Convocação - Reunião do Conselho</title>
+    <title>Edital de Convocação - Reunião da Diretoria</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -44,7 +44,7 @@
 <body>
 @php
     $churchName = $settings['church_name'] ?? config('app.name');
-    $councilName = $settings['council_name'] ?? 'Conselho da Igreja';
+    $councilName = $settings['council_name'] ?? 'Diretoria';
     $city = \App\Models\Settings::get('church_city', null);
     $state = \App\Models\Settings::get('church_state', null);
     $today = now();
@@ -93,9 +93,9 @@
     @if($meeting->president && $meeting->president->user)
         <div>{{ $meeting->president->user->name }}</div>
     @else
-        <div>Presidente do Conselho</div>
+        <div>Presidente da Diretoria</div>
     @endif
-    <div class="muted">Presidente do Conselho</div>
+    <div class="muted">Presidente da Diretoria</div>
 </div>
 
 <p class="muted" style="margin-top: 18px; text-align: left;">

@@ -6,7 +6,7 @@
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Cartas de transferência</h1>
                 <p class="text-gray-500 dark:text-gray-400 mt-1">
-                    Saídas e entradas de membros por carta, integradas ao cuidado liderancaal do conselho.
+                    Saídas e entradas de membros por carta, integradas ao cuidado liderancaal da diretoria.
                 </p>
             </div>
             <a href="{{ route('admin.churchcouncil.transfers.create') }}"

@@ -86,7 +86,7 @@
                      <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
                         <p class="text-sm text-blue-800 dark:text-blue-300 font-medium">
                             <x-icon name="information-circle" class="w-4 h-4 inline mr-1" />
-                            Este valor passará por aprovação do conselho e, se necessário, da assembleia.
+                            Este valor passará por aprovação da diretoria e, se necessário, da assembleia.
                         </p>
                     </div>
                 </div>

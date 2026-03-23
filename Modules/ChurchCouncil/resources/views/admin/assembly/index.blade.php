@@ -6,7 +6,7 @@
         <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Recomendações à Assembleia</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-1">
-                Pautas já aprovadas pelo conselho que aguardam deliberação da assembleia da igreja.
+                Pautas já aprovadas pela diretoria que aguardam deliberação da assembleia da igreja.
             </p>
         </div>
         <a href="{{ route('admin.churchcouncil.meetings.index') }}"
@@ -40,7 +40,7 @@
                             </p>
                             @if($agenda->decision)
                                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                    Decisão do conselho: {{ $agenda->decision }}
+                                    Decisão da diretoria: {{ $agenda->decision }}
                                 </p>
                             @endif
                         </div>

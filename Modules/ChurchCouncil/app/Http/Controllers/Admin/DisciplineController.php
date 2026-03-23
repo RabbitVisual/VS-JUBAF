@@ -191,7 +191,7 @@ class DisciplineController extends Controller
         if (! $councilMember && ! $isAdminOrlideranca) {
             return response()->json([
                 'success' => false,
-                'message' => 'Apenas conselho, liderancaes ou admins podem anexar documentos disciplinares.',
+                'message' => 'Apenas diretoria, lideranças ou admins podem anexar documentos disciplinares.',
             ], 403);
         }
 

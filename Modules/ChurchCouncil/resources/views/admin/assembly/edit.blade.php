@@ -27,7 +27,7 @@
                 </p>
                 @if($agenda->decision)
                     <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                        <strong>Decisão do conselho:</strong> {{ $agenda->decision }}
+                        <strong>Decisão da diretoria:</strong> {{ $agenda->decision }}
                     </p>
                 @endif
             </div>

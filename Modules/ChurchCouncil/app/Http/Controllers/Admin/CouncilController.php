@@ -129,7 +129,7 @@ class CouncilController extends Controller
         if ($existing) {
             return response()->json([
                 'success' => false,
-                'message' => 'Este usuário já possui um cargo no conselho.',
+                'message' => 'Este usuário já possui um cargo na diretoria.',
             ], 422);
         }
 
@@ -137,7 +137,7 @@ class CouncilController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Membro do conselho criado com sucesso!',
+            'message' => 'Membro da diretoria criado com sucesso!',
             'redirect' => route('admin.churchcouncil.members.index'),
         ]);
     }
@@ -169,7 +169,7 @@ class CouncilController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Membro do conselho atualizado com sucesso!',
+            'message' => 'Membro da diretoria atualizado com sucesso!',
             'redirect' => route('admin.churchcouncil.members.index'),
         ]);
     }
@@ -183,7 +183,7 @@ class CouncilController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Membro do conselho removido com sucesso!',
+            'message' => 'Membro da diretoria removido com sucesso!',
         ]);
     }
 
@@ -459,7 +459,7 @@ class CouncilController extends Controller
         if (! $councilMember) {
             return response()->json([
                 'success' => false,
-                'message' => 'Você não é membro do conselho.',
+                'message' => 'Você não é membro da diretoria.',
             ], 403);
         }
 
@@ -522,7 +522,7 @@ class CouncilController extends Controller
     }
 
     /**
-     * Painel de Homologação de Planejamento – eventos que exigem aprovação do conselho.
+     * Painel de Homologação de Planejamento – eventos que exigem aprovação da diretoria.
      */
     public function planningApprovals(Request $request): View
     {
@@ -583,7 +583,7 @@ class CouncilController extends Controller
         if (! $councilMember || ! $councilMember->is_active) {
             return response()->json([
                 'success' => false,
-                'message' => 'Apenas membros ativos do conselho podem dar visto na ata.',
+                'message' => 'Apenas membros ativos da diretoria podem dar visto na ata.',
             ], 403);
         }
 
@@ -750,7 +750,7 @@ class CouncilController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Você não é membro do conselho.',
+                'message' => 'Você não é membro da diretoria.',
             ], 403);
         }
 
@@ -800,7 +800,7 @@ class CouncilController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Você não é membro do conselho.',
+                'message' => 'Você não é membro da diretoria.',
             ], 403);
         }
 
@@ -847,7 +847,7 @@ class CouncilController extends Controller
         ]);
 
         $store = \App\Models\Settings::class;
-        $store::set('church_council_name', $request->input('council_name', 'Conselho da Igreja'), 'string', 'church_council');
+        $store::set('church_council_name', $request->input('council_name', 'Diretoria'), 'string', 'church_council');
         $store::set('church_council_meeting_frequency', $request->input('meeting_frequency', 'monthly'), 'string', 'church_council');
         $store::set('church_council_quorum_percentage', (int) $request->input('quorum_percentage', 50), 'integer', 'church_council');
         $store::set('church_council_voting_deadline_days', (int) $request->input('voting_deadline_days', 7), 'integer', 'church_council');

@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Projetos - Conselho da Igreja')
+@section('title', 'Projetos - Diretoria')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -10,7 +10,7 @@
             <div class="flex-1 text-center md:text-left space-y-2">
                 <p class="text-purple-200 dark:text-purple-500 font-bold uppercase tracking-widest text-xs">Ideias e Realizações</p>
                 <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                    Projetos do Conselho
+                    Projetos da Diretoria
                 </h1>
                 <p class="text-purple-100 dark:text-slate-400 font-medium max-w-xl">
                     Acompanhe, analise e submeta propostas de projetos para a igreja.

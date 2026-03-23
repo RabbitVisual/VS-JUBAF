@@ -1,6 +1,6 @@
 @extends('admin::components.layouts.master')
 
-@section('title', 'Reuniões do Conselho - Administração')
+@section('title', 'Reuniões da Diretoria - Administração')
 
 @section('content')
 <div class="space-y-6">
@@ -19,7 +19,7 @@
     <!-- Page Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Reuniões do Conselho</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Reuniões da Diretoria</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-1">Gerencie as assembleias e reuniões ordinárias ou extraordinárias.</p>
         </div>
         <a href="{{ route('admin.churchcouncil.meetings.create') }}"
@@ -210,7 +210,7 @@
                     @if (request()->hasAny(['status', 'type', 'date_from']))
                         Não encontramos resultados para sua busca. Tente remover os filtros.
                     @else
-                        Agende reuniões ordinárias ou extraordinárias para manter o conselho organizado.
+                        Agende reuniões ordinárias ou extraordinárias para manter a diretoria organizada.
                     @endif
                 </p>
                 <div class="mt-6">

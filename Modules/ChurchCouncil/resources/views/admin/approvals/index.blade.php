@@ -1,13 +1,13 @@
 @extends('admin::components.layouts.master')
 
-@section('title', 'Aprovações do Conselho - Administração')
+@section('title', 'Aprovações da Diretoria - Administração')
 
 @section('content')
 <div class="space-y-6">
     <!-- Page Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Aprovações do Conselho</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Aprovações da Diretoria</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-1">Gerencie solicitações de aprovação e liberações.</p>
         </div>
     </div>

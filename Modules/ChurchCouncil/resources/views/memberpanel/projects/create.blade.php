@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Nova Proposta de Projeto - Conselho da Igreja')
+@section('title', 'Nova Proposta de Projeto - Diretoria')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -9,7 +9,7 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Nova Proposta de Projeto</h1>
-                <p class="text-gray-500 dark:text-slate-400 mt-1">Preencha o formulário abaixo para submeter um novo projeto ao conselho.</p>
+                <p class="text-gray-500 dark:text-slate-400 mt-1">Preencha o formulário abaixo para submeter um novo projeto à diretoria.</p>
             </div>
             <a href="{{ route('memberpanel.churchcouncil.projects.index') }}"
                class="px-4 py-2.5 bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300 rounded-xl hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-purple-600 dark:hover:text-white transition-colors font-bold shadow-sm dark:shadow-lg border border-gray-200 dark:border-slate-700 flex items-center justify-center sm:w-auto w-full">

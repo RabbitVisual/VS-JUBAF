@@ -9,7 +9,7 @@
         <div class="relative p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
                 <div class="flex items-center gap-3 mb-2">
-                    <span class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Conselho</span>
+                    <span class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Diretoria</span>
                     <span class="px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-xs font-bold uppercase tracking-wider">Pautas</span>
                 </div>
                 <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">{{ __('churchcouncil::messages.view_agendas') }}</h1>
@@ -196,7 +196,7 @@
                                     @if (request()->hasAny(['status', 'priority', 'search', 'date_from']))
                                         Não foram encontradas pautas com os filtros aplicados.
                                     @else
-                                        Comece criando a primeira pauta do conselho.
+                                        Comece criando a primeira pauta da diretoria.
                                     @endif
                                 </p>
                                 <div class="mt-6">

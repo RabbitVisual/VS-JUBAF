@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Documentos - Conselho da Igreja')
+@section('title', 'Documentos - Diretoria')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -13,7 +13,7 @@
                     Documentos Oficiais
                 </h1>
                 <p class="text-cyan-50 dark:text-slate-400 font-medium max-w-xl">
-                    Acesse atas, estatutos, regimentos e resoluções do conselho.
+                    Acesse atas, estatutos, regimentos e resoluções da diretoria.
                 </p>
             </div>
 

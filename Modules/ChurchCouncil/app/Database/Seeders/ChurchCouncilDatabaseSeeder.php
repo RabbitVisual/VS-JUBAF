@@ -20,13 +20,13 @@ class ChurchCouncilDatabaseSeeder extends Seeder
         $adminUser = User::firstOrCreate(
             ['email' => 'conselho@igrejabatista.com'],
             [
-                'name' => 'Administrador do Conselho',
+                'name' => 'Administrador da Diretoria',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
             ]
         );
 
-        // Criar membro do conselho (presidente)
+        // Criar membro da diretoria (presidente)
         CouncilMember::firstOrCreate(
             ['user_id' => $adminUser->id],
             [
@@ -35,7 +35,7 @@ class ChurchCouncilDatabaseSeeder extends Seeder
                 'term_start' => now()->subYear(),
                 'term_end' => null,
                 'is_active' => true,
-                'responsibilities' => 'Administração geral do conselho, coordenação de reuniões e supervisão de decisões.',
+                'responsibilities' => 'Administração geral da diretoria, coordenação de reuniões e supervisão de decisões.',
                 'permissions' => ['*'],
             ]
         );

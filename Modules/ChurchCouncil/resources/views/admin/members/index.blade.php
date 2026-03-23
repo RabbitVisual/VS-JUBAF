@@ -5,8 +5,8 @@
         <!-- Page Header -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Membros do Conselho</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">Gerencie os membros do conselho da igreja e suas
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Membros da Diretoria</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">Gerencie os membros da diretoria da igreja e suas
                     atribuições.</p>
             </div>
             <a href="{{ route('admin.churchcouncil.members.create') }}"
@@ -158,7 +158,7 @@
                                         </a>
                                         <form method="POST"
                                             action="{{ route('admin.churchcouncil.members.destroy', $member) }}"
-                                            onsubmit="return confirm('Tem certeza que deseja remover este membro do conselho?')"
+                                            onsubmit="return confirm('Tem certeza que deseja remover este membro da diretoria?')"
                                             class="inline">
                                             @csrf
                                             @method('DELETE')
@@ -185,7 +185,7 @@
                                             Não foram encontrados membros com os filtros aplicados. Tente simplificar sua
                                             busca.
                                         @else
-                                            O conselho ainda não possui membros registrados. Comece adicionando o primeiro
+                                            A diretoria ainda não possui membros registrados. Comece adicionando o primeiro
                                             membro.
                                         @endif
                                     </p>

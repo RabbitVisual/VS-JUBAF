@@ -45,7 +45,7 @@ class ChurchCouncilSettings
      */
     public static function councilName(): string
     {
-        return (string) self::get(self::KEY_NAME, 'Conselho da Igreja');
+        return (string) self::get(self::KEY_NAME, 'Diretoria');
     }
 
     /**
@@ -140,7 +140,7 @@ class ChurchCouncilSettings
         }
 
         return [
-            'council_name' => self::get(self::KEY_NAME, 'Conselho da Igreja'),
+            'council_name' => self::get(self::KEY_NAME, 'Diretoria'),
             'meeting_frequency' => self::get(self::KEY_MEETING_FREQUENCY, 'monthly'),
             'quorum_percentage' => (int) self::get(self::KEY_QUORUM_PERCENTAGE, 50),
             'voting_deadline_days' => (int) self::get(self::KEY_VOTING_DEADLINE_DAYS, 7),

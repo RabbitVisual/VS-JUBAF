@@ -8,7 +8,7 @@
                     Homologação de Planejamento
                 </h1>
                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                    Eventos que exigem aprovação do conselho antes de serem publicados.
+                    Eventos que exigem aprovação da diretoria antes de serem publicados.
                 </p>
             </div>
             <div class="flex items-center gap-3">
@@ -71,7 +71,7 @@
 
             @if($approvals->isEmpty())
                 <div class="p-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                    Nenhum evento aguardando homologação do conselho no momento.
+                    Nenhum evento aguardando homologação da diretoria no momento.
                 </div>
             @else
                 <div class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -84,7 +84,7 @@
                             <div class="space-y-1">
                                 <div class="flex items-center gap-2">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
-                                        Evento aguardando conselho
+                                        Evento aguardanda diretoria
                                     </span>
                                     @if($event)
                                         <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">

@@ -78,13 +78,13 @@
                     <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-3xl p-6 border border-yellow-100 dark:border-yellow-900/30">
                         <h3 class="text-lg font-bold text-yellow-800 dark:text-yellow-400 mb-2 flex items-center gap-2">
                             <x-icon name="chat-alt" class="w-5 h-5" />
-                            Parecer do Conselho
+                            Parecer da Diretoria
                         </h3>
                          <div class="text-yellow-800 dark:text-yellow-300 italic mb-3">
                             "{{ $project->council_comments }}"
                         </div>
                         <div class="flex items-center gap-2 text-xs font-bold text-yellow-700 dark:text-yellow-500">
-                            <span>Revisado por {{ $project->reviewer->user->name ?? 'Membro do Conselho' }}</span>
+                            <span>Revisado por {{ $project->reviewer->user->name ?? 'Membro da Diretoria' }}</span>
                             <span>•</span>
                             <span>{{ $project->reviewed_at ? $project->reviewed_at->format('d/m/Y H:i') : '' }}</span>
                         </div>
@@ -150,7 +150,7 @@
 
                 <!-- Action Card (For Council Members) -->
                 <div class="bg-blue-50 dark:bg-blue-900/10 rounded-3xl p-6 border border-blue-100 dark:border-blue-900/30">
-                    <h3 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Ações do Conselho</h3>
+                    <h3 class="text-lg font-bold text-blue-900 dark:text-blue-300 mb-4">Ações da Diretoria</h3>
 
                     <form action="{{ route('admin.churchcouncil.projects.review', $project) }}" method="POST" class="space-y-4">
                         @csrf

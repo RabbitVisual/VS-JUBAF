@@ -27,7 +27,7 @@ class CouncilMeetingObserver
         $date = $meeting->scheduled_date?->format('d/m/Y H:i') ?? 'a definir';
         $this->inApp->sendToUsers(
             $users,
-            'Nova reunião do conselho',
+            'Nova reunião da diretoria',
             "Reunião \"{$meeting->title}\" agendada para {$date}.",
             [
                 'type' => 'info',

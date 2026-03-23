@@ -30,7 +30,7 @@
             </nav>
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Documentos do Conselho</h1>
+                    <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Documentos da Diretoria</h1>
                     <p class="text-gray-500 dark:text-gray-400 mt-1 font-medium">Estatutos, regimentos, atas e resoluções oficiais.</p>
                 </div>
                 <a href="{{ route('admin.churchcouncil.documents.create') }}"
@@ -168,7 +168,7 @@
                         <x-icon name="file-lines" style="duotone" class="w-10 h-10 text-gray-400 dark:text-gray-500" />
                     </div>
                     <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">Nenhum documento encontrado</h3>
-                    <p class="text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">Envie estatutos, atas de reunião ou resoluções para centralizar a documentação do conselho.</p>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">Envie estatutos, atas de reunião ou resoluções para centralizar a documentação da diretoria.</p>
                     <a href="{{ route('admin.churchcouncil.documents.create') }}"
                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-500/30">
                         <x-icon name="plus" style="duotone" class="w-5 h-5 shrink-0" />

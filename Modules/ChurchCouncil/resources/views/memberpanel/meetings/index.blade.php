@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Reuniões - ' . ($council_display_name ?? 'Conselho da Igreja'))
+@section('title', 'Reuniões - ' . ($council_display_name ?? 'Diretoria'))
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-200 font-sans transition-colors duration-200">
@@ -10,7 +10,7 @@
             <div class="flex-1 text-center md:text-left space-y-2">
                 <p class="text-blue-300 dark:text-blue-500 font-bold uppercase tracking-widest text-xs">Calendário Oficial</p>
                 <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                    Reuniões do {{ $council_display_name ?? 'Conselho' }}
+                    Reuniões do {{ $council_display_name ?? 'Diretoria' }}
                 </h1>
                 <p class="text-blue-100 dark:text-slate-400 font-medium max-w-xl">
                     Acompanhe as reuniões agendadas, atas e deliberações.

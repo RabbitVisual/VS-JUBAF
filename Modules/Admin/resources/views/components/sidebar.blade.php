@@ -17,7 +17,18 @@
             <a href="{{ route('admin.bible.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.bible*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Bíblia</a>
             <a href="{{ route('admin.sermons.sermons.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.sermons*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Sermões</a>
             <a href="{{ route('admin.events.events.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.events*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Eventos</a>
-            <a href="{{ route('admin.churchcouncil.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.churchcouncil*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Conselho</a>
+            <a href="{{ route('admin.churchcouncil.index') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.churchcouncil*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                <x-icon name="briefcase" class="w-4 h-4" />
+                Gestão da Diretoria
+            </a>
+            <a href="{{ route('admin.comunicacao.postagens.index') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.comunicacao.postagens*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                <x-icon name="pen-to-square" class="w-4 h-4" />
+                Gestão do Mural
+            </a>
+            <a href="{{ route('mural.index') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('mural.index') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                <x-icon name="bullhorn" class="w-4 h-4" />
+                Mural Oficial
+            </a>
             <a href="{{ route('admin.transactions.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.transactions*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Transações</a>
             <a href="{{ route('admin.payment-gateways.index') }}" class="flex items-center px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.payment-gateways*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">Gateways</a>
         </nav>

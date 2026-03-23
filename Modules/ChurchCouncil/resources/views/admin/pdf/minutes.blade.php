@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ata da Reunião do Conselho</title>
+    <title>Ata da Reunião da Diretoria</title>
     <style>
         * {
             box-sizing: border-box;
@@ -128,14 +128,14 @@
 <body>
     @php
         $churchName = $settings['church_name'] ?? config('app.name');
-        $councilName = $settings['council_name'] ?? 'Conselho da Igreja';
+        $councilName = $settings['council_name'] ?? 'Diretoria';
         $minutesContent = $latestMinutes?->content ?? ($meeting->minutes ?? '');
     @endphp
 
     <div class="header">
         <strong>{{ $churchName }}</strong>
         <strong>{{ $councilName }}</strong>
-        <div class="muted">Ata da Reunião do Conselho</div>
+        <div class="muted">Ata da Reunião da Diretoria</div>
     </div>
 
     <table class="meta-grid">
@@ -224,7 +224,7 @@
             </td>
             <td>
                 <div class="sign-line"></div>
-                <div>lideranca / Presidente do Conselho</div>
+                <div>lideranca / Presidente da Diretoria</div>
             </td>
         </tr>
     </table>

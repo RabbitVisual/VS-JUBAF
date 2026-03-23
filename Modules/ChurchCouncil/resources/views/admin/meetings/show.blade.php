@@ -1,6 +1,6 @@
 @extends('admin::components.layouts.master')
 
-@section('title', $meeting->title . ' - Reunião do Conselho')
+@section('title', $meeting->title . ' - Reunião da Diretoria')
 
 @section('content')
 <div class="space-y-8">

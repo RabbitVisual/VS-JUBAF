@@ -28,7 +28,7 @@ class CouncilController extends Controller
         $member = auth()->user()->councilMember;
 
         if (! $member || ! $member->isActive()) {
-            abort(403, 'Você não é um membro ativo do conselho.');
+            abort(403, 'Você não é um membro ativo da diretoria.');
         }
 
         $stats = [

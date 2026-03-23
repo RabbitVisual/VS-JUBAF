@@ -43,7 +43,7 @@ class ChurchCouncilPdfService
                 'latestMinutes' => $latestMinutes,
                 'settings' => $settings,
             ],
-            'ata-reuniao-conselho-' . $meeting->id . '.pdf'
+            'ata-reuniao-diretoria-' . $meeting->id . '.pdf'
         );
     }
 
@@ -66,7 +66,7 @@ class ChurchCouncilPdfService
                 'meeting' => $meeting,
                 'settings' => $settings,
             ],
-            'edital-convocacao-conselho-' . $meeting->id . '.pdf'
+            'edital-convocacao-diretoria-' . $meeting->id . '.pdf'
         );
     }
 }

@@ -31,7 +31,7 @@ class CouncilApprovalObserver
         $this->inApp->sendToUsers(
             $users,
             'Nova solicitação de aprovação',
-            "{$typeLabel} aguardando análise do conselho.",
+            "{$typeLabel} aguardando análise da diretoria.",
             [
                 'type' => 'warning',
                 'priority' => 'normal',
@@ -78,10 +78,10 @@ class CouncilApprovalObserver
             }
             if ($leaders->isNotEmpty()) {
                 $msg = $approval->status === CouncilApproval::STATUS_REJECTED
-                    ? "O plano \"{$planTitle}\" ({$ministryName}) foi rejeitado pelo conselho."
-                    : "O plano \"{$planTitle}\" ({$ministryName}) foi devolvido para revisão pelo conselho.";
+                    ? "O plano \"{$planTitle}\" ({$ministryName}) foi rejeitado pela diretoria."
+                    : "O plano \"{$planTitle}\" ({$ministryName}) foi devolvido para revisão pela diretoria.";
                 $planUrl = $ministry && function_exists('route') ? route('admin.ministries.plans.show', [$ministry, $approvable]) : null;
-                $this->inApp->sendToUsers($leaders, 'Plano de ministério – Conselho', $msg, [
+                $this->inApp->sendToUsers($leaders, 'Plano de ministério – Diretoria', $msg, [
                     'type' => 'warning',
                     'action_url' => $planUrl,
                     'action_text' => 'Ver plano',
@@ -92,7 +92,7 @@ class CouncilApprovalObserver
 
         if ($approval->status === CouncilApproval::STATUS_APPROVED && $leaders->isNotEmpty()) {
             $planUrl = $ministry && function_exists('route') ? route('admin.ministries.plans.show', [$ministry, $approvable]) : null;
-            $this->inApp->sendToUsers($leaders, 'Plano aprovado', "O plano \"{$planTitle}\" ({$ministryName}) foi aprovado pelo conselho e está em execução.", [
+            $this->inApp->sendToUsers($leaders, 'Plano aprovado', "O plano \"{$planTitle}\" ({$ministryName}) foi aprovado pela diretoria e está em execução.", [
                 'type' => 'success',
                 'action_url' => $planUrl,
                 'action_text' => 'Ver plano',

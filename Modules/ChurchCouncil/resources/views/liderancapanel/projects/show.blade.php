@@ -97,8 +97,8 @@
             </div>
             @if ($project->council_comments)
                 <div class="pt-4 border-t border-gray-200 dark:border-slate-700">
-                    <h2 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-2">Parecer do
-                        conselho</h2>
+                    <h2 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-2">Parecer da
+                        diretoria</h2>
                     <p class="text-gray-700 dark:text-gray-300">{{ $project->council_comments }}</p>
                 </div>
             @endif

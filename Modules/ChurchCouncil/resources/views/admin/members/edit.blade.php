@@ -6,7 +6,7 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Editar Membro</h1>
-                <p class="text-gray-500 dark:text-gray-400 mt-1">Atualize as informações do membro do conselho.</p>
+                <p class="text-gray-500 dark:text-gray-400 mt-1">Atualize as informações do membro da diretoria.</p>
             </div>
             <a href="{{ route('admin.churchcouncil.members.index') }}"
                 class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center sm:w-auto w-full">
@@ -62,7 +62,7 @@
                         <div>
                             <label for="council_position"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                                Cargo no Conselho <span class="text-red-500">*</span>
+                                Cargo na Diretoria <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="council_position" id="council_position" required
                                 value="{{ old('council_position', $member->council_position) }}"

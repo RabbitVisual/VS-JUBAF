@@ -89,7 +89,7 @@ class CouncilProjectController extends Controller
         $councilMember = auth()->user()->councilMember;
 
         if (! $councilMember) {
-            return response()->json(['message' => 'Apenas membros do conselho podem revisar projetos.'], 403);
+            return response()->json(['message' => 'Apenas membros da diretoria podem revisar projetos.'], 403);
         }
 
         $project->update([

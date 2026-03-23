@@ -22,7 +22,7 @@
             <div class="relative p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Conselho</span>
+                        <span class="px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">Diretoria</span>
                         <span class="px-3 py-1 rounded-full bg-green-500/20 border border-green-400/30 text-green-300 text-xs font-bold uppercase tracking-wider">Dashboard</span>
                     </div>
                     <h1 class="text-3xl md:text-4xl font-black tracking-tight mb-2">{{ $council_display_name ?? __('churchcouncil::messages.council_title') }}</h1>

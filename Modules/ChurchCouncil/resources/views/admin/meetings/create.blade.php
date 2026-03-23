@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Nova Reunião</h1>
-            <p class="text-gray-500 dark:text-gray-400 mt-1">Agende uma nova reunião do conselho.</p>
+            <p class="text-gray-500 dark:text-gray-400 mt-1">Agende uma nova reunião da diretoria.</p>
         </div>
         <a href="{{ route('admin.churchcouncil.meetings.index') }}"
            class="px-4 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors font-medium flex items-center justify-center sm:w-auto w-full">
@@ -36,7 +36,7 @@
                         <input type="text" name="title" id="title" required
                             value="{{ old('title') }}"
                             class="w-full px-4 py-2.5 border border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                            placeholder="Ex: Reunião Ordinária do Conselho - Janeiro/2026">
+                            placeholder="Ex: Reunião Ordinária da Diretoria - Janeiro/2026">
                     </div>
 
                     <div>

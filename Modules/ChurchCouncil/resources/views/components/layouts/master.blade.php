@@ -14,10 +14,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{ $title ?? 'Conselho da Igreja' }} |
+    <title>{{ $title ?? 'Diretoria' }} |
         {{ \App\Models\Settings::get('site_name', config('app.name', 'Laravel')) }}</title>
 
-    <meta name="description" content="{{ $description ?? 'Sistema de Conselho da Igreja' }}">
+    <meta name="description" content="{{ $description ?? 'Sistema de Diretoria' }}">
     <meta name="author" content="Reinan Rodrigues - Vertex Solutions LTDA © 2025">
 
     <!-- Favicon -->
@@ -52,7 +52,7 @@
                         $logo = \App\Models\Settings::get('logo_path', 'storage/image/logo.png');
                     @endphp
                     <img class="h-8 w-auto" src="{{ asset($logo) }}" alt="Logo">
-                    <span class="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Conselho</span>
+                    <span class="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Diretoria</span>
                 </div>
 
                 <!-- Navigation -->
@@ -112,7 +112,7 @@
                         </div>
                         <div class="ml-3 flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
-                            <p class="text-xs text-gray-500 truncate">Membro do Conselho</p>
+                            <p class="text-xs text-gray-500 truncate">Membro da Diretoria</p>
                         </div>
                         <div class="flex-shrink-0">
                             <form method="POST" action="{{ route('logout') }}">
@@ -140,7 +140,7 @@
                                 <x-icon name="bars" class="h-6 w-6" />
                             </button>
                             <div class="md:hidden ml-2">
-                                <span class="text-lg font-semibold text-gray-900 dark:text-white">Conselho</span>
+                                <span class="text-lg font-semibold text-gray-900 dark:text-white">Diretoria</span>
                             </div>
                         </div>
 
