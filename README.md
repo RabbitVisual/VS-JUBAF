@@ -1,200 +1,188 @@
-<div align="center">
-  <img src="assets/images/logo_oficial.png" alt="VertexCBAV Logo" width="320">
+# Vertex JUBAF (VS-JUBAF)
 
-  ### The Ultimate Intelligent Church Management Ecosystem
+Plataforma oficial da Juventude Batista Feirense para gestao associativa, comunicacao institucional, governanca e operacao ministerial.
 
-  [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
-  [![Tailwind](https://img.shields.io/badge/Tailwind_CSS-v4.1-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
-  [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
-  [![Maintainer](https://img.shields.io/badge/Maintainer-Reinan_Rodrigues-blue?style=for-the-badge)](https://github.com/RabbitVisual)
+> Projeto mantido por Vertex Solutions LTDA, evoluido a partir da base VertexCBAV com refatoracao modular para o contexto JUBAF.
 
-  *Empowering modern ministry through high-performance software engineering and faith.*
-</div>
+## Header institucional
 
----
+O Vertex JUBAF e um sistema web modular, desenvolvido para:
 
-## Executive Summary
+- conectar lideranca da juventude com igrejas e congregacoes vinculadas;
+- organizar governanca (conselho, aprovacoes, reunioes, documentos);
+- operar eventos, comunicacao e acompanhamento ministerial;
+- dar transparencia financeira e registrar a vida associativa;
+- centralizar dados biblicos e notificacoes transacionais.
 
-**VertexCBAV** is a sophisticated, high-performance Church Management System (ERP). Designed with a multi-module architecture, it unifies spiritual growth and institutional governance into a single, cohesive experience. From real-time worship management to advanced biblical studies and social compassion logistics, VertexCBAV is the definitive technological arm for the modern church.
+## Status atual do sistema (2026)
 
-The **Member Panel** includes **Elias (CBAV Bot)** — a gospel-focused assistant that delivers contextual tips, daily reading recommendations, and page-based insights to help members grow in their journey. Elias is powered by the Gamification module and integrates with the Bible module for verse recommendations.
+O sistema ja passou pela limpeza estrutural planejada e esta operando com foco no escopo JUBAF.
 
-### Elias (CBAV Bot) in the system
+- Modulos removidos do projeto: `Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Intercessor`, `Ministries`, `Worship`.
+- Bots removidos: `CbavBot` e `EliasBot`.
+- Padronizacao de nomenclatura concluida: `LiderancaPanel` e rotas `lideranca.*`.
+- Fundacao de novos modulos criada: `Igrejas` e `Comunicacao`.
 
-Elias appears in the Member Panel as a fixed assistant at the bottom of the screen: his avatar is shown next to a speech bubble with contextual tips, daily verse recommendations, and optional links to the analysis page or guided tours. The representation below mirrors how he is shown in the product.
+## Modulos ativos
 
-<table>
-<tr>
-<td width="120" valign="top">
-<img src="resources/images/CBAVBOT.png" alt="Elias — CBAV Bot" width="100" />
-</td>
-<td valign="top">
-<em>In the application, Elias appears with a speech bubble (left). He delivers insights by page, recommends the daily reading, and can highlight medals or next steps — keeping the experience coherent and focused on growth.</em>
-</td>
-</tr>
-</table>
+De acordo com `modules_statuses.json`, os modulos ativos sao:
 
-> **Note:** This project is undergoing continuous evolution (2026), with focus on gamification, member experience, and enterprise-grade consistency.
+- `HomePage`
+- `Admin`
+- `MemberPanel`
+- `Notifications`
+- `Bible`
+- `PaymentGateway`
+- `Treasury`
+- `ChurchCouncil`
+- `Events`
+- `Sermons`
+- `LiderancaPanel`
+- `Igrejas`
+- `Comunicacao`
 
----
+## Arquitetura funcional
 
-## Technological Stack
+### 1) Camada publica
 
-- **Core:** [Laravel 12](https://laravel.com) (PHP 8.2+)
-- **Frontend:** [Tailwind CSS v4.1](https://tailwindcss.com) and [Alpine.js](https://alpinejs.dev) (TALL stack)
-- **Database:** MySQL 8.0+
-- **Payments:** Native adapters for Mercado Pago, Stripe, and PIX
-- **Real-time UX:** Alpine.js and optional polling; low-infrastructure approach for live-like updates
+- Portal institucional e conteudo da homepage.
+- Exibicao de informacoes publicas conforme regras de cada modulo.
 
----
+### 2) Camada operacional autenticada
 
-## Modular Architecture
+- `MemberPanel`: experiencia do membro.
+- `LiderancaPanel`: operacao da lideranca da juventude.
+- `Admin`: administracao central do sistema.
 
-VertexCBAV is built around **18 specialized modules**:
+### 3) Camada de servicos transversais
 
-| Module | Description |
-|--------|-------------|
-| **Admin** | Core administrative panel: users, roles and permissions (Spatie), global settings, audit logs, module management. |
-| **Assets** | Church asset and inventory management (physical and digital resources). |
-| **Bible** | Spiritual core: multiple offline Bible versions, interlinear study, Strong mappings, Hebrew/Greek support. Source of truth for all scripture-related features. |
-| **ChurchCouncil** | Leadership hub: meeting agendas, minutes, decisions, and leadership history. |
-| **EBD** | Vertex Academy: Sunday School management, gamified LMS with XP and levels, student tracking, Arcade Bible games. |
-| **Events** | Event lifecycle: calendar, public registrations, ticketing batches, QR check-in, certificates, badges. |
-| **Gamification** | Elias (CBAV Bot), levels, medals, daily reading, contextual insights by page. Gospel-focused coaching and verse recommendations. |
-| **HomePage** | Public CMS: landing sections, hero carousels, testimonials, gallery, church info. |
-| **Intercessor** | Prayer network: moderated requests and prayer commitments. |
-| **MemberPanel** | Member dashboard: personalized home, profile, and access to all member-facing modules. |
-| **Ministries** | Organizational structure: Music, Youth, Couples, and other church sectors. |
-| **Notifications** | Centralized in-app alerts and notifications across modules. |
-| **PaymentGateway** | Unified donations and payments: Mercado Pago, Stripe, PIX (manual/auto). |
-| **Projection** | Live sanctuary media: lyrics, Bible verses, and service slides (JS-based projection). |
-| **Sermons** | Media archive: video and audio preached messages with categorization. |
-| **SocialAction** | Outreach hub: charity programs, Smart Pantry kits, beneficiary dignity. |
-| **Treasury** | Financial ledger: bookkeeping, budgeting, campaigns, and reports. |
-| **Worship** | Music and liturgy: repertoire, setlists, ChordPro, Worship Academy (chords and academy data). |
+- `Notifications`: notificacoes in-app e preferencias.
+- `PaymentGateway`: pagamentos e webhooks canonicos.
+- `Treasury`: controle financeiro, campanhas, metas e relatorios.
+- `Bible`: base biblica local e servicos de leitura.
 
----
+## Modulos e responsabilidades (estado atual)
 
-## System Overview (Flowchart)
+| Modulo | Responsabilidade principal |
+|---|---|
+| `Admin` | Usuarios, papeis, configuracoes globais, operacao administrativa central. |
+| `HomePage` | Conteudo institucional publico (cms da landing). |
+| `MemberPanel` | Painel do membro e fluxos de participacao. |
+| `LiderancaPanel` | Painel de lideranca para acompanhamento ministerial, conselho e operacao. |
+| `ChurchCouncil` | Reunioes, pautas, aprovacoes, historico de decisoes e governanca. |
+| `Events` | Ciclo de eventos, inscricoes, lotes e check-in. |
+| `Sermons` | Acervo e gestao de sermoes, series, estudos e comentarios. |
+| `Treasury` | Lancamentos financeiros, campanhas, metas, relatorios e prestacao de contas. |
+| `PaymentGateway` | Integracao de pagamentos (Stripe, Mercado Pago, PIX) e webhook unico. |
+| `Notifications` | Centro de notificacoes internas e templates. |
+| `Bible` | Referencia biblica local, planos e recursos de leitura. |
+| `Igrejas` | Cadastro e gestao de igrejas/congregacoes vinculadas. |
+| `Comunicacao` | Feed oficial da diretoria: editais, atas, avisos e noticias. |
 
-The system is organized in three access layers: **Public** (unauthenticated), **Member Panel** (`/painel`), and **Admin** (`/admin`). The diagram below shows how modules attach to each layer.
+## Principais decisoes de refatoracao ja aplicadas
 
-```mermaid
-flowchart TB
-  subgraph PublicLayer[Public]
-    HomePage[HomePage]
-    EventsPublic[Events]
-  end
+- Limpeza de namespaces PSR-4 de modulos removidos.
+- Remocao de rotas, menus e dependencias de modulos excluidos.
+- Remocao de componentes e servicos de bot legados.
+- Ajustes de rotas e middleware para padrao `lideranca`.
+- Saneamento de migracoes legadas que referenciavam recursos removidos.
 
-  subgraph MemberLayer[Member Panel]
-    MemberPanel[MemberPanel]
-    Bible[Bible]
-    EventsMP[Events]
-    Treasury[Treasury]
-    EBD[EBD]
-    Gamification[Gamification]
-    Elias[Elias CBAV Bot]
-    Ministries[Ministries]
-    Intercessor[Intercessor]
-    Notifications[Notifications]
-    Worship[Worship]
-    Sermons[Sermons]
-    Projection[Projection]
-    PaymentGatewayMP[PaymentGateway]
-    SocialActionMP[SocialAction]
-  end
+## Estrutura tecnica
 
-  subgraph AdminLayer[Admin]
-    AdminCore[Admin]
-    EventsAdmin[Events]
-    TreasuryAdmin[Treasury]
-    EBDAdmin[EBD]
-    Assets[Assets]
-    ChurchCouncil[ChurchCouncil]
-    PaymentGatewayAdmin[PaymentGateway]
-    NotificationsAdmin[Notifications]
-    GamificationAdmin[Gamification]
-    WorshipAdmin[Worship]
-    SermonsAdmin[Sermons]
-    SocialActionAdmin[SocialAction]
-    HomePageAdmin[HomePage]
-    BibleAdmin[Bible]
-    MinistriesAdmin[Ministries]
-  end
+- Framework: `Laravel 12` (PHP `8.2+`)
+- Modularizacao: `nwidart/laravel-modules`
+- Frontend: `Vite` + `Tailwind CSS`
+- Banco: `MySQL`
+- Autenticacao/ACL: abordagem por papeis e regras de acesso por painel
+- Pagamentos: Stripe, Mercado Pago e PIX via modulo dedicado
 
-  User[Visitor] --> PublicLayer
-  Member[Member] --> MemberLayer
-  AdminUser[Administrator] --> AdminLayer
-  Gamification --> Elias
-```
+## Rotas e paineis
 
----
+- Publicas: `routes/web.php`
+- Administrativas: `routes/admin.php`
+- Membro: `routes/member.php`
+- Lideranca: `routes/lideranca.php`
+- API: `routes/api.php`
 
-## Project Structure
+Padrao atual:
 
-- **Application root:** Standard Laravel application (config, routes, app, resources, database).
-- **Modules:** Each module lives under `Modules/<ModuleName>/` with its own `app`, `config`, `database`, `resources`, and optional `routes`, following nWidart/laravel-modules conventions.
-- **Routes:** Public and auth in `routes/web.php`; admin in `routes/admin.php`; member panel in `routes/member.php`.
+- sem prefixo legado `pastor.*`
+- uso de prefixo e nomes `lideranca.*`
 
----
+## Setup de desenvolvimento
 
-## Quick Start for Developers
+### Requisitos
 
-### Prerequisites
+- PHP 8.2+
+- Composer 2.x
+- Node.js 22+
+- MySQL 8+
 
-- PHP 8.2+ (extensions: BCMath, Ctype, Fileinfo, JSON, Mbstring, OpenSSL, PDO, Tokenizer, XML)
-- Composer and Node.js (v20+)
-- MySQL 8.0+
-
-### Installation
+### Instalacao
 
 ```bash
-# 1. Clone and enter
-git clone https://github.com/RabbitVisual/VertexCBAV.git && cd VertexCBAV
-
-# 2. Back-end
 composer install
-cp .env.example .env && php artisan key:generate
-
-# 3. Database
-php artisan migrate --seed
-
-# 4. Front-end
-npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+npm install
 ```
 
-Optional: run `php artisan module:list` to verify enabled modules.
+### Comandos uteis
 
----
+```bash
+# desenvolvimento completo
+composer dev
 
-## Vision and Leadership
+# limpar caches
+php artisan optimize:clear
 
-**Reinan Rodrigues**
-*CEO, Vertex Solutions LTDA*
-Architect of **VertexCBAV** and **VERTEXSEMAGRI**.
+# atualizar autoload
+composer dump-autoload
 
-> "Technology is our canvas; Christ is our message. We build tools that don't just manage, but edify."
+# listar rotas
+php artisan route:list
+```
 
-### Contact
+> Observacao: migrations e seeds devem seguir o alinhamento do ambiente/projeto vigente antes de execucao em homologacao/producao.
 
-- **Website:** [Vertex Solutions](https://semagricm.com)
-- **WhatsApp:** [Support](https://wa.me/5575992034656)
-- **Email:** r.rordriguesjs@gmail.com
+## Credenciais de demo (ambiente local)
 
----
+- Admin: `admin@demo.com` / `admin123`
+- Membro: `membro@demo.com` / `membro123`
 
-## License
+## Roadmap funcional (JUBAF)
 
-This project is for **private use only** and is under a **proprietary license**. Redistribution, commercial use, and modification are not permitted without explicit authorization from Vertex Solutions LTDA. See [LICENSE](LICENSE) for full terms.
+1. Consolidar governanca (`ChurchCouncil` + `LiderancaPanel`) com fluxos completos.
+2. Evoluir `Igrejas` para operacao multi-congregacao (vinculos, historico de lideranca, indicadores).
+3. Evoluir `Comunicacao` para feed oficial com anexos, trilha de publicacao e distribuicao.
+4. Integrar eventos + financeiro + notificacoes para ciclo completo de inscricao e transparencia.
+5. Expandir painel de indicadores estrategicos para diretoria.
 
----
+## Prompt mestre (prompt do prompt)
 
-<div align="center">
-  <img src="assets/images/VertexLogo/logo.png" alt="Vertex Solutions Logo" width="140">
-  <br>
-  © 2026 Vertex Solutions LTDA. All Rights Reserved.
-  <br>
-  <em>VertexCBAV: High Performance for the Higher Calling.</em>
-</div>
-# VS-JUBAF
-Vertex Solutions LTDA, sistema pensado e voltado para a Juventude Batista Feirense pensado para auxiliar e conectar liderança juventude com a organização.
+Use o bloco abaixo como prompt base para continuidade da evolucao do projeto em qualquer nova sessao de IA:
+
+```text
+Atue como Arquiteto de Software Senior no projeto Vertex JUBAF.
+
+Contexto:
+- O sistema e modular com nwidart/laravel-modules.
+- O escopo atual e JUBAF (Juventude Batista Feirense), nao mais VertexCBAV generico.
+- Modulos removidos: Gamification, Assets, EBD, Marketplace, SocialAction, Projection, Intercessor, Ministries, Worship.
+- Modulos ativos: HomePage, Admin, MemberPanel, Notifications, Bible, PaymentGateway, Treasury, ChurchCouncil, Events, Sermons, LiderancaPanel, Igrejas, Comunicacao.
+- Nomenclatura oficial: Lideranca (nao usar pastor/pastoral em novos recursos).
+
+Diretrizes:
+1) Nao recriar recursos removidos.
+2) Priorizar estabilidade de autoload, rotas e integracoes entre modulos ativos.
+3) Implementar funcionalidades com foco em governanca, eventos, financeiro, comunicacao e base biblica local.
+4) Manter padrao de codigo Laravel modular, com rotas claras, services e validacoes.
+5) Sempre entregar impacto funcional + checklist de validacao tecnica.
+
+Objetivo da tarefa:
+[descrever aqui a feature/refatoracao desejada]
+```
+
+## Licenca
+
+Uso privado/proprietario, conforme politicas da Vertex Solutions LTDA e diretrizes internas da JUBAF.
