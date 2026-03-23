@@ -154,5 +154,44 @@ class RolesAndPermissionsSeeder extends Seeder
         });
 
         $superAdminUser->syncRoles(['Super Admin']);
+
+        if (app()->environment('local', 'development', 'dev')) {
+            $devUsers = [
+                [
+                    'email' => 'superadmin@jubaf.com.br',
+                    'name' => 'Super',
+                    'sobrenome' => 'Admin Demo',
+                    'role' => 'Super Admin',
+                ],
+                [
+                    'email' => 'lideranca@jubaf.com.br',
+                    'name' => 'Liderança',
+                    'sobrenome' => 'Demo',
+                    'role' => 'Líder Local',
+                ],
+                [
+                    'email' => 'membro@jubaf.com.br',
+                    'name' => 'Membro',
+                    'sobrenome' => 'Demo',
+                    'role' => 'Jovem',
+                ],
+            ];
+
+            foreach ($devUsers as $devUserData) {
+                $devUser = User::withoutEvents(function () use ($devUserData) {
+                    return User::updateOrCreate(
+                        ['email' => $devUserData['email']],
+                        [
+                            'name' => $devUserData['name'],
+                            'sobrenome' => $devUserData['sobrenome'],
+                            'password' => bcrypt('password'),
+                            'is_active' => true,
+                        ]
+                    );
+                });
+
+                $devUser->syncRoles([$devUserData['role']]);
+            }
+        }
     }
 }
