@@ -130,7 +130,7 @@
                                 <span class="text-xs font-bold text-gray-700 dark:text-white/80">{{ round($progress) }}%</span>
                             </div>
                             <div class="h-2 w-full bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden p-0.5 border border-transparent dark:border-white/5 backdrop-blur-sm">
-                                <div class="h-full bg-gradient-to-r from-indigo-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(99,102,241,0.5)]" style="width: {{ min(100, max(0, $progress)) }}%"></div>
+                                <div class="h-full bg-linear-to-r from-indigo-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(99,102,241,0.5)]" style="width: {{ min(100, max(0, $progress)) }}%"></div>
                             </div>
                         </div>
                     </div>
@@ -273,7 +273,7 @@
                                     <div>
                                         <h4 class="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-tighter">Dica Antigravity</h4>
                                         <p class="text-[11px] text-blue-800 dark:text-blue-300 leading-relaxed mt-0.5">
-                                            Seu tempo congregando e status de batismo ajudam o sistema a liberar conteúdos específicos e badges de <b>Fidelidade</b>. Mantenha essas datas sempre corretas!
+                                            Seu tempo congregando e status de batismo ajudam a liderança no cuidado pastoral e no acompanhamento da sua jornada. Mantenha essas datas sempre corretas!
                                         </p>
                                     </div>
                                 </div>
@@ -284,31 +284,6 @@
 
                 <!-- Right Column: Achievements & Career -->
                 <div class="space-y-8">
-                    <!-- Achievements Widget -->
-                    <div class="bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <div class="p-6 border-b border-gray-100 dark:border-slate-800 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="p-2.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl">
-                                    <x-icon name="medal" class="w-5 h-5" />
-                                </div>
-                                <h3 class="font-bold text-gray-900 dark:text-white">Conquistas</h3>
-                            </div>
-                            <span class="text-[10px] font-black bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full">{{ count($badges) }}</span>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            @forelse ($badges as $badge)
-                                <x-badge-card :badge="$badge" size="md" />
-                            @empty
-                                <div class="py-12 text-center">
-                                    <div class="w-16 h-16 bg-gray-50 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-gray-200 dark:border-slate-700">
-                                        <x-icon name="lock" class="w-6 h-6 text-gray-300 dark:text-slate-600" />
-                                    </div>
-                                    <p class="text-xs text-gray-400 dark:text-slate-500 font-medium italic px-4 leading-relaxed">Continue sua jornada para desbloquear badges exclusivos!</p>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div>
-
                     <!-- Career Card -->
                     <div class="bg-slate-900 dark:bg-black rounded-3xl p-6 text-white shadow-xl relative overflow-hidden group">
                          <!-- Background pattern -->

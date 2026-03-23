@@ -16,13 +16,14 @@
 
     <title>@yield('title', $title ?? __('memberpanel::messages.member_panel')) | {{ config('app.name', 'Laravel') }}</title>
 
-    <meta name="description" content="{{ $description ?? __('memberpanel::messages.member_panel_description') }}">
-    <meta name="author" content="Reinan Rodrigues - Vertex Solutions LTDA © 2025">
+    <meta name="description" content="{{ $description ?? 'Painel da JUBAF - Juventude Batista Feirense. Tema 2026: Somos Um.' }}">
+    <meta name="author" content="JUBAF - Juventude Batista Feirense">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('storage/image/logo_icon.png') }}">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('storage/image/logo_icon.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('storage/image/logo_icon.png') }}">
+    @php $memberFavicon = asset(\App\Models\Settings::get('logo_icon_path', 'logo_icon.svg')); @endphp
+    <link rel="icon" type="image/svg+xml" href="{{ $memberFavicon }}">
+    <link rel="shortcut icon" type="image/svg+xml" href="{{ $memberFavicon }}">
+    <link rel="apple-touch-icon" href="{{ $memberFavicon }}">
 
     <!-- Fonts (Local) -->
     @preloadFonts

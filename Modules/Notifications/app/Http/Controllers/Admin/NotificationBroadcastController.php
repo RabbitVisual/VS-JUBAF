@@ -5,6 +5,7 @@ namespace Modules\Notifications\App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Modules\Ministries\App\Models\Ministry;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
@@ -13,7 +14,9 @@ class NotificationBroadcastController extends Controller
     public function create()
     {
         $roles = \App\Models\Role::orderBy('name')->get();
-        $ministries = Ministry::where('is_active', true)->orderBy('name')->get();
+        $ministries = Schema::hasTable('ministries')
+            ? Ministry::where('is_active', true)->orderBy('name')->get()
+            : collect();
 
         return view('notifications::admin.control.broadcast', compact('roles', 'ministries'));
     }

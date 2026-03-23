@@ -135,8 +135,11 @@ npm install
 ### Comandos uteis
 
 ```bash
-# desenvolvimento completo
-composer dev
+# desenvolvimento completo (Windows)
+composer run dev
+
+# desenvolvimento completo com Pail (Linux/macOS com pcntl)
+composer run dev:with-pail
 
 # limpar caches
 php artisan optimize:clear
@@ -149,11 +152,24 @@ php artisan route:list
 ```
 
 > Observacao: migrations e seeds devem seguir o alinhamento do ambiente/projeto vigente antes de execucao em homologacao/producao.
+> Em Windows, o `laravel/pail` nao roda sem extensao `pcntl`; por isso use `composer run dev` (sem Pail).
 
-## Credenciais de demo (ambiente local)
+## Credenciais de demo (ambiente local/dev)
 
-- Admin: `admin@demo.com` / `admin123`
-- Membro: `membro@demo.com` / `membro123`
+Senha padrao para auto login e seeders dev: `password`
+
+- Super Admin: `superadmin@jubaf.com.br`
+- Lideranca: `lideranca@jubaf.com.br`
+- Membro: `membro@jubaf.com.br`
+- Admin fixo: `admin@jubaf.com.br`
+
+### Como testar auto login (dev)
+
+1. Inicie o ambiente local com `composer run dev`.
+2. Acesse `/login`.
+3. Na caixa "Ferramentas de Desenvolvedor", use um dos botoes: `SuperAdmin`, `Lideranca` ou `Membro`.
+
+> Os botoes de auto login aparecem somente em ambiente `local/development/dev`.
 
 ## Roadmap funcional (JUBAF)
 

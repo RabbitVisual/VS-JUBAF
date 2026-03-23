@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Modules\Worship\App\Models\WorshipSong;
 
 class Sermon extends Model
 {
@@ -132,7 +131,12 @@ class Sermon extends Model
      */
     public function worshipSuggestion(): BelongsTo
     {
-        return $this->belongsTo(WorshipSong::class, 'worship_suggestion_id');
+        if (class_exists(\Modules\Worship\App\Models\WorshipSong::class)) {
+            return $this->belongsTo(\Modules\Worship\App\Models\WorshipSong::class, 'worship_suggestion_id');
+        }
+
+        // Fallback seguro quando módulo Worship não está ativo.
+        return $this->belongsTo(User::class, 'worship_suggestion_id', 'id')->whereRaw('1 = 0');
     }
 
     /**

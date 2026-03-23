@@ -4,22 +4,42 @@ namespace Modules\MemberPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\Gamification\App\Services\DailyReadingService;
-use Modules\Gamification\App\Services\GamificationService;
 
 class DashboardController extends Controller
 {
     /**
      * Display the member dashboard.
      */
-    public function index(DailyReadingService $dailyReadingService)
+    public function index()
     {
         $user = Auth::user();
         $user->load('role');
 
-        $progressData = app(GamificationService::class)->getProgressForUser($user);
+        $progressData = [
+            'points' => $user->getGamificationPoints(),
+            'level' => $user->getGamificationLevel(),
+            'next_level' => null,
+            'progress_percent' => 0,
+            'points_to_next' => 0,
+            'points_max_display' => null,
+        ];
 
-        $dailyReading = $dailyReadingService->getDailyReadingForDate(now());
+        $gamificationServiceClass = \Modules\Gamification\App\Services\GamificationService::class;
+        if (class_exists($gamificationServiceClass)) {
+            $gamificationService = app($gamificationServiceClass);
+            if (method_exists($gamificationService, 'getProgressForUser')) {
+                $progressData = $gamificationService->getProgressForUser($user);
+            }
+        }
+
+        $dailyReading = null;
+        $dailyReadingServiceClass = \Modules\Gamification\App\Services\DailyReadingService::class;
+        if (class_exists($dailyReadingServiceClass)) {
+            $dailyReadingService = app($dailyReadingServiceClass);
+            if (method_exists($dailyReadingService, 'getDailyReadingForDate')) {
+                $dailyReading = $dailyReadingService->getDailyReadingForDate(now());
+            }
+        }
 
         $stats = [
             'points' => $progressData['points'],
@@ -28,7 +48,6 @@ class DashboardController extends Controller
             'progress_percent' => $progressData['progress_percent'],
             'points_to_next' => $progressData['points_to_next'],
             'points_max_display' => $progressData['points_max_display'],
-            'badges' => $user->getBadges(),
             // Usar a mesma fonte de verdade da model User para completude
             'profile_completion' => $user->getProfileCompletionPercentage(),
             'time_congregating' => $user->time_congregating_months ?? 0,

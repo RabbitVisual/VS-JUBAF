@@ -5,14 +5,14 @@
 @section('content')
     <div class="space-y-6">
         <div
-            class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-amber-900/30 text-white p-6 md:p-8">
+            class="relative overflow-hidden rounded-2xl bg-linear-to-br from-slate-800 to-slate-900 border border-amber-900/30 text-white p-6 md:p-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 class="text-2xl font-bold flex items-center gap-2">
                         <x-icon name="users-rays" class="w-7 h-7 text-amber-400" />
                         Rebanho
                     </h1>
-                    <p class="text-slate-300 mt-1">Lista de membros ativos para cuidado liderancaal.</p>
+                    <p class="text-slate-300 mt-1">Lista de membros ativos para cuidado pastoral.</p>
                 </div>
                 @if (Route::has('admin.users.create'))
                     <a href="{{ route('admin.users.create') }}"

@@ -169,33 +169,6 @@
                         </div>
                     </div>
 
-                    <!-- Badges Section -->
-                    @if (count($stats['badges']) > 0)
-                        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden" data-tour="dashboard-badges">
-                            <div class="px-8 py-6 border-b border-gray-100 dark:border-slate-800 flex items-center justify-between bg-gray-50/50 dark:bg-slate-900/50">
-                                <div class="flex items-center gap-3">
-                                    <div class="p-2 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl">
-                                        <x-icon name="medal" class="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-gray-900 dark:text-white">Conquistas</h3>
-                                        <p class="text-xs text-gray-500 dark:text-slate-400">Recompensas desbloqueadas</p>
-                                    </div>
-                                </div>
-                                <span class="px-3 py-1 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg text-xs font-black uppercase tracking-wider">
-                                    {{ count($stats['badges']) }} Badges
-                                </span>
-                            </div>
-                            <div class="p-8">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                    @foreach ($stats['badges'] as $badge)
-                                        <x-badge-card :badge="$badge" class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700/50 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-lg hover:shadow-blue-500/5" />
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
                 </div>
 
                 <!-- Right Column: Quick Actions & Sidebar Widgets (1/3 width) -->

@@ -64,10 +64,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('painel/eventos')->name('memberpanel.events.')->group(function () {
         Route::get('/minhas-inscricoes', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'myRegistrations'])->name('my-registrations');
+        Route::get('/inscricoes', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'minhasInscricoes'])->name('minhas-inscricoes');
         Route::get('/minhas-inscricoes/{registration}', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'showRegistration'])->name('show-registration');
         Route::get('/', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'index'])->name('index');
         Route::get('/{event:slug}', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'show'])->name('show');
         Route::post('/{event:slug}/register', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'register'])->name('register');
+        Route::post('/{event:slug}/inscrever', [\Modules\Events\App\Http\Controllers\MemberPanel\EventController::class, 'inscrever'])->name('inscrever');
     });
 
     Route::prefix('painel/sermoes')->name('memberpanel.sermons.')->group(function () {

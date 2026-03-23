@@ -3,12 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Relations\EmptyEloquentRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Schema;
 use Modules\Bible\App\Traits\HasReadingProgress;
+use Modules\Igrejas\Models\Igreja;
+use Modules\Ministries\App\Models\Ministry;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -144,6 +148,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'sobrenome',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'email_verified_at',
@@ -151,8 +157,30 @@ class User extends Authenticatable
         'data_nascimento',
         'cpf',
         'avatar',
+        'photo',
         'is_active',
         'igreja_id',
+        'gender',
+        'marital_status',
+        'address',
+        'address_number',
+        'address_complement',
+        'neighborhood',
+        'city',
+        'state',
+        'zip_code',
+        'membership_date',
+        'time_congregating_months',
+        'baptism_date',
+        'baptism_place',
+        'is_baptized',
+        'profession',
+        'education_level',
+        'workplace',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'emergency_contact_relationship',
+        'notes',
     ];
 
     /**
@@ -177,6 +205,9 @@ class User extends Authenticatable
             'password' => 'hashed',
             'data_nascimento' => 'date',
             'is_active' => 'boolean',
+            'is_baptized' => 'boolean',
+            'membership_date' => 'date',
+            'baptism_date' => 'date',
         ];
     }
 
@@ -202,15 +233,24 @@ class User extends Authenticatable
     }
 
     /**
-     * Relacionamento com Ministérios
+     * Relacionamento com Ministérios (tabelas opcionais — módulo completo pode não estar instalado).
      */
     public function ministries()
     {
+        if (! Schema::hasTable('ministry_members')) {
+            return new EmptyEloquentRelation($this);
+        }
+
         return $this->belongsToMany(
-            \Modules\Ministries\App\Models\Ministry::class,
+            Ministry::class,
             'ministry_members'
         )->withPivot('role', 'status', 'joined_at', 'approved_at', 'approved_by', 'notes')
             ->withTimestamps();
+    }
+
+    public function igreja()
+    {
+        return $this->belongsTo(Igreja::class, 'igreja_id');
     }
 
     public function bibleFavorites()
@@ -221,16 +261,6 @@ class User extends Authenticatable
             'user_id',
             'verse_id'
         )->withPivot('color')->withTimestamps();
-    }
-
-    /**
-     * Relacionamento com Badges (módulo Gamification)
-     */
-    public function badges()
-    {
-        return $this->belongsToMany(\Modules\Gamification\App\Models\Badge::class, 'user_badges')
-            ->withPivot('earned_at', 'notes')
-            ->withTimestamps();
     }
 
     /**
@@ -254,6 +284,10 @@ class User extends Authenticatable
      */
     public function activeMinistries()
     {
+        if (! Schema::hasTable('ministry_members')) {
+            return $this->ministries();
+        }
+
         return $this->ministries()->wherePivot('status', 'active');
     }
 
@@ -286,9 +320,21 @@ class User extends Authenticatable
      */
     public function hasRole($roleSlug)
     {
+        if (is_array($roleSlug)) {
+            foreach ($roleSlug as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         $mapped = $this->normalizeLegacyRole($roleSlug);
         if (is_array($mapped)) {
-            return $this->spatieHasRole($mapped);
+            $this->loadMissing('roles');
+
+            return $this->roles->pluck('name')->intersect($mapped)->isNotEmpty();
         }
 
         return $this->spatieHasRole($mapped);
@@ -307,7 +353,7 @@ class User extends Authenticatable
         $normalized = mb_strtolower((string) $role);
 
         return match ($normalized) {
-            'admin', 'super_admin', 'super admin' => ['Super Admin', 'Presidente'],
+            'admin', 'super_admin' => ['Super Admin', 'Presidente'],
             'lideranca', 'liderança' => ['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local'],
             'membro', 'member', 'jovem' => ['Jovem'],
             default => $role,
@@ -390,8 +436,11 @@ class User extends Authenticatable
     {
         $points = $this->getGamificationPoints();
 
-        // Tenta buscar do banco de dados primeiro
-        $level = \Modules\Gamification\App\Models\GamificationLevel::getLevelByPoints($points);
+        $level = null;
+        $gamificationLevelModel = \Modules\Gamification\App\Models\GamificationLevel::class;
+        if (class_exists($gamificationLevelModel) && method_exists($gamificationLevelModel, 'getLevelByPoints')) {
+            $level = $gamificationLevelModel::getLevelByPoints($points);
+        }
 
         if ($level) {
             return [
@@ -418,171 +467,6 @@ class User extends Authenticatable
         }
 
         return ['name' => 'Novato', 'color' => 'gray', 'icon' => 'user', 'points_min' => 0, 'points_max' => 99];
-    }
-
-    /**
-     * Retorna badges do membro (do banco de dados)
-     */
-    public function getBadges()
-    {
-        // Busca badges do banco de dados
-        $userBadges = $this->badges()->active()->ordered()->get();
-
-        if ($userBadges->isEmpty()) {
-            // Fallback para badges padrão se não houver badges configurados
-            return $this->getDefaultBadges();
-        }
-
-        return $userBadges->map(function ($badge) {
-            return [
-                'id' => $badge->id,
-                'name' => $badge->name,
-                'description' => $badge->description,
-                'icon' => $badge->icon,
-                'color' => $badge->color,
-                'earned_at' => $badge->pivot->earned_at,
-            ];
-        })->toArray();
-    }
-
-    /**
-     * Retorna badges padrão (fallback)
-     */
-    private function getDefaultBadges()
-    {
-        $badges = [];
-
-        // 1. Batizado (Font Awesome: water)
-        if ($this->is_baptized) {
-            $badges[] = ['name' => 'Batizado', 'icon' => 'water', 'color' => 'blue', 'description' => 'Membro batizado na congregação'];
-        }
-
-        // 2. Tempo de Casa
-        if ($this->time_congregating_months >= 12) {
-            $years = floor($this->time_congregating_months / 12);
-            $icon = 'cake-candles';
-            $color = 'yellow';
-            if ($years >= 5) {
-                $icon = 'trophy';
-                $color = 'purple';
-            } elseif ($years >= 2) {
-                $icon = 'champagne-glasses';
-                $color = 'green';
-            }
-
-            $badges[] = [
-                'name' => "{$years} ".($years > 1 ? 'Anos' : 'Ano'),
-                'icon' => $icon,
-                'color' => $color,
-                'description' => "Membro há {$years} ".($years > 1 ? 'anos' : 'ano').' na congregação',
-            ];
-        }
-
-        // 3. Perfil Completo
-        if ($this->getProfileCompletionPercentage() >= 100) {
-            $badges[] = [
-                'name' => 'Perfil Completo',
-                'icon' => 'circle-check',
-                'color' => 'green',
-                'description' => 'Membro com perfil 100% preenchido',
-            ];
-        }
-
-        // 4. Leitor Dedicado (5+ favoritos na bíblia)
-        if ($this->bibleFavorites()->count() >= 5) {
-            $badges[] = [
-                'name' => 'Leitor Dedicado',
-                'icon' => 'book-bible',
-                'color' => 'indigo',
-                'description' => 'Membro dedicado à leitura da palavra',
-            ];
-        }
-
-        // 5. Servo Engajado (Ativo em ministérios)
-        if ($this->activeMinistries()->count() > 0) {
-            $badges[] = [
-                'name' => 'Servo Engajado',
-                'icon' => 'users',
-                'color' => 'orange',
-                'description' => 'Membro ativo em ministérios da igreja',
-            ];
-        }
-
-        // 5b. Família Unida (núcleo familiar cadastrado e confirmado)
-        $familyAccepted = $this->relationships()->accepted()->whereIn('relationship_type', ['pai', 'mae', 'conjuge', 'filho'])->count();
-        if ($familyAccepted >= 2) {
-            $badges[] = [
-                'name' => 'Família Unida',
-                'icon' => 'people-group',
-                'color' => 'emerald',
-                'description' => 'Núcleo familiar cadastrado e confirmado',
-            ];
-        }
-
-        // 6. Membro Participativo (3+ eventos)
-        if ($this->registrations()->where('status', 'confirmed')->count() >= 3) {
-            $badges[] = [
-                'name' => 'Participativo',
-                'icon' => 'calendar-check',
-                'color' => 'cyan',
-                'description' => 'Presença confirmada em diversos eventos',
-            ];
-        }
-
-        // 7. Dizimista Fiel (Contribuições financeiras confirmadas)
-        if ($this->financialEntries()->income()->where(function ($q) {
-            $q->whereNull('payment_id')
-                ->orWhereHas('payment', fn ($p) => $p->where('status', 'completed'));
-        })->count() > 0) {
-            $badges[] = [
-                'name' => 'Dizimista Fiel',
-                'icon' => 'hand-holding-dollar',
-                'color' => 'emerald',
-                'description' => 'Membro fiel em suas contribuições',
-            ];
-        }
-
-        // 8. Cadastro Ativo
-        if ($this->is_active) {
-            $badges[] = ['name' => 'Cadastro Ativo', 'icon' => 'user-check', 'color' => 'green', 'description' => 'Membro com cadastro regularizado'];
-        }
-
-        // 9. Rosto Familiar (Foto de perfil)
-        if ($this->photo) {
-            $badges[] = [
-                'name' => 'Rosto Familiar',
-                'icon' => 'circle-user',
-                'color' => 'blue',
-                'description' => 'Membro identificável com foto de perfil definida',
-            ];
-        }
-
-        // 10. Visionário (Admin ou Conselho)
-        if ($this->isAdmin() || $this->councilMember()->exists()) {
-            $badges[] = [
-                'name' => 'Visionário',
-                'icon' => 'eye',
-                'color' => 'rose',
-                'description' => 'Membro com visão estratégica e liderança',
-            ];
-        }
-
-        // 11. Generoso (10+ contribuições confirmadas)
-        $confirmedContributions = $this->financialEntries()->income()->where(function ($q) {
-            $q->whereNull('payment_id')
-                ->orWhereHas('payment', fn ($p) => $p->where('status', 'completed'));
-        })->count();
-
-        if ($confirmedContributions >= 10) {
-            $badges[] = [
-                'name' => 'Generoso',
-                'icon' => 'gift',
-                'color' => 'amber',
-                'description' => 'Membro com histórico notável de contribuições',
-            ];
-        }
-
-        return $badges;
     }
 
     /**
@@ -648,7 +532,11 @@ class User extends Authenticatable
      */
     public function academyProgress()
     {
-        return $this->hasMany(\Modules\Worship\App\Models\AcademyProgress::class, 'user_id');
+        if (class_exists(\Modules\Worship\App\Models\AcademyProgress::class)) {
+            return $this->hasMany(\Modules\Worship\App\Models\AcademyProgress::class, 'user_id');
+        }
+
+        return $this->hasMany(self::class, 'id', 'id')->whereRaw('1 = 0');
     }
 
     /**
@@ -656,7 +544,11 @@ class User extends Authenticatable
      */
     public function worshipProgress()
     {
-        return $this->hasMany(\Modules\Worship\App\Models\WorshipMusicianProgress::class, 'user_id');
+        if (class_exists(\Modules\Worship\App\Models\WorshipMusicianProgress::class)) {
+            return $this->hasMany(\Modules\Worship\App\Models\WorshipMusicianProgress::class, 'user_id');
+        }
+
+        return $this->hasMany(self::class, 'id', 'id')->whereRaw('1 = 0');
     }
 
 

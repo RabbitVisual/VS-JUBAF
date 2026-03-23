@@ -43,6 +43,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
         Route::get('users/import/template', [\Modules\Admin\App\Http\Controllers\MemberImportController::class, 'downloadTemplate'])->name('users.import.template');
         Route::get('api/users/search', [\Modules\Admin\App\Http\Controllers\UserController::class, 'search'])->name('api.users.search');
         Route::get('api/users/search-by-cpf', [\Modules\Admin\App\Http\Controllers\UserController::class, 'searchByCpf'])->name('api.users.search-by-cpf');
+        Route::get('users/{user}/family-tree-analysis', [\Modules\Admin\App\Http\Controllers\UserController::class, 'familyTreeAnalysis'])->name('users.family-tree-analysis');
         Route::resource('users', \Modules\Admin\App\Http\Controllers\UserController::class);
 
         Route::get('/profile', [\Modules\Admin\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');

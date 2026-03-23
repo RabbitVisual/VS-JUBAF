@@ -13,17 +13,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{ $title ?? 'Igreja Batista Avenida - Coração de Maria - BA' }} | {{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title ?? 'JUBAF - Juventude Batista Feirense' }} | {{ config('app.name', 'Laravel') }}</title>
 
-    <meta name="description" content="{{ $description ?? 'Igreja Batista Avenida - Coração de Maria - BA. Uma comunidade de fé comprometida com o Evangelho e o serviço ao próximo.' }}">
+    <meta name="description" content="{{ $description ?? 'JUBAF - Juventude Batista Feirense. Tema 2026: Somos Um.' }}">
     <meta name="keywords" content="{{ $keywords ?? 'igreja batista, coração de maria, bahia, cristianismo, evangelho' }}">
-    <meta name="author" content="{{ $author ?? 'Igreja Batista Avenida' }}">
+    <meta name="author" content="{{ $author ?? 'JUBAF - Juventude Batista Feirense' }}">
 
     @stack('meta')
 
     <!-- Favicon (local, from Settings) -->
     @php
-        $faviconUrl = asset(\App\Models\Settings::get('logo_icon_path', 'storage/image/logo_icon.png'));
+        $faviconUrl = asset(\App\Models\Settings::get('logo_icon_path', 'logo_icon.svg'));
     @endphp
     <link rel="icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">

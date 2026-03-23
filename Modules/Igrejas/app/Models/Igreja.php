@@ -12,12 +12,21 @@ class Igreja extends Model
 
     protected $fillable = [
         'nome',
+        'pastor_titular',
         'lideranca_titular',
         'lider_jovens',
         'cidade',
         'estado',
         'logo_path',
     ];
+
+    /**
+     * Compatibilidade de exibição entre legado e novo campo.
+     */
+    public function getPastorNomeAttribute(): ?string
+    {
+        return $this->pastor_titular ?: $this->lideranca_titular;
+    }
 
     // protected static function newFactory(): IgrejaFactory
     // {

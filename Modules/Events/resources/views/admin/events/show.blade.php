@@ -17,7 +17,7 @@
                         <x-icon name="calendar-days" style="duotone" class="w-20 h-20 text-white/20 relative z-10" />
                     </div>
                 @endif
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $event->title }}</h1>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $event->title }} - Painel JUBAF</h1>
                 <p class="text-gray-600 dark:text-gray-400 mt-1">
                     {{ __('events::messages.created_by') }} {{ $event->creator->name ?? 'Sistema' }} {{ __('events::messages.on_date') }} {{ $event->created_at->format('d/m/Y H:i') }}
                 </p>
@@ -319,6 +319,33 @@
                         </div>
                     </div>
                 </div>
+
+                @if (isset($caravanaRanking) && $caravanaRanking->count() > 0)
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">Ranking de Caravanas JUBAF</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Panorama das igrejas com maior mobilização de jovens neste evento.</p>
+                        <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                <thead class="bg-gray-50 dark:bg-gray-700/50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Posição</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Igreja</th>
+                                        <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-300">Inscritos</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                                    @foreach ($caravanaRanking as $index => $item)
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm font-semibold text-gray-900 dark:text-white">{{ $index + 1 }}º</td>
+                                            <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">{{ $item->igreja_nome }}</td>
+                                            <td class="px-4 py-3 text-sm font-bold text-indigo-700 dark:text-indigo-300">{{ $item->total_inscritos }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Revenue Chart -->
                 @if (isset($revenueData) && count($revenueData) > 0)

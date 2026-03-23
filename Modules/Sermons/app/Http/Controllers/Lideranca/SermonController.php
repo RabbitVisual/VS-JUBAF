@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Mpdf\Mpdf;
@@ -56,7 +57,7 @@ class SermonController extends Controller
         $categories = SermonCategory::active()->ordered()->get();
         $tags = SermonTag::all();
         $series = \Modules\Sermons\App\Models\BibleSeries::where('status', 'published')->orderBy('title')->get();
-        $worshipSongs = \Modules\Worship\App\Models\WorshipSong::orderBy('title')->get(['id', 'title']);
+        $worshipSongs = $this->getWorshipSongs();
         $bibleVersions = $this->bibleApi->getVersions();
         $defaultVersion = $bibleVersions->first();
         $bibleBooks = $defaultVersion ? $this->bibleApi->getBooks($defaultVersion->id) : collect();
@@ -88,7 +89,7 @@ class SermonController extends Controller
             'bible_references' => 'nullable|array',
             'sermon_date' => 'nullable|date',
             'attachments.*' => 'file|mimes:pdf,doc,docx,txt|max:10240',
-            'worship_suggestion_id' => 'nullable|exists:worship_songs,id',
+            'worship_suggestion_id' => $this->worshipSuggestionValidationRule(),
         ]);
         $validated['user_id'] = auth()->id();
         $validated['slug'] = Str::slug($validated['title']).'-'.Str::random(6);
@@ -165,7 +166,7 @@ class SermonController extends Controller
         $categories = SermonCategory::active()->ordered()->get();
         $tags = SermonTag::all();
         $series = \Modules\Sermons\App\Models\BibleSeries::where('status', 'published')->orderBy('title')->get();
-        $worshipSongs = \Modules\Worship\App\Models\WorshipSong::orderBy('title')->get(['id', 'title']);
+        $worshipSongs = $this->getWorshipSongs();
         $sermon->load(['tags', 'bibleReferences', 'collaborators.user']);
         $bibleVersions = $this->bibleApi->getVersions();
         $defaultVersion = $bibleVersions->first();
@@ -198,7 +199,7 @@ class SermonController extends Controller
             'bible_references' => 'nullable|array',
             'sermon_date' => 'nullable|date',
             'attachments.*' => 'file|mimes:pdf,doc,docx,txt|max:10240',
-            'worship_suggestion_id' => 'nullable|exists:worship_songs,id',
+            'worship_suggestion_id' => $this->worshipSuggestionValidationRule(),
         ]);
         if (($validated['status'] ?? '') === 'published' && !$sermon->published_at) {
             $validated['published_at'] = now();
@@ -345,5 +346,23 @@ class SermonController extends Controller
             if ($plain !== '') $out[] = '<p>' . htmlspecialchars(Str::limit($plain, 800)) . '</p>';
         }
         return implode("\n", $out);
+    }
+
+    private function getWorshipSongs()
+    {
+        if (class_exists(\Modules\Worship\App\Models\WorshipSong::class) && Schema::hasTable('worship_songs')) {
+            return \Modules\Worship\App\Models\WorshipSong::orderBy('title')->get(['id', 'title']);
+        }
+
+        return collect();
+    }
+
+    private function worshipSuggestionValidationRule(): string
+    {
+        if (class_exists(\Modules\Worship\App\Models\WorshipSong::class) && Schema::hasTable('worship_songs')) {
+            return 'nullable|exists:worship_songs,id';
+        }
+
+        return 'nullable';
     }
 }

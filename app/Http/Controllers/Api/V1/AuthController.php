@@ -9,13 +9,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Modules\Projection\App\Http\Controllers\Admin\ProjectionSettingsController;
 
 /**
  * API v1 auth endpoints (e.g. desktop app login).
  */
 class AuthController extends Controller
 {
+    private const DESKTOP_LOGIN_ENABLED_KEY = 'projection_desktop_login_enabled';
+    private const DESKTOP_ALLOWED_ROLES_KEY = 'projection_desktop_allowed_roles';
+
     /**
      * Login for the Vertex Projector desktop app.
      * POST /api/v1/auth/desktop-login
@@ -30,7 +32,11 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
-        $enabled = (bool) Settings::get(ProjectionSettingsController::KEY_DESKTOP_LOGIN_ENABLED, false);
+        $enabledKey = self::DESKTOP_LOGIN_ENABLED_KEY;
+        if (class_exists(\Modules\Projection\App\Http\Controllers\Admin\ProjectionSettingsController::class)) {
+            $enabledKey = \Modules\Projection\App\Http\Controllers\Admin\ProjectionSettingsController::KEY_DESKTOP_LOGIN_ENABLED;
+        }
+        $enabled = (bool) Settings::get($enabledKey, false);
         if (! $enabled) {
             return response()->json([
                 'message' => 'Login no app desktop está desativado. Ative em Admin > Projeção > Configurações.',
@@ -46,7 +52,11 @@ class AuthController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        $allowedRoles = Settings::get(ProjectionSettingsController::KEY_DESKTOP_ALLOWED_ROLES, null);
+        $allowedRolesKey = self::DESKTOP_ALLOWED_ROLES_KEY;
+        if (class_exists(\Modules\Projection\App\Http\Controllers\Admin\ProjectionSettingsController::class)) {
+            $allowedRolesKey = \Modules\Projection\App\Http\Controllers\Admin\ProjectionSettingsController::KEY_DESKTOP_ALLOWED_ROLES;
+        }
+        $allowedRoles = Settings::get($allowedRolesKey, null);
         if (is_string($allowedRoles)) {
             $allowedRoles = json_decode($allowedRoles, true);
         }

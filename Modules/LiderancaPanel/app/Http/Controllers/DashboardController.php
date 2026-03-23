@@ -3,8 +3,9 @@
 namespace Modules\LiderancaPanel\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Nwidart\Modules\Facades\Module;
 
 class DashboardController extends Controller
@@ -25,7 +26,7 @@ class DashboardController extends Controller
     protected function gatherStats(): array
     {
         $stats = [
-            'total_ovelhas' => User::where('is_active', true)->count(),
+            'total_ovelhas' => DB::table('users')->where('is_active', true)->count(),
             'pedidos_oracao' => 0,
             'proximos_sermoes' => 0,
         ];
@@ -41,18 +42,25 @@ class DashboardController extends Controller
         return $stats;
     }
 
-    public static function aniversariantesDaSemana(): \Illuminate\Support\Collection
+    public static function aniversariantesDaSemana(): Collection
     {
         $start = Carbon::now()->startOfWeek();
         $end = Carbon::now()->endOfWeek();
 
-        return User::where('is_active', true)
-            ->whereNotNull('date_of_birth')
-            ->whereRaw('MONTH(date_of_birth) = ?', [$start->month])
-            ->whereRaw('DAY(date_of_birth) >= ?', [$start->day])
-            ->whereRaw('DAY(date_of_birth) <= ?', [$end->day])
-            ->orderByRaw('DAY(date_of_birth)')
+        return DB::table('users')
+            ->select(['id', 'name', 'sobrenome', 'data_nascimento', 'email'])
+            ->where('is_active', true)
+            ->whereNotNull('data_nascimento')
+            ->whereRaw('MONTH(data_nascimento) = ?', [$start->month])
+            ->whereRaw('DAY(data_nascimento) >= ?', [$start->day])
+            ->whereRaw('DAY(data_nascimento) <= ?', [$end->day])
+            ->orderByRaw('DAY(data_nascimento)')
             ->limit(15)
-            ->get(['id', 'name', 'first_name', 'last_name', 'date_of_birth', 'email']);
+            ->get()
+            ->map(function ($item) {
+                $item->data_nascimento = $item->data_nascimento ? Carbon::parse($item->data_nascimento) : null;
+
+                return $item;
+            });
     }
 }

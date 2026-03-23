@@ -11,5 +11,6 @@
     "Sermons": true,
     "LiderancaPanel": true,
     "Igrejas": true,
-    "Comunicacao": true
+    "Comunicacao": true,
+    "Diretoria": true
 }

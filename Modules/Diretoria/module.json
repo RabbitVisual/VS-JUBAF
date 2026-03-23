@@ -1,0 +1,11 @@
+{
+    "name": "Diretoria",
+    "alias": "diretoria",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Diretoria\\Providers\\DiretoriaServiceProvider"
+    ],
+    "files": []
+}

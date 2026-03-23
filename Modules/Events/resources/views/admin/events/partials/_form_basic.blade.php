@@ -147,7 +147,7 @@
         @endif
 
         {{-- Setlist --}}
-        @if(class_exists(\Modules\Worship\App\Models\WorshipSetlist::class))
+        @if(class_exists(\Modules\Worship\App\Models\WorshipSetlist::class) && \Illuminate\Support\Facades\Schema::hasTable('worship_setlists'))
         <div>
             <label for="setlist_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Setlist de Louvor</label>
             <select name="setlist_id" id="setlist_id"

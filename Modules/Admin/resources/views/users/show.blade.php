@@ -13,6 +13,9 @@
         'amber' => ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600 dark:text-amber-400'],
         'cyan' => ['bg' => 'bg-cyan-100 dark:bg-cyan-900/30', 'text' => 'text-cyan-600 dark:text-cyan-400'],
     ];
+    $level = is_array($level ?? null)
+        ? $level
+        : ['name' => 'Engajamento', 'color' => 'gray', 'icon' => 'star', 'points_min' => 0, 'points_max' => null];
     $levelColors = $levelColorMap[$level['color'] ?? 'blue'] ?? $levelColorMap['blue'];
 @endphp
 @section('content')
@@ -28,7 +31,7 @@
                     class="px-3 py-1 rounded-full {{ $user->is_active ? 'bg-green-500/30 border-green-400/50 text-green-100' : 'bg-red-500/30 border-red-400/50 text-red-100' }} border text-[10px] font-bold uppercase tracking-widest">{{ $user->is_active ? 'Ativo' : 'Inativo' }}</span>
             </div>
             <!-- Banner Background -->
-            <div class="h-48 bg-gradient-to-br from-blue-700 via-indigo-700 to-purple-800 relative overflow-hidden">
+            <div class="h-48 bg-linear-to-br from-blue-700 via-indigo-700 to-purple-800 relative overflow-hidden">
                 <div class="absolute inset-0 opacity-20 pointer-events-none"
                     style="background-image: url('{{ asset('storage/image/pattern.png') }}'); background-size: 100px;"></div>
                 <div class="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
@@ -64,7 +67,7 @@
                             {{ $user->name }}</h1>
                         <span
                             class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
-                            {{ $user->role->name }}
+                            {{ $user->role?->name ?? 'Jovem' }}
                         </span>
                     </div>
 
@@ -112,10 +115,12 @@
                         :class="tab === 'financial' ? 'border-blue-600 text-blue-600' :
                             'border-transparent text-gray-500 hover:text-gray-700'"
                         class="py-4 border-b-2 font-black text-[10px] uppercase tracking-widest transition-all">Financeiro</button>
+                    @if (\Illuminate\Support\Facades\Schema::hasTable('ministry_members'))
                     <button @click="tab = 'ministries'"
                         :class="tab === 'ministries' ? 'border-blue-600 text-blue-600' :
                             'border-transparent text-gray-500 hover:text-gray-700'"
                         class="py-4 border-b-2 font-black text-[10px] uppercase tracking-widest transition-all">Ministérios</button>
+                    @endif
                     <button @click="tab = 'family'"
                         :class="tab === 'family' ? 'border-blue-600 text-blue-600' :
                             'border-transparent text-gray-500 hover:text-gray-700'"
@@ -147,8 +152,8 @@
                             </div>
                             <div>
                                 <div class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">
-                                    {{ $level['name'] }}</div>
-                                <p class="text-sm font-bold text-gray-500">{{ $points }} Pontos de Experiência</p>
+                                    {{ $level['name'] ?? 'Engajamento' }}</div>
+                                <p class="text-sm font-bold text-gray-500">{{ $points ?? 0 }} Pontos de Experiência</p>
                             </div>
                         </div>
 
@@ -156,29 +161,13 @@
                             <div
                                 class="flex justify-between text-[10px] font-black uppercase tracking-widest text-gray-400">
                                 <span>Progresso para próximo nível</span>
-                                <span>{{ round($progress) }}%</span>
+                                <span>{{ round($progress ?? 0) }}%</span>
                             </div>
                             <div class="h-3 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden p-0.5">
-                                <div class="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full transition-all duration-700"
-                                    style="width: {{ $progress }}%"></div>
+                                <div class="h-full bg-linear-to-r from-blue-600 to-indigo-600 rounded-full transition-all duration-700"
+                                    style="width: {{ $progress ?? 0 }}%"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Badges -->
-                <div
-                    class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-6">
-                        Conquistas & Badges</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        @forelse($user->getBadges() as $badge)
-                            <x-badge-card :badge="$badge" size="sm" />
-                        @empty
-                            <div class="col-span-2 py-8 text-center bg-gray-50 dark:bg-gray-700/30 rounded-2xl">
-                                <p class="text-xs font-bold text-gray-500">Nenhum badge conquistado ainda.</p>
-                            </div>
-                        @endforelse
                     </div>
                 </div>
 
@@ -376,7 +365,7 @@
                         <div
                             class="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-3 flex items-start gap-2 mb-4">
                             <x-icon name="information-circle"
-                                class="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                                class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                             <p class="text-xs text-amber-800 dark:text-amber-200">Vínculos pendentes podem ser aceitos pelo
                                 próprio membro no painel. Edite os vínculos nesta página para adicionar ou remover.</p>
                         </div>
@@ -511,6 +500,7 @@
                     </div>
 
                     <!-- Tab: Ministries -->
+                    @if (\Illuminate\Support\Facades\Schema::hasTable('ministry_members'))
                     <div x-show="tab === 'ministries'" x-cloak class="p-8 space-y-6 animate-fade-in">
                         <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Atuação Ministerial
                         </h4>
@@ -547,6 +537,7 @@
                             @endforelse
                         </div>
                     </div>
+                    @endif
 
                 </div>
             </div>

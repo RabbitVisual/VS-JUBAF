@@ -1,9 +1,9 @@
 @extends('homepage::components.layouts.master')
 
 @php
-    $logoPath = \App\Models\Settings::get('logo_path', 'storage/image/logo_oficial.png');
-    $iconPath = \App\Models\Settings::get('logo_icon_path', 'storage/image/logo_icon.png');
-    $siteName = \App\Models\Settings::get('site_name', 'Igreja Batista Avenida');
+    $logoPath = \App\Models\Settings::get('logo_path', 'logo_oficial.svg');
+    $iconPath = \App\Models\Settings::get('logo_icon_path', 'logo_icon.svg');
+    $siteName = \App\Models\Settings::get('site_name', 'JUBAF - Juventude Batista Feirense');
     // Em ambiente local/dev, desabilitamos o reCAPTCHA mesmo que esteja ativo nas configurações (banco copiado da produção).
     $recaptchaEnabled = ! app()->environment('local', 'development', 'dev')
         && \App\Models\Settings::get('recaptcha_enabled', false);
@@ -35,7 +35,7 @@
                         <img src="{{ asset($logoPath) }}"
                              alt="{{ $siteName }}"
                              class="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                             onerror="this.src='/storage/image/logo_oficial.png';">
+                             onerror="this.src='/logo_oficial.svg';">
                     </a>
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Bem-vindo de volta</h2>
                     <p class="text-gray-600 dark:text-gray-400">Acesse sua conta para continuar</p>
@@ -213,7 +213,7 @@
                         <img src="{{ asset($iconPath) }}"
                              alt="Icon"
                              class="h-16 w-auto filter drop-shadow-xl"
-                             onerror="this.src='/storage/image/logo_icon.png';">
+                             onerror="this.src='/logo_icon.svg';">
                     </div>
                     <h3 class="text-4xl font-extrabold text-white leading-tight mb-4">
                         Conectando Corações,<br/>Vivendo a Fé.

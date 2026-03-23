@@ -29,9 +29,9 @@
     <div class="space-y-8">
         <!-- Hero Section -->
         <div
-            class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-xl border border-gray-700/50">
+            class="relative overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-xl border border-gray-700/50">
             <div class="absolute inset-0 dash-pattern opacity-10"></div>
-            <div class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-600/20 to-transparent"></div>
+            <div class="absolute right-0 top-0 h-full w-1/2 bg-linear-to-l from-blue-600/20 to-transparent"></div>
             <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full -translate-x-1/2 translate-y-1/2">
             </div>
 
@@ -65,7 +65,7 @@
                             <a href="{{ route('lideranca.dashboard') }}"
                                 class="px-5 py-3 rounded-xl bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 font-bold hover:bg-amber-500/30 transition-colors flex items-center gap-2">
                                 <x-icon name="church" class="w-5 h-5 text-amber-400" />
-                                Ir para Gabinete liderancaal
+                                Ir para Gabinete de Liderança
                             </a>
                         @endif
                         @if (Route::has('admin.users.create'))
@@ -101,7 +101,7 @@
 
                 <div class="hidden md:block relative shrink-0">
                     <div
-                        class="w-32 h-32 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 p-1 shadow-2xl shadow-blue-500/30 flex items-center justify-center border-4 border-gray-800">
+                        class="w-32 h-32 rounded-full bg-linear-to-tr from-blue-500 to-purple-500 p-1 shadow-2xl shadow-blue-500/30 flex items-center justify-center border-4 border-gray-800">
                         @if (auth()->user()->photo)
                             <img src="{{ Storage::url(auth()->user()->photo) }}" alt="Profile"
                                 class="w-full h-full rounded-full object-cover">
@@ -234,9 +234,8 @@
                 </div>
             </div>
 
-            <!-- Gamificação (quando disponível) -->
-            @if (isset($gamificationStats) &&
-                    (($gamificationStats['total_badges'] ?? 0) > 0 || ($gamificationStats['total_levels'] ?? 0) > 0))
+            <!-- Níveis de gamificação (quando disponível) -->
+            @if (isset($gamificationStats) && (($gamificationStats['total_levels'] ?? 0) > 0))
                 <div
                     class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group">
                     <div
@@ -248,24 +247,15 @@
                                 class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
                                 <x-icon name="trophy" class="w-6 h-6" />
                             </div>
-                            @if (Route::has('admin.badges.index'))
-                                <a href="{{ route('admin.badges.index') }}"
-                                    class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">Ver</a>
-                            @endif
                         </div>
                         <p class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">
                             Gamificação</p>
                         <div class="flex items-baseline gap-3 mt-1">
                             <span
-                                class="text-2xl font-black text-gray-900 dark:text-white">{{ $gamificationStats['total_badges'] ?? 0 }}</span>
-                            <span class="text-sm text-gray-400">badges</span>
-                            <span class="text-gray-300 dark:text-gray-600">·</span>
-                            <span
                                 class="text-2xl font-black text-gray-900 dark:text-white">{{ $gamificationStats['total_levels'] ?? 0 }}</span>
                             <span class="text-sm text-gray-400">níveis</span>
                         </div>
-                        <p class="text-sm text-gray-400 mt-2">{{ $gamificationStats['users_with_badges'] ?? 0 }} usuários
-                            com badges</p>
+                        <p class="text-sm text-gray-400 mt-2">{{ number_format($gamificationStats['average_points'] ?? 0, 1, ',', '.') }} pontos médios por usuário</p>
                     </div>
                 </div>
             @endif

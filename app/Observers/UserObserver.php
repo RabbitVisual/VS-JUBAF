@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\User;
-use Modules\Gamification\App\Services\GamificationService;
 
 class UserObserver
 {
@@ -45,8 +44,13 @@ class UserObserver
 
         // Se algum campo relevante foi alterado, verifica badges
         if ($wasChanged) {
-            $gamificationService = app(\Modules\Gamification\App\Services\GamificationService::class);
-            $gamificationService->checkAndAwardBadges($user);
+            $gamificationServiceClass = \Modules\Gamification\App\Services\GamificationService::class;
+            if (class_exists($gamificationServiceClass)) {
+                $gamificationService = app($gamificationServiceClass);
+                if (method_exists($gamificationService, 'checkAndAwardBadges')) {
+                    $gamificationService->checkAndAwardBadges($user);
+                }
+            }
         }
     }
 }

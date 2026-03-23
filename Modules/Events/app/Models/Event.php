@@ -290,7 +290,11 @@ class Event extends Model
 
     public function setlist(): BelongsTo
     {
-        return $this->belongsTo(\Modules\Worship\App\Models\WorshipSetlist::class, 'setlist_id');
+        if (class_exists(\Modules\Worship\App\Models\WorshipSetlist::class)) {
+            return $this->belongsTo(\Modules\Worship\App\Models\WorshipSetlist::class, 'setlist_id');
+        }
+
+        return $this->belongsTo(User::class, 'setlist_id', 'id')->whereRaw('1 = 0');
     }
 
     public function treasuryCampaign(): BelongsTo

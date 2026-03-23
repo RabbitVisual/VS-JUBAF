@@ -131,7 +131,7 @@ class SystemNotification extends Model
         }
 
         // Verifica por ministério
-        if (! empty($this->target_ministries)) {
+        if (! empty($this->target_ministries) && \Illuminate\Support\Facades\Schema::hasTable('ministry_members')) {
             $userMinistries = $user->ministries()->pluck('ministries.id')->toArray();
             if (! empty(array_intersect($this->target_ministries, $userMinistries))) {
                 return true;

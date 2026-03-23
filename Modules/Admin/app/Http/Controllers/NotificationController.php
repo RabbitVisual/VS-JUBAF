@@ -5,6 +5,7 @@ namespace Modules\Admin\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Modules\Ministries\App\Models\Ministry;
 use Modules\Notifications\App\Models\SystemNotification;
 use Modules\Notifications\App\Models\UserNotification;
@@ -56,7 +57,9 @@ class NotificationController extends Controller
     {
         $users = User::where('is_active', true)->orderBy('name')->get();
         $roles = \App\Models\Role::all();
-        $ministries = Ministry::where('is_active', true)->orderBy('name')->get();
+        $ministries = Schema::hasTable('ministries')
+            ? Ministry::where('is_active', true)->orderBy('name')->get()
+            : collect();
 
         return view('notifications::admin.notifications.create', compact('users', 'roles', 'ministries'));
     }

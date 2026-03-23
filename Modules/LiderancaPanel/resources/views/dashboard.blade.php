@@ -10,15 +10,15 @@
             $greeting = $hour < 12 ? 'Bom dia' : ($hour < 18 ? 'Boa tarde' : 'Boa noite');
         @endphp
         <div
-            class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 text-white shadow-xl border border-amber-900/30">
+            class="relative overflow-hidden rounded-3xl bg-linear-to-br from-slate-800 via-slate-900 to-slate-800 text-white shadow-xl border border-amber-900/30">
             <div class="absolute inset-0 dash-pattern opacity-10"></div>
-            <div class="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-amber-600/20 to-transparent"></div>
+            <div class="absolute right-0 top-0 h-full w-1/2 bg-linear-to-l from-amber-600/20 to-transparent"></div>
             <div class="relative p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-2 flex-wrap">
                         <span
                             class="px-3 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-xs font-bold uppercase tracking-wider">Gabinete
-                            liderancaal</span>
+                            de Liderança</span>
                         <span
                             class="px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-bold uppercase tracking-wider">Cuidado
                             & Alimentação</span>
@@ -27,12 +27,12 @@
                         {{ $greeting }}, {{ auth()->user()->first_name ?? (auth()->user()->name ?? 'lideranca') }}!
                     </h1>
                     <p class="text-slate-300 text-lg max-w-xl">
-                        Bem-vindo ao seu gabinete. Aqui você acompanha o rebanho, pendências pastorais e a saúde da igreja.
+                        Bem-vindo ao seu gabinete. Aqui você acompanha o rebanho, pendências ministeriais e a saúde da igreja.
                     </p>
                 </div>
                 <div class="hidden md:block shrink-0">
                     <div
-                        class="w-28 h-28 rounded-full bg-gradient-to-tr from-amber-500 to-amber-600 p-1 shadow-2xl shadow-amber-500/30 flex items-center justify-center border-4 border-slate-800">
+                        class="w-28 h-28 rounded-full bg-linear-to-tr from-amber-500 to-amber-600 p-1 shadow-2xl shadow-amber-500/30 flex items-center justify-center border-4 border-slate-800">
                         @if (auth()->user()->photo)
                             <img src="{{ \Illuminate\Support\Facades\Storage::url(auth()->user()->photo) }}" alt=""
                                 class="w-full h-full rounded-full object-cover">
@@ -112,7 +112,7 @@
                         <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $aniversariantes->count() }}</p>
                     </div>
                 </div>
-                <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Contato liderancaal</p>
+                <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">Contato pastoral da semana</p>
             </div>
         </div>
 
@@ -169,7 +169,7 @@
                             <div class="flex items-center gap-3">
                                 <span
                                     class="w-9 h-9 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-300 font-bold text-sm">
-                                    @if ($membro->date_of_birth && ($d = $membro->date_of_birth))
+                                    @if ($membro->data_nascimento && ($d = $membro->data_nascimento))
                                         {{ $d->format('d') }}
                                     @else
                                         ?
@@ -177,10 +177,10 @@
                                 </span>
                                 <div>
                                     <p class="font-medium text-gray-900 dark:text-white">
-                                        {{ $membro->first_name ?? $membro->name }}</p>
+                                        {{ $membro->name }}</p>
                                     <p class="text-xs text-gray-500 dark:text-gray-400">
-                                        @if ($membro->date_of_birth)
-                                            {{ $membro->date_of_birth->format('d/m') }}
+                                        @if ($membro->data_nascimento)
+                                            {{ $membro->data_nascimento->format('d/m') }}
                                         @endif
                                         @if ($membro->email)
                                             · {{ $membro->email }}
@@ -205,14 +205,14 @@
 
             {{-- Elias (Conselheiro Estratégico) --}}
             <div
-                class="rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-amber-900/30 shadow-sm p-6 text-white">
+                class="rounded-2xl bg-linear-to-br from-slate-800 to-slate-900 border border-amber-900/30 shadow-sm p-6 text-white">
                 <h2 class="text-lg font-bold flex items-center gap-2 mb-3">
                     <x-icon name="book-bible" class="w-5 h-5 text-amber-400" />
                     Elias · Conselheiro
                 </h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
                     Aqui você verá insights sobre a saúde da igreja: frequência na EBD, alertas em alta e
-                    sugestões de cuidado liderancaal.
+                    sugestões de cuidado pastoral.
                 </p>
                 @if (isset($eliasInsight) && !empty($eliasInsight['content']))
                     <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-100 text-sm">

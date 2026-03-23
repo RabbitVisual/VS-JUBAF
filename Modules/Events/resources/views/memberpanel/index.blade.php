@@ -14,13 +14,13 @@
                     <x-icon name="chevron-right" class="w-3 h-3 shrink-0" />
                     <span class="text-gray-900 dark:text-white font-medium">{{ __('events::messages.events') }}</span>
                 </nav>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">{{ __('events::messages.events') }}</h1>
-                <p class="text-gray-500 dark:text-slate-400 mt-1 text-sm max-w-xl">{{ __('events::messages.check_available_events') }}</p>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Próximos Eventos JUBAF</h1>
+                <p class="text-gray-500 dark:text-slate-400 mt-1 text-sm max-w-xl">Encontros, congressos e ações da Juventude Batista Feirense.</p>
             </div>
             <a href="{{ route('memberpanel.events.my-registrations') }}" data-tour="events-my-registrations-link"
                class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl shadow-sm font-bold text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all shrink-0 touch-manipulation active:scale-[0.98]">
                 <x-icon name="ticket" class="w-5 h-5" />
-                {{ __('events::messages.my_registrations') }}
+                Minhas Inscrições
             </a>
         </div>
 
@@ -32,8 +32,8 @@
             </div>
             <div class="relative px-4 sm:px-6 md:px-8 py-8 sm:py-10 flex flex-col md:flex-row items-center justify-between gap-6 z-10">
                 <div class="flex-1 text-center md:text-left space-y-1">
-                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest">{{ __('events::messages.communion_and_learning') }}</span>
-                    <p class="text-gray-500 dark:text-slate-400 text-sm max-w-xl">{{ __('events::messages.check_available_events') }}</p>
+                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-[10px] font-black uppercase tracking-widest">SOMOS UM</span>
+                    <p class="text-gray-500 dark:text-slate-400 text-sm max-w-xl">Escolha seu evento e confirme sua participação com antecedência.</p>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     @if($event->banner_path)
                         <img src="{{ Storage::url($event->banner_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     @else
-                        <div class="w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <div class="w-full h-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                             <x-icon name="calendar-days" style="duotone" class="w-14 h-14 sm:w-16 sm:h-16 text-white/50" />
                         </div>
                     @endif
@@ -77,7 +77,7 @@
                     </div>
                     <a href="{{ route('memberpanel.events.show', $event) }}"
                         class="block w-full text-center px-4 py-3 bg-gray-50 dark:bg-slate-800/50 hover:bg-indigo-600 dark:hover:bg-indigo-600 text-gray-900 dark:text-white hover:text-white rounded-xl font-bold transition-all duration-200 mt-2 group-hover:shadow-lg group-hover:shadow-indigo-500/20 touch-manipulation active:scale-[0.98]">
-                        {{ __('events::messages.details') }}
+                        Garantir Vaga
                     </a>
                 </div>
             </article>
@@ -87,9 +87,9 @@
                     <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                         <x-icon name="calendar" class="w-8 h-8 sm:w-10 sm:h-10 text-gray-400 dark:text-slate-500" />
                     </div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">{{ __('events::messages.no_events') }}</h3>
+                    <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2">Nenhum evento disponível no momento</h3>
                     <p class="text-gray-500 dark:text-slate-400 text-sm max-w-md mx-auto">
-                        {{ __('events::messages.no_events_at_moment') }}
+                        Em breve teremos novas programações da JUBAF para você participar.
                     </p>
                 </div>
             </div>

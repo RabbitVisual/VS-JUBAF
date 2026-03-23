@@ -5,6 +5,7 @@ namespace Modules\HomePage\App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Modules\Bible\App\Models\BibleVersion;
 use Modules\Bible\App\Models\Verse;
 use Modules\Events\App\Models\Event;
@@ -25,9 +26,10 @@ class HomePageController extends Controller
     {
         // Carousel
         $carouselEnabled = Settings::get('homepage_carousel_enabled', false);
-        $carouselSlides = $carouselEnabled
-            ? CarouselSlide::currentlyActive()->ordered()->get()
-            : collect();
+        $carouselSlides = collect();
+        if ($carouselEnabled && Schema::hasTable('carousel_slides')) {
+            $carouselSlides = CarouselSlide::currentlyActive()->ordered()->get();
+        }
 
         // Campanhas ativas
         $activeCampaigns = collect();
@@ -76,17 +78,23 @@ class HomePageController extends Controller
             ->limit(6)
             ->get();
 
-        // Testemunhos ativos
-        $activeTestimonials = Testimonial::where('is_active', true)
-            ->orderBy('created_at', 'desc')
-            ->limit(3)
-            ->get();
+        // Testemunhos ativos (fallback seguro quando a tabela não existe)
+        $activeTestimonials = collect();
+        if (Schema::hasTable('testimonials')) {
+            $activeTestimonials = Testimonial::where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+        }
 
         // Galeria de fotos
-        $galleryImages = GalleryImage::where('is_active', true)
-            ->orderBy('order')
-            ->limit(8)
-            ->get();
+        $galleryImages = collect();
+        if (Schema::hasTable('gallery_images')) {
+            $galleryImages = GalleryImage::where('is_active', true)
+                ->orderBy('order')
+                ->limit(8)
+                ->get();
+        }
 
         // Notificações importantes: só globais para visitantes; globais + do usuário para logados
         $importantNotifications = $this->getImportantNotificationsForHomepage();

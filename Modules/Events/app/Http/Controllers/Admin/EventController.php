@@ -5,6 +5,7 @@ namespace Modules\Events\App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Modules\Events\App\Http\Requests\StoreEventRequest;
@@ -224,7 +225,23 @@ class EventController extends Controller
             }
         }
 
-        return view('events::admin.events.show', compact('event', 'totalArrecadado', 'totalParticipantes', 'revenueData', 'ageDistribution'));
+        $caravanaRanking = DB::table('event_registrations')
+            ->join('users', 'users.id', '=', 'event_registrations.user_id')
+            ->leftJoin('igrejas', 'igrejas.id', '=', 'users.igreja_id')
+            ->where('event_registrations.event_id', $event->id)
+            ->selectRaw("COALESCE(igrejas.nome, 'Sem igreja') as igreja_nome, COUNT(event_registrations.id) as total_inscritos")
+            ->groupBy('users.igreja_id', 'igrejas.nome')
+            ->orderByDesc('total_inscritos')
+            ->get();
+
+        return view('events::admin.events.show', compact(
+            'event',
+            'totalArrecadado',
+            'totalParticipantes',
+            'revenueData',
+            'ageDistribution',
+            'caravanaRanking'
+        ));
     }
 
     /**

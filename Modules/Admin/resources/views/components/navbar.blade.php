@@ -90,7 +90,7 @@
                                     <p class="text-gray-500 dark:text-gray-400 text-sm">Nenhum item no carrinho.</p>
                                 @endforelse
                             </div>
-                            @if (($marketplace_cart_count ?? 0) > 0)
+                            @if (($marketplace_cart_count ?? 0) > 0 && Route::has('marketplace.storefront.checkout'))
                                 <div class="p-4 border-t border-gray-200 dark:border-gray-700">
                                     <a href="{{ route('marketplace.storefront.checkout') }}"
                                         class="block w-full text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold">

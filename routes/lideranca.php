@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name('lideranca.')->group(function () {
     Route::get('/', [\Modules\LiderancaPanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [\Modules\LiderancaPanel\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/profile', [\Modules\LiderancaPanel\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [\Modules\LiderancaPanel\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [\Modules\LiderancaPanel\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
     Route::prefix('rebanho')->name('rebanho.')->group(function () {
         Route::get('/', [\Modules\LiderancaPanel\App\Http\Controllers\RebanhoController::class, 'index'])->name('index');
@@ -65,6 +68,11 @@ Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name(
         Route::get('/check-in', [$eventosCtrl, 'checkinIndex'])->name('checkin.index');
         Route::post('/check-in/validar', [$eventosCtrl, 'checkinValidate'])->name('checkin.validate');
         Route::get('/{event}', [$eventosCtrl, 'show'])->name('show');
+    });
+
+    Route::prefix('caravanas')->name('caravanas.')->group(function () {
+        Route::get('/', [\Modules\Events\App\Http\Controllers\Lideranca\CaravanaController::class, 'index'])->name('index');
+        Route::get('/{event}', [\Modules\Events\App\Http\Controllers\Lideranca\CaravanaController::class, 'show'])->name('show');
     });
 });
 

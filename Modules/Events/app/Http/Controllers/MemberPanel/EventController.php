@@ -31,13 +31,7 @@ class EventController extends Controller
     {
         $events = Event::published()
             ->members()
-            ->where(function ($q) {
-                $q->where('end_date', '>=', now())
-                    ->orWhere(function ($q2) {
-                        $q2->whereNull('end_date')
-                            ->where('start_date', '>=', now()->subHours(6));
-                    });
-            })
+            ->upcoming()
             ->with('priceRules')
             ->orderBy('start_date', 'asc')
             ->paginate(12);
@@ -255,11 +249,27 @@ class EventController extends Controller
     public function myRegistrations(): View
     {
         $registrations = EventRegistration::where('user_id', auth()->id())
-            ->with(['event', 'participants'])
+            ->with(['event', 'participants', 'batch', 'latestPayment'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('events::memberpanel.my-registrations', compact('registrations'));
+    }
+
+    /**
+     * Alias para manter semântica solicitada na fase 2.
+     */
+    public function minhasInscricoes(): View
+    {
+        return $this->myRegistrations();
+    }
+
+    /**
+     * Alias para manter semântica solicitada na fase 2.
+     */
+    public function inscrever(RegisterEventRequest $request, Event $event): \Illuminate\Http\RedirectResponse
+    {
+        return $this->register($request, $event);
     }
 
     /**

@@ -4,7 +4,7 @@
         $user && $user->photo
             ? \Illuminate\Support\Facades\Storage::url($user->photo) . '?v=' . $user->updated_at->timestamp
             : null;
-    $userName = $user->first_name ?? ($user->name ?? 'lideranca');
+    $userName = $user->first_name ?? ($user->name ?? 'Liderança');
 @endphp
 
 <nav
@@ -54,15 +54,15 @@
                                 class="w-8 h-8 rounded-lg bg-amber-500/30 flex items-center justify-center text-amber-300 font-bold text-sm">{{ strtoupper(mb_substr($userName, 0, 1)) }}</span>
                         @endif
                         <span
-                            class="hidden sm:inline text-sm font-medium max-w-[8rem] truncate">{{ $userName }}</span>
+                            class="hidden sm:inline text-sm font-medium max-w-32 truncate">{{ $userName }}</span>
                         <x-icon name="chevron-down" class="w-4 h-4" />
                     </button>
                     <div x-show="open" @click.away="open = false" x-transition
                         class="absolute right-0 mt-2 w-48 py-1 bg-slate-800 dark:bg-slate-900 border border-amber-900/30 rounded-xl shadow-xl z-50">
                         <a href="{{ route('lideranca.dashboard') }}"
                             class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white">Dashboard</a>
-                        @if (Route::has('admin.profile.show'))
-                            <a href="{{ route('admin.profile.show') }}"
+                        @if (Route::has('lideranca.profile.show'))
+                            <a href="{{ route('lideranca.profile.show') }}"
                                 class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white">Meu
                                 perfil</a>
                         @endif

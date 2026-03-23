@@ -358,7 +358,7 @@
             <!-- Logo with Glass Effect -->
             <div class="mb-12 relative group">
                 <div class="absolute -inset-4 bg-white/5 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 scale-90 group-hover:scale-110 border border-white/10 shadow-2xl"></div>
-                <img src="{{ asset(\App\Models\Settings::get('logo_path', 'storage/image/logo_oficial.png')) }}"
+                <img src="{{ asset(\App\Models\Settings::get('logo_path', 'logo_oficial.svg')) }}"
                     alt="Logo Oficial"
                     class="relative h-44 md:h-60 w-auto object-contain drop-shadow-[0_0_35px_rgba(255,255,255,0.2)] transform transition-transform duration-1000 group-hover:scale-105"
                     onerror="this.style.display='none';">
@@ -377,6 +377,9 @@
                 <p class="text-xl md:text-2xl text-blue-100/80 font-medium leading-relaxed max-w-2xl mx-auto animate-fade-in-up opacity-0" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
                     {{ $homepageSettings['hero_subtitle'] }}
                 </p>
+                <div class="inline-flex items-center px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-bold tracking-widest uppercase animate-fade-in-up opacity-0" style="animation-delay: 0.9s; animation-fill-mode: forwards;">
+                    Tema 2026: Somos Um
+                </div>
 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center pt-8 animate-fade-in-up opacity-0" style="animation-delay: 1s; animation-fill-mode: forwards;">
                     @if ($homepageSettings['hero_button_1_text'])
@@ -474,7 +477,7 @@
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nossa Missão</h3>
                         </div>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg pl-16 border-l-2 border-blue-100 dark:border-gray-800">
-                             A Igreja Batista Avenida tem como missão glorificar a Deus através da proclamação do Evangelho, do discipulado de crentes e do serviço à comunidade.
+                             A JUBAF existe para glorificar a Deus por meio da proclamação do Evangelho, do discipulado da juventude e do serviço à comunidade.
                         </p>
                     </div>
 
@@ -654,12 +657,14 @@
                     @endforeach
                 </div>
 
-                <div class="text-center mt-16">
-                    <a href="{{ route('ministries.index') }}"
-                        class="inline-flex items-center px-8 py-4 bg-gray-900 dark:bg-gray-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-300 transform hover:-translate-y-1">
-                        <span>Explorar Todos Ministérios</span>
-                    </a>
-                </div>
+                @if (Route::has('ministries.index'))
+                    <div class="text-center mt-16">
+                        <a href="{{ route('ministries.index') }}"
+                            class="inline-flex items-center px-8 py-4 bg-gray-900 dark:bg-gray-700 text-white font-bold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-300 transform hover:-translate-y-1">
+                            <span>Explorar Todos Ministérios</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </section>
     @endif
@@ -717,7 +722,7 @@
 
                                 <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                                     <x-icon name="location-dot" style="duotone" class="w-4 h-4 mr-2" />
-                                    {{ $event->location ?? 'Igreja Batista Avenida' }}
+                                    {{ $event->location ?? 'JUBAF - Juventude Batista Feirense' }}
                                 </div>
                             </div>
                         </a>
@@ -867,7 +872,7 @@
     @endif
 
     <!-- Loja Missionária (Marketplace) – CTA para página completa -->
-    @if($homepageSettings['show_marketplace'] ?? false)
+    @if(($homepageSettings['show_marketplace'] ?? false) && Route::has('marketplace.storefront.index'))
         <section id="loja" class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 transition-colors duration-200">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-900/40 mb-6">

@@ -228,13 +228,24 @@
             </div>
 
              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Função/Role -->
                 <div>
-                    <label for="role_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Função *</label>
-                    <select name="role_id" id="role_id" required
+                    <label for="igreja_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Igreja Pertencente</label>
+                    <select name="igreja_id" id="igreja_id"
                         class="w-full rounded-xl border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500">
-                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" {{ old('role_id') == $role->id ? 'selected' : '' }}>
+                        <option value="">Selecione...</option>
+                        @foreach ($igrejas as $igreja)
+                            <option value="{{ $igreja->id }}" {{ old('igreja_id') == $igreja->id ? 'selected' : '' }}>
+                                {{ $igreja->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cargo na JUBAF *</label>
+                    <select name="role" id="role" required
+                        class="w-full rounded-xl border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-indigo-500 focus:border-indigo-500">
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>
                                 {{ $role->name }}
                             </option>
                         @endforeach

@@ -40,7 +40,7 @@ class NotifyMembersOfNewContent implements ShouldQueue
         // For now, we will notify a small batch or just log it if users count is huge
         // Assuming reasonable user base for this task scope.
 
-        $users = User::where('status', 'active')->get();
+        $users = User::where('is_active', true)->get();
 
         $notificationData = [
             'title' => 'Novo Sermão Disponível: ' . $this->sermon->title,

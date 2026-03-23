@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
+use Modules\Igrejas\Models\Igreja;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
 class UserController extends Controller
@@ -24,7 +25,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::with('roles')->withCount('relationships');
+        $query = User::with(['roles', 'igreja'])->withCount('relationships');
 
         // Filtros
         if ($request->filled('search')) {
@@ -162,8 +163,9 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
+        $igrejas = Igreja::orderBy('nome')->get();
 
-        return view('admin::users.create', compact('roles'));
+        return view('admin::users.create', compact('roles', 'igrejas'));
     }
 
     /**
@@ -200,7 +202,9 @@ class UserController extends Controller
             'emergency_contact_phone' => 'nullable|string|max:20',
             'emergency_contact_relationship' => 'nullable|string|max:50',
             'password' => 'required|string|min:8|confirmed',
-            'role_id' => 'required|exists:roles,id',
+            'role' => 'required|string|exists:roles,name',
+            'role_id' => 'nullable|exists:roles,id',
+            'igreja_id' => 'nullable|exists:igrejas,id',
             'is_active' => 'boolean',
             'photo' => 'nullable|image|max:2048',
             'notes' => 'nullable|string',
@@ -220,11 +224,15 @@ class UserController extends Controller
         // Remove campos não necessários
         unset($validated['password_confirmation']);
 
-        $roleId = (int) $validated['role_id'];
+        $roleName = $validated['role'] ?? null;
+        if (! $roleName && ! empty($validated['role_id'])) {
+            $roleName = Role::find((int) $validated['role_id'])?->name;
+        }
+        unset($validated['role']);
         unset($validated['role_id']);
         $user = User::create($validated);
-        if ($role = Role::find($roleId)) {
-            $user->syncRoles([$role->name]);
+        if ($roleName) {
+            $user->syncRoles([$roleName]);
         }
 
         $this->syncUserRelationships($user, $request);
@@ -253,12 +261,25 @@ class UserController extends Controller
             },
         ]);
 
+        $points = $user->getGamificationPoints();
+        $level = $user->getGamificationLevel();
+        $min = (int) ($level['points_min'] ?? 0);
+        $max = $level['points_max'] ?? null;
+        if ($max === null) {
+            $progress = 100.0;
+        } else {
+            $span = max(1, (int) $max - $min);
+            $progress = (($points - $min) / $span) * 100;
+            $progress = max(0, min(100, round($progress, 1)));
+        }
+        $pointsMaxDisplay = $max;
+
         return view('admin::users.show', [
             'user' => $user,
-            'level' => null,
-            'points' => null,
-            'progress' => null,
-            'points_max_display' => null,
+            'level' => $level,
+            'points' => $points,
+            'progress' => $progress,
+            'points_max_display' => $pointsMaxDisplay,
         ]);
     }
 
@@ -268,9 +289,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $igrejas = Igreja::orderBy('nome')->get();
         $user->load(['role', 'relationships']);
 
-        return view('admin::users.edit', compact('user', 'roles'));
+        return view('admin::users.edit', compact('user', 'roles', 'igrejas'));
     }
 
     /**
@@ -307,7 +329,9 @@ class UserController extends Controller
             'emergency_contact_phone' => 'nullable|string|max:20',
             'emergency_contact_relationship' => 'nullable|string|max:50',
             'password' => 'nullable|string|min:8|confirmed',
-            'role_id' => 'required|exists:roles,id',
+            'role' => 'required|string|exists:roles,name',
+            'role_id' => 'nullable|exists:roles,id',
+            'igreja_id' => 'nullable|exists:igrejas,id',
             'is_active' => 'boolean',
             'photo' => 'nullable|image|max:2048',
             'notes' => 'nullable|string',
@@ -335,11 +359,15 @@ class UserController extends Controller
         // Remove campos não necessários
         unset($validated['password_confirmation']);
 
-        $roleId = (int) $validated['role_id'];
+        $roleName = $validated['role'] ?? null;
+        if (! $roleName && ! empty($validated['role_id'])) {
+            $roleName = Role::find((int) $validated['role_id'])?->name;
+        }
+        unset($validated['role']);
         unset($validated['role_id']);
         $user->update($validated);
-        if ($role = Role::find($roleId)) {
-            $user->syncRoles([$role->name]);
+        if ($roleName) {
+            $user->syncRoles([$roleName]);
         }
 
         $this->syncUserRelationships($user, $request);

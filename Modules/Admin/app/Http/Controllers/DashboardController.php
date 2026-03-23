@@ -7,8 +7,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use Modules\Gamification\App\Models\Badge;
-use Modules\Gamification\App\Models\GamificationLevel;
 use Nwidart\Modules\Facades\Module;
 
 // Core Models (Using aliases if Model not found to avoid crash, but using direct paths where known)
@@ -140,29 +138,15 @@ class DashboardController extends Controller
         }
 
         // --- 6. Gamification Stats ---
+        $gamificationLevelModel = \Modules\Gamification\App\Models\GamificationLevel::class;
+        $hasGamificationLevels = class_exists($gamificationLevelModel) && Schema::hasTable('gamification_levels');
         $gamificationStats = [
-            'total_badges' => Badge::count(),
-            'active_badges' => Badge::where('is_active', true)->count(),
-            'total_levels' => GamificationLevel::count(),
-            'active_levels' => GamificationLevel::where('is_active', true)->count(),
-            'total_badges_awarded' => DB::table('user_badges')->count(),
-            'users_with_badges' => DB::table('user_badges')->distinct('user_id')->count('user_id'),
-            'most_awarded_badge' => DB::table('user_badges')
-                ->select('badge_id', DB::raw('count(*) as total'))
-                ->groupBy('badge_id')
-                ->orderBy('total', 'desc')
-                ->first(),
+            'total_levels' => $hasGamificationLevels ? $gamificationLevelModel::count() : 0,
+            'active_levels' => $hasGamificationLevels ? $gamificationLevelModel::where('is_active', true)->count() : 0,
             'average_points' => User::where('is_active', true)->get()->map(function ($user) {
                 return $user->getGamificationPoints();
             })->average(),
         ];
-
-        if ($gamificationStats['most_awarded_badge']) {
-            $badge = Badge::find($gamificationStats['most_awarded_badge']->badge_id);
-            $gamificationStats['most_awarded_badge_name'] = $badge ? $badge->name : 'N/A';
-        } else {
-            $gamificationStats['most_awarded_badge_name'] = 'N/A';
-        }
 
         // --- 7. Charts Data ---
         // Growth Chart (Last 6 months users)

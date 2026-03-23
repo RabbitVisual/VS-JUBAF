@@ -20,13 +20,13 @@
 
         <!-- Right side -->
         <div class="flex items-center space-x-4">
-            @if($marketplace_store_available ?? false)
-            <a href="{{ route('marketplace.storefront.cart') }}" class="relative p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Ver carrinho">
-                <x-icon name="cart-shopping" style="duotone" class="w-6 h-6" />
-                @if(($marketplace_cart_count ?? 0) > 0)
-                    <span class="absolute -top-0.5 -right-0.5 min-w-[1.25rem] h-5 px-1 flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full">{{ ($marketplace_cart_count ?? 0) > 99 ? '99+' : $marketplace_cart_count }}</span>
-                @endif
-            </a>
+            @if(($marketplace_store_available ?? false) && Route::has('marketplace.storefront.cart'))
+                <a href="{{ route('marketplace.storefront.cart') }}" class="relative p-2.5 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Ver carrinho">
+                    <x-icon name="cart-shopping" style="duotone" class="w-6 h-6" />
+                    @if(($marketplace_cart_count ?? 0) > 0)
+                        <span class="absolute -top-0.5 -right-0.5 min-w-[1.25rem] h-5 px-1 flex items-center justify-center text-[10px] font-bold text-white bg-red-500 rounded-full">{{ ($marketplace_cart_count ?? 0) > 99 ? '99+' : $marketplace_cart_count }}</span>
+                    @endif
+                </a>
             @endif
             <!-- Notifications Dropdown -->
             @php

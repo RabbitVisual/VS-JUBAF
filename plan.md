@@ -252,3 +252,239 @@ Executar a preparação completa do ambiente Laravel (cache + migrate/seed + bui
 - `npm run build` finaliza com sucesso.
 - Usuário `admin@jubaf.com.br` existe e tem role `Super Admin`.
 - Entrega inclui dados de login solicitados.
+
+# Plano 4 / Fase 4
+## Fase1 Igrejas Usuarios
+- overview: Implementar o alicerce da associação com CRUD de Igrejas, integração completa na gestão de usuários com vínculo de igreja + cargo Spatie, e navegação nos painéis Admin/Liderança.
+
+- todos:
+  - id: schema-igrejas-pastor
+    content: Adicionar migration para pastor_titular e compatibilidade com lideranca_titular no model Igreja
+    status: pending
+  - id: crud-igrejas-controller-requests
+    content: Criar AdminIgrejaController e Form Requests de store/update com upload de logo
+    status: pending
+  - id: routes-igrejas-admin-lideranca
+    content: Configurar rotas protegidas admin.igrejas.* e lideranca.igrejas.* com can:gerenciar igrejas
+    status: pending
+  - id: views-igrejas-admin
+    content: Criar views admin/index/form/create/edit premium para Igrejas
+    status: pending
+  - id: admin-usercontroller-integracao
+    content: Atualizar UserController para carregar igrejas/roles e persistir igreja_id + syncRoles
+    status: pending
+  - id: admin-users-views-update
+    content: Atualizar views de usuários com colunas Igreja/Cargo e selects de Igreja/Cargo
+    status: pending
+  - id: user-model-relationship
+    content: Adicionar relacionamento igreja() no app/Models/User.php
+    status: pending
+  - id: sidebars-link-gestao-igrejas
+    content: Adicionar link Gestão de Igrejas nas sidebars Admin e Liderança com @can
+    status: pending
+  - id: validacao-final-fase1
+    content: Executar validações de rota, lints e fluxo funcional ponta a ponta
+    status: pending
+
+# Fase 1: Alicerce da Associação (Igrejas + Usuários)
+
+## Objetivo
+
+Construir o CRUD de Igrejas com UX premium e integrar o vínculo `igreja_id` + cargo (Spatie Roles) no fluxo de usuários, com acesso por permissão e navegação visível em Admin e Liderança.
+
+## Decisões confirmadas
+
+- Estratégia de campo pastor: **manter legado** `lideranca_titular` e **adicionar** `pastor_titular`.
+- Escopo de rotas Igrejas: **Admin + Liderança**.
+
+## Implementação proposta
+
+### 1) Estrutura de dados e compatibilidade
+
+- Criar migration para adicionar `pastor_titular` em `igrejas` (sem quebrar `lideranca_titular`).
+- Atualizar `Modules\Igrejas\App\Models\Igreja` para aceitar ambos campos em `$fillable`.
+- Definir prioridade de exibição nas views/listagens: `pastor_titular ?? lideranca_titular`.
+
+Arquivos alvo:
+
+- [Modules/Igrejas/database/migrations](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/database/migrations)
+- [Modules/Igrejas/app/Models/Igreja.php](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/app/Models/Igreja.php)
+
+### 2) CRUD completo de Igrejas (Admin + Liderança)
+
+- Criar `AdminIgrejaController` com `index/create/store/edit/update/destroy`.
+- Implementar upload de logo em `public/igrejas` com validação e substituição segura no update.
+- Criar Form Requests:
+  - `StoreIgrejaRequest`
+  - `UpdateIgrejaRequest`
+- Reestruturar rotas do módulo em grupos protegidos:
+  - Admin: prefixo `admin/igrejas`, nomes `admin.igrejas.`, middleware `auth` + `can:gerenciar igrejas`.
+  - Liderança: prefixo `lideranca/igrejas`, nomes `lideranca.igrejas.`, middleware equivalente + `can:gerenciar igrejas`.
+
+Arquivos alvo:
+
+- [Modules/Igrejas/app/Http/Controllers](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/app/Http/Controllers)
+- [Modules/Igrejas/app/Http/Requests](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/app/Http/Requests)
+- [Modules/Igrejas/routes/web.php](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/routes/web.php)
+
+### 3) Views premium do módulo Igrejas (Tailwind/Flowbite)
+
+- Criar `admin/index.blade.php` com data table moderna:
+  - Logo/avatar, Nome, Pastor, Líder de Jovens, Ações.
+- Criar `admin/form.blade.php` reutilizável para create/edit:
+  - Cards limpos, espaçamento premium, campos solicitados, preview de upload.
+- Criar wrappers `create.blade.php` e `edit.blade.php` reutilizando o form.
+
+Arquivos alvo:
+
+- [Modules/Igrejas/resources/views/admin](../../../Users/Administrator/.cursor/plans/Modules/Igrejas/resources/views/admin)
+
+### 4) Gestão de Usuários (Admin) com Igrejas + Cargo
+
+- Em `Modules\Admin\App\Http\Controllers\UserController`:
+  - `create/edit`: carregar `Igreja::orderBy('nome')->get()` e `Role::all()`.
+  - `store/update`: persistir `igreja_id` e sincronizar role com `syncRoles($request->role)`.
+- Ajustar validações de `store/update` para aceitar `igreja_id` e `role` (slug/nome de role) sem quebrar fluxo atual.
+- Adicionar relação no `User` model:
+  - `igreja(): belongsTo(Igreja::class, 'igreja_id')`.
+
+Arquivos alvo:
+
+- [Modules/Admin/app/Http/Controllers/UserController.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/app/Http/Controllers/UserController.php)
+- [app/Models/User.php](../../../Users/Administrator/.cursor/plans/app/Models/User.php)
+
+### 5) Views de Usuário (Admin)
+
+- `index.blade.php`:
+  - adicionar coluna **Igreja** (`$user->igreja->nome ?? '-'`)
+  - adicionar coluna **Cargo** (primeira role em badge Flowbite).
+- `create/edit` (ou parcial de form):
+  - select moderno para **Igreja Pertencente**
+  - select moderno para **Cargo na JUBAF**.
+
+Arquivos alvo:
+
+- [Modules/Admin/resources/views/users/index.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/users/index.blade.php)
+- [Modules/Admin/resources/views/users/create.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/users/create.blade.php)
+- [Modules/Admin/resources/views/users/edit.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/users/edit.blade.php)
+
+### 6) Navegação (Admin + Liderança)
+
+- Incluir link “Gestão de Igrejas” com ícone de igreja no padrão de ícones do projeto.
+- Exibir apenas com `@can('gerenciar igrejas')`.
+- Usar rotas por contexto:
+  - Admin -> `admin.igrejas.index`
+  - Liderança -> `lideranca.igrejas.index`
+
+Arquivos alvo:
+
+- [Modules/Admin/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/Admin/resources/views/components/sidebar.blade.php)
+- [Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php)
+
+### 7) Verificação técnica
+
+- Rodar checagens pós-implementação:
+  - limpeza de cache quando necessário
+  - `route:list` para confirmar nomes de rotas
+  - validação de upload e CRUD ponta a ponta
+  - leitura de lints nos arquivos alterados
+- Confirmar cenários:
+  - CRUD Igrejas Admin/Liderança
+  - vínculo usuário-igreja
+  - sincronização correta de role Spatie
+  - visibilidade condicional em sidebars
+
+## Critérios de aceite
+
+- CRUD Igrejas funcional (Admin e Liderança) com validação e upload.
+- Usuário com `igreja_id` persistido e role sincronizada por `syncRoles`.
+- Listagem de usuários exibe Igreja e Cargo com badge.
+- Sidebars exibem “Gestão de Igrejas” somente com `@can('gerenciar igrejas')`.
+- Layout responsivo, limpo e consistente com Tailwind/Flowbite.
+
+# Plano 5 / Fase 5
+## Fase 2: Motor de Eventos e Caravanas (JUBAF)
+- overview: Implementar a Fase 2 no módulo Events com jornada completa para Jovem, Líder Local e Diretoria, adicionando gestão de caravanas por igreja, ranking no admin e navegação dedicada nos painéis.
+
+- todos:
+  - id: memberpanel-events
+    content: Ajustar fluxo MemberPanel (index, inscrições e my-registrations) com CTA/badges conforme Fase 2
+    status: pending
+  - id: lideranca-caravana-controller
+    content: Criar CaravanaController com filtros por igreja_id e métricas de caravana
+    status: pending
+  - id: lideranca-caravana-views
+    content: Criar views liderancapanel/caravanas (index e show) com Data Table e cards de resumo
+    status: pending
+  - id: admin-ranking-caravanas
+    content: Adicionar query agregada e seção Ranking de Caravanas no show do evento (admin)
+    status: pending
+  - id: routes-and-sidebars
+    content: Registrar rotas member/lideranca e atualizar sidebars com novos links e permissões
+    status: pending
+  - id: validation-pass
+    content: Validar rotas, lints e consistência visual/funcional ponta a ponta
+    status: pending
+
+
+# Fase 2: Motor de Eventos e Caravanas (JUBAF)
+
+## Objetivo funcional
+
+Entregar um fluxo completo e alinhado ao propósito da JUBAF:
+
+- Jovem: visualizar próximos eventos e acompanhar inscrições.
+- Líder Local: acompanhar somente a caravana da sua igreja.
+- Diretoria: visão macro com ranking de caravanas por igreja.
+
+## Estratégia de implementação
+
+### 1) MemberPanel: vitrine + inscrições + acompanhamento
+
+- Atualizar o controller [Modules/Events/app/Http/Controllers/MemberPanel/EventController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/MemberPanel/EventController.php):
+  - `index`: manter filtro eficiente para eventos ativos/publicados e futuros (usar scopes existentes `published()`, `members()` e critério de data em `start_date/end_date`).
+  - `myRegistrations` (compatível com `minhasInscricoes` solicitado): garantir eager loading de `event` (e `participants/latestPayment` quando necessário para badges/status).
+  - `register`/`inscrever (POST)`: manter endpoint de inscrição já existente (`memberpanel.events.register`) com criação vinculada ao usuário logado e status inicial pendente, reaproveitando `EventService` para não quebrar o fluxo de pagamento atual.
+- Refinar views já existentes para aderir ao layout pedido:
+  - [Modules/Events/resources/views/memberpanel/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/index.blade.php): cards premium com capa/título/data/local e CTA textual `Garantir Vaga`.
+  - [Modules/Events/resources/views/memberpanel/my-registrations.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/memberpanel/my-registrations.blade.php): formato de tickets e badges de pagamento (amarelo pendente, verde pago/confirmado).
+
+### 2) Liderança: nova gestão de caravana por igreja
+
+- Criar controller [Modules/Events/app/Http/Controllers/Lideranca/CaravanaController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/Lideranca/CaravanaController.php):
+  - `index`: eventos que tenham pelo menos 1 inscrição de usuários com `igreja_id` igual ao líder autenticado.
+  - `show(Event $event)`: inscrições do evento filtradas por `user.igreja_id`, com eager loading (`user`, `batch`, `participants`, `latestPayment`) e métricas (`total_na_caravana`, `total_pago`).
+- Criar views de liderança:
+  - [Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/index.blade.php): grid/lista de eventos da caravana.
+  - [Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/liderancapanel/caravanas/show.blade.php): datatable com colunas `Nome do Jovem`, `WhatsApp` (link direto), `Tipo de Ingresso`, `Status do Pagamento`, além de cards de resumo.
+
+### 3) Admin: ranking de caravanas no detalhe do evento
+
+- Atualizar [Modules/Events/app/Http/Controllers/Admin/EventController.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/app/Http/Controllers/Admin/EventController.php) no método `show`:
+  - adicionar query agregada por igreja via `event_registrations -> users -> igrejas` com `COUNT(*)` ordenado desc.
+  - entregar dataset `caravanaRanking` para a view.
+- Atualizar [Modules/Events/resources/views/admin/events/show.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/Events/resources/views/admin/events/show.blade.php):
+  - seção premium “Ranking de Caravanas” (tabela HTML/Tailwind/Flowbite), exibindo posição, igreja e total de inscritos.
+
+### 4) Rotas e navegação
+
+- Registrar rotas da caravana no escopo de liderança em [routes/lideranca.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/lideranca.php) com padrão `lideranca.caravanas.*`.
+- Ajustar rotas member (se necessário alias sem quebrar compatibilidade) em [routes/member.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/routes/member.php), preservando padrão `memberpanel.events.*` e endpoint de inscrições.
+- Atualizar sidebars:
+  - [Modules/MemberPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/MemberPanel/resources/views/components/sidebar.blade.php): links `Próximos Eventos` e `Minhas Inscrições`.
+  - [Modules/LiderancaPanel/resources/views/components/sidebar.blade.php](../../../Users/Administrator/.cursor/plans/C:/laragon/www/JUBAF/Modules/LiderancaPanel/resources/views/components/sidebar.blade.php): link `Minha Caravana` com `@can('acesso painel lideranca')`.
+
+### 5) Validação técnica e UX
+
+- Garantir queries com eager loading e filtros por igreja sem N+1.
+- Manter consistência visual premium (cards, badges, spacing, estados vazios).
+- Rodar validação de rotas e lint dos arquivos alterados para evitar regressão.
+
+## Critérios de aceite
+
+- Jovem vê eventos abertos e consegue se inscrever/acompanhar inscrições no painel.
+- Líder Local visualiza apenas inscritos da própria igreja por evento (caravana).
+- Admin vê ranking de caravanas por igreja no detalhe do evento.
+- Sidebars e rotas novos funcionando com nomenclatura solicitada e permissões aplicadas.
+
+# Plano 6 / Fase 6

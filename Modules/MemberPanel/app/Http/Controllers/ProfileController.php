@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use Modules\Gamification\App\Services\GamificationService;
 
 class ProfileController extends Controller
 {
@@ -23,9 +22,21 @@ class ProfileController extends Controller
 
         $pendingInvitesCount = \App\Models\UserRelationship::where('related_user_id', $user->id)->pending()->count();
 
-        $gamification = app(GamificationService::class);
-        $progressData = $gamification->getProgressForUser($user);
-        $badges = $user->getBadges();
+        $progressData = [
+            'level' => $user->getGamificationLevel(),
+            'next_level' => null,
+            'points' => $user->getGamificationPoints(),
+            'progress_percent' => 0,
+            'points_max_display' => null,
+            'points_to_next' => 0,
+        ];
+        $gamificationServiceClass = \Modules\Gamification\App\Services\GamificationService::class;
+        if (class_exists($gamificationServiceClass)) {
+            $gamification = app($gamificationServiceClass);
+            if (method_exists($gamification, 'getProgressForUser')) {
+                $progressData = $gamification->getProgressForUser($user);
+            }
+        }
 
         return view('memberpanel::profile.show', [
             'user' => $user,
@@ -33,7 +44,6 @@ class ProfileController extends Controller
             'level' => $progressData['level'],
             'next_level' => $progressData['next_level'],
             'points' => $progressData['points'],
-            'badges' => $badges,
             'progress' => $progressData['progress_percent'],
             'pointsMax' => $progressData['points_max_display'],
             'points_to_next' => $progressData['points_to_next'],
