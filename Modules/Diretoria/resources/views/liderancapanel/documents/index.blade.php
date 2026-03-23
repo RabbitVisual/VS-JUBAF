@@ -38,7 +38,7 @@
                                 <a href="{{ route('lideranca.conselho.documents.show', $doc) }}"
                                     class="font-medium text-gray-900 dark:text-white hover:underline">{{ $doc->title }}</a>
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                                    {{ \Modules\Diretoria\App\Models\diretoriaDocument::getDocumentTypeLabel($doc->document_type) }}
+                                    {{ \Modules\Diretoria\App\Models\AtaDocumento::getDocumentTypeLabel($doc->document_type) }}
                                     · {{ $doc->document_date ? $doc->document_date->format('d/m/Y') : '' }}
                                     @if ($doc->meeting)
                                         · {{ $doc->meeting->title }}

@@ -19,7 +19,7 @@ class MeetingMinutesVersion extends Model
 
     public function meeting(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMeeting::class, 'diretoria_meeting_id');
+        return $this->belongsTo(Reuniao::class, 'diretoria_meeting_id');
     }
 
     public function creator(): BelongsTo

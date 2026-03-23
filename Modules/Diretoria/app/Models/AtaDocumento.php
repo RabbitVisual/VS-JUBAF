@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class diretoriaDocument extends Model
+class AtaDocumento extends Model
 {
     use SoftDeletes;
 
@@ -73,7 +73,7 @@ class diretoriaDocument extends Model
 
     public function meeting(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMeeting::class);
+        return $this->belongsTo(Reuniao::class);
     }
 
     public function scopePublic($query)

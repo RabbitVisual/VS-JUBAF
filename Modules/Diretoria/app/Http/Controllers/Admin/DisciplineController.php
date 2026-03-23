@@ -11,14 +11,14 @@ use Illuminate\View\View;
 use Modules\Diretoria\App\Models\DisciplineAction;
 use Modules\Diretoria\App\Models\DisciplineCase;
 use Modules\Diretoria\App\Models\DisciplineCaseFile;
-use Modules\Diretoria\App\Services\diretoriaAuditService;
+use Modules\Diretoria\App\Services\DiretoriaAuditService;
 use Modules\Notifications\App\Services\InAppNotificationService;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 
 class DisciplineController extends Controller
 {
     public function __construct(
-        private diretoriaAuditService $audit,
+        private DiretoriaAuditService $audit,
         private InAppNotificationService $inApp
     ) {
     }
@@ -84,7 +84,7 @@ class DisciplineController extends Controller
             'case_type' => $case->case_type,
         ]);
 
-        $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+        $diretoriaUsers = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
         if ($diretoriaUsers->isNotEmpty()) {
             $this->inApp->sendToUsers(
                 $diretoriaUsers,
@@ -151,7 +151,7 @@ class DisciplineController extends Controller
         ]);
 
         if (! empty($validated['status'])) {
-            $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+            $diretoriaUsers = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
             if ($diretoriaUsers->isNotEmpty()) {
                 $this->inApp->sendToUsers(
                     $diretoriaUsers,
@@ -183,12 +183,12 @@ class DisciplineController extends Controller
             return response()->json(['success' => false, 'message' => 'Autenticação necessária.'], 401);
         }
 
-        $diretoriaMember = $user->diretoriaMember;
+        $DiretoriaMember = $user->DiretoriaMember;
         $isAdminOrlideranca = method_exists($user, 'hasRole')
             ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $diretoriaMember && ! $isAdminOrlideranca) {
+        if (! $DiretoriaMember && ! $isAdminOrlideranca) {
             return response()->json([
                 'success' => false,
                 'message' => 'Apenas diretoria, lideranças ou admins podem anexar documentos disciplinares.',
@@ -237,12 +237,12 @@ class DisciplineController extends Controller
             abort(404);
         }
 
-        $diretoriaMember = $user->diretoriaMember;
+        $DiretoriaMember = $user->DiretoriaMember;
         $isAdminOrlideranca = method_exists($user, 'hasRole')
             ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $diretoriaMember && ! $isAdminOrlideranca && $user->id !== $case->user_id) {
+        if (! $DiretoriaMember && ! $isAdminOrlideranca && $user->id !== $case->user_id) {
             abort(403, 'Você não tem permissão para acessar este documento.');
         }
 

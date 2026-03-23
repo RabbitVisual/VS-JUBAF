@@ -242,12 +242,12 @@ class TreasuryApiService
             $limit = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
                 ? \Modules\Diretoria\App\Services\DiretoriaSettings::autoApproveBudgetLimit()
                 : (float) \App\Models\Settings::get('church_diretoria_auto_approve_budget_limit', 1000);
-            if ($entry->type === 'expense' && (float) $entry->amount > $limit && class_exists(\Modules\Diretoria\App\Models\diretoriaApproval::class)) {
-                $approval = \Modules\Diretoria\App\Models\diretoriaApproval::create([
+            if ($entry->type === 'expense' && (float) $entry->amount > $limit && class_exists(\Modules\Diretoria\App\Models\DiretoriaApproval::class)) {
+                $approval = \Modules\Diretoria\App\Models\DiretoriaApproval::create([
                     'approvable_type' => FinancialEntry::class,
                     'approvable_id' => $entry->id,
-                    'approval_type' => \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_FINANCIAL_REQUEST,
-                    'status' => \Modules\Diretoria\App\Models\diretoriaApproval::STATUS_PENDING,
+                    'approval_type' => \Modules\Diretoria\App\Models\DiretoriaApproval::TYPE_FINANCIAL_REQUEST,
+                    'status' => \Modules\Diretoria\App\Models\DiretoriaApproval::STATUS_PENDING,
                     'request_details' => "Despesa acima do limite (R$ " . number_format($limit, 2, ',', '.') . "): {$entry->title} - R$ " . number_format((float) $entry->amount, 2, ',', '.'),
                     'requested_by' => $user->id,
                     'submitted_at' => now(),
@@ -773,8 +773,8 @@ class TreasuryApiService
             abort(403, 'Você não tem permissão para aprovar fechamentos.');
         }
 
-        $isdiretoriaMember = class_exists(\Modules\Diretoria\App\Models\diretoriaMember::class)
-            && \Modules\Diretoria\App\Models\diretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
+        $isDiretoriaMember = class_exists(\Modules\Diretoria\App\Models\DiretoriaMember::class)
+            && \Modules\Diretoria\App\Models\DiretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
 
         $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
             ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
@@ -784,7 +784,7 @@ class TreasuryApiService
             ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
             : false;
 
-        if (! $isdiretoriaMember && ! ($allowAdminApproval && $isAdminOrlideranca)) {
+        if (! $isDiretoriaMember && ! ($allowAdminApproval && $isAdminOrlideranca)) {
             abort(403, 'Apenas o conselho ou lideranca/admin autorizado pode aprovar fechamentos mensais.');
         }
 
@@ -796,9 +796,9 @@ class TreasuryApiService
                 'notes' => $notes ?? $closing->notes,
             ]);
 
-            if (class_exists(\Modules\Diretoria\App\Services\diretoriaAuditService::class)) {
+            if (class_exists(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)) {
                 try {
-                    app(\Modules\Diretoria\App\Services\diretoriaAuditService::class)->log('treasury_closing_ready_for_assembly', $closing, [
+                    app(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)->log('treasury_closing_ready_for_assembly', $closing, [
                         'year' => $closing->year,
                         'month' => $closing->month,
                         'balance' => $closing->balance,

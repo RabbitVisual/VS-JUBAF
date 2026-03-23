@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class diretoriaAuditLog extends Model
+class DiretoriaAuditLog extends Model
 {
     protected $fillable = [
         'user_id',

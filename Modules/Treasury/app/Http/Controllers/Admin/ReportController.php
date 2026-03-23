@@ -42,8 +42,8 @@ class ReportController extends Controller
             $isSingleMonth = $start->isSameDay($monthStart) && $end->isSameDay($monthEnd);
 
             if ($isSingleMonth) {
-                $isdiretoriaMember = class_exists(\Modules\Diretoria\App\Models\diretoriaMember::class)
-                    && \Modules\Diretoria\App\Models\diretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
+                $isDiretoriaMember = class_exists(\Modules\Diretoria\App\Models\DiretoriaMember::class)
+                    && \Modules\Diretoria\App\Models\DiretoriaMember::where('user_id', $user->id)->where('is_active', true)->exists();
 
                 $allowAdminApproval = class_exists(\Modules\Diretoria\App\Services\DiretoriaSettings::class)
                     ? \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval()
@@ -53,7 +53,7 @@ class ReportController extends Controller
                     ? ($user->hasRole('admin') || $user->hasRole('lideranca'))
                     : false;
 
-                $candiretoriaApprove = $isdiretoriaMember || ($allowAdminApproval && $isAdminOrlideranca);
+                $candiretoriaApprove = $isDiretoriaMember || ($allowAdminApproval && $isAdminOrlideranca);
 
                 try {
                     $monthlyClosing = $this->api->getOrCreateMonthlyClosing($data['start_date'], $data['end_date'], $user);

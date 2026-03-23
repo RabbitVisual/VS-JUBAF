@@ -17,7 +17,7 @@
                 </nav>
                 <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $document->title }}</h1>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {{ \Modules\Diretoria\App\Models\diretoriaDocument::getDocumentTypeLabel($document->document_type) }}
+                    {{ \Modules\Diretoria\App\Models\AtaDocumento::getDocumentTypeLabel($document->document_type) }}
                     · {{ $document->document_date ? $document->document_date->format('d/m/Y') : '' }}
                 </p>
             </div>

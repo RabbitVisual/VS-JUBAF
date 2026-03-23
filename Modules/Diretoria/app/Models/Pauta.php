@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class diretoriaAgenda extends Model
+class Pauta extends Model
 {
     protected $fillable = [
         'meeting_id',
@@ -63,7 +63,7 @@ class diretoriaAgenda extends Model
      */
     public function meeting(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMeeting::class, 'meeting_id');
+        return $this->belongsTo(Reuniao::class, 'meeting_id');
     }
 
     /**
@@ -71,7 +71,7 @@ class diretoriaAgenda extends Model
      */
     public function presenter(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'presented_by');
+        return $this->belongsTo(DiretoriaMember::class, 'presented_by');
     }
 
     /**
@@ -79,7 +79,7 @@ class diretoriaAgenda extends Model
      */
     public function decisionMaker(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'decided_by');
+        return $this->belongsTo(DiretoriaMember::class, 'decided_by');
     }
 
     /**
@@ -87,12 +87,12 @@ class diretoriaAgenda extends Model
      */
     public function votes(): HasMany
     {
-        return $this->hasMany(diretoriaVote::class, 'agenda_id');
+        return $this->hasMany(Voto::class, 'agenda_id');
     }
 
     public function versions(): HasMany
     {
-        return $this->hasMany(diretoriaAgendaVersion::class, 'diretoria_agenda_id')->orderByDesc('version');
+        return $this->hasMany(PautaVersion::class, 'diretoria_agenda_id')->orderByDesc('version');
     }
 
     /**
@@ -122,7 +122,7 @@ class diretoriaAgenda extends Model
     /**
      * Approve the agenda
      */
-    public function approve(diretoriaMember $approvedBy, ?string $decision = null): bool
+    public function approve(DiretoriaMember $approvedBy, ?string $decision = null): bool
     {
         if ($this->status !== self::STATUS_DISCUSSED) {
             return false;
@@ -141,7 +141,7 @@ class diretoriaAgenda extends Model
     /**
      * Reject the agenda
      */
-    public function reject(diretoriaMember $rejectedBy, ?string $reason = null): bool
+    public function reject(DiretoriaMember $rejectedBy, ?string $reason = null): bool
     {
         if ($this->status !== self::STATUS_DISCUSSED) {
             return false;
@@ -226,10 +226,10 @@ class diretoriaAgenda extends Model
 
         return [
             'total' => $votes->count(),
-            'yes' => $votes->where('vote', diretoriaVote::VOTE_YES)->count(),
-            'no' => $votes->where('vote', diretoriaVote::VOTE_NO)->count(),
-            'abstain' => $votes->where('vote', diretoriaVote::VOTE_ABSTAIN)->count(),
-            'absent' => $votes->where('vote', diretoriaVote::VOTE_ABSENT)->count(),
+            'yes' => $votes->where('vote', Voto::VOTE_YES)->count(),
+            'no' => $votes->where('vote', Voto::VOTE_NO)->count(),
+            'abstain' => $votes->where('vote', Voto::VOTE_ABSTAIN)->count(),
+            'absent' => $votes->where('vote', Voto::VOTE_ABSENT)->count(),
         ];
     }
 
@@ -260,7 +260,7 @@ class diretoriaAgenda extends Model
     /**
      * Snapshot current agenda state into a version record.
      */
-    public function snapshotVersion(User $actor): diretoriaAgendaVersion
+    public function snapshotVersion(User $actor): PautaVersion
     {
         $nextVersion = ($this->versions()->max('version') ?? 0) + 1;
 

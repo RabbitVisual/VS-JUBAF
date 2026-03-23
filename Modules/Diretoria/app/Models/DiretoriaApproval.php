@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class diretoriaApproval extends Model
+class DiretoriaApproval extends Model
 {
     protected $fillable = [
         'approvable_type',
@@ -83,7 +83,7 @@ class diretoriaApproval extends Model
      */
     public function approver(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'approved_by');
+        return $this->belongsTo(DiretoriaMember::class, 'approved_by');
     }
 
     /**
@@ -129,7 +129,7 @@ class diretoriaApproval extends Model
     /**
      * Approve the request
      */
-    public function approve(diretoriaMember $approvedBy, ?string $notes = null): bool
+    public function approve(DiretoriaMember $approvedBy, ?string $notes = null): bool
     {
         if ($this->status !== self::STATUS_PENDING) {
             return false;
@@ -151,7 +151,7 @@ class diretoriaApproval extends Model
     /**
      * Reject the request
      */
-    public function reject(diretoriaMember $rejectedBy, string $reason): bool
+    public function reject(DiretoriaMember $rejectedBy, string $reason): bool
     {
         if ($this->status !== self::STATUS_PENDING) {
             return false;
@@ -170,7 +170,7 @@ class diretoriaApproval extends Model
     /**
      * Request revision
      */
-    public function requestRevision(diretoriaMember $reviewedBy, string $notes): bool
+    public function requestRevision(DiretoriaMember $reviewedBy, string $notes): bool
     {
         if ($this->status !== self::STATUS_PENDING) {
             return false;
@@ -244,8 +244,8 @@ class diretoriaApproval extends Model
                         'approved_at' => now(),
                         'approved_by' => $approverUserId,
                     ]);
-                    if (class_exists(\Modules\Diretoria\App\Services\diretoriaAuditService::class)) {
-                        app(\Modules\Diretoria\App\Services\diretoriaAuditService::class)->log('ministry_plan_approved', $approvable, [
+                    if (class_exists(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)) {
+                        app(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)->log('ministry_plan_approved', $approvable, [
                             'plan_id' => $approvable->id,
                             'ministry_id' => $approvable->ministry_id,
                             'approved_by' => $approverUserId,

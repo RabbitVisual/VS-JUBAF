@@ -123,7 +123,7 @@
                         Participantes Convocados
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                        @foreach ($diretoriaMembers as $member)
+                        @foreach ($DiretoriaMembers as $member)
                             <label
                                 class="group flex items-center p-3 border border-gray-200 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-all hover:border-blue-300 dark:hover:border-blue-700">
                                 <input type="checkbox" name="participant_ids[]" value="{{ $member->id }}"

@@ -86,16 +86,16 @@ class diretoriaProjectController extends Controller
             'comments' => 'nullable|string',
         ]);
 
-        $diretoriaMember = auth()->user()->diretoriaMember;
+        $DiretoriaMember = auth()->user()->DiretoriaMember;
 
-        if (! $diretoriaMember) {
+        if (! $DiretoriaMember) {
             return response()->json(['message' => 'Apenas membros da diretoria podem revisar projetos.'], 403);
         }
 
         $project->update([
             'status' => $validated['status'],
             'diretoria_comments' => $validated['comments'],
-            'reviewed_by' => $diretoriaMember->id,
+            'reviewed_by' => $DiretoriaMember->id,
             'reviewed_at' => now(),
         ]);
 

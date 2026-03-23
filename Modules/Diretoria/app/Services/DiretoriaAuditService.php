@@ -3,21 +3,21 @@
 namespace Modules\Diretoria\App\Services;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Diretoria\App\Models\diretoriaAuditLog;
+use Modules\Diretoria\App\Models\DiretoriaAuditLog;
 
-class diretoriaAuditService
+class DiretoriaAuditService
 {
     /**
      * Register an audit entry for a given entity and action.
      */
     public function log(string $action, Model $entity, array $payload = []): void
     {
-        if (! class_exists(diretoriaAuditLog::class)) {
+        if (! class_exists(DiretoriaAuditLog::class)) {
             return;
         }
 
         try {
-            diretoriaAuditLog::create([
+            DiretoriaAuditLog::create([
                 'user_id' => auth()->id(),
                 'entity_type' => get_class($entity),
                 'entity_id' => $entity->getKey(),

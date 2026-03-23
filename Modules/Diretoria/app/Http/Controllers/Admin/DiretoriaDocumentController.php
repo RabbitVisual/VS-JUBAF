@@ -7,11 +7,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Modules\Diretoria\App\Models\diretoriaDocument;
-use Modules\Diretoria\App\Models\diretoriaMeeting;
+use Modules\Diretoria\App\Models\AtaDocumento;
+use Modules\Diretoria\App\Models\Reuniao;
 use Modules\Diretoria\App\Services\DiretoriaPdfService;
 
-class diretoriaDocumentController extends Controller
+class AtaDocumentoController extends Controller
 {
     public function __construct(
         private DiretoriaPdfService $diretoriaPdf
@@ -23,7 +23,7 @@ class diretoriaDocumentController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = diretoriaDocument::with('uploader');
+        $query = AtaDocumento::with('uploader');
 
         if ($request->has('type') && ! empty($request->type)) {
             $query->where('document_type', $request->type);
@@ -39,7 +39,7 @@ class diretoriaDocumentController extends Controller
      */
     public function create(): View
     {
-        $meetings = diretoriaMeeting::orderBy('scheduled_date', 'desc')->limit(20)->get();
+        $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(20)->get();
 
         return view('Diretoria::admin.documents.create', compact('meetings'));
     }
@@ -61,7 +61,7 @@ class diretoriaDocumentController extends Controller
 
         $path = $request->file('file')->store('diretoria/documents', 'public');
 
-        diretoriaDocument::create([
+        AtaDocumento::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
             'document_type' => $validated['document_type'],
@@ -84,7 +84,7 @@ class diretoriaDocumentController extends Controller
     /**
      * Display the specified document.
      */
-    public function show(diretoriaDocument $document)
+    public function show(AtaDocumento $document)
     {
         return Storage::disk('public')->download($document->file_path, $document->title.'.'.$document->file_type);
     }
@@ -92,9 +92,9 @@ class diretoriaDocumentController extends Controller
     /**
      * Show the form for editing the specified document.
      */
-    public function edit(diretoriaDocument $document): View
+    public function edit(AtaDocumento $document): View
     {
-        $meetings = diretoriaMeeting::orderBy('scheduled_date', 'desc')->limit(20)->get();
+        $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(20)->get();
 
         return view('Diretoria::admin.documents.edit', compact('document', 'meetings'));
     }
@@ -102,7 +102,7 @@ class diretoriaDocumentController extends Controller
     /**
      * Update the specified document.
      */
-    public function update(Request $request, diretoriaDocument $document): JsonResponse
+    public function update(Request $request, AtaDocumento $document): JsonResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -132,7 +132,7 @@ class diretoriaDocumentController extends Controller
     /**
      * Remove the specified document.
      */
-    public function destroy(diretoriaDocument $document): JsonResponse
+    public function destroy(AtaDocumento $document): JsonResponse
     {
         // Optional: Delete file from storage if hard delete
         // Storage::disk('public')->delete($document->file_path);
@@ -148,7 +148,7 @@ class diretoriaDocumentController extends Controller
     /**
      * Export meeting minutes (ata) as a professional PDF.
      */
-    public function exportMinutesPdf(diretoriaMeeting $meeting)
+    public function exportMinutesPdf(Reuniao $meeting)
     {
         return $this->diretoriaPdf->downloadMinutesPdf($meeting);
     }
@@ -156,7 +156,7 @@ class diretoriaDocumentController extends Controller
     /**
      * Export convocation / edital PDF for an upcoming meeting.
      */
-    public function exportConvocationPdf(diretoriaMeeting $meeting)
+    public function exportConvocationPdf(Reuniao $meeting)
     {
         return $this->diretoriaPdf->downloadConvocationPdf($meeting);
     }

@@ -58,9 +58,9 @@ class DiretoriaServiceProvider extends ServiceProvider
         if (! class_exists(\Modules\Notifications\App\Services\InAppNotificationService::class)) {
             return;
         }
-        \Modules\Diretoria\App\Models\diretoriaMeeting::observe(\Modules\Diretoria\App\Observers\diretoriaMeetingObserver::class);
-        \Modules\Diretoria\App\Models\diretoriaApproval::observe(\Modules\Diretoria\App\Observers\diretoriaApprovalObserver::class);
-        \Modules\Diretoria\App\Models\diretoriaAgenda::observe(\Modules\Diretoria\App\Observers\diretoriaAgendaObserver::class);
+        \Modules\Diretoria\App\Models\Reuniao::observe(\Modules\Diretoria\App\Observers\DiretoriaMeetingObserver::class);
+        \Modules\Diretoria\App\Models\DiretoriaApproval::observe(\Modules\Diretoria\App\Observers\DiretoriaApprovalObserver::class);
+        \Modules\Diretoria\App\Models\Pauta::observe(\Modules\Diretoria\App\Observers\DiretoriaAgendaObserver::class);
     }
 
     /**

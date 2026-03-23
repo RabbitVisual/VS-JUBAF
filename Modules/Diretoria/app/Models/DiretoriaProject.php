@@ -68,7 +68,7 @@ class diretoriaProject extends Model
 
     public function reviewer(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'reviewed_by');
+        return $this->belongsTo(DiretoriaMember::class, 'reviewed_by');
     }
 
     public function scopePending($query)

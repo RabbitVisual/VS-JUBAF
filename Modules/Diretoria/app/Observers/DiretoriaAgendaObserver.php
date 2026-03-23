@@ -2,11 +2,11 @@
 
 namespace Modules\Diretoria\App\Observers;
 
-use Modules\Diretoria\App\Models\diretoriaAgenda;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\Pauta;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
-class diretoriaAgendaObserver
+class DiretoriaAgendaObserver
 {
     public function __construct(
         protected InAppNotificationService $inApp
@@ -15,20 +15,20 @@ class diretoriaAgendaObserver
     /**
      * Notify president/secretary when a new agenda item is added (optional: all diretoria).
      */
-    public function created(diretoriaAgenda $agenda): void
+    public function created(Pauta $agenda): void
     {
         $meeting = $agenda->meeting;
         if (! $meeting) {
             return;
         }
-        $users = diretoriaMember::active()
+        $users = DiretoriaMember::active()
             ->whereIn('diretoria_role', ['president', 'vice_president', 'secretary'])
             ->with('user')
             ->get()
             ->pluck('user')
             ->filter();
         if ($users->isEmpty()) {
-            $users = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+            $users = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
         }
         if ($users->isEmpty()) {
             return;

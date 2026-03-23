@@ -5,7 +5,7 @@ namespace Modules\Diretoria\App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Diretoria\App\Models\diretoriaAgenda;
+use Modules\Diretoria\App\Models\Pauta;
 use Modules\Diretoria\App\Services\DiretoriaApiService;
 
 /**
@@ -166,11 +166,11 @@ class DiretoriaController extends Controller
      */
     public function agendaVote(Request $request, int $id): JsonResponse
     {
-        $agenda = diretoriaAgenda::find($id);
+        $agenda = Pauta::find($id);
         if (! $agenda) {
             return response()->json(['message' => 'Pauta não encontrada.'], 404);
         }
-        $member = $request->user()?->diretoriaMember;
+        $member = $request->user()?->DiretoriaMember;
         if (! $member || ! $member->isActive()) {
             return response()->json(['message' => 'Você não tem permissão para votar.'], 403);
         }

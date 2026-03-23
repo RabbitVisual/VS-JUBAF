@@ -61,7 +61,7 @@ class diretoriaMinistriesDashboardController extends Controller
             }
         }
 
-        $pendingPlanApprovals = \Modules\Diretoria\App\Models\diretoriaApproval::where('approval_type', \Modules\Diretoria\App\Models\diretoriaApproval::TYPE_MINISTRY_PLAN)
+        $pendingPlanApprovals = \Modules\Diretoria\App\Models\DiretoriaApproval::where('approval_type', \Modules\Diretoria\App\Models\DiretoriaApproval::TYPE_MINISTRY_PLAN)
             ->whereIn('status', ['pending', 'requires_revision'])
             ->with('approvable')
             ->get();

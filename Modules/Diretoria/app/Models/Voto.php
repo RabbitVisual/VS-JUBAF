@@ -5,7 +5,7 @@ namespace Modules\Diretoria\App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class diretoriaVote extends Model
+class Voto extends Model
 {
     protected $fillable = [
         'agenda_id',
@@ -33,15 +33,15 @@ class diretoriaVote extends Model
      */
     public function agenda(): BelongsTo
     {
-        return $this->belongsTo(diretoriaAgenda::class, 'agenda_id');
+        return $this->belongsTo(Pauta::class, 'agenda_id');
     }
 
     /**
      * Get the diretoria member who cast this vote
      */
-    public function diretoriaMember(): BelongsTo
+    public function DiretoriaMember(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'diretoria_member_id');
+        return $this->belongsTo(DiretoriaMember::class, 'diretoria_member_id');
     }
 
     /**

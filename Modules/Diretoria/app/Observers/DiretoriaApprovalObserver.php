@@ -2,11 +2,11 @@
 
 namespace Modules\Diretoria\App\Observers;
 
-use Modules\Diretoria\App\Models\diretoriaApproval;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\DiretoriaApproval;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
-class diretoriaApprovalObserver
+class DiretoriaApprovalObserver
 {
     public function __construct(
         protected InAppNotificationService $inApp
@@ -15,12 +15,12 @@ class diretoriaApprovalObserver
     /**
      * Notify diretoria members when a new approval request is submitted.
      */
-    public function created(diretoriaApproval $approval): void
+    public function created(DiretoriaApproval $approval): void
     {
-        if ($approval->status !== diretoriaApproval::STATUS_PENDING) {
+        if ($approval->status !== DiretoriaApproval::STATUS_PENDING) {
             return;
         }
-        $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+        $diretoriaUsers = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
         // Notificar apenas quem pode acessar o admin; nunca enviar ao solicitante (ex.: filiação a ministério)
         $requestedById = (int) $approval->requested_by;
         $users = $diretoriaUsers->filter(fn ($u) => $u && $u->hasAdminAccess() && (int) $u->id !== $requestedById);
@@ -46,15 +46,15 @@ class diretoriaApprovalObserver
      * When approved: notify ministry leaders.
      * When ebd_curriculum: update EBDCourse homologation_status.
      */
-    public function updated(diretoriaApproval $approval): void
+    public function updated(DiretoriaApproval $approval): void
     {
-        if ($approval->approval_type === diretoriaApproval::TYPE_EBD_CURRICULUM) {
+        if ($approval->approval_type === DiretoriaApproval::TYPE_EBD_CURRICULUM) {
             $this->handleEbdCurriculumApproval($approval);
 
             return;
         }
 
-        if ($approval->approval_type !== diretoriaApproval::TYPE_MINISTRY_PLAN) {
+        if ($approval->approval_type !== DiretoriaApproval::TYPE_MINISTRY_PLAN) {
             return;
         }
 
@@ -68,16 +68,16 @@ class diretoriaApprovalObserver
         $planTitle = $approvable->title;
         $ministryName = $ministry ? $ministry->name : 'Ministério';
 
-        if (in_array($approval->status, [diretoriaApproval::STATUS_REJECTED, diretoriaApproval::STATUS_REQUIRES_REVISION], true)) {
+        if (in_array($approval->status, [DiretoriaApproval::STATUS_REJECTED, DiretoriaApproval::STATUS_REQUIRES_REVISION], true)) {
             $approvable->update(['status' => \Modules\Ministries\App\Models\MinistryPlan::STATUS_DRAFT]);
-            if (class_exists(\Modules\Diretoria\App\Services\diretoriaAuditService::class)) {
-                app(\Modules\Diretoria\App\Services\diretoriaAuditService::class)->log('ministry_plan_returned_to_draft', $approvable, [
+            if (class_exists(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)) {
+                app(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)->log('ministry_plan_returned_to_draft', $approvable, [
                     'plan_id' => $approvable->id,
                     'approval_status' => $approval->status,
                 ]);
             }
             if ($leaders->isNotEmpty()) {
-                $msg = $approval->status === diretoriaApproval::STATUS_REJECTED
+                $msg = $approval->status === DiretoriaApproval::STATUS_REJECTED
                     ? "O plano \"{$planTitle}\" ({$ministryName}) foi rejeitado pela diretoria."
                     : "O plano \"{$planTitle}\" ({$ministryName}) foi devolvido para revisão pela diretoria.";
                 $planUrl = $ministry && function_exists('route') ? route('admin.ministries.plans.show', [$ministry, $approvable]) : null;
@@ -90,7 +90,7 @@ class diretoriaApprovalObserver
             return;
         }
 
-        if ($approval->status === diretoriaApproval::STATUS_APPROVED && $leaders->isNotEmpty()) {
+        if ($approval->status === DiretoriaApproval::STATUS_APPROVED && $leaders->isNotEmpty()) {
             $planUrl = $ministry && function_exists('route') ? route('admin.ministries.plans.show', [$ministry, $approvable]) : null;
             $this->inApp->sendToUsers($leaders, 'Plano aprovado', "O plano \"{$planTitle}\" ({$ministryName}) foi aprovado pela diretoria e está em execução.", [
                 'type' => 'success',
@@ -112,14 +112,14 @@ class diretoriaApprovalObserver
         return \App\Models\User::whereIn('id', $ids)->get();
     }
 
-    private function handleEbdCurriculumApproval(diretoriaApproval $approval): void
+    private function handleEbdCurriculumApproval(DiretoriaApproval $approval): void
     {
         $course = $approval->approvable;
         if (! $course || ! $course instanceof \Modules\EBD\App\Models\EBDCourse) {
             return;
         }
 
-        if (in_array($approval->status, [diretoriaApproval::STATUS_REJECTED, diretoriaApproval::STATUS_REQUIRES_REVISION], true)) {
+        if (in_array($approval->status, [DiretoriaApproval::STATUS_REJECTED, DiretoriaApproval::STATUS_REQUIRES_REVISION], true)) {
             $course->update([
                 'homologation_status' => \Modules\EBD\App\Models\EBDCourse::HOMOLOGATION_DRAFT,
                 'approved_at' => null,
@@ -128,7 +128,7 @@ class diretoriaApprovalObserver
             return;
         }
 
-        if ($approval->status === diretoriaApproval::STATUS_APPROVED) {
+        if ($approval->status === DiretoriaApproval::STATUS_APPROVED) {
             $course->update([
                 'homologation_status' => \Modules\EBD\App\Models\EBDCourse::HOMOLOGATION_APPROVED,
                 'approved_at' => now(),

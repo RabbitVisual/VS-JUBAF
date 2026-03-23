@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Modules\Diretoria\App\Models\diretoriaAgenda;
-use Modules\Diretoria\App\Models\diretoriaApproval;
-use Modules\Diretoria\App\Models\diretoriaDocument;
-use Modules\Diretoria\App\Models\diretoriaMeeting;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\Pauta;
+use Modules\Diretoria\App\Models\DiretoriaApproval;
+use Modules\Diretoria\App\Models\AtaDocumento;
+use Modules\Diretoria\App\Models\Reuniao;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Diretoria\App\Models\diretoriaProject;
 use Modules\Diretoria\App\Services\DiretoriaApiService;
 use Modules\Diretoria\App\Services\DiretoriaPdfService;
 use Modules\Diretoria\App\Services\DiretoriaSettings;
-use Modules\Diretoria\App\Services\diretoriaAuditService;
+use Modules\Diretoria\App\Services\DiretoriaAuditService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ConselhoController extends Controller
@@ -25,7 +25,7 @@ class ConselhoController extends Controller
      */
     public function index(): View
     {
-        if (! class_exists(diretoriaMeeting::class)) {
+        if (! class_exists(Reuniao::class)) {
             return view('Diretoria::liderancapanel.index', [
                 'stats' => ['total_members' => 0, 'upcoming_meetings' => 0, 'pending_approvals' => 0, 'completed_meetings' => 0],
                 'recentMeetings' => collect(),
@@ -34,18 +34,18 @@ class ConselhoController extends Controller
         }
 
         $stats = [
-            'total_members' => diretoriaMember::active()->count(),
-            'upcoming_meetings' => diretoriaMeeting::upcoming()->count(),
-            'pending_approvals' => diretoriaApproval::pending()->count(),
-            'completed_meetings' => diretoriaMeeting::completed()->count(),
+            'total_members' => DiretoriaMember::active()->count(),
+            'upcoming_meetings' => Reuniao::upcoming()->count(),
+            'pending_approvals' => DiretoriaApproval::pending()->count(),
+            'completed_meetings' => Reuniao::completed()->count(),
         ];
 
-        $recentMeetings = diretoriaMeeting::with('creator')
+        $recentMeetings = Reuniao::with('creator')
             ->orderBy('scheduled_date', 'desc')
             ->limit(5)
             ->get();
 
-        $pendingApprovals = diretoriaApproval::with(['requester', 'approver'])
+        $pendingApprovals = DiretoriaApproval::with(['requester', 'approver'])
             ->pending()
             ->orderBy('submitted_at', 'asc')
             ->limit(10)
@@ -59,7 +59,7 @@ class ConselhoController extends Controller
      */
     public function approvals(): View
     {
-        $pendingApprovals = diretoriaApproval::with(['requester', 'approver'])
+        $pendingApprovals = DiretoriaApproval::with(['requester', 'approver'])
             ->pending()
             ->orderBy('submitted_at', 'asc')
             ->paginate(15);
@@ -72,7 +72,7 @@ class ConselhoController extends Controller
      */
     public function showApproval($approval): View
     {
-        $approval = diretoriaApproval::with(['requester', 'approver'])->findOrFail($approval);
+        $approval = DiretoriaApproval::with(['requester', 'approver'])->findOrFail($approval);
 
         return view('Diretoria::liderancapanel.approvals.show', compact('approval'));
     }
@@ -82,19 +82,19 @@ class ConselhoController extends Controller
      */
     public function approve(Request $request, $approval): RedirectResponse
     {
-        $approval = diretoriaApproval::findOrFail($approval);
+        $approval = DiretoriaApproval::findOrFail($approval);
         $request->validate(['notes' => 'nullable|string']);
 
         $user = auth()->user();
-        $diretoriaMember = $user->diretoriaMember ?? null;
+        $DiretoriaMember = $user->DiretoriaMember ?? null;
         $allowAdminApproval = class_exists(DiretoriaSettings::class) ? DiretoriaSettings::allowAdminApproval() : true;
         $isAdminOrlideranca = $user->hasRole('admin') || $user->hasRole('lideranca');
 
-        if ($diretoriaMember) {
-            $approval->approve($diretoriaMember, $request->input('notes'));
+        if ($DiretoriaMember) {
+            $approval->approve($DiretoriaMember, $request->input('notes'));
         } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
-                'status' => diretoriaApproval::STATUS_APPROVED,
+                'status' => DiretoriaApproval::STATUS_APPROVED,
                 'approved_by' => null,
                 'approval_notes' => $request->input('notes'),
                 'reviewed_at' => now(),
@@ -105,8 +105,8 @@ class ConselhoController extends Controller
             return redirect()->route('lideranca.conselho.approvals')->with('error', 'Você não tem permissão para aprovar.');
         }
 
-        if (class_exists(diretoriaAuditService::class)) {
-            app(diretoriaAuditService::class)->log('approval_approved', $approval, ['approval_type' => $approval->approval_type]);
+        if (class_exists(DiretoriaAuditService::class)) {
+            app(DiretoriaAuditService::class)->log('approval_approved', $approval, ['approval_type' => $approval->approval_type]);
         }
 
         return redirect()->route('lideranca.conselho.approvals')->with('success', 'Solicitação aprovada com sucesso.');
@@ -117,19 +117,19 @@ class ConselhoController extends Controller
      */
     public function reject(Request $request, $approval): RedirectResponse
     {
-        $approval = diretoriaApproval::findOrFail($approval);
+        $approval = DiretoriaApproval::findOrFail($approval);
         $request->validate(['reason' => 'required|string']);
 
         $user = auth()->user();
-        $diretoriaMember = $user->diretoriaMember ?? null;
+        $DiretoriaMember = $user->DiretoriaMember ?? null;
         $allowAdminApproval = class_exists(DiretoriaSettings::class) ? DiretoriaSettings::allowAdminApproval() : true;
         $isAdminOrlideranca = $user->hasRole('admin') || $user->hasRole('lideranca');
 
-        if ($diretoriaMember) {
-            $approval->reject($diretoriaMember, $request->input('reason'));
+        if ($DiretoriaMember) {
+            $approval->reject($DiretoriaMember, $request->input('reason'));
         } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
-                'status' => diretoriaApproval::STATUS_REJECTED,
+                'status' => DiretoriaApproval::STATUS_REJECTED,
                 'approved_by' => null,
                 'rejection_reason' => $request->input('reason'),
                 'reviewed_at' => now(),
@@ -137,7 +137,7 @@ class ConselhoController extends Controller
             ]);
         } elseif ($isAdminOrlideranca) {
             $approval->update([
-                'status' => diretoriaApproval::STATUS_REJECTED,
+                'status' => DiretoriaApproval::STATUS_REJECTED,
                 'approved_by' => null,
                 'rejection_reason' => $request->input('reason'),
                 'reviewed_at' => now(),
@@ -147,8 +147,8 @@ class ConselhoController extends Controller
             return redirect()->route('lideranca.conselho.approvals')->with('error', 'Você não tem permissão para rejeitar.');
         }
 
-        if (class_exists(diretoriaAuditService::class)) {
-            app(diretoriaAuditService::class)->log('approval_rejected', $approval, ['approval_type' => $approval->approval_type]);
+        if (class_exists(DiretoriaAuditService::class)) {
+            app(DiretoriaAuditService::class)->log('approval_rejected', $approval, ['approval_type' => $approval->approval_type]);
         }
 
         return redirect()->route('lideranca.conselho.approvals')->with('success', 'Solicitação rejeitada.');
@@ -173,7 +173,7 @@ class ConselhoController extends Controller
     /**
      * Detalhe da reunião (somente leitura).
      */
-    public function showMeeting(diretoriaMeeting $meeting): View
+    public function showMeeting(Reuniao $meeting): View
     {
         $meeting->load([
             'creator',
@@ -190,7 +190,7 @@ class ConselhoController extends Controller
     /**
      * Download PDF da ata da reunião.
      */
-    public function exportMinutesPdf(diretoriaMeeting $meeting): StreamedResponse
+    public function exportMinutesPdf(Reuniao $meeting): StreamedResponse
     {
         return app(DiretoriaPdfService::class)->downloadMinutesPdf($meeting);
     }
@@ -198,7 +198,7 @@ class ConselhoController extends Controller
     /**
      * Download PDF da convocação.
      */
-    public function exportConvocationPdf(diretoriaMeeting $meeting): StreamedResponse
+    public function exportConvocationPdf(Reuniao $meeting): StreamedResponse
     {
         return app(DiretoriaPdfService::class)->downloadConvocationPdf($meeting);
     }
@@ -208,14 +208,14 @@ class ConselhoController extends Controller
      */
     public function agendas(Request $request): View
     {
-        $query = diretoriaAgenda::with('meeting')->orderByDesc('meeting_id')->orderBy('order');
+        $query = Pauta::with('meeting')->orderByDesc('meeting_id')->orderBy('order');
 
         if ($request->filled('meeting_id')) {
             $query->where('meeting_id', $request->meeting_id);
         }
 
         $agendas = $query->paginate(20);
-        $meetings = diretoriaMeeting::orderBy('scheduled_date', 'desc')->limit(50)->get();
+        $meetings = Reuniao::orderBy('scheduled_date', 'desc')->limit(50)->get();
 
         return view('Diretoria::liderancapanel.agendas.index', compact('agendas', 'meetings'));
     }
@@ -225,7 +225,7 @@ class ConselhoController extends Controller
      */
     public function documentsIndex(Request $request): View
     {
-        $query = diretoriaDocument::with(['uploader', 'meeting']);
+        $query = AtaDocumento::with(['uploader', 'meeting']);
 
         if ($request->has('type') && $request->type !== '') {
             $query->where('document_type', $request->type);
@@ -239,7 +239,7 @@ class ConselhoController extends Controller
     /**
      * Detalhe do documento (somente leitura).
      */
-    public function documentShow(diretoriaDocument $document): View
+    public function documentShow(AtaDocumento $document): View
     {
         $document->load('meeting');
 
@@ -249,7 +249,7 @@ class ConselhoController extends Controller
     /**
      * Download do documento.
      */
-    public function documentDownload(diretoriaDocument $document): StreamedResponse
+    public function documentDownload(AtaDocumento $document): StreamedResponse
     {
         return \Illuminate\Support\Facades\Storage::disk('public')->download(
             $document->file_path,
@@ -284,7 +284,7 @@ class ConselhoController extends Controller
      */
     public function membersIndex(Request $request): View
     {
-        $query = diretoriaMember::with('user');
+        $query = DiretoriaMember::with('user');
 
         if ($request->has('status') && $request->status === 'active') {
             $query->active();

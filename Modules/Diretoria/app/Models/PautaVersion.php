@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class diretoriaAgendaVersion extends Model
+class PautaVersion extends Model
 {
     protected $fillable = [
         'diretoria_agenda_id',
@@ -21,7 +21,7 @@ class diretoriaAgendaVersion extends Model
 
     public function agenda(): BelongsTo
     {
-        return $this->belongsTo(diretoriaAgenda::class, 'diretoria_agenda_id');
+        return $this->belongsTo(Pauta::class, 'diretoria_agenda_id');
     }
 
     public function creator(): BelongsTo

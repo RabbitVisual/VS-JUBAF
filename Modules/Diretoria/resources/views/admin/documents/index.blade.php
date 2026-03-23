@@ -140,7 +140,7 @@
                                     <td class="px-6 py-4">
                                         <span
                                             class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 capitalize">
-                                            {{ \Modules\Diretoria\App\Models\diretoriaDocument::getDocumentTypeLabel($doc->document_type) }}
+                                            {{ \Modules\Diretoria\App\Models\AtaDocumento::getDocumentTypeLabel($doc->document_type) }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">

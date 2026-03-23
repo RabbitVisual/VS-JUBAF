@@ -93,9 +93,9 @@ class FinancialEntry extends Model
     /**
      * Aprovação do conselho (quando despesa acima do limite).
      */
-    public function diretoriaApproval(): BelongsTo
+    public function DiretoriaApproval(): BelongsTo
     {
-        return $this->belongsTo(\Modules\Diretoria\App\Models\diretoriaApproval::class, 'diretoria_approval_id');
+        return $this->belongsTo(\Modules\Diretoria\App\Models\DiretoriaApproval::class, 'diretoria_approval_id');
     }
 
     public function financialCategory(): BelongsTo

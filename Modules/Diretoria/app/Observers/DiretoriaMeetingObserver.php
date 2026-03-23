@@ -2,11 +2,11 @@
 
 namespace Modules\Diretoria\App\Observers;
 
-use Modules\Diretoria\App\Models\diretoriaMeeting;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\Reuniao;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
-class diretoriaMeetingObserver
+class DiretoriaMeetingObserver
 {
     public function __construct(
         protected InAppNotificationService $inApp
@@ -15,12 +15,12 @@ class diretoriaMeetingObserver
     /**
      * Notify diretoria members when a new meeting is scheduled.
      */
-    public function created(diretoriaMeeting $meeting): void
+    public function created(Reuniao $meeting): void
     {
-        if ($meeting->status !== diretoriaMeeting::STATUS_SCHEDULED) {
+        if ($meeting->status !== Reuniao::STATUS_SCHEDULED) {
             return;
         }
-        $users = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+        $users = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
         if ($users->isEmpty()) {
             return;
         }

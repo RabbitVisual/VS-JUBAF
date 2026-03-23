@@ -3,10 +3,10 @@
 namespace Modules\Notifications\App\Listeners;
 
 use Modules\Diretoria\App\Events\MinutesPendingSignature;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
-class NotifydiretoriaMembersMinutesPendingSignature
+class NotifyDiretoriaMembersMinutesPendingSignature
 {
     public function __construct(
         protected InAppNotificationService $inApp
@@ -15,7 +15,7 @@ class NotifydiretoriaMembersMinutesPendingSignature
     public function handle(MinutesPendingSignature $event): void
     {
         $meeting = $event->meeting;
-        $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+        $diretoriaUsers = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
 
         if ($diretoriaUsers->isEmpty()) {
             return;

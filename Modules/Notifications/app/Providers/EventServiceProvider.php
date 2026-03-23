@@ -24,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
             \Modules\Notifications\App\Listeners\SendStudentLeveledUpNotification::class,
         ],
         \Modules\Diretoria\App\Events\MinutesPendingSignature::class => [
-            \Modules\Notifications\App\Listeners\NotifydiretoriaMembersMinutesPendingSignature::class,
+            \Modules\Notifications\App\Listeners\NotifyDiretoriaMembersMinutesPendingSignature::class,
         ],
         \Modules\EBD\App\Events\NewLessonAvailable::class => [
             \Modules\Notifications\App\Listeners\NotifyNewEbdLessonAvailable::class,

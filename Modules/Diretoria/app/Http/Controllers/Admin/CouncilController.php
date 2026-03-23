@@ -7,21 +7,21 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Modules\Diretoria\App\Models\diretoriaAgenda;
-use Modules\Diretoria\App\Models\diretoriaApproval;
-use Modules\Diretoria\App\Models\diretoriaMeeting;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\Pauta;
+use Modules\Diretoria\App\Models\DiretoriaApproval;
+use Modules\Diretoria\App\Models\Reuniao;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Diretoria\App\Services\DiretoriaApiService;
 use Modules\Diretoria\App\Models\MeetingMinutesVersion;
 use Modules\Diretoria\App\Models\MeetingMinutesSignature;
-use Modules\Diretoria\App\Services\diretoriaAuditService;
+use Modules\Diretoria\App\Services\DiretoriaAuditService;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
 class diretoriaController extends Controller
 {
     public function __construct(
         private DiretoriaApiService $api,
-        private diretoriaAuditService $audit,
+        private DiretoriaAuditService $audit,
         private InAppNotificationService $inApp
     ) {}
 
@@ -31,37 +31,37 @@ class diretoriaController extends Controller
     public function index(): View
     {
         $stats = [
-            'total_members' => diretoriaMember::active()->count(),
-            'upcoming_meetings' => diretoriaMeeting::upcoming()->count(),
-            'pending_approvals' => diretoriaApproval::pending()->count(),
-            'completed_meetings' => diretoriaMeeting::completed()->count(),
+            'total_members' => DiretoriaMember::active()->count(),
+            'upcoming_meetings' => Reuniao::upcoming()->count(),
+            'pending_approvals' => DiretoriaApproval::pending()->count(),
+            'completed_meetings' => Reuniao::completed()->count(),
         ];
 
-        $recentMeetings = diretoriaMeeting::with('creator')
+        $recentMeetings = Reuniao::with('creator')
             ->orderBy('scheduled_date', 'desc')
             ->limit(5)
             ->get();
 
-        $pendingApprovals = diretoriaApproval::with(['requester', 'approver'])
+        $pendingApprovals = DiretoriaApproval::with(['requester', 'approver'])
             ->pending()
             ->orderBy('submitted_at', 'asc')
             ->limit(10)
             ->get();
 
-        $membersByRole = diretoriaMember::active()
+        $membersByRole = DiretoriaMember::active()
             ->selectRaw('diretoria_role, count(*) as count')
             ->groupBy('diretoria_role')
             ->get()
             ->map(function ($row) {
-                $row->diretoria_role_display = diretoriaMember::getRoleDisplayName($row->diretoria_role);
+                $row->diretoria_role_display = DiretoriaMember::getRoleDisplayName($row->diretoria_role);
                 return $row;
             });
 
-        $meetingsByStatus = diretoriaMeeting::selectRaw('status, count(*) as count')
+        $meetingsByStatus = Reuniao::selectRaw('status, count(*) as count')
             ->groupBy('status')
             ->get()
             ->map(function ($row) {
-                $row->status_display = diretoriaMeeting::getStatusDisplayName($row->status);
+                $row->status_display = Reuniao::getStatusDisplayName($row->status);
                 return $row;
             });
 
@@ -75,7 +75,7 @@ class diretoriaController extends Controller
      */
     public function members(Request $request): View
     {
-        $query = diretoriaMember::with('user');
+        $query = DiretoriaMember::with('user');
 
         // Filter by role
         if ($request->has('role') && ! empty($request->role)) {
@@ -101,7 +101,7 @@ class diretoriaController extends Controller
      */
     public function createMember(): View
     {
-        $users = User::whereDoesntHave('diretoriaMember')->get();
+        $users = User::whereDoesntHave('DiretoriaMember')->get();
 
         return view('Diretoria::admin.members.create', compact('users'));
     }
@@ -122,7 +122,7 @@ class diretoriaController extends Controller
         ]);
 
         // Check if user already has a diretoria position
-        $existing = diretoriaMember::where('user_id', $validated['user_id'])
+        $existing = DiretoriaMember::where('user_id', $validated['user_id'])
             ->where('is_active', true)
             ->first();
 
@@ -133,7 +133,7 @@ class diretoriaController extends Controller
             ], 422);
         }
 
-        diretoriaMember::create($validated);
+        DiretoriaMember::create($validated);
 
         return response()->json([
             'success' => true,
@@ -145,7 +145,7 @@ class diretoriaController extends Controller
     /**
      * Show form to edit diretoria member
      */
-    public function editMember(diretoriaMember $member): View
+    public function editMember(DiretoriaMember $member): View
     {
         return view('Diretoria::admin.members.edit', compact('member'));
     }
@@ -153,7 +153,7 @@ class diretoriaController extends Controller
     /**
      * Update diretoria member
      */
-    public function updateMember(Request $request, diretoriaMember $member): JsonResponse
+    public function updateMember(Request $request, DiretoriaMember $member): JsonResponse
     {
         $validated = $request->validate([
             'diretoria_position' => 'required|string|max:255',
@@ -177,7 +177,7 @@ class diretoriaController extends Controller
     /**
      * Delete diretoria member
      */
-    public function destroyMember(diretoriaMember $member): JsonResponse
+    public function destroyMember(DiretoriaMember $member): JsonResponse
     {
         $member->delete();
 
@@ -208,17 +208,17 @@ class diretoriaController extends Controller
      */
     public function createMeeting(): View
     {
-        $presidents = diretoriaMember::active()
+        $presidents = DiretoriaMember::active()
             ->whereIn('diretoria_role', ['president', 'vice_president'])
             ->with('user')
             ->get();
 
-        $diretoriaMembers = diretoriaMember::active()
+        $DiretoriaMembers = DiretoriaMember::active()
             ->with('user')
             ->orderBy('diretoria_role')
             ->get();
 
-        return view('Diretoria::admin.meetings.create', compact('presidents', 'diretoriaMembers'));
+        return view('Diretoria::admin.meetings.create', compact('presidents', 'DiretoriaMembers'));
     }
 
     /**
@@ -256,22 +256,22 @@ class diretoriaController extends Controller
     /**
      * Show meeting details
      */
-    public function showMeeting(diretoriaMeeting $meeting): View
+    public function showMeeting(Reuniao $meeting): View
     {
         $meeting->load([
             'creator',
             'president',
             'agendas.presenter',
             'agendas.decisionMaker',
-            'agendas.votes.diretoriaMember.user',
+            'agendas.votes.DiretoriaMember.user',
             'minutesVersions.creator',
             'minutesVersions.signatures.user',
         ]);
 
         $user = auth()->user();
-        $canSignMinutes = $user && $user->relationLoaded('diretoriaMember')
-            ? (bool) $user->diretoriaMember?->is_active
-            : (bool) ($user?->diretoriaMember?->is_active ?? false);
+        $canSignMinutes = $user && $user->relationLoaded('DiretoriaMember')
+            ? (bool) $user->DiretoriaMember?->is_active
+            : (bool) ($user?->DiretoriaMember?->is_active ?? false);
 
         return view('Diretoria::admin.meetings.show', compact('meeting', 'canSignMinutes'));
     }
@@ -279,7 +279,7 @@ class diretoriaController extends Controller
     /**
      * Start meeting
      */
-    public function startMeeting(diretoriaMeeting $meeting): JsonResponse
+    public function startMeeting(Reuniao $meeting): JsonResponse
     {
         if (! $meeting->start()) {
             return response()->json([
@@ -297,7 +297,7 @@ class diretoriaController extends Controller
     /**
      * End meeting
      */
-    public function endMeeting(Request $request, diretoriaMeeting $meeting): JsonResponse
+    public function endMeeting(Request $request, Reuniao $meeting): JsonResponse
     {
         $validated = $request->validate([
             'minutes' => 'required|string',
@@ -332,7 +332,7 @@ class diretoriaController extends Controller
     /**
      * Display agendas for a meeting
      */
-    public function agendas(Request $request, diretoriaMeeting $meeting): View
+    public function agendas(Request $request, Reuniao $meeting): View
     {
         $query = $meeting->agendas()->orderBy('order');
 
@@ -351,9 +351,9 @@ class diretoriaController extends Controller
     /**
      * Show create agenda form
      */
-    public function createAgenda(diretoriaMeeting $meeting): View
+    public function createAgenda(Reuniao $meeting): View
     {
-        $members = diretoriaMember::with('user')->active()->get();
+        $members = DiretoriaMember::with('user')->active()->get();
 
         return view('Diretoria::admin.agendas.create', compact('meeting', 'members'));
     }
@@ -361,9 +361,9 @@ class diretoriaController extends Controller
     /**
      * Show edit agenda form
      */
-    public function editAgenda(diretoriaMeeting $meeting, diretoriaAgenda $agenda): View
+    public function editAgenda(Reuniao $meeting, Pauta $agenda): View
     {
-        $members = diretoriaMember::with('user')->active()->get();
+        $members = DiretoriaMember::with('user')->active()->get();
 
         return view('Diretoria::admin.agendas.edit', compact('meeting', 'agenda', 'members'));
     }
@@ -371,7 +371,7 @@ class diretoriaController extends Controller
     /**
      * Store agenda item
      */
-    public function storeAgenda(Request $request, diretoriaMeeting $meeting): JsonResponse
+    public function storeAgenda(Request $request, Reuniao $meeting): JsonResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -409,7 +409,7 @@ class diretoriaController extends Controller
     /**
      * Update agenda item
      */
-    public function updateAgenda(Request $request, diretoriaMeeting $meeting, diretoriaAgenda $agenda): JsonResponse
+    public function updateAgenda(Request $request, Reuniao $meeting, Pauta $agenda): JsonResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -447,16 +447,16 @@ class diretoriaController extends Controller
     /**
      * Update agenda decision
      */
-    public function updateAgendaDecision(Request $request, diretoriaAgenda $agenda): JsonResponse
+    public function updateAgendaDecision(Request $request, Pauta $agenda): JsonResponse
     {
         $validated = $request->validate([
             'status' => 'required|in:approved,rejected',
             'decision' => 'nullable|string',
         ]);
 
-        $diretoriaMember = auth()->user()->diretoriaMember;
+        $DiretoriaMember = auth()->user()->DiretoriaMember;
 
-        if (! $diretoriaMember) {
+        if (! $DiretoriaMember) {
             return response()->json([
                 'success' => false,
                 'message' => 'Você não é membro da diretoria.',
@@ -464,7 +464,7 @@ class diretoriaController extends Controller
         }
 
         if ($validated['status'] === 'approved') {
-            if (! $agenda->approve($diretoriaMember, $validated['decision'] ?? null)) {
+            if (! $agenda->approve($DiretoriaMember, $validated['decision'] ?? null)) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Pauta deve estar em discussão para ser aprovada.',
@@ -478,7 +478,7 @@ class diretoriaController extends Controller
                 ]);
             }
         } else {
-            if (! $agenda->reject($diretoriaMember, $validated['decision'] ?? 'Rejeitado')) {
+            if (! $agenda->reject($DiretoriaMember, $validated['decision'] ?? 'Rejeitado')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Pauta deve estar em discussão para ser rejeitada.',
@@ -504,7 +504,7 @@ class diretoriaController extends Controller
      */
     public function approvals(Request $request): View
     {
-        $query = diretoriaApproval::with(['requester', 'approver']);
+        $query = DiretoriaApproval::with(['requester', 'approver']);
 
         // Filter by status
         if ($request->has('status') && ! empty($request->status)) {
@@ -526,12 +526,12 @@ class diretoriaController extends Controller
      */
     public function planningApprovals(Request $request): View
     {
-        $query = diretoriaApproval::with(['requester', 'approver', 'approvable' => function ($q) {
+        $query = DiretoriaApproval::with(['requester', 'approver', 'approvable' => function ($q) {
             if (class_exists(\Modules\Events\App\Models\Event::class)) {
                 $q->with(['ministry', 'ministryPlan']);
             }
-        }])->where('approval_type', diretoriaApproval::TYPE_EVENT_CREATION)
-            ->whereIn('status', [diretoriaApproval::STATUS_PENDING, diretoriaApproval::STATUS_REQUIRES_REVISION]);
+        }])->where('approval_type', DiretoriaApproval::TYPE_EVENT_CREATION)
+            ->whereIn('status', [DiretoriaApproval::STATUS_PENDING, DiretoriaApproval::STATUS_REQUIRES_REVISION]);
 
         if ($request->filled('ministry_id') && class_exists(\Modules\Events\App\Models\Event::class)) {
             $ministryId = (int) $request->input('ministry_id');
@@ -562,7 +562,7 @@ class diretoriaController extends Controller
     /**
      * Registrar visto digital em uma versão de ata.
      */
-    public function signMinutes(Request $request, diretoriaMeeting $meeting, MeetingMinutesVersion $minutesVersion): JsonResponse
+    public function signMinutes(Request $request, Reuniao $meeting, MeetingMinutesVersion $minutesVersion): JsonResponse
     {
         $user = auth()->user();
         if (! $user) {
@@ -579,8 +579,8 @@ class diretoriaController extends Controller
             ], 404);
         }
 
-        $diretoriaMember = $user->diretoriaMember;
-        if (! $diretoriaMember || ! $diretoriaMember->is_active) {
+        $DiretoriaMember = $user->DiretoriaMember;
+        if (! $DiretoriaMember || ! $DiretoriaMember->is_active) {
             return response()->json([
                 'success' => false,
                 'message' => 'Apenas membros ativos da diretoria podem dar visto na ata.',
@@ -597,9 +597,9 @@ class diretoriaController extends Controller
             ]
         );
 
-        if (class_exists(\Modules\Diretoria\App\Services\diretoriaAuditService::class)) {
+        if (class_exists(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)) {
             try {
-                app(\Modules\Diretoria\App\Services\diretoriaAuditService::class)->log('minutes_signed', $meeting, [
+                app(\Modules\Diretoria\App\Services\DiretoriaAuditService::class)->log('minutes_signed', $meeting, [
                     'minutes_version_id' => $minutesVersion->id,
                     'state' => $minutesVersion->state,
                 ]);
@@ -617,7 +617,7 @@ class diretoriaController extends Controller
     /**
      * Show approval details
      */
-    public function showApproval(diretoriaApproval $approval): View
+    public function showApproval(DiretoriaApproval $approval): View
     {
         $approval->load(['requester', 'approver']);
 
@@ -631,7 +631,7 @@ class diretoriaController extends Controller
      */
     public function assemblyRecommendations(Request $request): View
     {
-        $query = diretoriaAgenda::with('meeting')
+        $query = Pauta::with('meeting')
             ->where('requires_assembly_vote', true)
             ->where(function ($q) {
                 $q->whereNull('assembly_decision')
@@ -650,7 +650,7 @@ class diretoriaController extends Controller
     /**
      * Show form to record assembly decision for a given agenda.
      */
-    public function editAssemblyAgenda(diretoriaAgenda $agenda): View
+    public function editAssemblyAgenda(Pauta $agenda): View
     {
         if (! $agenda->requires_assembly_vote) {
             abort(404);
@@ -664,7 +664,7 @@ class diretoriaController extends Controller
     /**
      * Store assembly decision and aggregated vote counts.
      */
-    public function storeAssemblyDecision(Request $request, diretoriaAgenda $agenda): JsonResponse
+    public function storeAssemblyDecision(Request $request, Pauta $agenda): JsonResponse
     {
         if (! $agenda->requires_assembly_vote) {
             return response()->json([
@@ -701,7 +701,7 @@ class diretoriaController extends Controller
             'votes_abstain' => $agenda->assembly_votes_abstain,
         ]);
 
-        $diretoriaUsers = diretoriaMember::active()->with('user')->get()->pluck('user')->filter();
+        $diretoriaUsers = DiretoriaMember::active()->with('user')->get()->pluck('user')->filter();
         if ($diretoriaUsers->isNotEmpty()) {
             $this->inApp->sendToUsers(
                 $diretoriaUsers,
@@ -726,21 +726,21 @@ class diretoriaController extends Controller
     /**
      * Approve request (diretoria member or admin/lideranca when allow_admin_approval is on).
      */
-    public function approveRequest(Request $request, diretoriaApproval $approval): JsonResponse
+    public function approveRequest(Request $request, DiretoriaApproval $approval): JsonResponse
     {
         $validated = $request->validate([
             'notes' => 'nullable|string',
         ]);
 
-        $diretoriaMember = auth()->user()->diretoriaMember;
+        $DiretoriaMember = auth()->user()->DiretoriaMember;
         $allowAdminApproval = \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval();
         $isAdminOrlideranca = auth()->user()->hasRole('admin') || auth()->user()->hasRole('lideranca');
 
-        if ($diretoriaMember) {
-            $approval->approve($diretoriaMember, $validated['notes'] ?? null);
+        if ($DiretoriaMember) {
+            $approval->approve($DiretoriaMember, $validated['notes'] ?? null);
         } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
-                'status' => diretoriaApproval::STATUS_APPROVED,
+                'status' => DiretoriaApproval::STATUS_APPROVED,
                 'approved_by' => null,
                 'approval_notes' => $validated['notes'] ?? null,
                 'reviewed_at' => now(),
@@ -768,21 +768,21 @@ class diretoriaController extends Controller
      * Reject request (diretoria member, or admin/lideranca to dismiss wrongly-placed items).
      * Admin/lideranca can always reject so they can clear requests that don't belong in the diretoria queue.
      */
-    public function rejectRequest(Request $request, diretoriaApproval $approval): JsonResponse
+    public function rejectRequest(Request $request, DiretoriaApproval $approval): JsonResponse
     {
         $validated = $request->validate([
             'reason' => 'required|string',
         ]);
 
-        $diretoriaMember = auth()->user()->diretoriaMember;
+        $DiretoriaMember = auth()->user()->DiretoriaMember;
         $allowAdminApproval = \Modules\Diretoria\App\Services\DiretoriaSettings::allowAdminApproval();
         $isAdminOrlideranca = auth()->user()->hasRole('admin') || auth()->user()->hasRole('lideranca');
 
-        if ($diretoriaMember) {
-            $approval->reject($diretoriaMember, $validated['reason']);
+        if ($DiretoriaMember) {
+            $approval->reject($DiretoriaMember, $validated['reason']);
         } elseif ($allowAdminApproval && $isAdminOrlideranca) {
             $approval->update([
-                'status' => diretoriaApproval::STATUS_REJECTED,
+                'status' => DiretoriaApproval::STATUS_REJECTED,
                 'approved_by' => null,
                 'rejection_reason' => $validated['reason'],
                 'reviewed_at' => now(),
@@ -791,7 +791,7 @@ class diretoriaController extends Controller
         } elseif ($isAdminOrlideranca) {
             // Admin/lideranca can always reject (dismiss) to clear wrongly-placed requests from the queue
             $approval->update([
-                'status' => diretoriaApproval::STATUS_REJECTED,
+                'status' => DiretoriaApproval::STATUS_REJECTED,
                 'approved_by' => null,
                 'rejection_reason' => $validated['reason'],
                 'reviewed_at' => now(),

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class diretoriaMeeting extends Model
+class Reuniao extends Model
 {
     protected $fillable = [
         'title',
@@ -63,7 +63,7 @@ class diretoriaMeeting extends Model
      */
     public function president(): BelongsTo
     {
-        return $this->belongsTo(diretoriaMember::class, 'president_id');
+        return $this->belongsTo(DiretoriaMember::class, 'president_id');
     }
 
     /**
@@ -71,7 +71,7 @@ class diretoriaMeeting extends Model
      */
     public function agendas(): HasMany
     {
-        return $this->hasMany(diretoriaAgenda::class, 'meeting_id')->orderBy('order');
+        return $this->hasMany(Pauta::class, 'meeting_id')->orderBy('order');
     }
 
     public function minutesVersions(): HasMany
@@ -248,7 +248,7 @@ class diretoriaMeeting extends Model
             return collect([]);
         }
 
-        return diretoriaMember::with('user')->whereIn('id', $this->participants)->get();
+        return DiretoriaMember::with('user')->whereIn('id', $this->participants)->get();
     }
 
     /**

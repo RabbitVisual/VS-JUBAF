@@ -5,7 +5,7 @@ namespace Modules\Diretoria\App\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 
 class DiretoriaDatabaseSeeder extends Seeder
 {
@@ -27,7 +27,7 @@ class DiretoriaDatabaseSeeder extends Seeder
         );
 
         // Criar membro da diretoria (presidente)
-        diretoriaMember::firstOrCreate(
+        DiretoriaMember::firstOrCreate(
             ['user_id' => $adminUser->id],
             [
                 'diretoria_position' => 'Presidente',
@@ -96,7 +96,7 @@ class DiretoriaDatabaseSeeder extends Seeder
                 ]
             );
 
-            diretoriaMember::firstOrCreate(
+            DiretoriaMember::firstOrCreate(
                 ['user_id' => $user->id],
                 [
                     'diretoria_position' => $memberData['position'],

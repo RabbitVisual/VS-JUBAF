@@ -4,11 +4,11 @@ namespace Modules\Diretoria\App\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Modules\Diretoria\App\Models\diretoriaAgenda;
-use Modules\Diretoria\App\Models\diretoriaApproval;
-use Modules\Diretoria\App\Models\diretoriaDocument;
-use Modules\Diretoria\App\Models\diretoriaMeeting;
-use Modules\Diretoria\App\Models\diretoriaMember;
+use Modules\Diretoria\App\Models\Pauta;
+use Modules\Diretoria\App\Models\DiretoriaApproval;
+use Modules\Diretoria\App\Models\AtaDocumento;
+use Modules\Diretoria\App\Models\Reuniao;
+use Modules\Diretoria\App\Models\DiretoriaMember;
 use Modules\Diretoria\App\Models\diretoriaProject;
 
 /**
@@ -21,7 +21,7 @@ class DiretoriaApiService
      * Lista reuniões do conselho (paginado).
      * Filtros opcionais: status, type (meeting_type), date_from (scheduled_date >=).
      *
-     * @return LengthAwarePaginator<diretoriaMeeting>
+     * @return LengthAwarePaginator<Reuniao>
      */
     public function listMeetings(
         int $perPage = 15,
@@ -29,7 +29,7 @@ class DiretoriaApiService
         ?string $type = null,
         ?string $dateFrom = null
     ): LengthAwarePaginator {
-        $query = diretoriaMeeting::with(['creator', 'president'])->latest('scheduled_date');
+        $query = Reuniao::with(['creator', 'president'])->latest('scheduled_date');
 
         if ($status !== null && $status !== '') {
             $query->where('status', $status);
@@ -47,27 +47,27 @@ class DiretoriaApiService
     /**
      * Busca reunião por id.
      */
-    public function getMeetingById(int $id): ?diretoriaMeeting
+    public function getMeetingById(int $id): ?Reuniao
     {
-        return diretoriaMeeting::with(['creator', 'president', 'agendas'])->find($id);
+        return Reuniao::with(['creator', 'president', 'agendas'])->find($id);
     }
 
     /**
      * Cria reunião. Aceita created_by, participants (array de ids), etc.
      */
-    public function createMeeting(array $data): diretoriaMeeting
+    public function createMeeting(array $data): Reuniao
     {
         if (isset($data['participant_ids'])) {
             $data['participants'] = $data['participant_ids'];
             unset($data['participant_ids']);
         }
-        return diretoriaMeeting::create($data);
+        return Reuniao::create($data);
     }
 
     /**
      * Atualiza reunião.
      */
-    public function updateMeeting(diretoriaMeeting $meeting, array $data): diretoriaMeeting
+    public function updateMeeting(Reuniao $meeting, array $data): Reuniao
     {
         $meeting->update($data);
         return $meeting->fresh(['creator', 'president', 'agendas']);
@@ -76,7 +76,7 @@ class DiretoriaApiService
     /**
      * Exclui reunião.
      */
-    public function destroyMeeting(diretoriaMeeting $meeting): bool
+    public function destroyMeeting(Reuniao $meeting): bool
     {
         return $meeting->delete();
     }
@@ -84,21 +84,21 @@ class DiretoriaApiService
     /**
      * Lista membros ativos do conselho.
      *
-     * @return Collection<int, diretoriaMember>
+     * @return Collection<int, DiretoriaMember>
      */
     public function listMembers(): Collection
     {
-        return diretoriaMember::active()->with('user')->orderBy('diretoria_role')->get();
+        return DiretoriaMember::active()->with('user')->orderBy('diretoria_role')->get();
     }
 
     /**
      * Lista pautas (filtro por meeting_id, status).
      *
-     * @return LengthAwarePaginator<diretoriaAgenda>
+     * @return LengthAwarePaginator<Pauta>
      */
     public function listAgendas(int $perPage = 15, ?int $meetingId = null, ?string $status = null): LengthAwarePaginator
     {
-        $query = diretoriaAgenda::with(['meeting', 'presenter.user', 'decisionMaker.user'])->latest();
+        $query = Pauta::with(['meeting', 'presenter.user', 'decisionMaker.user'])->latest();
 
         if ($meetingId !== null) {
             $query->where('meeting_id', $meetingId);
@@ -113,21 +113,21 @@ class DiretoriaApiService
     /**
      * Busca pauta por id (com votos).
      */
-    public function getAgendaById(int $id): ?diretoriaAgenda
+    public function getAgendaById(int $id): ?Pauta
     {
-        return diretoriaAgenda::with(['meeting', 'presenter.user', 'decisionMaker.user', 'votes.diretoriaMember.user'])->find($id);
+        return Pauta::with(['meeting', 'presenter.user', 'decisionMaker.user', 'votes.DiretoriaMember.user'])->find($id);
     }
 
     /**
      * Registra voto em pauta (member panel).
      */
-    public function castVote(diretoriaAgenda $agenda, int $diretoriaMemberId, string $vote, ?string $comments = null): bool
+    public function castVote(Pauta $agenda, int $DiretoriaMemberId, string $vote, ?string $comments = null): bool
     {
         if (! in_array($vote, ['yes', 'no', 'abstain'], true)) {
             return false;
         }
         $agenda->votes()->updateOrCreate(
-            ['diretoria_member_id' => $diretoriaMemberId],
+            ['diretoria_member_id' => $DiretoriaMemberId],
             ['vote' => $vote, 'comments' => $comments, 'voted_at' => now()]
         );
 
@@ -137,11 +137,11 @@ class DiretoriaApiService
     /**
      * Lista aprovações (filtro por status).
      *
-     * @return LengthAwarePaginator<diretoriaApproval>
+     * @return LengthAwarePaginator<DiretoriaApproval>
      */
     public function listApprovals(int $perPage = 15, ?string $status = null): LengthAwarePaginator
     {
-        $query = diretoriaApproval::with(['requester', 'approver.user'])->latest('submitted_at');
+        $query = DiretoriaApproval::with(['requester', 'approver.user'])->latest('submitted_at');
 
         if ($status !== null && $status !== '') {
             $query->where('status', $status);
@@ -153,11 +153,11 @@ class DiretoriaApiService
     /**
      * Lista documentos ativos.
      *
-     * @return LengthAwarePaginator<diretoriaDocument>
+     * @return LengthAwarePaginator<AtaDocumento>
      */
     public function listDocuments(int $perPage = 15, ?string $type = null): LengthAwarePaginator
     {
-        $query = diretoriaDocument::active()->with('uploader')->latest('document_date');
+        $query = AtaDocumento::active()->with('uploader')->latest('document_date');
 
         if ($type !== null && $type !== '') {
             $query->where('document_type', $type);

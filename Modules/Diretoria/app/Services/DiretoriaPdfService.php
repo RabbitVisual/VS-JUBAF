@@ -3,7 +3,7 @@
 namespace Modules\Diretoria\App\Services;
 
 use App\Services\PdfService;
-use Modules\Diretoria\App\Models\diretoriaMeeting;
+use Modules\Diretoria\App\Models\Reuniao;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DiretoriaPdfService
@@ -15,7 +15,7 @@ class DiretoriaPdfService
     /**
      * Export meeting minutes (ata) as a professional PDF.
      */
-    public function downloadMinutesPdf(diretoriaMeeting $meeting): StreamedResponse
+    public function downloadMinutesPdf(Reuniao $meeting): StreamedResponse
     {
         $meeting->load([
             'president.user',
@@ -50,7 +50,7 @@ class DiretoriaPdfService
     /**
      * Export convocation / edital PDF for a meeting.
      */
-    public function downloadConvocationPdf(diretoriaMeeting $meeting): StreamedResponse
+    public function downloadConvocationPdf(Reuniao $meeting): StreamedResponse
     {
         $meeting->load(['president.user']);
 

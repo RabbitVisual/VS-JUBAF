@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class diretoriaMember extends Model
+class DiretoriaMember extends Model
 {
     protected $fillable = [
         'user_id',
@@ -55,7 +55,7 @@ class diretoriaMember extends Model
      */
     public function presidedMeetings(): HasMany
     {
-        return $this->hasMany(diretoriaMeeting::class, 'president_id');
+        return $this->hasMany(Reuniao::class, 'president_id');
     }
 
     /**
@@ -63,7 +63,7 @@ class diretoriaMember extends Model
      */
     public function presentedAgendas(): HasMany
     {
-        return $this->hasMany(diretoriaAgenda::class, 'presented_by');
+        return $this->hasMany(Pauta::class, 'presented_by');
     }
 
     /**
@@ -71,7 +71,7 @@ class diretoriaMember extends Model
      */
     public function decidedAgendas(): HasMany
     {
-        return $this->hasMany(diretoriaAgenda::class, 'decided_by');
+        return $this->hasMany(Pauta::class, 'decided_by');
     }
 
     /**
@@ -79,7 +79,7 @@ class diretoriaMember extends Model
      */
     public function approvals(): HasMany
     {
-        return $this->hasMany(diretoriaApproval::class, 'approved_by');
+        return $this->hasMany(DiretoriaApproval::class, 'approved_by');
     }
 
     /**
@@ -87,7 +87,7 @@ class diretoriaMember extends Model
      */
     public function votes(): HasMany
     {
-        return $this->hasMany(diretoriaVote::class, 'diretoria_member_id');
+        return $this->hasMany(Voto::class, 'diretoria_member_id');
     }
 
     /**

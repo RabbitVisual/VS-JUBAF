@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Modules\Diretoria\App\Models\TransferLetter;
-use Modules\Diretoria\App\Services\diretoriaAuditService;
+use Modules\Diretoria\App\Services\DiretoriaAuditService;
 
 class TransferLetterController extends Controller
 {
     public function __construct(
-        private diretoriaAuditService $audit
+        private DiretoriaAuditService $audit
     ) {
     }
 

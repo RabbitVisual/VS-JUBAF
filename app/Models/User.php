@@ -480,17 +480,17 @@ class User extends Authenticatable
     /**
      * Relacionamento com Conselho da Igreja
      */
-    public function diretoriaMember()
+    public function DiretoriaMember()
     {
-        return $this->hasOne(\Modules\Diretoria\App\Models\diretoriaMember::class);
+        return $this->hasOne(\Modules\Diretoria\App\Models\DiretoriaMember::class);
     }
 
     /**
      * Verifica se o usuário é membro ativo do conselho (pode acessar rotas admin/conselho/*).
      */
-    public function isActivediretoriaMember(): bool
+    public function isActiveDiretoriaMember(): bool
     {
-        $member = $this->diretoriaMember;
+        $member = $this->DiretoriaMember;
 
         return $member && $member->isActive();
     }
