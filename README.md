@@ -14,6 +14,11 @@ O Vertex JUBAF e um sistema web modular, desenvolvido para:
 - dar transparencia financeira e registrar a vida associativa;
 - centralizar dados biblicos e notificacoes transacionais.
 
+## Navegacao da documentacao
+
+- Visao funcional e planejamento: [`ROADMAP.md`](ROADMAP.md)
+- Visao tecnica e onboarding de arquitetura: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+
 ## Status atual do sistema (2026)
 
 O sistema ja passou pela limpeza estrutural planejada e esta operando com foco no escopo JUBAF.
