@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Treasury\App\Http\Controllers\liderancaal;
+namespace Modules\Treasury\App\Http\Controllers\Lideranca;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

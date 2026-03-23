@@ -6,11 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureUserHasliderancaalAccess
+class EnsureUserHasLiderancaAccess
 {
     /**
      * Handle an incoming request.
-     * Allow Admin and lideranca to access the Gabinete liderancaal.
+     * Allow Admin users to access the Lideranca panel.
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -19,7 +19,7 @@ class EnsureUserHasliderancaalAccess
         }
 
         if (! auth()->user()->hasAdminAccess()) {
-            abort(403, 'Acesso restrito ao Gabinete liderancaal.');
+            abort(403, 'Acesso restrito ao painel de lideranca.');
         }
 
         return $next($request);

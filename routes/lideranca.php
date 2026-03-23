@@ -17,13 +17,13 @@ Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name(
 
     Route::prefix('sermoes')->name('sermoes.')->group(function () {
         Route::get('/', fn () => redirect()->route('lideranca.sermoes.sermons.index'))->name('index');
-        Route::get('sermons/{sermon}/export-pdf', [\Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class, 'exportPdf'])->name('sermons.export-pdf');
-        Route::post('sermons/{sermon}/collaborators', [\Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class, 'inviteCollaborator'])->name('sermons.collaborators.invite');
-        Route::resource('sermons', \Modules\Sermons\App\Http\Controllers\liderancaal\SermonController::class);
-        Route::resource('categories', \Modules\Sermons\App\Http\Controllers\liderancaal\CategoryController::class)->except(['show']);
-        Route::resource('series', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleSeriesController::class)->except(['show']);
-        Route::resource('studies', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleStudyController::class)->except(['show']);
-        Route::resource('commentaries', \Modules\Sermons\App\Http\Controllers\liderancaal\BibleCommentaryController::class)->except(['show']);
+        Route::get('sermons/{sermon}/export-pdf', [\Modules\Sermons\App\Http\Controllers\Lideranca\SermonController::class, 'exportPdf'])->name('sermons.export-pdf');
+        Route::post('sermons/{sermon}/collaborators', [\Modules\Sermons\App\Http\Controllers\Lideranca\SermonController::class, 'inviteCollaborator'])->name('sermons.collaborators.invite');
+        Route::resource('sermons', \Modules\Sermons\App\Http\Controllers\Lideranca\SermonController::class);
+        Route::resource('categories', \Modules\Sermons\App\Http\Controllers\Lideranca\CategoryController::class)->except(['show']);
+        Route::resource('series', \Modules\Sermons\App\Http\Controllers\Lideranca\BibleSeriesController::class)->except(['show']);
+        Route::resource('studies', \Modules\Sermons\App\Http\Controllers\Lideranca\BibleStudyController::class)->except(['show']);
+        Route::resource('commentaries', \Modules\Sermons\App\Http\Controllers\Lideranca\BibleCommentaryController::class)->except(['show']);
     });
 
     Route::prefix('transparencia')->name('transparencia.')->group(function () {
@@ -31,11 +31,11 @@ Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name(
     });
 
     Route::prefix('tesouraria')->name('tesouraria.')->group(function () {
-        $dash = \Modules\Treasury\App\Http\Controllers\liderancaal\DashboardController::class;
-        $entryCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\FinancialEntryController::class;
-        $campaignCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\CampaignController::class;
-        $goalCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\FinancialGoalController::class;
-        $reportCtrl = \Modules\Treasury\App\Http\Controllers\liderancaal\ReportController::class;
+        $dash = \Modules\Treasury\App\Http\Controllers\Lideranca\DashboardController::class;
+        $entryCtrl = \Modules\Treasury\App\Http\Controllers\Lideranca\FinancialEntryController::class;
+        $campaignCtrl = \Modules\Treasury\App\Http\Controllers\Lideranca\CampaignController::class;
+        $goalCtrl = \Modules\Treasury\App\Http\Controllers\Lideranca\FinancialGoalController::class;
+        $reportCtrl = \Modules\Treasury\App\Http\Controllers\Lideranca\ReportController::class;
 
         Route::get('/', [$dash, 'index'])->name('dashboard');
         Route::get('/dashboard', [$dash, 'index'])->name('dashboard.index');
@@ -67,3 +67,4 @@ Route::middleware(['auth', 'verified', 'lideranca'])->prefix('lideranca')->name(
         Route::get('/{event}', [$eventosCtrl, 'show'])->name('show');
     });
 });
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Sermons\App\Http\Controllers\liderancaal;
+namespace Modules\Sermons\App\Http\Controllers\Lideranca;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration
 {
     /**
-     * Add lideranca role for Gabinete liderancaal access.
+     * Add lideranca role for access control.
      */
     public function up(): void
     {
@@ -14,7 +14,7 @@ return new class extends Migration
             DB::table('roles')->insert([
                 'name' => 'lideranca',
                 'slug' => 'lideranca',
-                'description' => 'Acesso ao Gabinete liderancaal e painel admin (gestão ministerial)',
+                'description' => 'Acesso ao painel de lideranca e painel admin (gestao ministerial)',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
