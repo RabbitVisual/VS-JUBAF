@@ -23,6 +23,9 @@ return new class extends Migration
             // Content
             $table->string('title')->nullable(); // Optional title for the commentary block
             $table->longText('content'); // The commentary text
+            $table->string('audio_path')->nullable();
+            $table->string('audio_url')->nullable();
+            $table->string('cover_image')->nullable();
 
             // Relationships
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

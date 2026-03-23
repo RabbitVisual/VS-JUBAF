@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('cover_image')->nullable();
             $table->string('video_url')->nullable(); // Optional video companion
             $table->string('audio_url')->nullable(); // Optional audio companion
+            $table->string('audio_file')->nullable();
 
             // Relationships
             $table->foreignId('series_id')->nullable()->constrained('bible_series')->nullOnDelete();

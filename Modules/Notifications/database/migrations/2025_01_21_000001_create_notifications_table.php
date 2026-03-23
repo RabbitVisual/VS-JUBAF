@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('system_notifications', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('title');
             $table->text('message');
-            $table->enum('type', ['info', 'success', 'warning', 'error'])->default('info');
+            $table->enum('type', ['info', 'success', 'warning', 'error', 'achievement'])->default('info');
             $table->enum('priority', ['low', 'normal', 'high', 'urgent'])->default('normal');
+            $table->boolean('is_important')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->json('target_users')->nullable(); // Array de user_ids ou null para todos
             $table->json('target_roles')->nullable(); // Array de role slugs ou null para todos
             $table->json('target_ministries')->nullable(); // Array de ministry_ids ou null para todos
@@ -26,6 +29,8 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
             $table->boolean('is_read')->default(false);
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('notification_type', 64)->nullable();
+            $table->unsignedInteger('group_count')->default(1);
             $table->timestamps();
         });
     }

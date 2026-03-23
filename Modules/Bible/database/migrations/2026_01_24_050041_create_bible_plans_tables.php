@@ -19,9 +19,14 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('cover_image')->nullable();
             $table->enum('type', ['sequential', 'chronological', 'thematic', 'manual'])->default('manual');
+            $table->enum('reading_mode', ['digital', 'physical_timer'])->default('digital');
+            $table->boolean('allow_back_tracking')->default(true);
             $table->integer('duration_days')->default(0);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_featured')->default(false);
+            $table->boolean('is_church_plan')->default(false);
+            $table->string('complexity', 32)->nullable();
+            $table->string('template_key', 64)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -61,6 +66,7 @@ return new class extends Migration
             $table->foreignId('plan_id')->constrained('bible_plans')->onDelete('cascade');
             $table->date('start_date');
             $table->date('projected_end_date')->nullable();
+            $table->unsignedBigInteger('prayer_request_id')->nullable();
             $table->integer('current_day_number')->default(1);
             $table->boolean('is_completed')->default(false);
             $table->timestamp('completed_at')->nullable();
@@ -74,6 +80,7 @@ return new class extends Migration
             $table->foreignId('subscription_id')->constrained('bible_plan_subscriptions')->onDelete('cascade');
             $table->foreignId('plan_day_id')->constrained('bible_plan_days')->onDelete('cascade');
             $table->timestamp('completed_at')->useCurrent();
+            $table->integer('time_spent')->nullable()->comment('Seconds spent reading');
 
             $table->unique(['subscription_id', 'plan_day_id']);
         });

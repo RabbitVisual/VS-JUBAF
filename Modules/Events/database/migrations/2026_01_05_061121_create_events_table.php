@@ -27,11 +27,35 @@ return new class extends Migration
 
                 // Capacidade e Status
                 $table->integer('capacity')->nullable(); // null = ilimitado
-                $table->enum('status', ['draft', 'published', 'closed'])->default('draft');
+                $table->enum('status', ['draft', 'published', 'closed', 'waiting_approval'])->default('draft');
                 $table->enum('visibility', ['public', 'members', 'both'])->default('public');
+                $table->boolean('is_featured')->default(false);
 
                 // Formulário customizado
                 $table->json('form_fields')->nullable(); // Campos extras do formulário
+                $table->json('schedule')->nullable();
+                $table->json('options')->nullable();
+                $table->json('theme_config')->nullable();
+                $table->unsignedBigInteger('event_type_id')->nullable();
+                $table->unsignedBigInteger('treasury_campaign_id')->nullable();
+                $table->unsignedBigInteger('ministry_plan_id')->nullable();
+                $table->boolean('requires_council_approval')->default(false);
+                $table->unsignedBigInteger('ticket_template_id')->nullable();
+                $table->string('logo_path')->nullable();
+
+                // Extended event fields
+                $table->json('target_audience')->nullable();
+                $table->tinyInteger('min_age_restriction')->unsigned()->nullable();
+                $table->tinyInteger('max_age_restriction')->unsigned()->nullable();
+                $table->string('dress_code', 100)->nullable();
+                $table->dateTime('registration_deadline')->nullable();
+                $table->tinyInteger('max_per_registration')->unsigned()->default(10);
+                $table->string('contact_name', 150)->nullable();
+                $table->string('contact_email', 150)->nullable();
+                $table->string('contact_phone', 30)->nullable();
+                $table->string('contact_whatsapp', 30)->nullable();
+                $table->enum('recurrence_type', ['weekly', 'monthly', 'yearly'])->nullable();
+                $table->json('default_required_fields')->nullable();
 
                 // Metadados
                 $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');

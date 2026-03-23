@@ -125,7 +125,7 @@ class LoginController extends Controller
 
         // 2FA: se estiver ativo globalmente e o usuário for admin com 2FA configurado, exige código TOTP
         $twoFactorEnabled = (bool) config('auth.2fa.enabled', false);
-        $isAdmin = $user->role && $user->role->slug === 'admin';
+        $isAdmin = $user->isAdmin();
         if ($twoFactorEnabled && $isAdmin && $user->hasTwoFactorEnabled()) {
             $request->session()->put('login.id', $user->id);
             $request->session()->put('login.remember', $remember);
@@ -139,7 +139,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         // Redirect based on role
-        if ($user->role && $user->role->slug === 'admin') {
+        if ($user->isAdmin()) {
             return redirect()->intended(route('admin.dashboard'));
         }
 

@@ -18,6 +18,12 @@ return new class extends Migration
             $table->text('description');
             $table->integer('order')->default(0);
             $table->enum('status', ['pending', 'discussed', 'approved', 'rejected', 'postponed'])->default('pending');
+            $table->boolean('requires_assembly_vote')->default(false);
+            $table->enum('assembly_decision', ['pending', 'approved', 'rejected'])->nullable();
+            $table->datetime('assembly_decided_at')->nullable();
+            $table->unsignedInteger('assembly_votes_for')->nullable();
+            $table->unsignedInteger('assembly_votes_against')->nullable();
+            $table->unsignedInteger('assembly_votes_abstain')->nullable();
             $table->enum('priority', ['low', 'normal', 'high', 'urgent'])->default('normal');
             $table->foreignId('presented_by')->nullable()->constrained('council_members')->nullOnDelete();
             $table->text('discussion_notes')->nullable();

@@ -21,10 +21,14 @@ return new class extends Migration
             $table->longText('development')->nullable(); // Desenvolvimento
             $table->longText('conclusion')->nullable(); // Conclusão
             $table->longText('application')->nullable(); // Aplicação prática
+            $table->string('sermon_structure_type', 50)->nullable(); // expositivo, temático, textual
+            $table->json('structure_meta')->nullable();
             $table->longText('full_content')->nullable(); // Conteúdo completo (quando disponível)
+            $table->string('cover_image')->nullable();
 
             // Categoria
             $table->foreignId('category_id')->nullable()->constrained('sermon_categories')->nullOnDelete();
+            $table->foreignId('series_id')->nullable()->constrained('bible_series')->nullOnDelete();
 
             // Autor/Criador
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

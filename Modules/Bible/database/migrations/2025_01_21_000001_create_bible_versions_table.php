@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('total_chapters')->default(0);
             $table->integer('total_verses')->default(0);
             $table->timestamp('imported_at')->nullable();
+            $table->string('audio_url_template', 500)->nullable();
             $table->timestamps();
         });
     }

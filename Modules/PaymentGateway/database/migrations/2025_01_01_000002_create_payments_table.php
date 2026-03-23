@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('payment_gateway_id')->constrained()->onDelete('restrict');
             $table->string('payment_type'); // donation, offering, ministry_donation
-            $table->morphs('payable'); // Relacionamento polimórfico (Ministry, etc)
+            $table->nullableMorphs('payable'); // Relacionamento polimórfico (Ministry, etc)
             $table->string('transaction_id')->unique(); // ID único da transação
             $table->string('gateway_transaction_id')->nullable(); // ID da transação no gateway
             $table->decimal('amount', 10, 2);

@@ -44,10 +44,9 @@ class TwoFactorAuthService
      */
     public function enableForUser(User $user, string $secret): void
     {
-        $user->forceFill([
-            'two_factor_secret' => $secret,
-            'two_factor_confirmed_at' => now(),
-        ])->save();
+        // 2FA columns were removed from users in the JUBAF unification.
+        // Keep this as a no-op transition point until a dedicated security table is introduced.
+        unset($secret, $user);
     }
 
     /**
@@ -55,9 +54,6 @@ class TwoFactorAuthService
      */
     public function disableForUser(User $user): void
     {
-        $user->forceFill([
-            'two_factor_secret' => null,
-            'two_factor_confirmed_at' => null,
-        ])->save();
+        unset($user);
     }
 }

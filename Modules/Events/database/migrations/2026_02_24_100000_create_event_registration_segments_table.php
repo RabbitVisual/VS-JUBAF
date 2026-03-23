@@ -15,10 +15,16 @@ return new class extends Migration
             $table->id();
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
             $table->string('label');
+            $table->text('description')->nullable();
+            $table->enum('gender', ['all', 'male', 'female'])->default('all');
             $table->integer('min_age')->nullable();
             $table->integer('max_age')->nullable();
             $table->unsignedInteger('quantity')->default(1);
+            $table->decimal('price', 10, 2)->nullable();
+            $table->string('price_rule_type', 50)->nullable();
+            $table->json('price_rule_types')->nullable();
             $table->json('form_fields')->nullable();
+            $table->json('required_fields')->nullable();
             $table->json('documents_requested')->nullable();
             $table->boolean('ask_phone')->default(true);
             $table->unsignedInteger('order')->default(0);

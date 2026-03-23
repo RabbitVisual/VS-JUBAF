@@ -4,15 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Bible\App\Traits\HasReadingProgress;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, HasReadingProgress, Notifiable;
+    use HasApiTokens, HasFactory, HasReadingProgress, HasRoles, Notifiable, SoftDeletes {
+        HasRoles::hasRole as private spatieHasRole;
+    }
 
     /**
      * The accessors to append to the model's array form.
@@ -29,15 +33,21 @@ class User extends Authenticatable
         parent::boot();
 
         static::saving(function ($user) {
-            // Ensure name is always synced from first_name + last_name if they are present
-            if (! empty($user->first_name) && ! empty($user->last_name)) {
-                $user->name = trim($user->first_name.' '.$user->last_name);
+            // Normalize legacy payloads so controllers/views can still send old keys.
+            if (isset($user->attributes['first_name']) && ! isset($user->attributes['name'])) {
+                $user->attributes['name'] = $user->attributes['first_name'];
             }
-            // Ensure first_name and last_name are synced from name if they are empty (Legacy support during save)
-            elseif (! empty($user->name) && (empty($user->first_name) || empty($user->last_name))) {
-                $parts = explode(' ', $user->name, 2);
-                $user->first_name = $parts[0] ?? '';
-                $user->last_name = $parts[1] ?? '';
+            if (isset($user->attributes['last_name']) && ! isset($user->attributes['sobrenome'])) {
+                $user->attributes['sobrenome'] = $user->attributes['last_name'];
+            }
+            if (isset($user->attributes['date_of_birth']) && ! isset($user->attributes['data_nascimento'])) {
+                $user->attributes['data_nascimento'] = $user->attributes['date_of_birth'];
+            }
+            if (isset($user->attributes['photo']) && ! isset($user->attributes['avatar'])) {
+                $user->attributes['avatar'] = $user->attributes['photo'];
+            }
+            if ((isset($user->attributes['phone']) || isset($user->attributes['cellphone'])) && ! isset($user->attributes['whatsapp'])) {
+                $user->attributes['whatsapp'] = $user->attributes['cellphone'] ?? $user->attributes['phone'];
             }
         });
     }
@@ -55,6 +65,13 @@ class User extends Authenticatable
 
                 return explode(' ', $attributes['name'] ?? '', 2)[0] ?? '';
             },
+            set: function (?string $value, array $attributes) {
+                if ($value === null || $value === '') {
+                    return [];
+                }
+
+                return ['name' => trim($value.' '.($attributes['sobrenome'] ?? ''))];
+            },
         );
     }
 
@@ -69,8 +86,41 @@ class User extends Authenticatable
                     return $value;
                 }
 
-                return explode(' ', $attributes['name'] ?? '', 2)[1] ?? '';
+                return $attributes['sobrenome'] ?? explode(' ', $attributes['name'] ?? '', 2)[1] ?? '';
             },
+            set: fn (?string $value) => ['sobrenome' => $value],
+        );
+    }
+
+    protected function dateOfBirth(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn (?string $value, array $attributes) => $value ?? ($attributes['data_nascimento'] ?? null),
+            set: fn (?string $value) => ['data_nascimento' => $value],
+        );
+    }
+
+    protected function photo(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn (?string $value, array $attributes) => $value ?? ($attributes['avatar'] ?? null),
+            set: fn (?string $value) => ['avatar' => $value],
+        );
+    }
+
+    protected function phone(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn (?string $value, array $attributes) => $value ?? ($attributes['whatsapp'] ?? null),
+            set: fn (?string $value) => ['whatsapp' => $value],
+        );
+    }
+
+    protected function cellphone(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn (?string $value, array $attributes) => $value ?? ($attributes['whatsapp'] ?? null),
+            set: fn (?string $value) => ['whatsapp' => $value],
         );
     }
 
@@ -81,45 +131,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'first_name',
-        'last_name',
-        'cpf',
-        'date_of_birth',
-        'gender',
-        'marital_status',
+        'sobrenome',
         'email',
-        'phone',
-        'cellphone',
-        'email_verified_at',
-        'address',
-        'address_number',
-        'address_complement',
-        'neighborhood',
-        'city',
-        'state',
-        'zip_code',
-        'membership_date',
-        'time_congregating_months',
-        'baptism_date',
-        'baptism_place',
-        'is_baptized',
-        'profession',
-        'education_level',
-        'workplace',
-        'emergency_contact_name',
-        'emergency_contact_phone',
-        'emergency_contact_relationship',
         'password',
-        'role_id',
+        'email_verified_at',
+        'whatsapp',
+        'data_nascimento',
+        'cpf',
+        'avatar',
         'is_active',
-        'photo',
-        'notes',
-        'xp',
-        'level',
-        'can_project',
-        'cbav_bot_enabled',
-        'two_factor_secret',
-        'two_factor_confirmed_at',
+        'igreja_id',
     ];
 
     /**
@@ -130,7 +151,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_secret',
     ];
 
     /**
@@ -143,15 +163,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'date_of_birth' => 'date',
-            'membership_date' => 'date',
-            'baptism_date' => 'date',
-            'is_baptized' => 'boolean',
+            'data_nascimento' => 'date',
             'is_active' => 'boolean',
-            'can_project' => 'boolean',
-            'cbav_bot_enabled' => 'boolean',
-            'two_factor_secret' => 'encrypted',
-            'two_factor_confirmed_at' => 'datetime',
         ];
     }
 
@@ -160,7 +173,7 @@ class User extends Authenticatable
      */
     public function hasTwoFactorEnabled(): bool
     {
-        return ! empty($this->two_factor_secret) && $this->two_factor_confirmed_at !== null;
+        return false;
     }
 
     /**
@@ -168,7 +181,12 @@ class User extends Authenticatable
      */
     public function role()
     {
-        return $this->belongsTo(\App\Models\Role::class);
+        return $this->roles()->wherePivot('model_type', static::class)->limit(1);
+    }
+
+    public function getRoleAttribute()
+    {
+        return $this->roles()->first();
     }
 
     /**
@@ -232,7 +250,7 @@ class User extends Authenticatable
      */
     public function canProject()
     {
-        return $this->can_project || $this->isAdmin() || $this->islideranca();
+        return $this->isAdmin() || $this->islideranca();
     }
 
     /**
@@ -240,7 +258,7 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->role && $this->role->slug === 'admin';
+        return $this->spatieHasRole(['Super Admin', 'Presidente']);
     }
 
     /**
@@ -248,7 +266,7 @@ class User extends Authenticatable
      */
     public function isMember()
     {
-        return $this->role && $this->role->slug === 'membro';
+        return $this->spatieHasRole(['Jovem']);
     }
 
     /**
@@ -256,7 +274,7 @@ class User extends Authenticatable
      */
     public function hasRole($roleSlug)
     {
-        return $this->role && $this->role->slug === $roleSlug;
+        return $this->spatieHasRole($roleSlug);
     }
 
     /**
@@ -264,7 +282,7 @@ class User extends Authenticatable
      */
     public function islideranca()
     {
-        return $this->role && $this->role->slug === 'lideranca';
+        return $this->spatieHasRole(['Super Admin', 'Presidente', 'Vice-Presidente', 'Secretário', 'Tesoureiro', 'Líder Local']);
     }
 
     /**

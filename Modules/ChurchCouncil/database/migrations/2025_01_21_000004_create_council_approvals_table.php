@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('council_approvals', function (Blueprint $table) {
             $table->id();
-            $table->string('approvable_type'); // App\Models\User, App\Models\Event, etc.
-            $table->unsignedBigInteger('approvable_id');
+            $table->string('approvable_type')->nullable(); // App\Models\User, App\Models\Event, etc.
+            $table->unsignedBigInteger('approvable_id')->nullable();
             $table->enum('approval_type', [
                 'account_activation',
                 'ministry_membership',
@@ -22,6 +22,8 @@ return new class extends Migration
                 'financial_request',
                 'document_approval',
                 'policy_change',
+                'membership_transfer_out',
+                'ministry_plan',
                 'other',
             ]);
             $table->enum('status', ['pending', 'approved', 'rejected', 'requires_revision'])->default('pending');

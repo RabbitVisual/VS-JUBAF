@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('is_test_mode')->default(true);
             $table->json('credentials')->nullable(); // Chaves, tokens, etc (criptografado)
             $table->json('settings')->nullable(); // Configurações específicas
+            $table->json('supported_methods')->nullable();
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             $table->softDeletes();

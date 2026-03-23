@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_path');
             $table->string('file_type'); // pdf, docx, etc
             $table->integer('file_size')->nullable(); // in bytes
-            $table->enum('document_type', ['statute', 'regiment', 'minute', 'resolution', 'other'])->default('other');
+            $table->enum('document_type', ['statute', 'regiment', 'minute', 'resolution', 'declaracao_doutrinaria', 'pacto_igrejas', 'regimento_interno', 'other'])->default('other');
             $table->date('document_date')->nullable(); // Date of the document content
             $table->foreignId('uploaded_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('meeting_id')->nullable()->constrained('council_meetings')->nullOnDelete(); // If related to a meeting (e.g. signed minutes)

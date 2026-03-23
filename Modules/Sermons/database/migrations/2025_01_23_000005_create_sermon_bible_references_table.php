@@ -29,6 +29,8 @@ return new class extends Migration
             // Contexto no sermão
             $table->enum('type', ['main', 'support', 'illustration', 'other'])->default('main'); // Tipo de referência
             $table->text('context')->nullable(); // Contexto de uso no sermão
+            $table->text('exegesis_notes')->nullable();
+            $table->foreignId('study_note_id')->nullable()->constrained('sermon_study_notes')->nullOnDelete();
             $table->integer('order')->default(0); // Ordem de exibição
 
             $table->timestamps();
