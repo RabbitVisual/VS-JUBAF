@@ -27,7 +27,7 @@ class ReportController extends Controller
         $data = $this->api->getReportAggregates($startDate, $endDate, auth()->user());
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
 
-        return view('treasury::pastoralpanel.reports.index', [
+        return view('treasury::liderancapanel.reports.index', [
             'permission' => $permission,
             'startDate' => $data['start_date'],
             'endDate' => $data['end_date'],

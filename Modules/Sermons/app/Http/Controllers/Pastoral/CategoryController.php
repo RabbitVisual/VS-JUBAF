@@ -13,12 +13,12 @@ class CategoryController extends Controller
     public function index(): View
     {
         $categories = SermonCategory::ordered()->withCount('sermons')->paginate(15);
-        return view('sermons::pastoralpanel.categories.index', compact('categories'));
+        return view('sermons::liderancapanel.categories.index', compact('categories'));
     }
 
     public function create(): View
     {
-        return view('sermons::pastoralpanel.categories.create');
+        return view('sermons::liderancapanel.categories.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
     public function edit(SermonCategory $category): View
     {
-        return view('sermons::pastoralpanel.categories.edit', compact('category'));
+        return view('sermons::liderancapanel.categories.edit', compact('category'));
     }
 
     public function update(Request $request, SermonCategory $category): RedirectResponse

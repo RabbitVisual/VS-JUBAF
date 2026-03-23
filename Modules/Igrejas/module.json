@@ -1,0 +1,11 @@
+{
+    "name": "Igrejas",
+    "alias": "igrejas",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Igrejas\\Providers\\IgrejasServiceProvider"
+    ],
+    "files": []
+}

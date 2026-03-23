@@ -21,14 +21,14 @@ class CampaignController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $campaigns = $this->api->listCampaigns(20);
 
-        return view('treasury::pastoralpanel.campaigns.index', compact('campaigns', 'permission'));
+        return view('treasury::liderancapanel.campaigns.index', compact('campaigns', 'permission'));
     }
 
     public function create(): View
     {
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
 
-        return view('treasury::pastoralpanel.campaigns.create', compact('permission'));
+        return view('treasury::liderancapanel.campaigns.create', compact('permission'));
     }
 
     public function store(Request $request)
@@ -57,14 +57,14 @@ class CampaignController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $campaign = $this->api->getCampaign($campaign->id);
 
-        return view('treasury::pastoralpanel.campaigns.show', compact('campaign', 'permission'));
+        return view('treasury::liderancapanel.campaigns.show', compact('campaign', 'permission'));
     }
 
     public function edit(Campaign $campaign): View
     {
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
 
-        return view('treasury::pastoralpanel.campaigns.edit', compact('campaign', 'permission'));
+        return view('treasury::liderancapanel.campaigns.edit', compact('campaign', 'permission'));
     }
 
     public function update(Request $request, Campaign $campaign)

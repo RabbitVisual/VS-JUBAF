@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align="center">
   <img src="assets/images/logo_oficial.png" alt="VertexCBAV Logo" width="320">
 
@@ -170,8 +169,8 @@ Optional: run `php artisan module:list` to verify enabled modules.
 
 ## Vision and Leadership
 
-**Reinan Rodrigues**  
-*CEO, Vertex Solutions LTDA*  
+**Reinan Rodrigues**
+*CEO, Vertex Solutions LTDA*
 Architect of **VertexCBAV** and **VERTEXSEMAGRI**.
 
 > "Technology is our canvas; Christ is our message. We build tools that don't just manage, but edify."
@@ -197,7 +196,5 @@ This project is for **private use only** and is under a **proprietary license**.
   <br>
   <em>VertexCBAV: High Performance for the Higher Calling.</em>
 </div>
-=======
 # VS-JUBAF
 Vertex Solutions LTDA, sistema pensado e voltado para a Juventude Batista Feirense pensado para auxiliar e conectar liderança juventude com a organização.
->>>>>>> f2fea77523a8124286bef986b15da8de8402fb93

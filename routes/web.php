@@ -151,11 +151,6 @@ Route::prefix('biblia-online')->name('bible.public.')->group(function () {
 });
 
 // =====================================================================
-// Projection - Tela pública (sem login, só com viewer_token na query)
-// =====================================================================
-Route::get('/projecao/tela', [\Modules\Projection\App\Http\Controllers\ProjectionController::class, 'publicScreen'])->name('projection.screen.public');
-
-// =====================================================================
 // ChurchCouncil - Rotas públicas (placeholder para futuro)
 // =====================================================================
 Route::prefix('conselho')->name('public.churchcouncil.')->group(function () {

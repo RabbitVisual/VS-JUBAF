@@ -48,7 +48,7 @@ class SermonController extends Controller
         $categories = SermonCategory::active()->ordered()->get();
         $tags = SermonTag::all();
 
-        return view('sermons::pastoralpanel.sermons.index', compact('sermons', 'categories', 'tags'));
+        return view('sermons::liderancapanel.sermons.index', compact('sermons', 'categories', 'tags'));
     }
 
     public function create(): View
@@ -61,7 +61,7 @@ class SermonController extends Controller
         $defaultVersion = $bibleVersions->first();
         $bibleBooks = $defaultVersion ? $this->bibleApi->getBooks($defaultVersion->id) : collect();
 
-        return view('sermons::pastoralpanel.sermons.create', compact('categories', 'tags', 'bibleVersions', 'bibleBooks', 'series', 'worshipSongs'));
+        return view('sermons::liderancapanel.sermons.create', compact('categories', 'tags', 'bibleVersions', 'bibleBooks', 'series', 'worshipSongs'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -156,7 +156,7 @@ class SermonController extends Controller
         $this->authorize('view', $sermon);
         $sermon->load(['category', 'user', 'tags', 'bibleReferences', 'collaborators.user', 'comments.user']);
         $sermon->incrementViews();
-        return view('sermons::pastoralpanel.sermons.show', compact('sermon'));
+        return view('sermons::liderancapanel.sermons.show', compact('sermon'));
     }
 
     public function edit(Sermon $sermon): View
@@ -170,7 +170,7 @@ class SermonController extends Controller
         $bibleVersions = $this->bibleApi->getVersions();
         $defaultVersion = $bibleVersions->first();
         $bibleBooks = $defaultVersion ? $this->bibleApi->getBooks($defaultVersion->id) : collect();
-        return view('sermons::pastoralpanel.sermons.edit', compact('sermon', 'categories', 'tags', 'bibleVersions', 'bibleBooks', 'series', 'worshipSongs'));
+        return view('sermons::liderancapanel.sermons.edit', compact('sermon', 'categories', 'tags', 'bibleVersions', 'bibleBooks', 'series', 'worshipSongs'));
     }
 
     public function update(Request $request, Sermon $sermon): RedirectResponse
@@ -309,7 +309,7 @@ class SermonController extends Controller
         $applicationHtml = $sermon->application ? $mark($sermon->application) : '';
         $fullContentHtml = $sermon->full_content ? $mark($sermon->full_content) : '';
         $topicsFromFullContentHtml = ($format === 'topics' && $sermon->full_content) ? $this->extractTopicsFromHtml($sermon->full_content) : '';
-        $html = view('sermons::pastoralpanel.sermons.export-pdf', [
+        $html = view('sermons::liderancapanel.sermons.export-pdf', [
             'sermon' => $sermon,
             'format' => $format,
             'introductionHtml' => $introductionHtml,

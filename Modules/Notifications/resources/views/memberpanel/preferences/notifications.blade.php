@@ -98,13 +98,7 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            @if(Route::has('memberpanel.cbav-bot.analysis'))
-            <a href="{{ route('memberpanel.cbav-bot.analysis') }}?topic=notifications" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800 transition-all">
-                <x-icon name="circle-question" class="w-5 h-5" />
-                Como funcionam as notificações?
-            </a>
-            @endif
+        <div class="flex flex-wrap items-center justify-end gap-4">
             <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all">
                 <x-icon name="floppy-disk" class="w-5 h-5" />
                 Salvar preferências

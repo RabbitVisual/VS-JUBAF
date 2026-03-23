@@ -24,13 +24,13 @@ class BibleCommentaryController extends Controller
             $query->where(fn ($q) => $q->where('content', 'like', "%{$search}%")->orWhere('title', 'like', "%{$search}%"));
         }
         $commentaries = $query->orderBy('book')->orderBy('chapter')->orderBy('verse_start')->paginate(20);
-        return view('sermons::pastoralpanel.commentaries.index', compact('commentaries'));
+        return view('sermons::liderancapanel.commentaries.index', compact('commentaries'));
     }
 
     public function create(): View
     {
         $bibleVersions = $this->bibleApi->getVersions();
-        return view('sermons::pastoralpanel.commentaries.create', compact('bibleVersions'));
+        return view('sermons::liderancapanel.commentaries.create', compact('bibleVersions'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -94,7 +94,7 @@ class BibleCommentaryController extends Controller
             $selectedChapterId = $chapters->firstWhere('chapter_number', (int) $commentary->chapter)?->id;
         }
         $versesString = $commentary->verse_start . ($commentary->verse_end && $commentary->verse_end != $commentary->verse_start ? '-' . $commentary->verse_end : '');
-        return view('sermons::pastoralpanel.commentaries.edit', compact(
+        return view('sermons::liderancapanel.commentaries.edit', compact(
             'commentary', 'bibleVersions', 'bibleBooks', 'selectedVersionId', 'selectedBookId', 'selectedChapterId', 'versesString'
         ));
     }

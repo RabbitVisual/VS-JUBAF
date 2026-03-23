@@ -1,0 +1,30 @@
+{
+    "name": "vertex/igrejas",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "r.rodriguesjs@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Igrejas\\": "app/",
+            "Modules\\Igrejas\\Database\\Factories\\": "database/factories/",
+            "Modules\\Igrejas\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Igrejas\\Tests\\": "tests/"
+        }
+    }
+}

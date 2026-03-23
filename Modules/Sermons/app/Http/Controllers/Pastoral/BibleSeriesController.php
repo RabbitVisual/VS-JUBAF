@@ -21,12 +21,12 @@ class BibleSeriesController extends Controller
             $query->where('title', 'like', '%' . $request->search . '%');
         }
         $series = $query->orderBy('created_at', 'desc')->paginate(15);
-        return view('sermons::pastoralpanel.series.index', compact('series'));
+        return view('sermons::liderancapanel.series.index', compact('series'));
     }
 
     public function create(): View
     {
-        return view('sermons::pastoralpanel.series.create');
+        return view('sermons::liderancapanel.series.create');
     }
 
     public function store(Request $request): RedirectResponse
@@ -49,7 +49,7 @@ class BibleSeriesController extends Controller
 
     public function edit(BibleSeries $series): View
     {
-        return view('sermons::pastoralpanel.series.edit', compact('series'));
+        return view('sermons::liderancapanel.series.edit', compact('series'));
     }
 
     public function update(Request $request, BibleSeries $series): RedirectResponse

@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $stats = $this->api->getDashboardStats(auth()->user());
 
-        return view('treasury::pastoralpanel.dashboard', [
+        return view('treasury::liderancapanel.dashboard', [
             'permission' => $stats['permission'],
             'monthlyIncome' => $stats['monthly_income'],
             'monthlyExpense' => $stats['monthly_expense'],

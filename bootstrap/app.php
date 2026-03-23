@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
         $middleware->alias([
             'admin' => \Modules\Admin\App\Http\Middleware\EnsureUserIsAdmin::class,
-            'pastor' => \Modules\PastoralPanel\App\Http\Middleware\EnsureUserHasPastoralAccess::class,
+            'pastor' => \Modules\liderancapanel\App\Http\Middleware\EnsureUserHasPastoralAccess::class,
             'optional_sanctum' => \App\Http\Middleware\OptionalSanctum::class,
         ]);
         // Webhook canônico de pagamento é POST /api/v1/gateway/webhook/{driver} (rota API, sem CSRF)

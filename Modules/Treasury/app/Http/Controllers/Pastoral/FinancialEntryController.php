@@ -25,7 +25,7 @@ class FinancialEntryController extends Controller
         $options = $this->api->getEntryFormOptions();
         $reversedEntryIds = FinancialEntry::whereIn('reversal_of_id', $entries->pluck('id'))->pluck('reversal_of_id')->flip();
 
-        return view('treasury::pastoralpanel.entries.index', [
+        return view('treasury::liderancapanel.entries.index', [
             'entries' => $entries,
             'campaigns' => $options['campaigns'],
             'ministries' => $options['ministries'],
@@ -40,7 +40,7 @@ class FinancialEntryController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $options = $this->api->getEntryFormOptions();
 
-        return view('treasury::pastoralpanel.entries.create', [
+        return view('treasury::liderancapanel.entries.create', [
             'campaigns' => $options['campaigns'],
             'goals' => $options['goals'],
             'ministries' => $options['ministries'],
@@ -81,7 +81,7 @@ class FinancialEntryController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $options = $this->api->getEntryFormOptions();
 
-        return view('treasury::pastoralpanel.entries.edit', [
+        return view('treasury::liderancapanel.entries.edit', [
             'entry' => $entry,
             'campaigns' => $options['campaigns'],
             'goals' => $options['goals'],

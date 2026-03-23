@@ -1,0 +1,30 @@
+{
+    "name": "vertex/comunicacao",
+    "description": "",
+    "authors": [
+        {
+            "name": "Reinan Rodrigues",
+            "email": "r.rodriguesjs@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Comunicacao\\": "app/",
+            "Modules\\Comunicacao\\Database\\Factories\\": "database/factories/",
+            "Modules\\Comunicacao\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Comunicacao\\Tests\\": "tests/"
+        }
+    }
+}

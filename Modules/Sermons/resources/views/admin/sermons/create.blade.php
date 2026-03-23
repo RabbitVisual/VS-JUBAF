@@ -279,7 +279,6 @@
         <!-- Sidebar: Contexto Bíblico + Elias -->
         <aside class="space-y-4 order-first lg:order-last">
             @include('sermons::admin.sermons.partials.contexto-biblico', ['bibleBooks' => $bibleBooks])
-            @include('sermons::admin.sermons.partials.elias-sermon-studio')
         </aside>
     </div>
 

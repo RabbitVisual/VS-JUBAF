@@ -45,7 +45,7 @@ class ChurchCouncilServiceProvider extends ServiceProvider
         View::composer([
             'churchcouncil::admin.*',
             'churchcouncil::memberpanel.*',
-            'churchcouncil::pastoralpanel.*',
+            'churchcouncil::liderancapanel.*',
         ], $injectCouncilName);
         View::composer('admin::components.layouts.master', $injectCouncilName);
     }

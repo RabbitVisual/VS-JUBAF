@@ -82,17 +82,6 @@
         </div>
     </div>
 
-    @auth
-        @php $cbavInsight = $cbavBotInsight ?? []; @endphp
-        <x-gamification::vertex-bot
-            :insight="$cbavInsight"
-            :insightKey="$cbavInsight['insight_key'] ?? null"
-            :dismissUrl="route('memberpanel.cbav-bot.dismiss')"
-            :tourId="$cbavBotTourId ?? null"
-            :verseRecommendation="$cbavBotVerseRecommendation ?? null"
-        />
-    @endauth
-
     <div id="notification-toast-container" class="fixed bottom-4 right-4 z-[100] flex flex-col items-end max-w-sm pointer-events-none" aria-live="polite"></div>
 
     <script>

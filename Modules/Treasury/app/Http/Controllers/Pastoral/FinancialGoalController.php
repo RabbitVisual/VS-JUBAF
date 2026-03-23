@@ -20,7 +20,7 @@ class FinancialGoalController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $goals = $this->api->listGoals(20);
 
-        return view('treasury::pastoralpanel.goals.index', compact('goals', 'permission'));
+        return view('treasury::liderancapanel.goals.index', compact('goals', 'permission'));
     }
 
     public function create(): View
@@ -28,7 +28,7 @@ class FinancialGoalController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $campaigns = $this->api->getEntryFormOptions()['campaigns'];
 
-        return view('treasury::pastoralpanel.goals.create', compact('campaigns', 'permission'));
+        return view('treasury::liderancapanel.goals.create', compact('campaigns', 'permission'));
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class FinancialGoalController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $goal = $this->api->getGoal($goal->id);
 
-        return view('treasury::pastoralpanel.goals.show', compact('goal', 'permission'));
+        return view('treasury::liderancapanel.goals.show', compact('goal', 'permission'));
     }
 
     public function edit(FinancialGoal $goal): View
@@ -65,7 +65,7 @@ class FinancialGoalController extends Controller
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $campaigns = $this->api->getEntryFormOptions()['campaigns'];
 
-        return view('treasury::pastoralpanel.goals.edit', compact('goal', 'campaigns', 'permission'));
+        return view('treasury::liderancapanel.goals.edit', compact('goal', 'campaigns', 'permission'));
     }
 
     public function update(Request $request, FinancialGoal $goal)

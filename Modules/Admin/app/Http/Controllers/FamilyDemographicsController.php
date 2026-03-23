@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Services\PdfService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Admin\App\Exports\FamilyDemographicsExport;
 use Modules\Admin\App\Services\FamilyAnalysisService;
-use Modules\Gamification\App\Services\CbavBotChatService;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -81,30 +79,12 @@ class FamilyDemographicsController extends Controller
         );
     }
 
-    /**
-     * Análise pastoral do Elias: envia dados demográficos e retorna sugestões em texto.
-     */
     public function eliasAnalysis(Request $request): JsonResponse
     {
-        $summary = $this->familyAnalysis->getSummaryForElias();
-        $user = $request->user();
-
-        $message = 'Com base nos dados demográficos da igreja (composição familiar, núcleos, regiões e destaques), elabore sugestões pastorais objetivas em tópicos. Ex.: eventos para casais com filhos pequenos, ministério de integração para membros individuais, etc.';
-
-        try {
-            $chat = App::make(CbavBotChatService::class);
-            $reply = $chat->respond($user, $message, null, ['family_demographics' => $summary]);
-        } catch (\Throwable $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Não foi possível obter a análise do Elias.',
-                'reply' => null,
-            ], 500);
-        }
-
         return response()->json([
-            'success' => true,
-            'reply' => $reply ?: 'Nenhuma sugestão disponível no momento. Verifique os dados cadastrados e os vínculos de parentesco.',
-        ]);
+            'success' => false,
+            'message' => 'Análise automática desativada na versão JUBAF.',
+            'reply' => null,
+        ], 410);
     }
 }

@@ -26,14 +26,14 @@ class BibleStudyController extends Controller
         $studies = $query->orderBy('created_at', 'desc')->paginate(15);
         $series = BibleSeries::all();
         $categories = SermonCategory::active()->ordered()->get();
-        return view('sermons::pastoralpanel.studies.index', compact('studies', 'series', 'categories'));
+        return view('sermons::liderancapanel.studies.index', compact('studies', 'series', 'categories'));
     }
 
     public function create(): View
     {
         $series = BibleSeries::all();
         $categories = SermonCategory::active()->ordered()->get();
-        return view('sermons::pastoralpanel.studies.create', compact('series', 'categories'));
+        return view('sermons::liderancapanel.studies.create', compact('series', 'categories'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -73,7 +73,7 @@ class BibleStudyController extends Controller
     {
         $series = BibleSeries::all();
         $categories = SermonCategory::active()->ordered()->get();
-        return view('sermons::pastoralpanel.studies.edit', compact('study', 'series', 'categories'));
+        return view('sermons::liderancapanel.studies.edit', compact('study', 'series', 'categories'));
     }
 
     public function update(Request $request, BibleStudy $study): RedirectResponse

@@ -1,0 +1,11 @@
+{
+    "name": "Comunicacao",
+    "alias": "comunicacao",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Comunicacao\\Providers\\ComunicacaoServiceProvider"
+    ],
+    "files": []
+}

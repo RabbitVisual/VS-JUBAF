@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
-use Modules\Gamification\App\Services\GamificationService;
 use Modules\Notifications\App\Services\InAppNotificationService;
 
 class UserController extends Controller
@@ -150,15 +149,11 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Análise de árvore familiar pelo Elias (retorno JSON para o modal na show).
-     */
     public function familyTreeAnalysis(User $user): JsonResponse
     {
-        $chat = app(\Modules\Gamification\App\Services\CbavBotChatService::class);
-        $analysis = $chat->respond(auth()->user(), 'Análise da árvore familiar', null, ['family_tree' => true, 'user_id' => $user->id]);
-
-        return response()->json(['analysis' => $analysis ?? '']);
+        return response()->json([
+            'analysis' => 'Análise automática desativada na versão JUBAF.',
+        ]);
     }
 
     /**
@@ -247,21 +242,18 @@ class UserController extends Controller
     {
         $user->load([
             'role',
-            'ministries',
             'relationships.relatedUser',
             'financialEntries' => function ($q) {
                 $q->orderBy('entry_date', 'desc')->limit(20);
             },
         ]);
 
-        $progressData = app(GamificationService::class)->getProgressForUser($user);
-
         return view('admin::users.show', [
             'user' => $user,
-            'level' => $progressData['level'],
-            'points' => $progressData['points'],
-            'progress' => $progressData['progress_percent'],
-            'points_max_display' => $progressData['points_max_display'],
+            'level' => null,
+            'points' => null,
+            'progress' => null,
+            'points_max_display' => null,
         ]);
     }
 
