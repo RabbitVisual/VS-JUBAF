@@ -61,132 +61,105 @@
             </form>
         </div>
 
-        <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
-                    <thead class="bg-gray-50 dark:bg-slate-700/50">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Título</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Categoria</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Autor</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Status</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Visibilidade</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Visualizações</th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-slate-700">
-                        @forelse($sermons as $sermon)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/30 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="h-10 w-10 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700 flex items-center justify-center">
-                                            @if ($sermon->cover_image)
-                                                <img class="h-10 w-10 object-cover"
-                                                    src="{{ asset('storage/' . $sermon->cover_image) }}" alt="">
-                                            @else
-                                                <x-icon name="photograph" class="h-5 w-5 text-gray-400" />
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <div class="text-sm font-bold text-gray-900 dark:text-white">
-                                                {{ $sermon->title }}</div>
-                                            @if ($sermon->subtitle)
-                                                <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                    {{ Str::limit($sermon->subtitle, 40) }}</div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    @if ($sermon->category)
-                                        <span class="px-2 py-1 text-xs font-medium rounded-full"
-                                            style="background-color: {{ $sermon->category->color ?? '#6B7280' }}20; color: {{ $sermon->category->color ?? '#6B7280' }}">{{ $sermon->category->name }}</span>
-                                    @else
-                                        <span class="text-sm text-gray-400">Sem categoria</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center gap-2">
-                                        <img src="{{ $sermon->user->avatar_url }}" alt=""
-                                            class="h-6 w-6 rounded-full object-cover">
-                                        <span
-                                            class="text-sm text-gray-900 dark:text-white font-medium">{{ $sermon->user->name }}</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 py-1 text-xs font-medium rounded-full
-                                    {{ $sermon->status === 'published' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : '' }}
-                                    {{ $sermon->status === 'draft' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' : '' }}
-                                    {{ $sermon->status === 'archived' ? 'bg-gray-100 text-gray-800 dark:bg-slate-700 dark:text-gray-300' : '' }}">
-                                        {{ $sermon->status_display }}
+        @if ($sermons->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                @foreach ($sermons as $sermon)
+                    <div class="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 hover:shadow-xl hover:border-amber-500/30 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full relative overflow-hidden">
+                        <!-- Cover Image -->
+                        <div class="h-40 w-full overflow-hidden relative border-b border-gray-100 dark:border-slate-700">
+                            @if($sermon->cover_image)
+                                <img src="{{ asset('storage/' . $sermon->cover_image) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center">
+                                     <x-icon name="photograph" class="w-10 h-10 text-gray-300 dark:text-slate-600" />
+                                </div>
+                            @endif
+                            <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
+                            <!-- Status Badge -->
+                            <div class="absolute top-3 right-3 flex gap-2 shadow-lg">
+                                <span class="px-2 py-1 text-[10px] font-black rounded-lg uppercase tracking-wide
+                                    {{ $sermon->status === 'published' ? 'bg-green-500 text-white' : '' }}
+                                    {{ $sermon->status === 'draft' ? 'bg-yellow-500 text-white' : '' }}
+                                    {{ $sermon->status === 'archived' ? 'bg-gray-500 text-white' : '' }}">
+                                    {{ $sermon->status_display }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-5 flex flex-col h-full">
+                            <!-- Category Badge -->
+                            <div class="flex items-center gap-2 mb-3">
+                                @if($sermon->category)
+                                    <span class="px-2 py-0.5 text-[9px] font-black rounded-lg uppercase tracking-widest"
+                                          style="background-color: {{ $sermon->category->color ?? '#F59E0B' }}15; color: {{ $sermon->category->color ?? '#F59E0B' }}">
+                                        {{ $sermon->category->name }}
                                     </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {{ $sermon->visibility_display }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {{ number_format($sermon->views) }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <div class="flex justify-end gap-2">
-                                        <a href="{{ route('lideranca.sermoes.sermons.show', $sermon) }}"
-                                            class="text-amber-600 dark:text-amber-400 hover:underline font-medium">Ver</a>
-                                        <a href="{{ route('lideranca.sermoes.sermons.edit', $sermon) }}"
-                                            class="text-amber-600 dark:text-amber-400 hover:underline font-medium">Editar</a>
-                                        <form action="{{ route('lideranca.sermoes.sermons.destroy', $sermon) }}"
-                                            method="POST" class="inline"
-                                            onsubmit="return confirm('Tem certeza que deseja excluir este sermão?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="text-red-600 dark:text-red-400 hover:underline font-medium">Deletar</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="px-6 py-12">
-                                    <div class="flex flex-col items-center justify-center text-center max-w-sm mx-auto">
-                                        <div
-                                            class="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
-                                            <x-icon name="pen-fancy" class="w-10 h-10 text-amber-500 dark:text-amber-400" />
-                                        </div>
-                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Nenhum sermão ainda
-                                        </h3>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Comece seu próximo estudo.
-                                            Crie o primeiro sermão e use o Sermon Studio para estruturar sua mensagem.</p>
-                                        <a href="{{ route('lideranca.sermoes.sermons.create') }}"
-                                            class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
-                                            <x-icon name="plus" class="w-5 h-5" />
-                                            Criar sermão
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                @endif
+                                <span class="px-2 py-0.5 text-[9px] font-black rounded-lg uppercase tracking-widest bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-gray-300">
+                                    {{ $sermon->visibility_display }}
+                                </span>
+                            </div>
+
+                            <!-- Title & Subtitle -->
+                            <div class="mb-3 flex-1">
+                                <h3 class="text-base font-black text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2 mb-1">
+                                    {{ $sermon->title }}
+                                </h3>
+                                @if($sermon->subtitle)
+                                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 line-clamp-2 italic">{{ $sermon->subtitle }}</p>
+                                @endif
+                            </div>
+
+                            <!-- Author & Date -->
+                            <div class="pt-3 border-t border-gray-100 dark:border-slate-700 flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ $sermon->user->avatar_url }}" alt="{{ $sermon->user->name }}" class="w-6 h-6 rounded-full object-cover border border-gray-200 dark:border-slate-600">
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wide truncate max-w-[100px]">
+                                        {{ Str::limit($sermon->user->name, 12) }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] font-bold text-gray-400">
+                                     <x-icon name="calendar" class="w-3.5 h-3.5" />
+                                     {{ $sermon->created_at->format('d/m/y') }}
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex items-center justify-between gap-2 mt-auto">
+                                <a href="{{ route('lideranca.sermoes.sermons.show', $sermon) }}" class="flex-1 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/10 text-amber-600 dark:text-amber-500 text-xs font-bold text-center hover:bg-amber-100 dark:hover:bg-amber-900/30 transition-colors border border-amber-100 dark:border-amber-900/30">
+                                    Acessar
+                                </a>
+                                <a href="{{ route('lideranca.sermoes.sermons.edit', $sermon) }}" class="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors border border-gray-200 dark:border-slate-600">
+                                    <x-icon name="pen" class="w-3.5 h-3.5" />
+                                </a>
+                                <form action="{{ route('lideranca.sermoes.sermons.destroy', $sermon) }}" method="POST" class="inline" onsubmit="return confirm('Tem certeza?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors border border-red-100 dark:border-red-900/30">
+                                        <x-icon name="trash" class="w-3.5 h-3.5" />
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="px-6 py-4 border-t border-gray-200 dark:border-slate-700">
+
+            <div class="mt-8">
                 {{ $sermons->links() }}
             </div>
-        </div>
+        @else
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-12 text-center w-full">
+                <div class="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mx-auto mb-4">
+                    <x-icon name="pen-fancy" class="w-10 h-10 text-amber-500 dark:text-amber-400" />
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Nenhum sermão encontrado</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Comece seu próximo estudo bíblico agora mesmo.</p>
+                <a href="{{ route('lideranca.sermoes.sermons.create') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition-colors">
+                    <x-icon name="plus" class="w-5 h-5" />
+                    Criar sermão
+                </a>
+            </div>
+        @endif
     </div>
 @endsection

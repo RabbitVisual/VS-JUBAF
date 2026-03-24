@@ -20,6 +20,11 @@ class DashboardController extends Controller
 
         return view('treasury::admin.dashboard', [
             'permission' => $stats['permission'],
+            'saldoAtual' => $stats['yearly_balance'], // Usando histórico do ano/total para Saldo Atual
+            'receitasMes' => $stats['monthly_income'],
+            'despesasMes' => $stats['monthly_expense'],
+            'ultimosLancamentos' => collect($stats['recent_entries'])->take(5),
+            // Variáveis legadas para evitar quebra de outros componentes caso existam
             'monthlyIncome' => $stats['monthly_income'],
             'monthlyExpense' => $stats['monthly_expense'],
             'monthlyBalance' => $stats['monthly_balance'],

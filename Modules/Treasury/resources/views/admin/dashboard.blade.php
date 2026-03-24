@@ -31,58 +31,51 @@
             </div>
         </div>
 
-        <!-- Statistics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex items-center justify-between relative overflow-hidden group">
-                <div class="absolute right-0 top-0 w-40 h-40 bg-green-50 dark:bg-green-900/20 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
-                <div class="relative z-10 flex flex-1 justify-between items-center">
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Receita do Mês</p>
-                        <p class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">R$ {{ number_format($monthlyIncome, 2, ',', '.') }}</p>
-                    </div>
-                    <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400">
-                        <x-icon name="arrow-down" style="duotone" class="w-6 h-6" />
+        <!-- Statistics Cards (Nubank Style) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Conta (Saldo Atual) -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <x-icon name="wallet" style="duotone" class="w-6 h-6 text-gray-900 dark:text-gray-100" />
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Conta Institucional</h2>
                     </div>
                 </div>
-            </div>
-            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex items-center justify-between relative overflow-hidden group">
-                <div class="absolute right-0 top-0 w-40 h-40 bg-red-50 dark:bg-red-900/20 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
-                <div class="relative z-10 flex flex-1 justify-between items-center">
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Despesa do Mês</p>
-                        <p class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">R$ {{ number_format($monthlyExpense, 2, ',', '.') }}</p>
-                    </div>
-                    <div class="p-3 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400">
-                        <x-icon name="arrow-up" style="duotone" class="w-6 h-6" />
-                    </div>
+                <div class="mt-2">
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">Saldo em Caixa</p>
+                    <p class="text-4xl font-black text-gray-900 dark:text-white">R$ {{ number_format($saldoAtual, 2, ',', '.') }}</p>
                 </div>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex items-center justify-between relative overflow-hidden group">
-                <div class="absolute right-0 top-0 w-40 h-40 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
-                <div class="relative z-10 flex flex-1 justify-between items-center">
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Saldo do Mês</p>
-                        <p class="mt-1 text-2xl font-bold {{ $monthlyBalance >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                            R$ {{ number_format($monthlyBalance, 2, ',', '.') }}
-                        </p>
-                    </div>
-                    <div class="p-3 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                        <x-icon name="currency-dollar" style="duotone" class="w-6 h-6" />
+
+            <!-- Receitas do Mês -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-full">
+                            <x-icon name="arrow-trend-up" style="solid" class="w-5 h-5 text-green-600 dark:text-green-400" />
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Entradas</h2>
                     </div>
                 </div>
+                <div class="mt-2">
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">Recebido este mês</p>
+                    <p class="text-3xl font-bold text-green-600 dark:text-green-500">R$ {{ number_format($receitasMes, 2, ',', '.') }}</p>
+                </div>
             </div>
-            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex items-center justify-between relative overflow-hidden group">
-                <div class="absolute right-0 top-0 w-40 h-40 bg-purple-50 dark:bg-purple-900/20 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-110"></div>
-                <div class="relative z-10 flex flex-1 justify-between items-center">
-                    <div>
-                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Saldo do Ano</p>
-                        <p class="mt-1 text-2xl font-bold {{ $yearlyBalance >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                            R$ {{ number_format($yearlyBalance, 2, ',', '.') }}
-                        </p>
+
+            <!-- Despesas do Mês -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-red-100 dark:bg-red-900/30 rounded-full">
+                            <x-icon name="arrow-trend-down" style="solid" class="w-5 h-5 text-red-600 dark:text-red-400" />
+                        </div>
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Saídas</h2>
                     </div>
-                    <div class="p-3 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
-                        <x-icon name="chart-line" style="duotone" class="w-6 h-6" />
-                    </div>
+                </div>
+                <div class="mt-2">
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1">Gasto este mês</p>
+                    <p class="text-3xl font-bold text-red-600 dark:text-red-500">R$ {{ number_format($despesasMes, 2, ',', '.') }}</p>
                 </div>
             </div>
         </div>
@@ -169,38 +162,38 @@
 
         <!-- Recent Entries Table -->
         <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 flex items-center justify-between">
-                <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Últimas Entradas</h3>
-                <a href="{{ route('treasury.entries.index') }}" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 uppercase tracking-widest transition-colors">Ver todas</a>
+            <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500">
+                        <x-icon name="list" style="duotone" class="w-4 h-4" />
+                    </div>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white tracking-tight">Últimos Movimentos</h3>
+                </div>
+                <a href="{{ route('treasury.entries.index') }}" class="inline-flex items-center text-sm font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                    Ver extrato completo <x-icon name="angle-right" style="solid" class="w-4 h-4 ml-1" />
+                </a>
             </div>
-            @if ($recentEntries->count() > 0)
+            @if ($ultimosLancamentos->count() > 0)
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead class="bg-gray-50 dark:bg-gray-700/50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Data</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tipo</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Descrição</th>
-                                <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                            @foreach ($recentEntries as $entry)
+                    <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+                            @foreach ($ultimosLancamentos as $entry)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                        {{ $entry->entry_date->format('d/m/Y') }}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center {{ $entry->type === 'income' ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30' }}">
+                                                <x-icon name="{{ $entry->type === 'income' ? 'arrow-trend-up' : 'arrow-trend-down' }}" style="solid" class="w-5 h-5 {{ $entry->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}" />
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-bold text-gray-900 dark:text-white">{{ $entry->title }}</div>
+                                                <div class="text-xs text-gray-500 dark:text-gray-400">{{ $entry->entry_date->format('d/m/Y') }} &bull; {{ str_replace('_', ' ', Str::title($entry->category)) }}</div>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $entry->type === 'income' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' }}">
-                                            <span class="w-1.5 h-1.5 mr-1.5 rounded-full {{ $entry->type === 'income' ? 'bg-green-600' : 'bg-red-600' }}"></span>
-                                            {{ $entry->type === 'income' ? 'Entrada' : 'Saída' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                                        {{ $entry->title }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-bold {{ $entry->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                                        {{ $entry->type === 'income' ? '+' : '-' }} R$ {{ number_format($entry->amount, 2, ',', '.') }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                                        <div class="text-sm font-black {{ $entry->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white' }}">
+                                            {{ $entry->type === 'income' ? '+' : '-' }} R$ {{ number_format($entry->amount, 2, ',', '.') }}
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -209,8 +202,8 @@
                 </div>
             @else
                 <div class="flex flex-col items-center justify-center py-12 text-center">
-                    <x-icon name="collection" class="w-12 h-12 text-gray-300 dark:text-gray-600 mb-4" />
-                    <p class="text-gray-500 dark:text-gray-400">Nenhuma entrada registrada recentemente.</p>
+                    <x-icon name="receipt" class="w-12 h-12 text-gray-200 dark:text-gray-700 mb-4" />
+                    <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">Você ainda não possui movimentações.</p>
                 </div>
             @endif
         </div>

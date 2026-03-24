@@ -1,6 +1,6 @@
 @extends('memberpanel::components.layouts.master')
 
-@section('title', 'Catálogo de Planos | Bíblia')
+@section('title', 'Catálogo de Desafios | Bíblia')
 
 @section('content')
     <div class="max-w-7xl mx-auto space-y-10 pb-12">
@@ -8,17 +8,17 @@
         <!-- Search & Filter Header -->
         <div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-gray-200 dark:border-gray-700 pb-6">
             <div>
-                <a href="{{ route('member.bible.plans.index') }}" class="inline-flex items-center text-sm text-gray-500 hover:text-purple-600 mb-2 transition-colors">
+                <a href="{{ route('member.bible.plans.index') }}" class="inline-flex items-center text-sm text-gray-500 hover:text-amber-600 mb-2 transition-colors">
                     <x-icon name="chevron-left" style="duotone" class="h-4 w-4 mr-1" />
-                    Voltar aos meus planos
+                    Voltar aos meus desafios
                 </a>
-                <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Explorar Planos</h1>
+                <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Explorar Desafios</h1>
                 <p class="text-gray-500 dark:text-gray-400 mt-1">Descubra novos roteiros para aprofundar seu conhecimento bíblico.</p>
             </div>
 
             <!-- Search Bar -->
             <form action="{{ route('member.bible.plans.catalog') }}" method="GET" class="w-full md:w-auto relative">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar planos..." class="w-full md:w-64 pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all dark:text-white">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar desafios..." class="w-full md:w-64 pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all dark:text-white">
                 <div class="absolute left-3 top-2.5 text-gray-400 pointer-events-none">
                     <x-icon name="magnifying-glass" style="duotone" class="h-5 w-5" />
                 </div>
@@ -43,7 +43,7 @@
                             @if(isset($plan->cover_image))
                                 <img src="{{ Storage::url($plan->cover_image) }}" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-700 opacity-60">
                             @else
-                                <div class="absolute inset-0 bg-linear-to-br from-indigo-600 to-purple-800 z-0"></div>
+                                <div class="absolute inset-0 bg-linear-to-br from-amber-600 to-orange-800 z-0"></div>
                             @endif
 
                             <div class="relative z-20 p-8 space-y-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
@@ -75,7 +75,7 @@
                 <div class="p-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg">
                     <x-icon name="view-grid" class="w-5 h-5 text-gray-600 dark:text-gray-400" />
                 </div>
-                <h2 class="text-xl font-bold text-gray-900 dark:text-white">Todos os Planos</h2>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white">Todos os Desafios</h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="p-6 flex-1">
-                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                                 {{ $plan->title }}
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-5 leading-relaxed">
@@ -99,7 +99,7 @@
                     @else
                         <div class="p-6 flex-1">
                             <div class="flex justify-between items-start mb-4">
-                                <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform duration-300">
+                                <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-600 dark:text-amber-400 group-hover:scale-110 transition-transform duration-300">
                                     <x-icon name="book-open" class="h-6 w-6" />
                                 </div>
                                 <span class="bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">
@@ -107,7 +107,7 @@
                                 </span>
                             </div>
 
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                                 {{ $plan->title }}
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-5 leading-relaxed">
@@ -117,7 +117,7 @@
                     @endif
 
                         <div class="px-6 pb-6 pt-2">
-                            <a href="{{ route('member.bible.plans.preview', $plan->id) }}" class="block w-full text-center py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 font-bold text-sm text-gray-600 dark:text-gray-300 hover:bg-purple-600 hover:border-purple-600 hover:text-white dark:hover:bg-purple-600 dark:hover:border-purple-600 dark:hover:text-white transition-all">
+                            <a href="{{ route('member.bible.plans.preview', $plan->id) }}" class="block w-full text-center py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 font-bold text-sm text-gray-600 dark:text-gray-300 hover:bg-amber-600 hover:border-amber-600 hover:text-white dark:hover:bg-amber-600 dark:hover:border-amber-600 dark:hover:text-white transition-all">
                                 Ver Detalhes
                             </a>
                         </div>

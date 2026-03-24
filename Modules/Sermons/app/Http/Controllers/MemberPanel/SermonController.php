@@ -27,9 +27,7 @@ class SermonController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Sermon::visible(auth()->user())
-            ->with(['category', 'user', 'tags'])
-            ->published();
+        $query = Sermon::published()->with(['category', 'user', 'tags']);
 
         // Filter by category
         if ($request->has('category_id') && ! empty($request->category_id)) {

@@ -40,49 +40,17 @@
             <form action="{{ route('treasury.entries.store') }}" method="POST" class="p-6 space-y-8" x-data x-on:submit="window.dispatchEvent(new CustomEvent('loading-overlay:show', { detail: { message: 'Salvando...' } }))">
                 @csrf
 
-                <!-- Type Selection with Custom Cards -->
-                <div class="space-y-3">
-                    <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tipo de Movimentação <span class="text-red-500">*</span></label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label class="relative block cursor-pointer group">
-                            <input type="radio" name="type" value="income" checked class="sr-only peer">
-                            <div class="p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-200 peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/10 group-hover:border-green-200">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-600 mr-3">
-                                            <x-icon name="trending-up" class="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <p class="font-bold text-gray-900 dark:text-white">Entrada (Receita)</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">Dízimos, ofertas e doações</p>
-                                        </div>
-                                    </div>
-                                    <div class="w-6 h-6 rounded-full border-2 border-gray-200 peer-checked:border-green-500 flex items-center justify-center">
-                                        <div class="w-3 h-3 rounded-full bg-green-500 transition-transform scale-0 peer-checked:scale-100"></div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Type Selection with Toggle Switch -->
+                <div x-data="{ type: '{{ old('type', 'income') }}' }" class="mb-6 space-y-3 p-5 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                    <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider block">Tipo de Movimentação <span class="text-red-500">*</span></label>
+                    <input type="hidden" name="type" x-model="type">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm font-bold transition-colors" :class="type === 'expense' ? 'text-red-600' : 'text-gray-400'">Despesa (Saída)</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" :checked="type === 'income'" @change="type = $event.target.checked ? 'income' : 'expense'">
+                            <div class="w-14 h-7 bg-red-500 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500 shadow-inner"></div>
                         </label>
-
-                        <label class="relative block cursor-pointer group">
-                            <input type="radio" name="type" value="expense" class="sr-only peer">
-                            <div class="p-4 rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-200 peer-checked:border-red-500 peer-checked:bg-red-50 dark:peer-checked:bg-red-900/10 group-hover:border-red-200">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <div class="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 mr-3">
-                                            <x-icon name="trending-down" class="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <p class="font-bold text-gray-900 dark:text-white">Saída (Despesa)</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">Contas, manutenção e custos</p>
-                                        </div>
-                                    </div>
-                                    <div class="w-6 h-6 rounded-full border-2 border-gray-200 peer-checked:border-red-500 flex items-center justify-center">
-                                        <div class="w-3 h-3 rounded-full bg-red-500 transition-transform scale-0 peer-checked:scale-100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
+                        <span class="text-sm font-bold transition-colors" :class="type === 'income' ? 'text-green-600' : 'text-gray-400'">Receita (Entrada)</span>
                     </div>
                 </div>
 
@@ -134,6 +102,21 @@
                             <p class="text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
+                </div>
+
+                <!-- Igreja vinculada (Caso aplicável) -->
+                <div class="space-y-2">
+                    <label for="igreja_id" class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Igreja Vinculada</label>
+                    <select name="igreja_id" id="igreja_id"
+                        class="block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                        <option value="">Nenhuma / Lançamento Geral</option>
+                        @foreach ($igrejas as $igreja)
+                            <option value="{{ $igreja->id }}" {{ old('igreja_id') == $igreja->id ? 'selected' : '' }}>{{ $igreja->nome }}</option>
+                        @endforeach
+                    </select>
+                    @error('igreja_id')
+                        <p class="text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Description -->

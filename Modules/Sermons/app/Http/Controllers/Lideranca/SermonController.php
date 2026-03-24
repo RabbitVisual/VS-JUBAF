@@ -24,7 +24,7 @@ class SermonController extends Controller
 
     public function index(Request $request): View
     {
-        $query = Sermon::with(['category', 'user', 'tags']);
+        $query = Sermon::published()->with(['category', 'user', 'tags']);
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }

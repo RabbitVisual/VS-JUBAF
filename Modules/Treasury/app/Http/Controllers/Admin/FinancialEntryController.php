@@ -17,6 +17,7 @@ class FinancialEntryController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('gerenciar financeiro');
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $filters = $request->only(['type', 'category', 'start_date', 'end_date', 'campaign_id', 'ministry_id', 'fund_id']);
         $entries = $this->api->listEntries($filters, 20);
@@ -35,6 +36,7 @@ class FinancialEntryController extends Controller
 
     public function reverse(Request $request, FinancialEntry $entry)
     {
+        $this->authorize('gerenciar financeiro');
         try {
             $this->api->reverseEntry($entry, auth()->user());
             return redirect()->route('treasury.entries.index')
@@ -50,8 +52,11 @@ class FinancialEntryController extends Controller
 
     public function create()
     {
+        $this->authorize('gerenciar financeiro');
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $options = $this->api->getEntryFormOptions();
+
+        $igrejas = \Modules\Igrejas\Models\Igreja::orderBy('nome')->get();
 
         return view('treasury::admin.entries.create', [
             'campaigns' => $options['campaigns'],
@@ -61,11 +66,13 @@ class FinancialEntryController extends Controller
             'financial_funds' => $options['financial_funds'] ?? collect(),
             'payments' => $options['payments'],
             'permission' => $permission,
+            'igrejas' => $igrejas,
         ]);
     }
 
     public function store(Request $request)
     {
+        $this->authorize('gerenciar financeiro');
         $validated = $request->validate([
             'type' => 'required|in:income,expense',
             'category' => 'required|string|max:64',
@@ -78,10 +85,15 @@ class FinancialEntryController extends Controller
             'goal_id' => 'nullable|exists:financial_goals,id',
             'ministry_id' => 'nullable|exists:ministries,id',
             'fund_id' => 'nullable|exists:financial_funds,id',
-            'member_id' => 'nullable|exists:users,id',
+            'igreja_id' => 'nullable|exists:igrejas,id',
             'payment_method' => 'nullable|string|max:255',
             'reference_number' => 'nullable|string|max:255',
         ]);
+
+        if (isset($validated['igreja_id'])) {
+            $validated['metadata'] = ['igreja_id' => $validated['igreja_id']];
+            unset($validated['igreja_id']);
+        }
 
         $this->api->createEntry($validated, auth()->user());
 
@@ -91,8 +103,10 @@ class FinancialEntryController extends Controller
 
     public function edit(FinancialEntry $entry)
     {
+        $this->authorize('gerenciar financeiro');
         $permission = TreasuryPermission::forUserOrAdmin(auth()->user());
         $options = $this->api->getEntryFormOptions();
+        $igrejas = \Modules\Igrejas\Models\Igreja::orderBy('nome')->get();
 
         return view('treasury::admin.entries.edit', [
             'entry' => $entry,
@@ -103,11 +117,13 @@ class FinancialEntryController extends Controller
             'financial_funds' => $options['financial_funds'] ?? collect(),
             'payments' => $options['payments'],
             'permission' => $permission,
+            'igrejas' => $igrejas,
         ]);
     }
 
     public function update(Request $request, FinancialEntry $entry)
     {
+        $this->authorize('gerenciar financeiro');
         $validated = $request->validate([
             'type' => 'required|in:income,expense',
             'category' => 'required|string|max:64',
@@ -120,11 +136,20 @@ class FinancialEntryController extends Controller
             'goal_id' => 'nullable|exists:financial_goals,id',
             'ministry_id' => 'nullable|exists:ministries,id',
             'fund_id' => 'nullable|exists:financial_funds,id',
-            'member_id' => 'nullable|exists:users,id',
+            'igreja_id' => 'nullable|exists:igrejas,id',
             'expense_status' => 'nullable|in:pending,approved,paid',
             'payment_method' => 'nullable|string|max:255',
             'reference_number' => 'nullable|string|max:255',
         ]);
+
+        if (isset($validated['igreja_id'])) {
+            $validated['metadata'] = array_merge($entry->metadata ?? [], ['igreja_id' => $validated['igreja_id']]);
+            unset($validated['igreja_id']);
+        } else {
+            $metadata = $entry->metadata ?? [];
+            unset($metadata['igreja_id']);
+            $validated['metadata'] = $metadata;
+        }
 
         $this->api->updateEntry($entry, $validated, auth()->user());
 
@@ -134,6 +159,7 @@ class FinancialEntryController extends Controller
 
     public function destroy(FinancialEntry $entry)
     {
+        $this->authorize('gerenciar financeiro');
         $this->api->deleteEntry($entry, auth()->user());
 
         return redirect()->route('treasury.entries.index')

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Ministries\App\Models\Ministry;
 use Modules\PaymentGateway\App\Models\Payment;
-
+use Modules\Igrejas\Models\Igreja;
 class FinancialEntry extends Model
 {
     use SoftDeletes;
@@ -116,6 +116,20 @@ class FinancialEntry extends Model
     public function reversalOf(): BelongsTo
     {
         return $this->belongsTo(FinancialEntry::class, 'reversal_of_id');
+    }
+
+    /**
+     * Obter a Igreja vinculada ao lançamento (via metadata).
+     */
+    public function getIgrejaAttribute(): ?Igreja
+    {
+        $igrejaId = $this->metadata['igreja_id'] ?? null;
+        return $igrejaId ? Igreja::find($igrejaId) : null;
+    }
+
+    public function getIgrejaIdAttribute()
+    {
+        return $this->metadata['igreja_id'] ?? null;
     }
 
     /**
