@@ -56,49 +56,74 @@
                         $logo = \App\Models\Settings::get('logo_path', 'storage/image/logo.png');
                     @endphp
                     <img class="h-8 w-auto" src="{{ asset($logo) }}" alt="Logo">
-                    <span class="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Diretoria</span>
+                    <span class="ml-2 text-lg font-semibold text-gray-900 dark:text-white">Gabinete</span>
+                </div>
+
+                <!-- Back to Admin -->
+                <div class="px-3 mb-2">
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <x-icon name="arrow-left" class="w-3.5 h-3.5" />
+                        Voltar ao Portal Admin
+                    </a>
                 </div>
 
                 <!-- Navigation -->
                 <nav class="flex-1 px-2 py-4 space-y-1">
                     <!-- Dashboard -->
-                    <a href="{{ route('memberpanel.Diretoria.index') }}"
+                    <a href="{{ route('admin.Diretoria.index') }}"
                         class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
-                        {{ request()->routeIs('memberpanel.Diretoria.index') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        {{ request()->routeIs('admin.Diretoria.index') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <x-icon name="gauge-high" class="mr-3 h-5 w-5" />
                         Dashboard
                     </a>
 
-                    <!-- Meetings -->
-                    <a href="{{ route('memberpanel.Diretoria.meetings.index') }}"
+                    <!-- Members -->
+                    <a href="{{ route('admin.Diretoria.members.index') }}"
                         class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
-                        {{ request()->routeIs('memberpanel.Diretoria.meetings.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        {{ request()->routeIs('admin.Diretoria.members.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        <x-icon name="users" class="mr-3 h-5 w-5" />
+                        Membros
+                    </a>
+
+                    <!-- Meetings -->
+                    <a href="{{ route('admin.Diretoria.meetings.index') }}"
+                        class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
+                        {{ request()->routeIs('admin.Diretoria.meetings.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <x-icon name="calendar-days" class="mr-3 h-5 w-5" />
                         Reuniões
                     </a>
 
-                    <!-- Agendas -->
-                    <a href="{{ route('memberpanel.Diretoria.agendas.index') }}"
-                        class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
-                        {{ request()->routeIs('memberpanel.Diretoria.agendas.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <x-icon name="file-lines" class="mr-3 h-5 w-5" />
-                        Pautas
-                    </a>
-
                     <!-- Approvals -->
-                    <a href="{{ route('memberpanel.Diretoria.approvals.index') }}"
+                    <a href="{{ route('admin.Diretoria.approvals.index') }}"
                         class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
-                        {{ request()->routeIs('memberpanel.Diretoria.approvals.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        {{ request()->routeIs('admin.Diretoria.approvals.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                         <x-icon name="circle-check" class="mr-3 h-5 w-5" />
                         Aprovações
                     </a>
 
-                    <!-- Profile -->
-                    <a href="{{ route('memberpanel.Diretoria.profile.index') }}"
+                    <!-- Assembly -->
+                    <a href="{{ route('admin.Diretoria.assembly.index') }}"
                         class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
-                        {{ request()->routeIs('memberpanel.Diretoria.profile.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
-                        <x-icon name="user" class="mr-3 h-5 w-5" />
-                        Perfil
+                        {{ request()->routeIs('admin.Diretoria.assembly.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        <x-icon name="landmark" class="mr-3 h-5 w-5" />
+                        Assembleia
+                    </a>
+
+                    <!-- Documents -->
+                    <a href="{{ route('admin.Diretoria.documents.index') }}"
+                        class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
+                        {{ request()->routeIs('admin.Diretoria.documents.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        <x-icon name="folder-open" class="mr-3 h-5 w-5" />
+                        Documentos
+                    </a>
+
+                    <!-- Settings -->
+                    <a href="{{ route('admin.Diretoria.settings.index') }}"
+                        class="flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors
+                        {{ request()->routeIs('admin.Diretoria.settings.*') ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                        <x-icon name="gear" class="mr-3 h-5 w-5" />
+                        Configurações
                     </a>
                 </nav>
 
@@ -170,16 +195,18 @@
             <div id="mobile-menu"
                 class="md:hidden hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <nav class="px-2 pt-2 pb-3 space-y-1">
-                    <a href="{{ route('memberpanel.Diretoria.index') }}"
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="block px-3 py-2 text-base font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-md">← Portal Admin</a>
+                    <a href="{{ route('admin.Diretoria.index') }}"
                         class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Dashboard</a>
-                    <a href="{{ route('memberpanel.Diretoria.meetings.index') }}"
+                    <a href="{{ route('admin.Diretoria.members.index') }}"
+                        class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Membros</a>
+                    <a href="{{ route('admin.Diretoria.meetings.index') }}"
                         class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Reuniões</a>
-                    <a href="{{ route('memberpanel.Diretoria.agendas.index') }}"
-                        class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Pautas</a>
-                    <a href="{{ route('memberpanel.Diretoria.approvals.index') }}"
+                    <a href="{{ route('admin.Diretoria.approvals.index') }}"
                         class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Aprovações</a>
-                    <a href="{{ route('memberpanel.Diretoria.profile.index') }}"
-                        class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Perfil</a>
+                    <a href="{{ route('admin.Diretoria.documents.index') }}"
+                        class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Documentos</a>
                 </nav>
             </div>
 

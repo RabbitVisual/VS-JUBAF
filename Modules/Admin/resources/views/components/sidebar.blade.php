@@ -50,6 +50,22 @@
                 </a>
             @endcan
 
+            @can('gerenciar sermoes')
+                <a href="{{ route('admin.sermons.sermons.index') }}"
+                    class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.sermons*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                    <x-icon name="book-bible" class="w-4 h-4" />
+                    Gestão de Sermões
+                </a>
+            @endcan
+
+            @can('gerenciar biblia')
+                <a href="{{ route('admin.bible.index') }}"
+                    class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.bible*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                    <x-icon name="cross" class="w-4 h-4" />
+                    Gestão da Bíblia
+                </a>
+            @endcan
+
             @can('gerenciar mural')
                 <a href="{{ route('admin.comunicacao.postagens.index') }}"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.comunicacao.postagens*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">

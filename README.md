@@ -1,209 +1,86 @@
-# Vertex JUBAF (VS-JUBAF)
+# VS-JUBAF: Sistema de Gestão da Juventude Batista Feirense 🚀
 
-Plataforma oficial da Juventude Batista Feirense para gestao associativa, comunicacao institucional, governanca e operacao ministerial.
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
-> Projeto mantido por Vertex Solutions LTDA, evoluido a partir da base VertexCBAV com refatoracao modular para o contexto JUBAF.
+O **VS-JUBAF** (desenvolvido pela Vertex Solutions) é uma plataforma de software arquitetada exclusivamente para a **JUBAF - Juventude Batista Feirense**, braço jovem da Associação Batista Feirense (ASBAF).
 
-## Header institucional
+## 🌍 O Contexto: O que é a JUBAF?
+A Associação Batista Feirense abrange dezenas de igrejas e congregações batistas em Feira de Santana (Bahia) e região. A **JUBAF** tem a missão de integrar, capacitar e mobilizar os jovens de todas essas igrejas através de grandes eventos (como Acampamentos, Congressos e Conferências), desafios de leitura bíblica e campanhas missionárias.
 
-O Vertex JUBAF e um sistema web modular, desenvolvido para:
+**O Problema:** Softwares cristãos tradicionais são focados na "Igreja Local" (gestão de dízimos, rol de membros, EBD local). Uma Associação não pastoreia membros individuais, ela gerencia **Líderes, Igrejas, Inscrições em Massa e Arrecadação Global**.
 
-- conectar lideranca da juventude com igrejas e congregacoes vinculadas;
-- organizar governanca (conselho, aprovacoes, reunioes, documentos);
-- operar eventos, comunicacao e acompanhamento ministerial;
-- dar transparencia financeira e registrar a vida associativa;
-- centralizar dados biblicos e notificacoes transacionais.
+**A Solução (VS-JUBAF):** Um sistema focado no ecossistema associativo. Ele elimina planilhas de papel, automatiza cobranças via PIX, gera ingressos com QR Code para os acampamentos e funciona como um Hub de Recursos (sermões e planos bíblicos) para apoiar os ministérios locais.
 
-## Navegacao da documentacao
+---
 
-- Visao funcional e planejamento: [`ROADMAP.md`](ROADMAP.md)
-- Visao tecnica e onboarding de arquitetura: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+## 🏗️ Arquitetura do Sistema
+O VS-JUBAF utiliza a arquitetura **HMVC (Hierarchical Model-View-Controller)** no Laravel, isolando contextos através da biblioteca `nwidart/laravel-modules`. O banco de dados é único, mas as lógicas de negócio são estritamente separadas.
 
-## Status atual do sistema (2026)
+### Os 3 Pilares de Acesso (Painéis)
+O sistema possui fronteiras rígidas de acesso (RBAC via Spatie Permission):
 
-O sistema ja passou pela limpeza estrutural planejada e esta operando com foco no escopo JUBAF.
+1. 👑 **AdminPanel (Gabinete da Diretoria):** Visão macro. Presidente, Tesoureiro e Secretário usam para criar eventos, acompanhar a saúde financeira central, moderar o portal público e gerenciar igrejas filiadas.
+2. 🛡️ **LiderancaPanel (Líder Local):** Visão micro. O Líder de Jovens da igreja local usa para acompanhar a sua "Caravana" (quais jovens de sua igreja pagaram o acampamento) e buscar materiais de estudo para suas reuniões locais.
+3. 🔥 **MemberPanel (Jovem Associado):** Visão do usuário. O jovem entra para se inscrever em eventos, baixar seu ingresso em PDF, ler notificações da diretoria e participar dos Desafios Bíblicos.
 
-- Modulos removidos do projeto: `Gamification`, `Assets`, `EBD`, `Marketplace`, `SocialAction`, `Projection`, `Ministries`, `Worship`.
-- Bots removidos: `CbavBot` e `EliasBot`.
-- Padronizacao de nomenclatura concluida: `LiderancaPanel` e rotas `lideranca.*`.
-- Fundacao de novos modulos criada: `Igrejas` e `Comunicacao`.
+---
 
-## Modulos ativos
+## 🧩 Módulos do Sistema
 
-De acordo com `modules_statuses.json`, os modulos ativos sao:
+O sistema é composto por **13 Módulos Ativos**, operando em total sinergia:
 
-- `HomePage`
-- `Admin`
-- `MemberPanel`
-- `Notifications`
-- `Bible`
-- `PaymentGateway`
-- `Treasury`
-- `Diretoria`
-- `Events`
-- `Sermons`
-- `LiderancaPanel`
-- `Igrejas`
-- `Comunicacao`
+### 1. Gestão Administrativa
+* **`Admin`:** Core do sistema. Gestão avançada de usuários, perfis (Roles) e permissões de acesso global.
+* **`Diretoria`:** Governança corporativa da associação. Gestão de pautas, votações de conselho e arquivamento de atas oficiais.
+* **`Igrejas`:** Cadastro geolocalizado das igrejas e congregações pertencentes à ASBAF.
 
-## Arquitetura funcional
+### 2. O Motor Financeiro e Eventos
+* **`Events`:** O motor de Acampamentos e Congressos. Controla lotes de inscrições, emite ingressos nominais em PDF com QR Code e possui uma tela mobile (Scanner) para a portaria do evento aprovar check-ins em tempo real.
+* **`PaymentGateway`:** Processador de checkout. Gera PIX Copia-e-Cola e QR Code dinâmicos para eventos. Possui Webhooks integrados que dão baixa automática no sistema quando o banco confirma o pagamento.
+* **`Treasury`:** A "Conta Digital" da JUBAF. Dashboard executivo moderno que centraliza o caixa da associação. Recebe os pagamentos vindos dos eventos automaticamente, separados por Igreja no metadata.
 
-### 1) Camada publica
+### 3. Engajamento e Comunicação
+* **`HomePage`:** Vitrine pública da JUBAF. Exibe os próximos grandes eventos, lema da gestão atual e as notícias do mural oficial.
+* **`Comunicacao`:** Módulo onde o Gabinete lança editais, notícias e avisos.
+* **`Notifications`:** O sistema de alertas (Sininho). Notifica o celular do jovem automaticamente quando sua inscrição é aprovada, ou quando um novo aviso é postado no painel da Comunicação.
 
-- Portal institucional e conteudo da homepage.
-- Exibicao de informacoes publicas conforme regras de cada modulo.
+### 4. Hub de Recursos (Crescimento)
+* **`Sermons`:** A biblioteca da JUBAF. Um acervo colaborativo de esboços de pregações com layout imersivo focado em leitura móvel. Um recurso valioso para líderes locais que precisam de apoio na montagem de cultos de jovens.
+* **`Bible`:** Focado em Desafios Bíblicos associativos. Exibe planos de leitura (Ex: "Desafio JUBAF: Evangelhos em 30 dias") com barras de progresso modernas e engajamento comunitário.
 
-### 2) Camada operacional autenticada
+---
 
-- `MemberPanel`: experiencia do membro.
-- `LiderancaPanel`: operacao da lideranca da juventude.
-- `Admin`: administracao central do sistema.
+## 🚀 Jornadas em Destaque
 
-### 3) Camada de servicos transversais
+### A Jornada de Inscrição Expresa
+1. O Jovem acessa o **MemberPanel** e clica em "Acampamento JUBAF 2026".
+2. O módulo **Events** processa a vaga no lote atual e chama o **PaymentGateway**.
+3. O jovem visualiza um Checkout nativo, faz o PIX, e o Webhook do banco avisa o sistema.
+4. Imediatamente: A inscrição é confirmada, o **Treasury** registra a entrada no caixa geral, o **Notifications** dispara um alerta *"Sua Vaga está garantida!"* e a tela do jovem passa a exibir um botão **Baixar Meu Ingresso (PDF com QR Code)**.
+5. No dia do evento, a liderança na portaria acessa a rota do Scanner pelo celular. Aponta para o PDF do Jovem: a tela fica Verde, toca um *Bip* e o check-in está feito!
 
-- `Notifications`: notificacoes in-app e preferencias.
-- `PaymentGateway`: pagamentos e webhooks canonicos.
-- `Treasury`: controle financeiro, campanhas, metas e relatorios.
-- `Bible`: base biblica local e servicos de leitura.
+---
 
-## Modulos e responsabilidades (estado atual)
+## 💻 Stack Tecnológico
 
-| Modulo           | Responsabilidade principal                                                   |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `Admin`          | Usuarios, papeis, configuracoes globais, operacao administrativa central.    |
-| `HomePage`       | Conteudo institucional publico (cms da landing).                             |
-| `MemberPanel`    | Painel do membro e fluxos de participacao.                                   |
-| `LiderancaPanel` | Painel de lideranca para acompanhamento ministerial, conselho e operacao.    |
-| `Diretoria`      | Reunioes, pautas, aprovacoes, historico de decisoes e governanca.            |
-| `Events`         | Ciclo de eventos, inscricoes, lotes e check-in.                              |
-| `Sermons`        | Acervo e gestao de sermoes, series, estudos e comentarios.                   |
-| `Treasury`       | Lancamentos financeiros, campanhas, metas, relatorios e prestacao de contas. |
-| `PaymentGateway` | Integracao de pagamentos (Stripe, Mercado Pago, PIX) e webhook unico.        |
-| `Notifications`  | Centro de notificacoes internas e templates.                                 |
-| `Bible`          | Referencia biblica local, planos e recursos de leitura.                      |
-| `Igrejas`        | Cadastro e gestao de igrejas/congregacoes vinculadas.                        |
-| `Comunicacao`    | Feed oficial da diretoria: editais, atas, avisos e noticias.                 |
+* **Backend:** PHP 8.2+ / Laravel 11.x
+* **Arquitetura Modular:** `nwidart/laravel-modules`
+* **Frontend:** Blade, Alpine.js, Tailwind CSS
+* **Design System / UI:** Flowbite (Premium, foco em Mobile-First)
+* **Leitura de Código de Barras/QR:** HTML5-QRCode (Integrado nativamente)
+* **Controle de Permissões:** Spatie Laravel Permission
+* **Geração de PDF:** DomPDF / Browsershot
 
-## Principais decisoes de refatoracao ja aplicadas
+---
 
-- Limpeza de namespaces PSR-4 de modulos removidos.
-- Remocao de rotas, menus e dependencias de modulos excluidos.
-- Remocao de componentes e servicos de bot legados.
-- Ajustes de rotas e middleware para padrao `lideranca`.
-- Saneamento de migracoes legadas que referenciavam recursos removidos.
+## 🛠️ Instalação e Configuração Local
 
-## Estrutura tecnica
+Para clonar e rodar o VS-JUBAF em seu ambiente local, certifique-se de ter o PHP 8.2 e o Composer instalados.
 
-- Framework: `Laravel 12` (PHP `8.2+`)
-- Modularizacao: `nwidart/laravel-modules`
-- Frontend: `Vite` + `Tailwind CSS`
-- Banco: `MySQL`
-- Autenticacao/ACL: abordagem por papeis e regras de acesso por painel
-- Pagamentos: Stripe, Mercado Pago e PIX via modulo dedicado
-
-## Rotas e paineis
-
-- Publicas: `routes/web.php`
-- Administrativas: `routes/admin.php`
-- Membro: `routes/member.php`
-- Lideranca: `routes/lideranca.php`
-- API: `routes/api.php`
-
-Padrao atual:
-
-- sem prefixo legado `pastor.*`
-- uso de prefixo e nomes `lideranca.*`
-
-## Setup de desenvolvimento
-
-### Requisitos
-
-- PHP 8.2+
-- Composer 2.x
-- Node.js 22+
-- MySQL 8+
-
-### Instalacao
-
-```bash
-composer install
-cp .env.example .env
-php artisan key:generate
-npm install
-```
-
-### Comandos uteis
-
-```bash
-# desenvolvimento completo (Windows)
-composer run dev
-
-# desenvolvimento completo com Pail (Linux/macOS com pcntl)
-composer run dev:with-pail
-
-# limpar caches
-php artisan optimize:clear
-
-# atualizar autoload
-composer dump-autoload
-
-# listar rotas
-php artisan route:list
-```
-
-> Observacao: migrations e seeds devem seguir o alinhamento do ambiente/projeto vigente antes de execucao em homologacao/producao.
-> Em Windows, o `laravel/pail` nao roda sem extensao `pcntl`; por isso use `composer run dev` (sem Pail).
-
-## Credenciais de demo (ambiente local/dev)
-
-Senha padrao para auto login e seeders dev: `password`
-
-- Super Admin: `superadmin@jubaf.com.br`
-- Lideranca: `lideranca@jubaf.com.br`
-- Membro: `membro@jubaf.com.br`
-- Admin fixo: `admin@jubaf.com.br`
-
-### Como testar auto login (dev)
-
-1. Inicie o ambiente local com `composer run dev`.
-2. Acesse `/login`.
-3. Na caixa "Ferramentas de Desenvolvedor", use um dos botoes: `SuperAdmin`, `Lideranca` ou `Membro`.
-
-> Os botoes de auto login aparecem somente em ambiente `local/development/dev`.
-
-## Roadmap funcional (JUBAF)
-
-1. Consolidar governanca (`Diretoria` + `LiderancaPanel`) com fluxos completos.
-2. Evoluir `Igrejas` para operacao multi-congregacao (vinculos, historico de lideranca, indicadores).
-3. Evoluir `Comunicacao` para feed oficial com anexos, trilha de publicacao e distribuicao.
-4. Integrar eventos + financeiro + notificacoes para ciclo completo de inscricao e transparencia.
-5. Expandir painel de indicadores estrategicos para diretoria.
-
-## Prompt mestre (prompt do prompt)
-
-Use o bloco abaixo como prompt base para continuidade da evolucao do projeto em qualquer nova sessao de IA:
-
-```text
-Atue como Arquiteto de Software Senior no projeto Vertex JUBAF.
-
-Contexto:
-- O sistema e modular com nwidart/laravel-modules.
-- O escopo atual e JUBAF (Juventude Batista Feirense), nao mais VertexCBAV generico.
-- Modulos removidos: Gamification, Assets, EBD, Marketplace, SocialAction, Projection, Ministries, Worship.
-- Modulos ativos: HomePage, Admin, MemberPanel, Notifications, Bible, PaymentGateway, Treasury, Diretoria, Events, Sermons, LiderancaPanel, Igrejas, Comunicacao.
-- Nomenclatura oficial: Lideranca (nao usar pastor/pastoral em novos recursos).
-
-Diretrizes:
-1) Nao recriar recursos removidos.
-2) Priorizar estabilidade de autoload, rotas e integracoes entre modulos ativos.
-3) Implementar funcionalidades com foco em governanca, eventos, financeiro, comunicacao e base biblica local.
-4) Manter padrao de codigo Laravel modular, com rotas claras, services e validacoes.
-5) Sempre entregar impacto funcional + checklist de validacao tecnica.
-
-Objetivo da tarefa:
-[descrever aqui a feature/refatoracao desejada]
-```
-
-## Licenca
-
-Uso privado/proprietario, conforme politicas da Vertex Solutions LTDA e diretrizes internas da JUBAF.
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/RabbitVisual/VS-JUBAF.git](https://github.com/RabbitVisual/VS-JUBAF.git)
+   cd VS-JUBAF

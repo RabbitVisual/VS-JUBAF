@@ -58,7 +58,7 @@
         @include('memberpanel::components.sidebar')
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden lg:ml-80 transition-all duration-300" id="main-content">
+        <div class="flex-1 flex flex-col overflow-hidden lg:ml-72 transition-all duration-300" id="main-content">
             <!-- Top Navigation -->
             @include('memberpanel::components.navbar')
 
@@ -92,21 +92,21 @@
         // Mobile sidebar toggle
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.getElementById('sidebar-toggle');
-            const sidebarContainer = document.querySelector('.flex.h-screen.overflow-hidden.fixed');
+            const sidebar = document.getElementById('sidebar');
             const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-            if (sidebarToggle && sidebarContainer) {
+            if (sidebarToggle && sidebar) {
                 sidebarToggle.addEventListener('click', function() {
-                    sidebarContainer.classList.toggle('-translate-x-full');
+                    sidebar.classList.toggle('-translate-x-full');
                     if (sidebarOverlay) {
                         sidebarOverlay.classList.toggle('hidden');
                     }
                 });
             }
 
-            if (sidebarOverlay && sidebarContainer) {
+            if (sidebarOverlay && sidebar) {
                 sidebarOverlay.addEventListener('click', function() {
-                    sidebarContainer.classList.add('-translate-x-full');
+                    sidebar.classList.add('-translate-x-full');
                     sidebarOverlay.classList.add('hidden');
                 });
             }
