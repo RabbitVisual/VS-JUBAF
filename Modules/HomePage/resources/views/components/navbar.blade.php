@@ -20,20 +20,24 @@
             <div class="hidden md:flex md:items-center md:space-x-1">
                 <a href="{{ route('homepage.index') }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Início</a>
-                <a href="#sobre"
+                <a href="{{ request()->routeIs('homepage.index') ? '#sobre' : route('homepage.index').'#sobre' }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Sobre</a>
-                <a href="#ministerios"
+                @if(\App\Models\Settings::get('homepage_show_ministries', 1))
+                <a href="{{ request()->routeIs('homepage.index') ? '#ministerios' : route('homepage.index').'#ministerios' }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Ministérios</a>
+                @endif
                 <a href="{{ route('events.public.index') }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Eventos</a>
-                @if (Route::has('marketplace.storefront.index'))
+                @if (Route::has('marketplace.storefront.index') && \App\Models\Settings::get('homepage_show_marketplace', 1))
                     <a href="{{ route('marketplace.storefront.index') }}"
                         class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Loja</a>
                 @endif
                 <a href="{{ route('bible.public.index') }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Bíblia Online</a>
+                @if(\App\Models\Settings::get('homepage_show_radio', 1) && Route::has('homepage.radio'))
                 <a href="{{ route('homepage.radio') }}"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Rádio</a>
+                @endif
                 <a href="#contato"
                     class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">Contato</a>
 
@@ -146,20 +150,24 @@
 
             <a href="{{ route('homepage.index') }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Início</a>
-            <a href="#sobre"
+            <a href="{{ request()->routeIs('homepage.index') ? '#sobre' : route('homepage.index').'#sobre' }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Sobre</a>
-            <a href="#ministerios"
+            @if(\App\Models\Settings::get('homepage_show_ministries', 1))
+            <a href="{{ request()->routeIs('homepage.index') ? '#ministerios' : route('homepage.index').'#ministerios' }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Ministérios</a>
+            @endif
             <a href="{{ route('events.public.index') }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Eventos</a>
-            @if (Route::has('marketplace.storefront.index'))
+            @if (Route::has('marketplace.storefront.index') && \App\Models\Settings::get('homepage_show_marketplace', 1))
                 <a href="{{ route('marketplace.storefront.index') }}"
                     class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Loja</a>
             @endif
             <a href="{{ route('bible.public.index') }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Bíblia Online</a>
+            @if(\App\Models\Settings::get('homepage_show_radio', 1) && Route::has('homepage.radio'))
             <a href="{{ route('homepage.radio') }}"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Rádio</a>
+            @endif
             <a href="#contato"
                 class="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl text-base font-medium transition-colors">Contato</a>
 

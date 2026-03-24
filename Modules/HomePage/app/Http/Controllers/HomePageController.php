@@ -315,4 +315,16 @@ class HomePageController extends Controller
             return response()->json(['success' => false, 'message' => 'Ocorreu um erro.'], 500);
         }
     }
+
+    public function radio()
+    {
+        $showRadio = \App\Models\Settings::get('homepage_show_radio', true);
+        
+        // Se a rádio houver uma URL na base, usa ela. Senão fornece uma de fallback/exemplo.
+        $embedUrlForPage = \App\Models\Settings::get('homepage_radio_url', 'https://fastcast4u.com/player/rede316/');
+        
+        $randomVerse = $this->getDailyVerse();
+
+        return view('homepage::public.radio', compact('showRadio', 'embedUrlForPage', 'randomVerse'));
+    }
 }

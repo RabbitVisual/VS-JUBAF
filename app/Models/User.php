@@ -318,15 +318,11 @@ class User extends Authenticatable
     /**
      * Verifica se o usuário possui um papel específico (slug)
      */
-    public function hasRole($roleSlug, string $guard = null): bool
+    public function hasRole($roleSlug)
     {
-        if ($roleSlug instanceof \Illuminate\Support\Collection || $roleSlug instanceof \Spatie\Permission\Models\Role) {
-            return $this->spatieHasRole($roleSlug, $guard);
-        }
-
         if (is_array($roleSlug)) {
             foreach ($roleSlug as $role) {
-                if ($this->hasRole($role, $guard)) {
+                if ($this->hasRole($role)) {
                     return true;
                 }
             }
@@ -341,7 +337,7 @@ class User extends Authenticatable
             return $this->roles->pluck('name')->intersect($mapped)->isNotEmpty();
         }
 
-        return $this->spatieHasRole($mapped, $guard);
+        return $this->spatieHasRole($mapped);
     }
 
     /**

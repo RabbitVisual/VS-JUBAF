@@ -54,9 +54,17 @@ class CheckinController extends Controller
         // Perform Check-in
         $registration->update(['checked_in_at' => now()]);
 
+        $churchName = 'Igreja não informada';
+        if (is_array($registration->custom_responses) && isset($registration->custom_responses['church'])) {
+            $churchName = $registration->custom_responses['church'];
+        } elseif ($registration->user && $registration->user->church) {
+            $churchName = $registration->user->church->name;
+        }
+
         return response()->json([
             'success' => true,
             'user_name' => $registration->user->name ?? 'Visitante',
+            'church_name' => $churchName,
             'ticket_type' => $registration->batch?->name ?? 'Geral'
         ]);
     }

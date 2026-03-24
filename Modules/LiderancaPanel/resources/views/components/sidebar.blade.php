@@ -20,25 +20,17 @@
             @endcan
 
             @can('visualizar recursos')
-                <div x-data="{ expanded: false }">
-                    <button @click="expanded = !expanded" class="w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-xl text-slate-300 hover:bg-slate-700/50 hover:text-white transition-colors">
-                        <div class="flex items-center gap-2">
-                            <x-icon name="layer-group" class="w-4 h-4" />
-                            Hub de Recursos
-                        </div>
-                        <x-icon name="chevron-down" class="w-3 h-3 transition-transform duration-200" x-bind:class="{ 'rotate-180': expanded }" />
-                    </button>
-                    <div x-show="expanded" x-collapse class="mt-1 space-y-1 px-4 border-l border-amber-900/30 ml-6">
-                        <a href="{{ route('lideranca.sermoes.sermons.index') }}"
-                            class="block px-4 py-2 text-sm rounded-xl {{ request()->routeIs('lideranca.sermoes*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/30' }}">
-                            Sermões e Estudos
-                        </a>
-                        <a href="{{ route('memberpanel.bible.index') }}"
-                            class="block px-4 py-2 text-sm rounded-xl {{ request()->routeIs('memberpanel.bible*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/30' }}">
-                            Bíblia e Desafios
-                        </a>
-                    </div>
-                </div>
+                <div class="pt-2 pb-1 px-4 text-[10px] font-black uppercase tracking-widest text-slate-500">Hub de recursos</div>
+                <a href="{{ route('lideranca.sermoes.sermons.index') }}"
+                    class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('lideranca.sermoes*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white' }}">
+                    <x-icon name="book-open" class="w-4 h-4" />
+                    Sermões e estudos
+                </a>
+                <a href="{{ route('memberpanel.bible.index') }}"
+                    class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('memberpanel.bible*') ? 'bg-amber-900/30 text-amber-100' : 'text-slate-300 hover:bg-slate-700/50 hover:text-white' }}">
+                    <x-icon name="book-bible" class="w-4 h-4" />
+                    Bíblia
+                </a>
             @endcan
 
             <a href="{{ route('mural.index') }}"

@@ -44,18 +44,18 @@
                         </div>
                     </div>
 
-                    {{-- Iframe do player (autoplay via URL: auto_play=1 e autoplay=1) --}}
-                    <div class="relative rounded-b-3xl overflow-hidden bg-gray-100 dark:bg-gray-900/50" style="min-height: 280px;">
+                    {{-- Iframe do player --}}
+                    <div class="relative rounded-b-3xl overflow-hidden bg-gray-100 dark:bg-gray-900/50" style="min-height: 165px;">
                         <iframe
                             src="{{ $embedUrlForPage }}"
-                            title="Rádio Rede 3.16 - Ao vivo"
+                            title="Rádio da Associação"
                             border="0"
                             scrolling="no"
                             frameborder="0"
                             allow="autoplay; clipboard-write"
                             allowtransparency="true"
                             class="w-full block"
-                            style="height: 280px; min-height: 260px; background-color: transparent;"
+                            style="height: 165px; background-color: transparent;"
                             loading="eager">
                         </iframe>
                     </div>
@@ -123,12 +123,12 @@
                 </div>
             @endif
 
-            {{-- Rodapé da página: nossa logo + Congregação Batista Avenida + Desenvolvido por Reinan Rodrigues --}}
+            {{-- Rodapé da página: nossa logo + Associação JUBAF + Desenvolvido por Vertex --}}
             <footer class="relative pt-8 pb-4 border-t border-gray-200 dark:border-gray-700/80 animate-fade-in" style="animation-delay: 0.75s;">
                 <div class="flex flex-col items-center text-center gap-4">
-                    <img src="{{ asset(\App\Models\Settings::get('logo_path', 'storage/image/logo_oficial.png')) }}" alt="Congregação Batista Avenida" class="h-12 sm:h-14 w-auto object-contain opacity-90 dark:opacity-85" onerror="this.style.display='none'">
-                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-300">Congregação Batista Avenida</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">Desenvolvido por <span class="font-semibold text-gray-800 dark:text-gray-300">Reinan Rodrigues</span></p>
+                    <img src="{{ asset(\App\Models\Settings::get('logo_path', 'storage/image/logo_oficial.png')) }}" alt="Associação JUBAF" class="h-12 sm:h-14 w-auto object-contain opacity-90 dark:opacity-85" onerror="this.style.display='none'">
+                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-300">Associação JUBAF</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">Desenvolvido por <a href="https://vertexsolutions.com.br" target="_blank" class="font-semibold text-blue-600 hover:text-blue-500">Vertex Solutions</a></p>
                 </div>
             </footer>
         </div>
