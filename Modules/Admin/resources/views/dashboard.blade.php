@@ -140,27 +140,37 @@
 
         <!-- Main Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            <!-- Members -->
-            <div
-                class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group">
-                <div
-                    class="absolute right-0 top-0 w-32 h-32 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110">
-                </div>
+            <!-- Igrejas Filiadas -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group">
+                <div class="absolute right-0 top-0 w-32 h-32 bg-amber-50 dark:bg-amber-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
                 <div class="relative">
                     <div class="flex justify-between items-start mb-4">
-                        <div
-                            class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                            <x-icon name="church" class="w-6 h-6" />
+                        </div>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Igrejas Filiadas</p>
+                    <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-1">{{ $stats['total_igrejas'] }}</h3>
+                    <p class="text-sm text-gray-400 mt-2">Congregações ativas</p>
+                </div>
+            </div>
+
+            <!-- Members (Jovens Associados) -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 relative overflow-hidden group">
+                <div class="absolute right-0 top-0 w-32 h-32 bg-blue-50 dark:bg-blue-900/20 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+                <div class="relative">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
                             <x-icon name="users" class="w-6 h-6" />
                         </div>
-                        <span
-                            class="flex items-center text-xs font-bold text-green-600 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-lg">
+                        <span class="flex items-center text-xs font-bold text-green-600 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-lg">
                             +{{ $stats['total_users'] > 0 ? round(($stats['active_users'] / $stats['total_users']) * 100) : 0 }}%
                             Ativos
                         </span>
                     </div>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Membros</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm font-medium uppercase tracking-wider">Jovens Associados</p>
                     <h3 class="text-3xl font-black text-gray-900 dark:text-white mt-1">{{ $stats['total_users'] }}</h3>
-                    <p class="text-sm text-gray-400 mt-2">{{ $stats['active_users'] }} membros ativos hoje</p>
+                    <p class="text-sm text-gray-400 mt-2">{{ $stats['active_users'] }} jovens ativos hoje</p>
                 </div>
             </div>
 

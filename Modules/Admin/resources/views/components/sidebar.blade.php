@@ -42,6 +42,32 @@
                 </a>
             @endcan
 
+            @canany(['gerenciar sermoes', 'gerenciar biblia'])
+                <div x-data="{ expanded: false }">
+                    <button @click="expanded = !expanded" class="w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <x-icon name="layer-group" class="w-4 h-4" />
+                            Gestão de Conteúdo
+                        </div>
+                        <x-icon name="chevron-down" class="w-3 h-3 transition-transform duration-200" x-bind:class="{ 'rotate-180': expanded }" />
+                    </button>
+                    <div x-show="expanded" x-collapse class="mt-1 space-y-1 px-4 border-l border-gray-200 dark:border-gray-800 ml-6">
+                        @can('gerenciar sermoes')
+                        <a href="{{ route('admin.sermons.sermons.index') }}"
+                            class="block px-4 py-2 text-sm rounded-xl {{ request()->routeIs('admin.sermons*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800/30' }}">
+                            Sermões e Estudos
+                        </a>
+                        @endcan
+                        @can('gerenciar biblia')
+                        <a href="{{ route('admin.bible.index') }}"
+                            class="block px-4 py-2 text-sm rounded-xl {{ request()->routeIs('admin.bible*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800/30' }}">
+                            Bíblia e Desafios
+                        </a>
+                        @endcan
+                    </div>
+                </div>
+            @endcanany
+
             @can('gerenciar diretoria')
                 <a href="{{ route('admin.Diretoria.index') }}"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-xl {{ request()->routeIs('admin.Diretoria*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">

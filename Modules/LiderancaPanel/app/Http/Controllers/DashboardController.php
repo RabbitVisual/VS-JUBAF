@@ -15,12 +15,43 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        $user->load(['role', 'igreja']);
+
         $stats = $this->gatherStats();
         $aniversariantes = self::aniversariantesDaSemana();
         $pedidosOracaoPendentes = collect();
         $eliasInsight = null;
+        
+        $inscricoesCount = 0;
+        if (class_exists('Modules\Events\App\Models\EventRegistration')) {
+            $inscricoesCount = \Modules\Events\App\Models\EventRegistration::where('user_id', $user->id)
+                ->where('status', '!=', 'cancelled')
+                ->count();
+        }
 
-        return view('liderancapanel::dashboard', compact('stats', 'aniversariantes', 'pedidosOracaoPendentes', 'eliasInsight'));
+        $avisosRecentes = collect();
+        if (class_exists('Modules\Comunicacao\App\Models\Postagem')) {
+            $avisosRecentes = \Modules\Comunicacao\App\Models\Postagem::orderBy('created_at', 'desc')->limit(3)->get();
+        }
+
+        $desafioBiblico = null;
+        if (class_exists('Modules\Bible\App\Models\BiblePlan')) {
+            $desafioBiblico = \Modules\Bible\App\Models\BiblePlan::where('is_active', true)->orderBy('created_at', 'desc')->first();
+        }
+        
+        $sermoesRecentes = collect();
+        if (class_exists('Modules\Sermons\App\Models\Sermon')) {
+            $sermoesRecentes = \Modules\Sermons\App\Models\Sermon::where('is_published', true)
+                ->orderBy('created_at', 'desc')
+                ->limit(3)
+                ->get();
+        }
+
+        return view('liderancapanel::dashboard', compact(
+            'user', 'stats', 'aniversariantes', 'pedidosOracaoPendentes', 'eliasInsight',
+            'inscricoesCount', 'avisosRecentes', 'desafioBiblico', 'sermoesRecentes'
+        ));
     }
 
     protected function gatherStats(): array

@@ -490,7 +490,7 @@
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Quem Somos</h3>
                         </div>
                          <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg pl-16 border-l-2 border-purple-100 dark:border-gray-800">
-                            Somos uma igreja local democrática e autônoma, formada por pessoas regeneradas e biblicamente batizadas, comprometidas com os princípios batistas.
+                            Somos uma união de igrejas batistas da região, voltada para o engajamento e discipulado de jovens comprometidos com o propósito cristão.
                         </p>
                     </div>
 
@@ -734,6 +734,44 @@
                         <a href="{{ route('events.public.index') }}" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-colors">Ver Todos os Eventos</a>
                     </div>
                 @endif
+            </div>
+        </section>
+    @endif
+
+    <!-- Mural JUBAF Section -->
+    @if(isset($ultimasNoticias) && $ultimasNoticias->count() > 0)
+        <section class="bg-gray-50 dark:bg-gray-950 transition-colors duration-200 py-24">
+            <div class="px-4 mx-auto max-w-7xl">
+                <div class="text-center mb-16">
+                    <span class="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-sm mb-2 block">Novidades da JUBAF</span>
+                    <h2 class="text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white mb-4">Mural da Associação</h2>
+                    <div class="w-16 h-1 bg-linear-to-r from-blue-600 to-indigo-600 mx-auto rounded-full mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Últimos comunicados, avisos e notícias para todas as igrejas.</p>
+                </div>
+                
+                <div class="grid gap-8 lg:grid-cols-3">
+                    @foreach($ultimasNoticias as $noticia)
+                        <article class="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+                            <div class="flex justify-between items-center mb-5 text-gray-500">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold inline-flex items-center px-3 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300 uppercase tracking-widest">
+                                    <x-icon name="newspaper" class="mr-1 w-3 h-3" /> Comunicado
+                                </span>
+                                <span class="text-sm font-medium">{{ $noticia->created_at->diffForHumans() }}</span>
+                            </div>
+                            <h2 class="mb-3 text-xl font-bold tracking-tight text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2">
+                                {{ $noticia->titulo }}
+                            </h2>
+                            <p class="mb-5 text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed">
+                                {{ Str::limit(strip_tags($noticia->conteudo), 120) }}
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
+                                <a href="{{ route('login') }}" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700">
+                                    Ler notícia completa <x-icon name="chevron-right" style="duotone" class="w-4 h-4 ml-1" />
+                                </a>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
             </div>
         </section>
     @endif
@@ -1040,7 +1078,7 @@
                         <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
                             <x-icon name="church-alt" class="w-16 h-16 text-white mx-auto mb-4" />
                             <div class="text-4xl font-bold mb-2">{{ $statistics['ministries'] }}</div>
-                            <div class="text-blue-100">Ministérios</div>
+                            <div class="text-blue-100">Igrejas Associadas</div>
                         </div>
                     </div>
 
