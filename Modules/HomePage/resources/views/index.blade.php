@@ -365,21 +365,19 @@
             </div>
 
             <div class="space-y-6 max-w-4xl mx-auto">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[0.9] md:leading-[0.85]">
-                    <span class="block animate-reveal-up opacity-0" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
-                        {{ \Illuminate\Support\Str::beforeLast($homepageSettings['hero_title'], ' ') }}
-                    </span>
-                    <span class="block text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-300 animate-reveal-up opacity-0" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
-                        {{ \Illuminate\Support\Str::afterLast($homepageSettings['hero_title'], ' ') }}
+                <div class="inline-flex items-center px-5 py-2 rounded-full bg-blue-600/20 border border-blue-400/30 text-amber-400 text-sm font-black tracking-[0.2em] uppercase animate-fade-in-up opacity-0 shadow-[0_0_20px_rgba(251,191,36,0.3)] backdrop-blur-md" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+                    SOMOS UM
+                </div>
+
+                <h1 class="text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-none drop-shadow-[0_0_30px_rgba(37,99,235,0.4)]">
+                    <span class="block animate-reveal-up opacity-0" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
+                        {{ $homepageSettings['hero_title'] }}
                     </span>
                 </h1>
 
-                <p class="text-xl md:text-2xl text-blue-100/80 font-medium leading-relaxed max-w-2xl mx-auto animate-fade-in-up opacity-0" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
+                <p class="text-xl md:text-3xl text-blue-100/90 font-medium tracking-wide uppercase leading-relaxed max-w-2xl mx-auto animate-fade-in-up opacity-0 drop-shadow-md" style="animation-delay: 0.8s; animation-fill-mode: forwards;">
                     {{ $homepageSettings['hero_subtitle'] }}
                 </p>
-                <div class="inline-flex items-center px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white/90 text-sm font-bold tracking-widest uppercase animate-fade-in-up opacity-0" style="animation-delay: 0.9s; animation-fill-mode: forwards;">
-                    Tema 2026: Somos Um
-                </div>
 
                 <div class="flex flex-col sm:flex-row gap-5 justify-center pt-8 animate-fade-in-up opacity-0" style="animation-delay: 1s; animation-fill-mode: forwards;">
                     @if ($homepageSettings['hero_button_1_text'])
@@ -474,23 +472,23 @@
                             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 mr-5 group-hover:scale-110 transition-transform duration-300">
                                 <x-icon name="bolt-lightning" class="w-6 h-6" />
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nossa Missão</h3>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nossa Visão</h3>
                         </div>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg pl-16 border-l-2 border-blue-100 dark:border-gray-800">
-                             A JUBAF existe para glorificar a Deus por meio da proclamação do Evangelho, do discipulado da juventude e do serviço à comunidade.
+                             Despertar e conectar a juventude da região para viverem intensamente o propósito do Reino de Deus em nossa geração.
                         </p>
                     </div>
 
                      <!-- Identity -->
                     <div class="group">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 mr-5 group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600 dark:text-amber-400 mr-5 group-hover:scale-110 transition-transform duration-300">
                                 <x-icon name="users" style="duotone" class="w-6 h-6" />
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Quem Somos</h3>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Nossa Identidade</h3>
                         </div>
-                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg pl-16 border-l-2 border-purple-100 dark:border-gray-800">
-                            Somos uma união de igrejas batistas da região, voltada para o engajamento e discipulado de jovens comprometidos com o propósito cristão.
+                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-lg pl-16 border-l-2 border-amber-100 dark:border-gray-800">
+                            Uma associação vibrante, focada na união, amizade e no fortalecimento espiritual de jovens comprometidos com Cristo.
                         </p>
                     </div>
 
@@ -502,7 +500,7 @@
                             <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Membros</div>
                         </div>
                         <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 text-center transform hover:-translate-y-1 transition-transform">
-                            <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-purple-600 to-pink-600 mb-2">
+                            <div class="text-4xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-amber-500 to-orange-500 mb-2">
                                 {{ $statistics['years'] }}
                             </div>
                             <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Anos</div>
@@ -511,7 +509,7 @@
                 </div>
 
                 <div class="relative">
-                    <div class="absolute inset-0 bg-linear-to-tr from-blue-600 to-purple-600 rounded-3xl transform rotate-3 opacity-20 blur-lg"></div>
+                    <div class="absolute inset-0 bg-linear-to-tr from-blue-600 to-amber-500 rounded-3xl transform rotate-3 opacity-20 blur-lg"></div>
                     <div class="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-2xl relative border border-gray-100 dark:border-gray-700">
                         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
                             <span class="w-2 h-8 bg-blue-500 rounded-full mr-4"></span>
@@ -743,10 +741,10 @@
         <section class="bg-gray-50 dark:bg-gray-950 transition-colors duration-200 py-24">
             <div class="px-4 mx-auto max-w-7xl">
                 <div class="text-center mb-16">
-                    <span class="text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider text-sm mb-2 block">Novidades da JUBAF</span>
+                    <span class="text-amber-500 dark:text-amber-400 font-bold uppercase tracking-widest text-sm mb-2 block">Novidades da JUBAF</span>
                     <h2 class="text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white mb-4">Mural da Associação</h2>
-                    <div class="w-16 h-1 bg-linear-to-r from-blue-600 to-indigo-600 mx-auto rounded-full mb-4"></div>
-                    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Últimos comunicados, avisos e notícias para todas as igrejas.</p>
+                    <div class="w-16 h-1 bg-linear-to-r from-blue-600 to-amber-500 mx-auto rounded-full mb-4"></div>
+                    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Últimos comunicados, avisos e notícias para todas as juventudes conectadas.</p>
                 </div>
                 
                 <div class="grid gap-8 lg:grid-cols-3">

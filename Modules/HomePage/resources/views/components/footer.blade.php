@@ -7,8 +7,8 @@
                 <div class="flex items-center space-x-3">
                     <img src="{{ asset(\App\Models\Settings::get('logo_icon_path', 'storage/image/logo_icon.png')) }}" alt="Logo" class="h-10 w-auto opacity-90">
                     <div>
-                        <h3 class="text-xl font-bold text-white tracking-tight">Igreja Batista Avenida</h3>
-                        <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Coração de Maria - BA</p>
+                        <h3 class="text-xl font-bold text-white tracking-tight">Associação JUBAF</h3>
+                        <p class="text-xs text-gray-500 uppercase tracking-widest font-semibold">Feira de Santana - BA</p>
                     </div>
                 </div>
                 <p class="text-gray-400 leading-relaxed max-w-sm">
@@ -58,7 +58,7 @@
                         <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors duration-300">
                              <x-icon name="location-dot" style="duotone" class="w-5 h-5 text-gray-400 group-hover:text-white" />
                         </div>
-                        <span class="text-gray-400 mt-2">{{ $homepageSettings['contact_address'] ?? 'Avenida, Coração de Maria - BA' }}</span>
+                        <span class="text-gray-400 mt-2">{{ $homepageSettings['contact_address'] ?? 'Feira de Santana - BA' }}</span>
                     </li>
                     <li class="flex items-start group">
                          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors duration-300">
@@ -70,14 +70,14 @@
                          <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-4 group-hover:bg-blue-600 transition-colors duration-300">
                              <x-icon name="envelope" style="duotone" class="w-5 h-5 text-gray-400 group-hover:text-white" />
                         </div>
-                        <span class="text-gray-400 mt-2 break-all">{{ $homepageSettings['contact_email'] ?? 'contato@igrejabatistaavenida.com.br' }}</span>
+                        <span class="text-gray-400 mt-2 break-all">{{ $homepageSettings['contact_email'] ?? 'contato@jubaf.com.br' }}</span>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>&copy; {{ date('Y') }} Igreja Batista Avenida. Todos os direitos reservados.</p>
+            <p>&copy; {{ date('Y') }} Juventude Batista Feirense. Todos os direitos reservados.</p>
             <p class="mt-4 md:mt-0 flex items-center">
                 <span>Desenvolvido por</span>
                 <a href="https://vertexsolutions.com.br" target="_blank" class="ml-2 text-white hover:text-blue-500 font-bold transition-colors">

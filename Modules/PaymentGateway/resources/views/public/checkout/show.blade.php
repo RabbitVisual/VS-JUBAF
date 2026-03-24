@@ -68,39 +68,50 @@
                 @endphp
 
                 @if($hasPixData && $payment->gateway_response)
-                        <div class="bg-linear-to-br from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8 mb-6 border-2 border-green-200 dark:border-green-800">
-                            <div class="text-center mb-6">
-                                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Pague com PIX</h2>
-                                <p class="text-gray-600 dark:text-gray-400">Escaneie o QR Code no app do seu banco ou copie o código “Copia e Cola” abaixo.</p>
+                        <div class="bg-gray-900 rounded-3xl p-8 mb-6 shadow-2xl relative overflow-hidden border border-gray-800">
+                            <!-- Background elements -->
+                            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-green-500/10 blur-3xl pointer-events-none"></div>
+                            
+                            <div class="text-center mb-8 relative z-10">
+                                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br from-green-400 to-green-600 shadow-lg shadow-green-500/30 mb-4">
+                                    <x-icon name="qrcode" class="w-8 h-8 text-white" />
+                                </div>
+                                <h2 class="text-3xl font-extrabold text-white mb-2 tracking-tight">Pagamento via PIX</h2>
+                                <p class="text-gray-400 font-medium">Abra o app do seu banco, escolha a opção PIX e escaneie o código abaixo.</p>
                             </div>
 
-                            <div class="flex flex-col items-center justify-center mb-6">
-                                <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border-2 border-green-500">
+                            <div class="flex flex-col items-center justify-center mb-8 relative z-10">
+                                <div class="bg-white p-4 rounded-2xl shadow-xl shadow-black/50 ring-4 ring-green-500/20">
                                     @if($qrCodeUrl)
                                         @if(str_starts_with($qrCodeUrl, 'data:image') || str_starts_with($qrCodeUrl, 'http'))
-                                            <img src="{{ $qrCodeUrl }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto">
+                                            <img src="{{ $qrCodeUrl }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto rounded-xl">
                                         @else
-                                            <img src="data:image/png;base64,{{ $qrCodeUrl }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto">
+                                            <img src="data:image/png;base64,{{ $qrCodeUrl }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto rounded-xl">
                                         @endif
                                     @elseif($pixCode)
-                                        <img src="{{ route('checkout.qr', ['d' => strtr(base64_encode($pixCode), ['+' => '-', '/' => '_']), 'size' => 300]) }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto">
+                                        <img src="{{ route('checkout.qr', ['d' => strtr(base64_encode($pixCode), ['+' => '-', '/' => '_']), 'size' => 300]) }}" alt="QR Code PIX" class="w-64 h-64 object-contain mx-auto rounded-xl">
                                     @endif
+                                </div>
+                                <div class="mt-6 flex items-center justify-center space-x-2 text-green-400 animate-pulse">
+                                    <x-icon name="rotate" class="w-5 h-5 animate-spin" />
+                                    <span class="text-sm font-semibold uppercase tracking-wider">Aguardando Pagamento...</span>
                                 </div>
                             </div>
 
                             @if($pixCode)
-                                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 mb-4 border border-gray-200 dark:border-gray-700">
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Código PIX "Copia e Cola"</label>
-                                    <div class="flex items-center gap-2">
-                                        <input type="text" id="pix-code-input" value="{{ $pixCode }}" readonly class="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-xs font-mono">
-                                        <button type="button" onclick="copyPixCode()" class="px-4 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors">Copiar</button>
+                                <div class="bg-gray-800/80 backdrop-blur-md rounded-2xl p-5 mb-2 border border-gray-700 relative z-10">
+                                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 text-center">Ou utilize o Pix Copia e Cola</label>
+                                    <div class="flex flex-col sm:flex-row items-center gap-3">
+                                        <div class="flex-1 w-full bg-gray-900 rounded-xl px-4 py-3 border border-gray-700 flex items-center">
+                                            <input type="text" id="pix-code-input" value="{{ $pixCode }}" readonly class="w-full bg-transparent border-none text-gray-300 text-sm font-mono focus:ring-0 p-0 truncate outline-none">
+                                        </div>
+                                        <button type="button" onclick="copyPixCode()" class="w-full sm:w-auto px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-500 transition-colors shadow-lg shadow-green-600/20 flex items-center justify-center gap-2">
+                                            <x-icon name="copy" class="w-5 h-5" />
+                                            Copiar
+                                        </button>
                                     </div>
                                 </div>
                             @endif
-
-                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 animate-pulse">
-                                Esta página será atualizada automaticamente assim que o pagamento for confirmado.
-                            </p>
                         </div>
                     @endif
                 @endif

@@ -215,10 +215,10 @@
     <!-- Action Bar -->
     <div class="flex flex-col sm:flex-row justify-end items-stretch sm:items-center gap-3 pt-4">
         @if($registration->event->hasTicketEnabled() && $registration->status === 'confirmed' && !empty($registration->uuid))
-        <a href="{{ route('events.public.ticket.download', $registration->uuid) }}"
-           class="w-full sm:w-auto px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl transition-colors text-center touch-manipulation active:scale-[0.98] inline-flex items-center justify-center gap-2">
-            <x-icon name="file-arrow-down" class="w-5 h-5" />
-            {{ __('events::messages.download_ticket') }}
+        <a href="{{ route('events.public.ticket.download', $registration->uuid) }}" target="_blank"
+           class="w-full sm:w-auto px-8 py-4 bg-green-600 hover:bg-green-700 text-white text-lg font-extrabold rounded-2xl shadow-xl shadow-green-500/30 transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-3 animate-pulse">
+            <x-icon name="ticket" style="duotone" class="w-6 h-6" />
+            Baixar Meu Ingresso
         </a>
         @endif
         @if($registration->event->hasCertificateEnabled())
