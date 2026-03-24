@@ -57,6 +57,37 @@
                     Mural Oficial
                 </a>
             @endcan
+
+            @can('gerenciar homepage')
+                <div x-data="{ expanded: {{ request()->routeIs('admin.homepage.*') ? 'true' : 'false' }} }">
+                    <button @click="expanded = !expanded" type="button" class="w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-xl transition-colors {{ request()->routeIs('admin.homepage.*') ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                        <div class="flex items-center gap-2">
+                            <x-icon name="browser" class="w-4 h-4" />
+                            <span>Portal JUBAF</span>
+                        </div>
+                        <x-icon name="chevron-down" class="w-3 h-3 transition-transform duration-200" x-bind:class="expanded ? 'rotate-180' : ''" />
+                    </button>
+                    
+                    <div x-show="expanded" x-collapse x-cloak class="mt-1 ml-4 pl-3 border-l border-gray-100 dark:border-gray-800 space-y-1">
+                        <a href="{{ route('admin.homepage.settings.index') }}"
+                            class="flex items-center px-4 py-2 text-sm rounded-lg {{ request()->routeIs('admin.homepage.settings.*') ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/10' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                            Configurações Visuais
+                        </a>
+                        <a href="{{ route('admin.homepage.carousel.index') }}"
+                            class="flex items-center px-4 py-2 text-sm rounded-lg {{ request()->routeIs('admin.homepage.carousel.*') ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/10' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                            Gerenciar Slides
+                        </a>
+                        <a href="{{ route('admin.homepage.contacts.index') }}"
+                            class="flex items-center px-4 py-2 text-sm rounded-lg {{ request()->routeIs('admin.homepage.contacts.*') ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/10' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                            Caixa de Mensagens
+                        </a>
+                        <a href="{{ route('admin.homepage.newsletter.index') }}"
+                            class="flex items-center px-4 py-2 text-sm rounded-lg {{ request()->routeIs('admin.homepage.newsletter.*') ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50/50 dark:bg-blue-900/10' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50' }}">
+                            Disparar Boletins
+                        </a>
+                    </div>
+                </div>
+            @endcan
         </nav>
     </div>
 </aside>

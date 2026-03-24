@@ -121,6 +121,11 @@
                                         'bg' => 'bg-emerald-100 dark:bg-emerald-900/30',
                                         'iconColor' => 'text-emerald-600 dark:text-emerald-400',
                                     ],
+                                    'mural_post' => [
+                                        'icon' => 'bullhorn',
+                                        'bg' => 'bg-purple-100 dark:bg-purple-900/30',
+                                        'iconColor' => 'text-purple-600 dark:text-purple-400',
+                                    ],
                                 ];
                                 $iconConfig =
                                     $notif->notification_type && isset($byCategory[$notif->notification_type])

@@ -94,6 +94,13 @@
                         'icon_text' => 'text-amber-600 dark:text-amber-400',
                         'icon' => 'trophy'
                     ],
+                    'mural_post' => [
+                        'bg' => 'bg-white dark:bg-gray-800',
+                        'border_l' => 'border-l-purple-500',
+                        'icon_bg' => 'bg-purple-100 dark:bg-purple-900/30',
+                        'icon_text' => 'text-purple-600 dark:text-purple-400',
+                        'icon' => 'bullhorn'
+                    ],
                 ];
 
                 $style = $typeStyles[$notif->type] ?? $typeStyles['info'];

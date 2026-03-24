@@ -59,7 +59,7 @@
                     <p class="text-orange-100 max-w-xl font-medium drop-shadow-sm">Simplifique a gestão: inscreva vários jovens da sua igreja de uma só vez nos próximos eventos da Associação JUBAF e garanta os melhores lotes.</p>
                 </div>
             </div>
-            <a href="{{ route('lideranca.events.index' ?? '#') }}" class="z-10 shrink-0 px-6 py-4 rounded-xl bg-white text-orange-600 font-bold hover:bg-orange-50 hover:scale-105 transition-all shadow-md mt-4 md:mt-0">
+            <a href="{{ route('lideranca.eventos.index') }}" class="z-10 shrink-0 px-6 py-4 rounded-xl bg-white text-orange-600 font-bold hover:bg-orange-50 hover:scale-105 transition-all shadow-md mt-4 md:mt-0">
                 Ver Eventos Disponíveis &rarr;
             </a>
         </div>
@@ -67,7 +67,7 @@
         {{-- Quick Stats & Acesso Rápido JUBAF --}}
         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6">
             <!-- Eventos -->
-            <a href="{{ route('lideranca.events.index' ?? '#') }}" class="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-indigo-500/40 transition-all duration-200 p-6">
+            <a href="{{ route('lideranca.eventos.index') }}" class="group block rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:border-indigo-500/40 transition-all duration-200 p-6">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center group-hover:scale-105 transition-transform">
                         <x-icon name="ticket" class="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
@@ -123,7 +123,7 @@
                         <x-icon name="books" class="w-5 h-5 text-indigo-500" />
                         Materiais de Apoio para sua Igreja
                     </h2>
-                    <a href="{{ route('lideranca.sermons.index' ?? '#') }}" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">Ver Catálogo</a>
+                    <a href="{{ route('lideranca.sermoes.index') }}" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">Ver Catálogo</a>
                 </div>
                 <div class="divide-y divide-gray-100 dark:divide-slate-700 max-h-96 overflow-y-auto p-4 space-y-4">
                     @forelse($sermoesRecentes as $sermon)

@@ -46,6 +46,11 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
         }
+
+        // Global override for Super Admin (Spatie Permissions)
+        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
         // Fix for Laravel db:show on older MariaDB (XAMPP/MariaDB 10.4)
         // We only apply this if we are running the 'db:show' command specifically
         if (app()->runningInConsole() && isset($_SERVER['argv']) && in_array('db:show', $_SERVER['argv'])) {

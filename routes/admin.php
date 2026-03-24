@@ -126,11 +126,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::prefix('conselho')->name('admin.Diretoria.')->group(function () {
         $board = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaController::class;
         $cDocs = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaDocumentController::class;
-        $cDash = \Modules\Diretoria\App\Http\Controllers\Admin\DiretoriaMinistriesDashboardController::class;
 
         Route::get('/', [$board, 'index'])->name('index');
         Route::get('/planejamento/homologacao', [$board, 'planningApprovals'])->name('planning.index');
-        Route::get('/ministerios/dashboard', [$cDash, 'index'])->name('ministries.dashboard');
 
         Route::get('/membros', [$board, 'members'])->name('members.index');
         Route::get('/membros/criar', [$board, 'createMember'])->name('members.create');

@@ -42,7 +42,7 @@ class DashboardController extends Controller
         
         $sermoesRecentes = collect();
         if (class_exists('Modules\Sermons\App\Models\Sermon')) {
-            $sermoesRecentes = \Modules\Sermons\App\Models\Sermon::where('is_published', true)
+            $sermoesRecentes = \Modules\Sermons\App\Models\Sermon::published()
                 ->orderBy('created_at', 'desc')
                 ->limit(3)
                 ->get();

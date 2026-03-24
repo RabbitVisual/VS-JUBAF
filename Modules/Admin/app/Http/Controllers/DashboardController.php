@@ -43,6 +43,7 @@ class DashboardController extends Controller
             'active_users' => DB::table('users')->where('is_active', true)->count(),
             'total_modules' => count($modulesData),
             'enabled_modules' => count(array_filter($modulesData, fn ($m) => $m['enabled'])),
+            'total_igrejas' => Schema::hasTable('igrejas') ? DB::table('igrejas')->count() : 1,
         ];
 
         // --- 3. Treasury Stats (if module enabled) ---

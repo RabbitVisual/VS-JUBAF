@@ -39,10 +39,6 @@
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
                         <x-icon name="users" class="w-5 h-5" /> {{ __('diretoria::messages.members') }}
                     </a>
-                    <a href="{{ route('admin.Diretoria.ministries.dashboard') }}"
-                        class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
-                        <x-icon name="traffic-light" class="w-5 h-5" /> Ministérios
-                    </a>
                     <a href="{{ route('admin.Diretoria.documents.index') }}"
                         class="px-4 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-bold hover:bg-white/20 inline-flex items-center gap-2">
                         <x-icon name="file-lines" class="w-5 h-5" /> {{ __('diretoria::messages.documents') }}

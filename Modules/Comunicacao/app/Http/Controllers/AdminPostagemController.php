@@ -12,6 +12,8 @@ use Illuminate\View\View;
 use Modules\Comunicacao\Http\Requests\StorePostagemRequest;
 use Modules\Comunicacao\Http\Requests\UpdatePostagemRequest;
 use Modules\Comunicacao\Models\Postagem;
+use Modules\Notifications\App\Services\InAppNotificationService;
+use App\Models\User;
 
 class AdminPostagemController extends Controller
 {
@@ -33,7 +35,7 @@ class AdminPostagemController extends Controller
         return view('comunicacao::admin.form', ['postagem' => new Postagem]);
     }
 
-    public function store(StorePostagemRequest $request): RedirectResponse
+    public function store(StorePostagemRequest $request, InAppNotificationService $notificationService): RedirectResponse
     {
         $data = $request->validated();
         unset($data['anexo']);
@@ -43,11 +45,21 @@ class AdminPostagemController extends Controller
             $data['anexo_path'] = $this->storeAnexo($request->file('anexo'));
         }
 
-        Postagem::query()->create($data);
+        $postagem = Postagem::query()->create($data);
+
+        // Disparar notificação global do Mural
+        $users = User::where('is_active', true)->get();
+        if ($users->isNotEmpty()) {
+            $notificationService->sendToUsers($users, 'Novo Aviso no Mural', $postagem->titulo, [
+                'type' => 'mural_post',
+                'action_url' => route('memberpanel.mural.index'),
+                'action_text' => 'Ler Aviso',
+            ]);
+        }
 
         return redirect()
             ->route('admin.comunicacao.postagens.index')
-            ->with('success', 'Postagem criada com sucesso.');
+            ->with('success', 'Postagem criada com sucesso e notificação disparada.');
     }
 
     public function edit(Postagem $postagem): View
